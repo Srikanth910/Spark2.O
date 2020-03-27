@@ -18,7 +18,7 @@ export default class App extends Component {
         <SafeAreaView>
           <View style={styles.container}>
             {/* <Backgroundcarousel images={images} /> */}
-            <Text>{'sdfsdfsdf'}</Text>
+            <Text>welcome ro react native</Text>
           </View>
         </SafeAreaView>
       </>
