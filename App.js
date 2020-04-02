@@ -9,18 +9,14 @@
 import React, {Component} from 'react';
 import {SafeAreaView, StyleSheet, View, Text, StatusBar} from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
+import Login from './src/components/LoginScreens/Login';
 
 export default class App extends Component {
   render() {
     return (
       <>
-        <StatusBar barStyle="dark-content" />
-        <SafeAreaView>
-          <View style={styles.container}>
-            {/* <Backgroundcarousel images={images} /> */}
-            <Text>welcome ro react native</Text>
-          </View>
-        </SafeAreaView>
+        
+        <Login/>
       </>
     );
   }
