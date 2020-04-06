@@ -3,6 +3,9 @@ import React, { Component } from 'react'
 import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon } from 'native-base'
 import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { StatusBar } from 'react-native';
+import LoginButton from './LoginButton';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 export default class Login extends Component {
     constructor(props) {
         super(props);
@@ -42,19 +45,11 @@ export default class Login extends Component {
                                 <Input placeholder='Enter mpin' style={styles.input} />
                             </Item>
                             <TouchableOpacity >
-                                <Text style={styles.forgetText} >Forgot MPIN</Text>
+                                <Text style={styles.forgetText}
+                                onPress={() => this.props.navigation.navigate('ForgotMpin')}
+                                >Forgot MPIN</Text>
                             </TouchableOpacity>
-
-                            <Text style={styles.bottomtext}>
-                                By logging in , you agree to our
-                        <Text style={styles.bottomColor}> Terms And conditon  </Text>
-                        And
-                        <Text style={styles.bottomColor}> Privacy Policy</Text>
-                            </Text>
-
-                            <Button block warning style={styles.Quicklogin}>
-                                <Text>LOGIN</Text>
-                            </Button>
+                            <LoginButton/>
                         </Tab>
                         <Tab heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>LOGIN</Text></TabHeading>}>
                             <Text style={styles.loginText}>Select State</Text>
@@ -91,17 +86,12 @@ export default class Login extends Component {
                                 <Input placeholder='Enter your password' style={styles.input} />
                             </Item>
                             <TouchableOpacity >
-                                <Text style={styles.forgotPassword}>Forgot password</Text>
+                                <Text style={styles.forgotPassword}
+                                 onPress={() => this.props.navigation.navigate('Forgot')}
+                                >Forgot password</Text>
                             </TouchableOpacity>
-                            <Text style={styles.bottomLogin}>
-                                By logging in , you agree to our
-                        <Text style={styles.bottomColor}> Terms And conditon  </Text>
-                        And
-                        <Text style={styles.bottomColor}> Privacy Policy</Text>
-                            </Text>
-                            <Button block warning style={styles.LoginButton}>
-                                <Text>LOGIN</Text>
-                            </Button>
+                            <LoginButton/>
+        
                         </Tab>
 
                     </Tabs>
@@ -130,7 +120,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        justifyContent: "center",
+        // justifyContent: "center",
         height: 640
     },
     headerText: {
@@ -206,7 +196,9 @@ const styles = StyleSheet.create({
     },
     textData: {
         marginTop: 20,
-        marginLeft: 20
+        marginLeft: 20,
+        color:'#474a4f',
+        fontSize:14,
 
     },
     LoginButton: {
@@ -221,15 +213,7 @@ const styles = StyleSheet.create({
         marginTop: 10
 
     },
-    bottomtext: {
-        color: "#999999",
-        width: 329,
-        height: 52.7,
-        marginTop: 230,
-        marginLeft: 20,
-        paddingBottom: 10,
-
-    },
+   
 
     dropInput: {
         backgroundColor: '#e1e4eb',
@@ -240,14 +224,13 @@ const styles = StyleSheet.create({
         marginTop: 10
 
     },
-    bottomColor: {
-        color: '#f7931e'
 
-    },
 
     loginText: {
         marginTop: 30,
-        marginLeft: 20
+        marginLeft: 20,
+        color:'#474a4f',
+        fontSize:14,
 
     },
     passwordicon: {
@@ -256,17 +239,13 @@ const styles = StyleSheet.create({
 
 
     },
-    bottomLogin: {
-        color: "#999999",
-        width: 329,
-        height: 52.7,
-        marginTop: 90,
-        marginLeft: 20,
-        marginBottom: 10
-    },
+  
     mobileinput: {
         marginTop: 10,
-        marginLeft: 20
+        marginLeft: 20,
+        color:'#474a4f',
+        fontSize:14,
+        
 
     }
 })
