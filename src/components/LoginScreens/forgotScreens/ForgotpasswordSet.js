@@ -153,15 +153,12 @@ const styles = StyleSheet.create({
         marginLeft: 20,
         color:'#474a4f',
         fontSize:14,
-        
-
     },
     btnSubmit: {
         marginBottom: 32,
         marginLeft: 16,
         marginRight: 16,
         alignItems: 'center',
-
     },
 
     image:{

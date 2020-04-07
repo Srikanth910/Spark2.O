@@ -1,16 +1,22 @@
 import React, { Component } from 'react'
 
-import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon } from 'native-base'
+import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form } from 'native-base'
 import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
 import { StatusBar } from 'react-native';
-import LoginButton from './LoginButton';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
-export default class Login extends Component {
+// import LoginButton from './LoginButton';
+import { connect } from 'react-redux';
+
+import{loginUser} from '../../Redux/actions/authAction'
+
+
+class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected2: undefined
+            selected2: undefined,
+            mobile:'',
+            DEVICEID: "fe13aa4656e467b4",
+            password:'',
         };
     }
     onValueChange2 = (value) => {
@@ -19,22 +25,48 @@ export default class Login extends Component {
         });
     }
 
-    render() {
-        const THEME_COLOR = '#285E29';
+     onchangeview=(e)=>{
+         this.setState({
+             mobileNumber:e.target.value,
+             password:e.target.value
+         })
+     }
+      handleSubmit=()=>{
+
+        //  this.props.navigation.navigate('Home')
+          
+        
+        const user={
+            mobileNo: this.state.mobile,
+            password:this.state.password,
+            DEVICEID:this.state.DEVICEID   
+        }
+         
+
+    // console.log(user)
+         this.props.loginUser(user,()=>{
+             this.props.navigation.navigate('Home')
+         })
+        
+       
+      }
+     
+   render() {
         return (
             <Container style={styles.container}>
-                
+
                 <SafeAreaView style={styles.container}>
-            <StatusBar hidden/>
+                    <StatusBar hidden />
                     <Header style={{ backgroundColor: "#1b1464", height: 120 }}>
 
-                       
+
                         <Body>
-                    
+
                             <Text style={styles.headerText}>
                                 Watch your wealth grow
                 </Text>
                         </Body>
+                        <Right />
                     </Header>
                     <Tabs
                         tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }}
@@ -46,12 +78,23 @@ export default class Login extends Component {
                             </Item>
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
-                                onPress={() => this.props.navigation.navigate('Forgotpin')}
+                                    onPress={() => this.props.navigation.navigate('Forgotpin')}
                                 >Forgot MPIN</Text>
                             </TouchableOpacity>
-                            <LoginButton/>
+                            <View style={styles.btnbottom}>
+                                <Text style={styles.bottomtext}>
+                                    By logging in , you agree to our
+           <Text style={styles.bottomColor}> Terms And conditon  </Text> And
+         <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
+                                <Button block warning
+                                    onPress={() => this.props.navigation.navigate('Home')}
+                                >
+                                    <Text>LOGIN</Text>
+                                </Button>
+                            </View>
                         </Tab>
                         <Tab heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>LOGIN</Text></TabHeading>}>
+                        <Form>
                             <Text style={styles.loginText}>Select State</Text>
                             <Item regular style={styles.dropInput} >
                                 <Picker
@@ -63,35 +106,51 @@ export default class Login extends Component {
                                     placeholderIconColor="#007aff"
                                     selectedValue={this.state.selected2}
                                     onValueChange={this.onValueChange2.bind(this)}
-                                >
+                                    >
                                     <Picker.Item label="Select" value="key0" />
-                                    <Picker.Item label="Karnataka" value="key1" >
-                                      <Item>hello</Item>
-                                        </Picker.Item>
-
-
-                                    <Picker.Item label="maharashtra" value="key2" />
-                                              
+                                    <Picker.Item label="Karnataka" value="karnataka" />
+                                    <Picker.Item label="maharashtra" value="maharashtra" />
                                 </Picker>
                             </Item>
                             <Text style={styles.mobileinput}>Enter your mobile number</Text>
                             <Item regular style={styles.loginInput}>
-                                <Input placeholder='No need to add +91' style={styles.input} />
+                                <Input placeholder='No need to add +91' style={styles.input} value={this.state.mobile} 
+                                  value={this.state.password}
+                                  onChangeText={editedText =>
+                                      this.setState({ password: editedText }) 
+                                  }
+                                />
                             </Item>
 
                             <Text style={styles.mobileinput} >Enter your password</Text>
 
                             <Item regular style={styles.loginInput}>
                                 {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                                <Input placeholder='Enter your password' style={styles.input} />
+                                <Input  placeholder='Enter your password' style={styles.input}
+                                 value={this.state.mobile}
+                                 onChangeText={editedText =>
+                                     this.setState({ mobile: editedText }) 
+                                 }  
+                                />
                             </Item>
+                            </Form>
                             <TouchableOpacity >
                                 <Text style={styles.forgotPassword}
-                                 onPress={() => this.props.navigation.navigate('Forgot')}
+                                    onPress={() => this.props.navigation.navigate('Forgot')}
                                 >Forgot password</Text>
                             </TouchableOpacity>
-                            <LoginButton/>
-        
+
+                            <View style={styles.btnbottom}>
+                                <Text style={styles.bottomtext}>
+                                    By logging in , you agree to our
+                            <Text style={styles.bottomColor}> Terms And conditon  </Text> And
+                            <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
+                                <Button block warning
+                                    onPress={this.handleSubmit}
+                                >
+                                    <Text>LOGIN</Text>
+                                </Button>
+                            </View>
                         </Tab>
 
                     </Tabs>
@@ -104,6 +163,12 @@ export default class Login extends Component {
     }
 }
 
+ const mapStateToProps=state=>({
+     auth:state.auth
+ })
+ 
+ export default  connect(mapStateToProps,{loginUser})  (Login)
+ 
 
 const styles = StyleSheet.create({
 
@@ -118,6 +183,16 @@ const styles = StyleSheet.create({
         fontStyle: 'normal',
 
     },
+    btnbottom: {
+
+        flex: 1,
+        justifyContent: 'flex-end',
+        marginBottom: 17,
+        marginLeft: 16,
+        marginRight: 16
+
+
+    },
     container: {
         flex: 1,
 
@@ -130,9 +205,8 @@ const styles = StyleSheet.create({
         fontSize: 20,
         marginTop: 50,
         marginLeft: 20,
-        //  alignItems:'center',
         color: '#ffffff',
-        alignContent:'flex-start'
+        alignContent: 'flex-start'
     },
     input: {
 
@@ -199,8 +273,8 @@ const styles = StyleSheet.create({
     textData: {
         marginTop: 20,
         marginLeft: 20,
-        color:'#474a4f',
-        fontSize:14,
+        color: '#474a4f',
+        fontSize: 14,
 
     },
     LoginButton: {
@@ -215,7 +289,7 @@ const styles = StyleSheet.create({
         marginTop: 10
 
     },
-   
+
 
     dropInput: {
         backgroundColor: '#e1e4eb',
@@ -231,8 +305,8 @@ const styles = StyleSheet.create({
     loginText: {
         marginTop: 30,
         marginLeft: 20,
-        color:'#474a4f',
-        fontSize:14,
+        color: '#474a4f',
+        fontSize: 14,
 
     },
     passwordicon: {
@@ -241,13 +315,27 @@ const styles = StyleSheet.create({
 
 
     },
-  
+
     mobileinput: {
         marginTop: 10,
         marginLeft: 20,
-        color:'#474a4f',
-        fontSize:14,
-        
+        color: '#474a4f',
+        fontSize: 14,
 
-    }
+
+    },
+
+    bottomtext: {
+        color: "#999999",
+        width: 329,
+        height: 52.7,
+        marginLeft: 16,
+        paddingBottom: 10,
+
+
+    },
+    bottomColor: {
+        color: '#f7931e'
+
+    },
 })

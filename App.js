@@ -16,13 +16,18 @@ import ForgotpasswordSet from './src/components/LoginScreens/forgotScreens/Forgo
 import ChangePasseword from './src/components/LoginScreens/forgotScreens/ChangePassword';
 import Setmpin from './src/components/LoginScreens/forgotScreens/Setmpin';
 import ChangeMpin from './src/components/LoginScreens/forgotScreens/ChangeMpin';
+import Home from './src/components/Home';
+import Forgot from './src/components/LoginScreens/Forgot';
+import { Provider } from 'react-redux';
 
-
+ import  store from './src/Redux/store'
 export default class App extends Component {
   render() {
     return (
       <>
+      <Provider store={store}>
         <Routing/>
+        </Provider>
       </>
     );
   }

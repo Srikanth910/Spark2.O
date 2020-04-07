@@ -1,34 +1,56 @@
 import React, { Component } from 'react'
-import { Container, Text, Header, Button, Icon, Body, Left, Right, Title, Content, List, ListItem, Item, Input } from 'native-base'
+import { Container, Text, Header, Button, Icon, Body, Left, Right, Title, Content, List, ListItem, Item, Input, View } from 'native-base'
 import { StyleSheet, Image } from 'react-native'
+import { ThemeColors } from 'react-navigation'
 
-export default class  ChangePasseword extends Component {
+
+import Dialog from "react-native-dialog";
+export default class ChangePasseword extends Component {
+
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            visible: false
+        }
+    }
+
+    Dialogopen = () => {
+        this.setState({
+            visible: true
+        })
+    }
+    Dialogclose = () => {
+        this.setState({
+            visible: false
+        })
+    }
     render() {
         return (
             <Container>
-                   <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
+                <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
 
 
-<Left>
-    <Button transparent>
-        <Icon name='arrow-back'
-            onPress={() => this.props.navigation.navigate('Login')}
-        />
-    </Button>
-</Left>
-<Body   style={{alignItems:'center'}}>
-    <Title   >Change Passeword</Title>
-</Body>
-<Right />
+                    <Left>
+                        <Button transparent>
+                            <Icon name='arrow-back'
+                                onPress={() => this.props.navigation.navigate('Login')}
+                            />
+                        </Button>
+                    </Left>
+                    <Body style={{ alignItems: 'center' }}>
+                        <Title   >Change Passeword</Title>
+                    </Body>
+                    <Right />
 
-</Header>
+                </Header>
 
                 <Content >
 
 
-                 
-                <Image   style={styles.image}
-          			source={require('../../../images/lock_2.png')}/>
+
+                    <Image style={styles.image}
+                        source={require('../../../images/lock_2.png')} />
                     <Text style={styles.maintext}   > Set a strong memorable password</Text>
 
                     <Item style={styles.doted}   >
@@ -77,11 +99,23 @@ export default class  ChangePasseword extends Component {
                     </Item>
 
 
+                    <View>
+                        <Dialog.Container visible={true} style={styles.Dialog} >
+                            <Dialog.Title>New password set</Dialog.Title>
+                            <Dialog.Description style={{alignSelf:'center'}}>
+                            <Text style={styles.DialogText}>You have successfully set a  new password</Text>
+          </Dialog.Description>
+                            {/* <Dialog.Button label="Cancel" /> */}
+                            <Dialog.Button label="ok" color='#f7931e' onPress={this.Dialogclose} />
+                        </Dialog.Container>
+                    </View>
 
                 </Content>
-                <Button block warning style={styles.btnSubmit} >
+                <Button block warning style={styles.btnSubmit} onPress={this.Dialogopen} >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>
+
+
 
             </Container>
         )
@@ -93,7 +127,7 @@ const styles = StyleSheet.create({
     Container: {
     },
     mpintext: {
-    
+
         height: 27,
         fontFamily: 'Nunito',
         fontSize: 20,
@@ -109,7 +143,12 @@ const styles = StyleSheet.create({
         marginLeft: 20
 
     },
+ Dialog:{
 
+    height: 200, 
+    width: 300 , 
+    alignSelf:'center'
+ },
     submit: {
         // width:52,
         height: 22,
@@ -172,14 +211,16 @@ const styles = StyleSheet.create({
 
     },
 
-     image:{
+    image: {
         width: 92,
         height: 38,
-        alignSelf:'center',
-        marginTop:30
-        
-        
-     }
+        alignSelf: 'center',
+        marginTop: 30
+
+
+    },
+    DialogText:{
+    }
 
 })
 
