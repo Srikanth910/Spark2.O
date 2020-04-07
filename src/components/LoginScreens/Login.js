@@ -28,9 +28,9 @@ export default class Login extends Component {
             <StatusBar hidden/>
                     <Header style={{ backgroundColor: "#1b1464", height: 120 }}>
 
-                        {/* <StatusBar       barStyle = 'light-content' style={{backgroundColor:'#ffffff'}}/> */}
+                       
                         <Body>
-                            {/* <Text>X</Text> */}
+                    
                             <Text style={styles.headerText}>
                                 Watch your wealth grow
                 </Text>
@@ -46,7 +46,7 @@ export default class Login extends Component {
                             </Item>
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
-                                onPress={() => this.props.navigation.navigate('ForgotMpin')}
+                                onPress={() => this.props.navigation.navigate('Forgotpin')}
                                 >Forgot MPIN</Text>
                             </TouchableOpacity>
                             <LoginButton/>
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        // justifyContent: "center",
+
         height: 640
     },
     headerText: {
@@ -129,8 +129,10 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito',
         fontSize: 20,
         marginTop: 50,
-        marginLeft: 10,
-        color: '#ffffff'
+        marginLeft: 20,
+        //  alignItems:'center',
+        color: '#ffffff',
+        alignContent:'flex-start'
     },
     input: {
 

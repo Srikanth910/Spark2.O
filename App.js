@@ -11,6 +11,11 @@ import ForgotPassword from './src/components/LoginScreens/forgotScreens/forgotpa
 import ForgotMpin from './src/components/LoginScreens/forgotScreens/ForgotMpin';
 import Login from './src/components/LoginScreens/Login';
 import Routing from './src/components/Routing/RoutingScreens';
+import ChangePassword from './src/components/LoginScreens/forgotScreens/ChangePassword';
+import ForgotpasswordSet from './src/components/LoginScreens/forgotScreens/ForgotpasswordSet';
+import ChangePasseword from './src/components/LoginScreens/forgotScreens/ChangePassword';
+import Setmpin from './src/components/LoginScreens/forgotScreens/Setmpin';
+import ChangeMpin from './src/components/LoginScreens/forgotScreens/ChangeMpin';
 
 
 export default class App extends Component {

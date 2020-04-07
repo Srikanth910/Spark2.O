@@ -8,7 +8,11 @@ import Login from '../LoginScreens/Login';
 import ForgotMpin from '../LoginScreens/forgotScreens/ForgotMpin';
 
 
-
+import Forgot from '../LoginScreens/Forgot'
+import ChangeMpin from '../LoginScreens/forgotScreens/ChangeMpin';
+import ForgotpasswordSet from '../LoginScreens/forgotScreens/ForgotpasswordSet';
+import ChangePasseword from '../LoginScreens/forgotScreens/ChangePassword';
+import Setmpin from '../LoginScreens/forgotScreens/Setmpin';
 
 const Stack = createStackNavigator();
 
@@ -21,10 +25,17 @@ function Routing() {
       }}>
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Forgot" component={ForgotPassword} />
-        {/* <Stack.Screen name="Home" component={Home} /> */}
         <Stack.Screen name="ForgotMpin" component={ForgotMpin} />
+        <Stack.Screen name="Forgotpin" component={Forgot} />
+        <Stack.Screen name="ChangeMpin" component={ChangeMpin} />
+        <Stack.Screen name="passwordSet" component={ForgotpasswordSet} />
+        <Stack.Screen name="ChangePasseword" component={ChangePasseword} />
+        <Stack.Screen name="Setmpin" component={Setmpin} />
+
+
       
-         
+        
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

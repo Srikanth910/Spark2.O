@@ -25,20 +25,15 @@ onValueChange2 = (value) => {
 
         <Left>
             <Button transparent>
-              <Icon name='arrow-back' />
+              <Icon name='arrow-back'
+              onPress={() => this.props.navigation.navigate('Login')} />
             </Button>
           </Left>
           <Body   style={{alignItems:'center'}} >
             <Title style={styles.mpintext}  >Forgot MPIN</Title>
           </Body>
           <Right />
-          {/* <Body style={styles.headerText}>
-        
-            <Text style={styles.mpintext}>
-              Forgot MPIN
-              </Text>
-
-          </Body> */}
+      
         </Header>
 
         <Content >
@@ -80,7 +75,9 @@ onValueChange2 = (value) => {
         </Content>
 
 
-        <Button block warning style={styles.btnSubmit} >
+        <Button block warning style={styles.btnSubmit}
+        onPress={() => this.props.navigation.navigate('ForgotMpin')}
+        >
           <Text style={styles.submit}>Submit</Text>
         </Button>
 
