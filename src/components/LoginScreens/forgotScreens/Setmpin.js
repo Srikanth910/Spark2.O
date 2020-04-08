@@ -93,6 +93,9 @@ export default class Setmpin extends Component {
           <Dialog.Description>
             <Text style={styles.Dialogtext} >You have successfully Set a
             new MPIN</Text>
+            <Text>
+              
+            </Text>
           </Dialog.Description>
           
           <Dialog.Button label="ok" color="#f7931e"  onPress={this.Dialogclose}/>

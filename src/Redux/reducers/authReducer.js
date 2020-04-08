@@ -1,9 +1,10 @@
-import { LOGIN_SUCCESS } from "../constants/types";
+import { LOGIN_SUCCESS, MPIN_SUCCESS } from "../constants/types";
 
 const  initialState={
     userData:{},
     isLoading:false,
-    isAutherticated:false
+    isAutherticated:false,
+    userMpin:{}
 }
 
  export   default function(state=initialState, acton){
@@ -14,6 +15,12 @@ const  initialState={
                   isLoading:true,
                   userData:acton.payload
               }
+
+               case MPIN_SUCCESS:
+                   return{
+                       ...state,
+                       userMpin:acton.payload
+                   }
              
               default:
         return state;

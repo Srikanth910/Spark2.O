@@ -1,22 +1,21 @@
 import React, { Component } from 'react'
 
 import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form } from 'native-base'
-import { StyleSheet, TouchableOpacity, SafeAreaView } from 'react-native';
+import { StyleSheet, TouchableOpacity, SafeAreaView, AsyncStorage } from 'react-native';
 import { StatusBar } from 'react-native';
 // import LoginButton from './LoginButton';
 import { connect } from 'react-redux';
-
-import{loginUser} from '../../Redux/actions/authAction'
-
-
+// import {AsyncStorage} from 'react-native';
+import { loginUser, userMpin } from '../../Redux/actions/authAction'
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             selected2: undefined,
-            mobile:'',
+            mobile: '',
             DEVICEID: "fe13aa4656e467b4",
-            password:'',
+            password: '',
+            mpin: ''
         };
     }
     onValueChange2 = (value) => {
@@ -25,46 +24,51 @@ class Login extends Component {
         });
     }
 
-     onchangeview=(e)=>{
-         this.setState({
-             mobileNumber:e.target.value,
-             password:e.target.value
-         })
-     }
-      handleSubmit=()=>{
 
-        //  this.props.navigation.navigate('Home')
-          
+    handleSubmit = () => {
+
+
         
-        const user={
-            mobileNo: this.state.mobile,
-            password:this.state.password,
-            DEVICEID:this.state.DEVICEID   
-        }
+        const user ={
+        password: this.state.password,
+            "DEVICEID": "fe13aa4656e467b4",
+            mobileNo:this.state.mobile
+            }
+
+        this.props.loginUser(user,()=>{
+            this.props.navigation.navigate('Home')
+        })
+            
          
+    
 
-    // console.log(user)
-         this.props.loginUser(user,()=>{
-             this.props.navigation.navigate('Home')
-         })
-        
-       
-      }
-     
-   render() {
+
+    }
+    mpinSubmit = () => {
+         AsyncStorage.setItem('hi','hello')
+         console.log('localstore',AsyncStorage.getItem('hi'))
+        const userMpin = {
+            mPin: this.state.mpin,
+            "DEVICEID": "fe13aa4656e467b4",
+            "mobileNo": "9502565325"
+        }
+        this.props.userMpin(userMpin, () => {
+            this.props.navigation.navigate('Home')
+        })
+    }
+
+    render() {
+        const { auth } = this.props;
         return (
             <Container style={styles.container}>
 
                 <SafeAreaView style={styles.container}>
                     <StatusBar hidden />
                     <Header style={{ backgroundColor: "#1b1464", height: 120 }}>
-
-
                         <Body>
-
                             <Text style={styles.headerText}>
                                 Watch your wealth grow
-                </Text>
+                          </Text>
                         </Body>
                         <Right />
                     </Header>
@@ -74,7 +78,11 @@ class Login extends Component {
                         <Tab heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>QUICK ACCESS</Text></TabHeading>}>
                             <Text style={styles.textData}>Enter MPIN</Text>
                             <Item regular style={styles.textInput}>
-                                <Input placeholder='Enter mpin' style={styles.input} />
+                                <Input placeholder='Enter mpin' style={styles.input}
+
+                                    value={this.state.mpin}
+                                    onChangeText={mpintext => this.setState({ mpin: mpintext })}
+                                />
                             </Item>
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
@@ -87,52 +95,52 @@ class Login extends Component {
            <Text style={styles.bottomColor}> Terms And conditon  </Text> And
          <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
                                 <Button block warning
-                                    onPress={() => this.props.navigation.navigate('Home')}
+                                    onPress={this.mpinSubmit}
                                 >
                                     <Text>LOGIN</Text>
                                 </Button>
                             </View>
                         </Tab>
                         <Tab heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>LOGIN</Text></TabHeading>}>
-                        <Form>
-                            <Text style={styles.loginText}>Select State</Text>
-                            <Item regular style={styles.dropInput} >
-                                <Picker
-                                    mode="dropdown"
-                                    iosIcon={<Icon name="arrow-down" />}
-                                    style={{ width: undefined }}
-                                    placeholder="Select your SIM"
-                                    placeholderStyle={{ color: "#bfc6ea" }}
-                                    placeholderIconColor="#007aff"
-                                    selectedValue={this.state.selected2}
-                                    onValueChange={this.onValueChange2.bind(this)}
+                            <Form>
+                                <Text style={styles.loginText}>Select State</Text>
+                                <Item regular style={styles.dropInput} >
+                                    <Picker
+                                        mode="dropdown"
+                                        iosIcon={<Icon name="arrow-down" />}
+                                        style={{ width: undefined }}
+                                        placeholder="Select your SIM"
+                                        placeholderStyle={{ color: "#bfc6ea" }}
+                                        placeholderIconColor="#007aff"
+                                        selectedValue={this.state.selected2}
+                                        onValueChange={this.onValueChange2.bind(this)}
                                     >
-                                    <Picker.Item label="Select" value="key0" />
-                                    <Picker.Item label="Karnataka" value="karnataka" />
-                                    <Picker.Item label="maharashtra" value="maharashtra" />
-                                </Picker>
-                            </Item>
-                            <Text style={styles.mobileinput}>Enter your mobile number</Text>
-                            <Item regular style={styles.loginInput}>
-                                <Input placeholder='No need to add +91' style={styles.input} value={this.state.mobile} 
-                                  value={this.state.password}
-                                  onChangeText={editedText =>
-                                      this.setState({ password: editedText }) 
-                                  }
-                                />
-                            </Item>
+                                        <Picker.Item label="Select" value="key0" />
+                                        <Picker.Item label="Karnataka" value="karnataka" />
+                                        <Picker.Item label="maharashtra" value="maharashtra" />
+                                    </Picker>
+                                </Item>
+                                <Text style={styles.mobileinput}>Enter your mobile number</Text>
+                                <Item regular style={styles.loginInput}>
+                                    <Input placeholder='No need to add +91' style={styles.input} value={this.state.mobile}
+                                        value={this.state.password}
+                                        onChangeText={editedText =>
+                                            this.setState({ password: editedText })
+                                        }
+                                    />
+                                </Item>
 
-                            <Text style={styles.mobileinput} >Enter your password</Text>
+                                <Text style={styles.mobileinput} >Enter your password</Text>
 
-                            <Item regular style={styles.loginInput}>
-                                {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                                <Input  placeholder='Enter your password' style={styles.input}
-                                 value={this.state.mobile}
-                                 onChangeText={editedText =>
-                                     this.setState({ mobile: editedText }) 
-                                 }  
-                                />
-                            </Item>
+                                <Item regular style={styles.loginInput}>
+                                    {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
+                                    <Input placeholder='Enter your password' style={styles.input}
+                                        value={this.state.mobile}
+                                        onChangeText={editedText =>
+                                            this.setState({ mobile: editedText })
+                                        }
+                                    />
+                                </Item>
                             </Form>
                             <TouchableOpacity >
                                 <Text style={styles.forgotPassword}
@@ -157,23 +165,19 @@ class Login extends Component {
 
                 </SafeAreaView>
             </Container>
-
-
         )
     }
 }
 
- const mapStateToProps=state=>({
-     auth:state.auth
- })
- 
- export default  connect(mapStateToProps,{loginUser})  (Login)
- 
+const mapStateToProps = state => ({
+    auth: state.auth
+})
+
+export default connect(mapStateToProps, { loginUser, userMpin })(Login)
 
 const styles = StyleSheet.create({
 
     tabHeading: {
-
         height: 19,
         fontFamily: 'Nunito',
         fontSize: 16,

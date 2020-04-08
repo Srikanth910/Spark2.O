@@ -7,8 +7,6 @@ export default class ForgotpasswordSet extends Component {
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
-
-
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back'
@@ -25,54 +23,51 @@ export default class ForgotpasswordSet extends Component {
 
                 <Content >
 
-                <Image   style={styles.image}
-          			source={require('../../../images/lock_1.png')}/>
-                <Text   style={styles.maintext}   > Set a strong memorable password</Text>
-      
-          <Item  style={styles.doted}   >
-          <Text  style={styles.data}></Text>
-          <Text style={styles.text}> At least 8 Characters (no spaces)  </Text>
-                 
-          </Item>
-          <Item style={styles.doted} >
-          <Text  style={styles.data}></Text>
-          <Text style={styles.text}> At least 8 Characters (no spaces)  </Text>
-                 
-          </Item>
-          <Item style={styles.doted} >
-          <Text  style={styles.data}></Text>
-          <Text style={styles.text}> At least  1 alphabet and 1number  </Text>
-                 
-          </Item>
-          <Item style={styles.doted} >
-          <Text  style={styles.data}></Text>
-          <Text style={styles.text}> At least  1 number  </Text>
-                 
-          </Item > 
-          <Item style={styles.doted} >
-          <Text  style={styles.data}></Text>
-          <Text style={styles.text}> No  special characters  </Text>
-                 
-          </Item>
-      
-          <Text style={styles.mobileinput}>Enternew password</Text>
-                            <Item regular style={styles.loginInput}>
-                                <Input placeholder='' style={styles.input} />
-                            </Item>
+                    <Image style={styles.image}
+                        source={require('../../../images/lock_1.png')} />
+                    <Text style={styles.maintext}   > Set a strong memorable password</Text>
 
-                            <Text style={styles.mobileinput} >Enter  confirm password</Text>
+                    <Item style={styles.doted}   >
+                        <Text style={styles.data}></Text>
+                        <Text style={styles.text}> At least 8 Characters (no spaces)  </Text>
 
-                            <Item regular style={styles.loginInput}>
-                                {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                                <Input placeholder='Enter your password' style={styles.input} />
-                            </Item>
+                    </Item>
+                    <Item style={styles.doted} >
+                        <Text style={styles.data}></Text>
+                        <Text style={styles.text}> At least 8 Characters (no spaces)  </Text>
 
+                    </Item>
+                    <Item style={styles.doted} >
+                        <Text style={styles.data}></Text>
+                        <Text style={styles.text}> At least  1 alphabet and 1number  </Text>
 
-                  
+                    </Item>
+                    <Item style={styles.doted} >
+                        <Text style={styles.data}></Text>
+                        <Text style={styles.text}> At least  1 number  </Text>
+
+                    </Item >
+                    <Item style={styles.doted} >
+                        <Text style={styles.data}></Text>
+                        <Text style={styles.text}> No  special characters  </Text>
+
+                    </Item>
+
+                    <Text style={styles.mobileinput}>Enternew password</Text>
+                    <Item regular style={styles.loginInput}>
+                        <Input placeholder='' style={styles.input} />
+                    </Item>
+
+                    <Text style={styles.mobileinput} >Enter  confirm password</Text>
+
+                    <Item regular style={styles.loginInput}>
+                        {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
+                        <Input placeholder='Enter your password' style={styles.input} />
+                    </Item>
                 </Content>
                 <Button block warning style={styles.btnSubmit} >
-          <Text style={styles.submit}>Submit</Text>
-        </Button>
+                    <Text style={styles.submit}>Submit</Text>
+                </Button>
 
             </Container>
         )
@@ -89,16 +84,16 @@ const styles = StyleSheet.create({
         fontFamily: 'Nunito',
         fontSize: 20,
         fontWeight: 'normal',
-         alignItems:'center',
-         textAlign:'center',
+        alignItems: 'center',
+        textAlign: 'center',
         color: '#ffffff',
 
 
     },
-    doted:{
+    doted: {
         borderColor: 'transparent',
-        marginLeft:20
-        
+        marginLeft: 20
+
     },
 
     submit: {
@@ -110,7 +105,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         color: '#ffffff'
     },
-    loginInput:{
+    loginInput: {
         borderRadius: 5,
         height: 40,
         marginLeft: 17,
@@ -119,7 +114,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#e1e4eb',
 
     },
-    data:{
+    data: {
         width: 10,
         height: 10,
         borderRadius: 5,
@@ -127,32 +122,32 @@ const styles = StyleSheet.create({
     },
 
 
-     text:{
-          
-         height:22,
-     textAlign:'left',
-         fontFamily:'Nunito',
-         fontSize:16,
-        color:'#474a4f',
-        marginLeft:5
+    text: {
 
-     },
-     maintext:{
+        height: 22,
+        textAlign: 'left',
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        color: '#474a4f',
+        marginLeft: 5
 
-         marginTop:20,
-        height:40,
-        textAlign:'left',
-            fontFamily:'Nunito',
-            fontSize:16,
-            marginLeft:15,
-           color:'#474a4f'
+    },
+    maintext: {
 
-     },
-     mobileinput: {
+        marginTop: 20,
+        height: 40,
+        textAlign: 'left',
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        marginLeft: 15,
+        color: '#474a4f'
+
+    },
+    mobileinput: {
         marginTop: 20,
         marginLeft: 20,
-        color:'#474a4f',
-        fontSize:14,
+        color: '#474a4f',
+        fontSize: 14,
     },
     btnSubmit: {
         marginBottom: 32,
@@ -161,14 +156,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 
-    image:{
+    image: {
         width: 92,
         height: 38,
-        alignSelf:'center',
-        marginTop:30
-        
-        
-     }
+        alignSelf: 'center',
+        marginTop: 30
+
+
+    }
 
 })
 
