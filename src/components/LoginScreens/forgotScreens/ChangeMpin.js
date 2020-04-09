@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Text, Header, Button, Icon, Body, Left, Right, Title, Content, List, ListItem, Item, Input, View } from 'native-base'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image, ImageBackground,StatusBar } from 'react-native'
 // import DeviceInfo from 'react-native-device-info';
 
 // import { getDeviceId  } from 'react-native-device-info';
@@ -29,7 +29,7 @@ export default class  ChangeMpin extends Component {
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
-
+                <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
 
                     <Left>
                         <Button transparent>
@@ -56,20 +56,26 @@ export default class  ChangeMpin extends Component {
                     <Text style={styles.mobileinput}>Enter current password</Text>
                     <Item regular style={styles.loginInput}>
                         <Input placeholder='' style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
                     <Text style={styles.mobileinput} >Enter new password</Text>
 
                     <Item regular style={styles.loginInput}>
                         {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                        <Input placeholder='Enter your password' style={styles.input} />
+                        <Input  style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
                     <Text style={styles.mobileinput} > confirm  new password</Text>
 
                     <Item regular style={styles.loginInput}>
                         {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                        <Input placeholder='Enter your password' style={styles.input} />
+                        <Input  style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
 

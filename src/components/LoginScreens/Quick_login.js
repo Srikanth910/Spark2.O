@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
 import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form } from 'native-base'
-import { StyleSheet, TouchableOpacity, SafeAreaView, AsyncStorage, StatusBar, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableOpacity, SafeAreaView, AsyncStorage, StatusBar, ImageBackground, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 
+import TouchID from 'react-native-touch-id'
 import { loginUser, userMpin } from '../../Redux/actions/authAction'
 
 
-class Login extends Component {
+class Quicklogin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -18,6 +19,16 @@ class Login extends Component {
             mpin: ''
         };
     }
+
+    _pressHandler() {
+        TouchID.authenticate('to demo this react-native component', optionalConfigObject)
+          .then(success => {
+            AlertIOS.alert('Authenticated Successfully');
+          })
+          .catch(error => {
+            AlertIOS.alert('Authentication Failed');
+          });
+        }
     onValueChange2 = (value) => {
         this.setState({
             selected2: value
@@ -26,6 +37,9 @@ class Login extends Component {
 
 
     handleSubmit = () => {
+
+
+        
         const user ={
         password: this.state.password,
             "DEVICEID": "fe13aa4656e467b4",
@@ -55,11 +69,11 @@ class Login extends Component {
 
     render() {
         const { error } = this.props;
-         console.log('error',error.loginError)
+         console.log('error',error)
         return (
             <Container style={styles.container}>
              
-                
+                <SafeAreaView style={styles.container}>
                   {/* <StatusBar hidden/> */}
                     <Header style={{ backgroundColor: "#1b1464", height: 120 }}>
                     <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
@@ -93,20 +107,27 @@ class Login extends Component {
                                     onPress={() => this.props.navigation.navigate('Forgotview')}
                                 >Forgot MPIN</Text>
                             </TouchableOpacity>
+
+                            <Text style={styles.or}>or</Text>
+                            <TouchableHighlight onPress={this._pressHandler}>
+                            <Item rounded  style={styles.rectanglebox}  >
+
+                            <Icon  name='lock' style={ styles.icon}  />
+                            <Text style={styles.ToptoLock}> Top to Use Phone Unlock</Text>
+                         </Item>
+                         </TouchableHighlight>
                             <View style={styles.btnbottom}>
                                 <Text style={styles.bottomtext}>
                                     By logging in , you agree to our
-                        <Text style={styles.bottomColor}> Terms And conditon  </Text> And
-                        <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
-                                                <Button block warning
+                            <Text style={styles.bottomColor}> Terms And conditon  </Text> And
+                            <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
+                                <Button block warning
                                     onPress={this.mpinSubmit}
                                 >
                                     <Text>LOGIN</Text>
                                 </Button>
                             </View>
                         </Tab>
-                        
-                        
                         <Tab heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>LOGIN</Text></TabHeading>}>
                             <Form>
                                 <Text style={styles.loginText}>Select State</Text>
@@ -133,25 +154,19 @@ class Login extends Component {
                                         onChangeText={editedText =>
                                             this.setState({ password: editedText })
                                         }
-
-                                        
                                     />
-                                     
                                 </Item>
 
                                 <Text style={styles.mobileinput} >Enter your password</Text>
 
                                 <Item regular style={styles.loginInput}>
                                     {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                                    <Input placeholder='' style={styles.input}
+                                    <Input placeholder='Enter your password' style={styles.input}
                                         value={this.state.mobile}
                                         onChangeText={editedText =>
                                             this.setState({ mobile: editedText })
                                         }
-                                        
                                     />
-                                    <ImageBackground  source={require('../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
-
                                 </Item>
                             </Form>
                             <TouchableOpacity >
@@ -175,7 +190,7 @@ class Login extends Component {
 
                     </Tabs>
 
-             
+                </SafeAreaView>
             </Container>
         )
     }
@@ -187,13 +202,9 @@ const mapStateToProps = state => ({
    
 })
 
-export default connect(mapStateToProps, { loginUser, userMpin })(Login)
+export default connect(mapStateToProps, { loginUser, userMpin })(Quicklogin)
 
 const styles = StyleSheet.create({
-
-     container:{
-         flex:1
-     },
 
     tabHeading: {
         height: 19,
@@ -211,8 +222,7 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         marginBottom: 17,
         marginLeft: 16,
-        marginRight: 16,
-        marginTop:200
+        marginRight: 16
 
 
     },
@@ -366,5 +376,38 @@ const styles = StyleSheet.create({
         width:48,
         marginTop:50,
          alignSelf:'flex-end'
+    },
+    rectanglebox:{
+        width:238,
+        height:40,
+        borderRadius:17,
+        borderColor:'#f7931e',
+       alignSelf:'center',
+       marginTop:30
+       
+    
+        
+    },
+    ToptoLock:{
+        width:187,
+        height:22,
+        fontFamily:'Nunito',
+        fontSize:16,
+        fontWeight:'normal',
+        color:'#f79624'
+    },
+    or:{
+        // width:13,
+        height:19,
+        fontFamily:'Nunito',
+        fontSize:14,
+        color:'#d7d8dc',
+        letterSpacing:1.2,
+        alignSelf:'center',
+        
+
+    },
+    icon:{
+        color:'#f79624'
     }
 })

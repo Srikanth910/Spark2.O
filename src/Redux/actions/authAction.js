@@ -7,7 +7,7 @@ export const loginUser =(data, callback)=>dispatch=>{
  console.log('api',data)
     axios.post(`${API_URL}/loginByPasswordV2_O `,data)
     .then(res=>{
-         console.log(res)
+         console.log('res',res)
 
          if(res.data.Data.Message==='SUCCESS'){
         dispatch({
@@ -24,7 +24,12 @@ export const loginUser =(data, callback)=>dispatch=>{
         })
     }
 
-    }).catch(err=>console.log(err))
+    }).catch(err=>{
+        dispatch({
+            type:GET_ERROR,
+            payload:err
+        })
+    })
          
     
 }
@@ -34,6 +39,7 @@ export const loginUser =(data, callback)=>dispatch=>{
      console.log(data)
      axios.post(`${API_URL}/ loginByMpinV2_O`,data)
      .then(res=>{
+          console.log(res.data)
           if(res.data.Data.code==='200'){
                console.log('api',res.data.Data)
               dispatch({
@@ -47,7 +53,7 @@ export const loginUser =(data, callback)=>dispatch=>{
                    payload:res.data
                })
           }
-     }).catch(err=>console.log(err))
+     }).catch(err=>console.log('error',err))
  }
  
 

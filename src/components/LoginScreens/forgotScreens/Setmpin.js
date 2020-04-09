@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import { Container, Header, Left, Button, Icon, Body, Right, Title, Content, Text } from 'native-base'
-import { StyleSheet, View } from 'react-native'
+import { Container, Header, Left, Button, Icon, Body, Right, Title, Content, Text, ListItem } from 'native-base'
+import { StyleSheet, View,StatusBar } from 'react-native'
 
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 
-
+import Modal from 'react-native-modal';
 import Dialog from "react-native-dialog";
 export default class Setmpin extends Component {
   constructor(props) {
@@ -22,6 +22,7 @@ export default class Setmpin extends Component {
     this.setState({
       visible:false
     })
+     this.props.navigation.navigate('Beneficiary')
   }
 
 
@@ -36,7 +37,7 @@ export default class Setmpin extends Component {
       <Container>
         <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
 
-
+        <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
           <Left>
             <Button transparent>
               <Icon name='arrow-back'
@@ -73,8 +74,6 @@ export default class Setmpin extends Component {
           <Text style={styles.mpinpin}> confirm new MPIN</Text>
           <View style={{ alignSelf: 'center' }}>
             <SmoothPinCodeInput
-
-
               codeLength={6}
               cellStyle={{
                 borderBottomWidth: 2,
@@ -98,7 +97,8 @@ export default class Setmpin extends Component {
             </Text>
           </Dialog.Description>
           
-          <Dialog.Button label="ok" color="#f7931e"  onPress={this.Dialogclose}/>
+          <Dialog.Button label="ok" color="#f7931e"  onPress={this.Dialogclose}
+          />
         </Dialog.Container>
       </View>
 
@@ -111,7 +111,40 @@ export default class Setmpin extends Component {
 
 
 
-        
+        <View>
+        <Modal style={{  width:280, maxHeight:200, alignSelf:'center', marginTop:200}} >
+          <View style={{  backgroundColor:'white'}}>
+
+             <Text style={styles.otp}>Enter OTP</Text>
+             <Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
+
+
+             <View style={{alignSelf:'center'}}>
+          <SmoothPinCodeInput
+              codeLength={5}
+              cellStyle={{
+                borderBottomWidth: 1,
+                borderColor: 'gray',
+                width:20,
+                
+              }}
+              cellStyleFocused={{
+                borderColor: 'black',              }}
+              value={password}
+              onTextChange={password => this.setState({ password })}
+            />
+            </View> 
+             <ListItem style={{justifyContent:'space-around',marginTop:10}}>
+               <Text>2:00.0</Text>
+               <Text style={styles.resendOtp}>Resend OTP</Text>
+             </ListItem>
+          <ListItem style={{justifyContent:'flex-end'}} >
+            <Text  style={styles.cancel}>Cancel</Text>
+            <Text style={styles.otpSubmit}>Submit</Text>
+          </ListItem>
+          </View>
+        </Modal>
+      </View>
 
       </Container>
 
@@ -135,6 +168,48 @@ const styles = StyleSheet.create({
 
 
   },
+  otp:{
+    
+      width:94,
+      height:27,
+      marginTop:15,
+      color:'#000000',
+    fontSize:20,
+    marginLeft:15,
+     fontWeight:"bold"
+     
+
+  },
+  resendOtp:{
+    width:91,
+    height:22,
+    fontFamily:'Nunito',
+    fontSize:16,
+    color:'#f7931e',
+    textAlign:'right',
+  
+ 
+  },
+  cancel:{
+     width:73,
+     height:39,
+     fontFamily:'Nunito',
+      color:'#999999',
+       textAlign:'left'
+
+  },
+  otpText:{
+    // width:228,
+    // height:82,
+     marginLeft:15,
+    fontFamily:'Nunito',
+     fontSize:16,
+  marginTop:10,
+    color:'#000000'
+
+  },
+
+
   btnSubmit: {
     marginBottom: 32,
     marginLeft: 16,
@@ -150,6 +225,16 @@ const styles = StyleSheet.create({
     fontSize:16,
     textAlign:'left',
     color:'#010101'
+  },
+  otpSubmit:{
+    width:73,
+    height:39,
+    fontFamily:'Nunito',
+    fontSize:16,
+    fontWeight:'bold',
+    color:'#f7931e',
+   textAlign:'right'
   }
+  
 
 })

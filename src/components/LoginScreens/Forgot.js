@@ -1,15 +1,19 @@
 import React, { Component } from "react";
-import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title } from "native-base";
-import { StyleSheet, StatusBar } from 'react-native'
+import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title, ListItem } from "native-base";
+import { StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
 
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 
 import Dialog from "react-native-dialog";
+import Modal from 'react-native-modal';
 export default class Forgot extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected2: undefined
+      selected2: undefined,
+      password:'',
+      isVisible:false,
+      isModalVisible: false,
     };
   }
   onValueChange2 = (value) => {
@@ -17,13 +21,36 @@ export default class Forgot extends Component {
       selected2: value
     });
   }
+  toggleModal = () => {
+    this.setState({isModalVisible: !this.state.isModalVisible});
+  };
 
+  modelopen=()=>{
+
+    this.setState({
+      isVisible:true
+    })
+  }
+  modelclose=()=>{
+    this.setState({
+      isVisible:false
+    })
+  }
+
+   modelview=()=>{
+     this.setState({
+      isVisible:false
+     })
+     this.props.navigation.navigate('ForgotMpin')
+   }
   render() {
+      const{ password}= this.state
     return (
 
       <Container style={styles.Container}>
-        <StatusBar hidden />
+      
         <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
+        <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
           <Left>
             <Button transparent>
               <Icon name='arrow-back'
@@ -71,46 +98,47 @@ export default class Forgot extends Component {
           <Item regular style={styles.textInput}>
             <Input placeholder='Enter password' style={styles.input} />
           </Item>
-
-{/* 
           <View>
-            <Dialog.Container  style={styles.Dialog} >
-              <Dialog.Title>Enter OTP</Dialog.Title>
-              <Dialog.Description style={{ alignSelf: 'center' }}>
-                <Text style={styles.DialogText}> Enter 5-digit One Time password</Text>
-                 
-             
-              </Dialog.Description>
-              {/* <Dialog.Button label="Cancel" /> */}
-              {/* <Dialog.Button label="ok" color='#f7931e'  />
-            </Dialog.Container>
-          </View> */} 
+        <Modal isVisible={this.state.isModalVisible} style={{  width:280, maxHeight:200, alignSelf:'center', marginTop:200}} >
+          <View style={{  backgroundColor:'white'}}>
 
-
-          <Dialog.Container visible={true}  style={styles.Dialog} >
-          <Dialog.Title>Close Quick access</Dialog.Title>
-          <Dialog.Description>
-            <Text style={styles.Dialogtext} >You have successfully Set a
-            new MPIN</Text>
-            <Text>
-                Are You sure  you  want to close 
-                the set up  quuick access flow
-                 without saving mpin
-              
-            </Text>
-     <Text>you can also  set MPIN in settings</Text>
-             
-
-
-          </Dialog.Description>
+             <Text style={styles.otp}>Enter OTP</Text>
+             <Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
+             <View style={{alignSelf:'center'}}>
+          <SmoothPinCodeInput
+              codeLength={5}
+              cellStyle={{
+                borderBottomWidth: 1,
+                borderColor: 'gray',
+                width:20,
+                
+              }}
+              cellStyleFocused={{
+                borderColor: 'black',              }}
+              value={password}
+              onTextChange={password => this.setState({ password })}
+            />
+            </View> 
+             <ListItem style={{justifyContent:'space-around',marginTop:10}}>
+               <Text>2:00.0</Text>
+               <Text style={styles.resendOtp}>Resend OTP</Text>
+             </ListItem>
+          <ListItem style={{justifyContent:'flex-end'}} >
+            <TouchableOpacity >
+            <Text  style={styles.cancel} onPress={this.toggleModal}>Cancel</Text>
+            </TouchableOpacity>
+            
+            <TouchableOpacity >
+            <Text style={styles.otpSubmit} onPress={this.modelview}>Submit</Text>
+            </TouchableOpacity>
           
-          <Dialog.Button label="ok" color="#f7931e"  onPress={this.Dialogclose}/>
-        </Dialog.Container>
+          </ListItem>
+          </View>
+        </Modal>
+      </View>
         </Content>
-
-
         <Button block warning style={styles.btnSubmit}
-          onPress={() => this.props.navigation.navigate('ForgotMpin')}
+          onPress={this.toggleModal}
         >
           <Text style={styles.submit}>Submit</Text>
         </Button>
@@ -195,6 +223,58 @@ const styles = StyleSheet.create({
     width: 300,
     alignSelf: 'center'
 
-  }
+  },
+
+
+
+  otp:{
+    
+    width:94,
+    height:27,
+    marginTop:15,
+    color:'#000000',
+  fontSize:20,
+  marginLeft:15,
+   fontWeight:"bold"
+   
+
+},
+resendOtp:{
+  width:91,
+  height:22,
+  fontFamily:'Nunito',
+  fontSize:16,
+  color:'#f7931e',
+  textAlign:'right',
+
+
+},
+cancel:{
+   width:73,
+   height:39,
+   fontFamily:'Nunito',
+    color:'#999999',
+     textAlign:'left'
+
+},
+otpText:{
+  // width:228,
+  // height:82,
+   marginLeft:15,
+  fontFamily:'Nunito',
+   fontSize:16,
+marginTop:10,
+  color:'#000000'
+
+},
+otpSubmit:{
+  width:73,
+  height:39,
+  fontFamily:'Nunito',
+  fontSize:16,
+  fontWeight:'bold',
+  color:'#f7931e',
+ textAlign:'right'
+}
 
 })

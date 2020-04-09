@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Container, Text, Header, Button, Icon, Body, Left, Right, Title, Content, List, ListItem, Item, Input } from 'native-base'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image ,StatusBar,ImageBackground} from 'react-native'
 
 export default class ForgotpasswordSet extends Component {
     render() {
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
+                <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back'
@@ -56,17 +57,25 @@ export default class ForgotpasswordSet extends Component {
                     <Text style={styles.mobileinput}>Enternew password</Text>
                     <Item regular style={styles.loginInput}>
                         <Input placeholder='' style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
                     <Text style={styles.mobileinput} >Enter  confirm password</Text>
 
                     <Item regular style={styles.loginInput}>
                         {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                        <Input placeholder='Enter your password' style={styles.input} />
+                        <Input placeholder='' style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
                 </Content>
-                <Button block warning style={styles.btnSubmit} >
-                    <Text style={styles.submit}>Submit</Text>
+                <Button block warning style={styles.btnSubmit}
+                 onPress={()=>this.props.navigation.navigate('ChangePasseword')}
+                >
+                    <Text style={styles.submit}  
+                    
+                    >Submit</Text>
                 </Button>
 
             </Container>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Text, Header, Button, Icon, Body, Left, Right, Title, Content, List, ListItem, Item, Input, View } from 'native-base'
-import { StyleSheet, Image } from 'react-native'
+import { StyleSheet, Image , ImageBackground,StatusBar} from 'react-native'
 import { ThemeColors } from 'react-navigation'
 
 
@@ -29,7 +29,7 @@ export default class ChangePasseword extends Component {
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
-
+                <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
 
                     <Left>
                         <Button transparent>
@@ -82,36 +82,42 @@ export default class ChangePasseword extends Component {
                     <Text style={styles.mobileinput}>Enter current password</Text>
                     <Item regular style={styles.loginInput}>
                         <Input placeholder='' style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
                     <Text style={styles.mobileinput} >Enter new password</Text>
 
                     <Item regular style={styles.loginInput}>
                         {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                        <Input placeholder='Enter your password' style={styles.input} />
+                        <Input placeholder='' style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
                     <Text style={styles.mobileinput} > confirm  new password</Text>
 
                     <Item regular style={styles.loginInput}>
                         {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                        <Input placeholder='Enter your password' style={styles.input} />
+                        <Input  style={styles.input} />
+                        <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
+
                     </Item>
 
 
                     <View>
-                        <Dialog.Container visible={true} style={styles.Dialog} >
+                        <Dialog.Container  style={styles.Dialog}  visible={this.state.visible} >
                             <Dialog.Title>New password set</Dialog.Title>
-                            <Dialog.Description style={{alignSelf:'center'}}>
-                            <Text style={styles.DialogText}>You have successfully set a  new password</Text>
-          </Dialog.Description>
+                            <Dialog.Description style={{ alignSelf: 'center' }}>
+                                <Text style={styles.DialogText}>You have successfully set a  new password</Text>
+                            </Dialog.Description>
                             {/* <Dialog.Button label="Cancel" /> */}
                             <Dialog.Button label="ok" color='#f7931e' onPress={this.Dialogclose} />
                         </Dialog.Container>
                     </View>
 
                 </Content>
-                <Button block warning style={styles.btnSubmit} onPress={this.Dialogopen} >
+                <Button block warning style={styles.btnSubmit} onPress={()=>this.props.navigation.navigate('NotifClass')} >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>
 
@@ -139,16 +145,16 @@ const styles = StyleSheet.create({
 
     },
     doted: {
-        borderColor: 'transparent',
+        borderColor:  'transparent',
         marginLeft: 20
 
     },
- Dialog:{
+    Dialog: {
 
-    height: 200, 
-    width: 300 , 
-    alignSelf:'center'
- },
+        height: 200,
+        width: 300,
+        alignSelf: 'center'
+    },
     submit: {
         // width:52,
         height: 22,
@@ -219,7 +225,8 @@ const styles = StyleSheet.create({
 
 
     },
-    DialogText:{
+    DialogText: {
+
     }
 
 })

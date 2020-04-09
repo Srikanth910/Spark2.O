@@ -9,9 +9,9 @@ export default class ForgotMpin extends Component {
         return (
 
             <Container style={styles.Container}>
-                <StatusBar hidden />
-                <Header icon="eye" style={{ backgroundColor: '#1b1464', height: 80 }}>
 
+                <Header icon="eye" style={{ backgroundColor: '#1b1464', height: 80 }}>
+                <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
 
                     <Left>
                         <Button transparent>
@@ -43,8 +43,12 @@ export default class ForgotMpin extends Component {
                 </Content>
 
 
-                <Button block warning style={styles.btnSubmit} >
-                    <Text style={styles.submit}>Submit</Text>
+                <Button block warning style={styles.btnSubmit} 
+                onPress={()=>this.props.navigation.navigate('Setmpin')}
+                >
+                    <Text style={styles.submit}
+                      
+                    >Submit</Text>
                 </Button>
 
             </Container>

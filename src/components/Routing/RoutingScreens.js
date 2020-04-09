@@ -15,6 +15,10 @@ import ChangePasseword from '../LoginScreens/forgotScreens/ChangePassword';
 import Setmpin from '../LoginScreens/forgotScreens/Setmpin';
 import Home from '../Home';
 import LoginButton from '../LoginScreens/LoginButton';
+import NotifClass from '../Notifications/NotifcationList';
+import AddBeneficiarys from '../BeneficiaryScreens/AddBeneficiarys';
+import Beneficiary from '../BeneficiaryScreens/Beneficiary';
+import Otherbank from '../BeneficiaryScreens/Otherbank';
 
 const Stack = createStackNavigator();
 
@@ -26,20 +30,26 @@ function Routing() {
         headerShown: false
       }}>
         <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Forgot" component={ForgotPassword} />
+        <Stack.Screen name="Forgotpass" component={ForgotPassword} />
         <Stack.Screen name="ForgotMpin" component={ForgotMpin} />
-        <Stack.Screen name="Forgotpin" component={Forgot} />
+        <Stack.Screen name="Forgotview" component={Forgot} />
         <Stack.Screen name="ChangeMpin" component={ChangeMpin} />
         <Stack.Screen name="passwordSet" component={ForgotpasswordSet} />
         <Stack.Screen name="ChangePasseword" component={ChangePasseword} />
         <Stack.Screen name="Setmpin" component={Setmpin} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="LoginButton" component={LoginButton} />
+        <Stack.Screen name="NotifClass" component={NotifClass} />
+
+        <Stack.Screen name="AddBeneficiarys" component={AddBeneficiarys} />
+
+        <Stack.Screen name="Beneficiary" component={Beneficiary} />
+        <Stack.Screen name="Otherbank" component={Otherbank} /> 
+
 
 
       
-        
-        
+     
       </Stack.Navigator>
     </NavigationContainer>
   );

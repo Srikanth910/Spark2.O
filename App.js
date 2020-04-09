@@ -20,33 +20,22 @@ import Home from './src/components/Home';
 import Forgot from './src/components/LoginScreens/Forgot';
 import { Provider } from 'react-redux';
 
+ import Quicklogin from './src/components/LoginScreens/Quick_login'
  import  store from './src/Redux/store'
+// import NotificationList from './src/components/Notifications/Notication';
+import NotifClass from './src/components/Notifications/NotifcationList';
 export default class App extends Component {
   render() {
     return (
       <>
+      
       <Provider store={store}>
+        
         <Routing/>
         </Provider>
       </>
     );
   }
 }
-
-
-
-// import React from "react";
-
-// import { StackNavigator } from "react-navigation";
-
-// import ForgotPassword from  './src/components/LoginScreens/forgotScreens/forgotpassword';
-// import ForgotMpin from "./src/components/LoginScreens/forgotScreens/ForgotMpin";
-//    const App = StackNavigator({
-//   ForgotMpin: { screen: ForgotMpin },
-//   forgotPassword: { screen: ForgotPassword },
- 
-// });
-//  export default App
-
 
 
