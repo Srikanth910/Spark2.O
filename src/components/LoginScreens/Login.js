@@ -1,12 +1,11 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import AsyncStorage from '@react-native-community/async-storage';
 
-import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form } from 'native-base'
-import { StyleSheet, TouchableOpacity, SafeAreaView, AsyncStorage, StatusBar, ImageBackground } from 'react-native';
+import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form, Left } from 'native-base'
+import { StyleSheet, TouchableOpacity, SafeAreaView, StatusBar, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
-
-import { loginUser, userMpin } from '../../Redux/actions/authAction'
-
-
+import AwesomeAlert from 'react-native-awesome-alerts';
+import { loginUser, userMpin } from '../../Redux/actions/authAction';
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -15,59 +14,107 @@ class Login extends Component {
             mobile: '',
             DEVICEID: "fe13aa4656e467b4",
             password: '',
-            mpin: ''
+            mpin: '',
+            name:'',
+            loginUserData:{},
+            DeviceID:'',
+            showAlert: false
         };
     }
     onValueChange2 = (value) => {
         this.setState({
             selected2: value
+
         });
     }
 
+    //  componentDidMount(){
+    //      this.getDeviceId();
+    //  }
 
-    handleSubmit = () => {
+  
+
+    handleSubmit = async () => {
         const user ={
         password: this.state.password,
             "DEVICEID": "fe13aa4656e467b4",
             mobileNo:this.state.mobile
             }
+        
+            try {
+                await AsyncStorage.setItem('userdata',JSON.stringify(user))
+                console.log('login user saved')
+               
+              } catch (e) {
+                 console.log(e)
+              }
 
         this.props.loginUser(user,()=>{
             this.props.navigation.navigate('Home')
         })
-            
-         
-    
-
 
     }
-    mpinSubmit = () => {
-        
+    mpinSubmit = async () => {
+        try {
+            const loginData = await AsyncStorage.getItem('userdata')
+             const user= JSON.parse(loginData)
+          this.setState({
+               loginUserData:user
+          })
+          } catch (e) {
+            alert('Failed to load name.')
+          }
+            
+          const {loginUserData}= this.state
         const userMpin = {
             mPin: this.state.mpin,
-            "DEVICEID": "fe13aa4656e467b4",
-            "mobileNo": "9502565325"
+            DEVICEID: loginUserData.DEVICEID,
+          mobileNo: loginUserData.mobileNo
         }
+       
         this.props.userMpin(userMpin, () => {
             this.props.navigation.navigate('Home')
         })
+
+
+
     }
+    showAlert = () => {
+         console.log('show')
+        this.setState({
+          showAlert: true
+        });
+      };
+      
+      hideAlert = () => {
+        this.setState({
+          showAlert: false
+        });
+      };
 
     render() {
         const { error } = this.props;
-         console.log('error',error.loginError)
+
         return (
             <Container style={styles.container}>
-             
-                
-                  {/* <StatusBar hidden/> */}
                     <Header style={{ backgroundColor: "#1b1464", height: 120 }}>
                     <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
                         <Body>
-                            <Text style={styles.headerText}>
+                            <Left style={{marginLeft:40, marginTop:20}}>
+
+                            <Button transparent  >
+              <Icon name='close'  style={styles.icon}
+              onPress={() => this.props.navigation.navigate('Login')}
+              />
+              </Button>
+              <Text style={styles.headerText}>
                                 Watch your wealth grow
                           </Text>
-                       
+             
+                            </Left>
+                         
+                            
+                       <Right/>
                         </Body>
                         
                         <Right>
@@ -129,9 +176,9 @@ class Login extends Component {
                                 <Text style={styles.mobileinput}>Enter your mobile number</Text>
                                 <Item regular style={styles.loginInput}>
                                     <Input placeholder='No need to add +91' style={styles.input} value={this.state.mobile}
-                                        value={this.state.password}
+                                        value={this.state.mobile}
                                         onChangeText={editedText =>
-                                            this.setState({ password: editedText })
+                                            this.setState({ mobile: editedText })
                                         }
 
                                         
@@ -144,9 +191,9 @@ class Login extends Component {
                                 <Item regular style={styles.loginInput}>
                                     {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
                                     <Input placeholder='' style={styles.input}
-                                        value={this.state.mobile}
+                                        value={this.state.password}
                                         onChangeText={editedText =>
-                                            this.setState({ mobile: editedText })
+                                            this.setState({ password: editedText })
                                         }
                                         
                                     />
@@ -166,7 +213,7 @@ class Login extends Component {
                             <Text style={styles.bottomColor}> Terms And conditon  </Text> And
                             <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
                                 <Button block warning
-                                    onPress={this.handleSubmit}
+                                    onPress={this.showAlert}
                                 >
                                     <Text>LOGIN</Text>
                                 </Button>
@@ -175,7 +222,25 @@ class Login extends Component {
 
                     </Tabs>
 
-             
+                    <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={false}
+          title="Mpin Worng"
+          message={error.loginError.Message}
+          closeOnTouchOutside={true}
+        //   closeOnHardwareBackPress={false}
+        //   showCancelButton={true}
+          showConfirmButton={true}
+       
+          confirmText="ok"
+          confirmColor="blue"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
             </Container>
         )
     }
@@ -226,8 +291,8 @@ const styles = StyleSheet.create({
         height: 27,
         fontFamily: 'Nunito',
         fontSize: 20,
-        marginTop: 50,
-        marginLeft: 10,
+        
+         marginLeft:10,
         color: '#ffffff',
   alignItems:'flex-start'
     },
@@ -366,5 +431,12 @@ const styles = StyleSheet.create({
         width:48,
         marginTop:50,
          alignSelf:'flex-end'
-    }
+    },
+
+     icon:{
+         marginLeft:10,
+          color:'#ffffff',
+           width:14,
+            height:20
+     }
 })

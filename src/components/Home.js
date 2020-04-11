@@ -4,6 +4,8 @@ import { Container, Header, Content, Footer, FooterTab, Button, Icon, Body, Titl
  class Home extends Component {
   render() {
     
+     const{auth}=this.props
+      console.log('reducer',auth)
     return (
       <Container>
        <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
@@ -24,17 +26,28 @@ import { Container, Header, Content, Footer, FooterTab, Button, Icon, Body, Titl
             <Text style={{marginTop:100, marginLeft:100}}>
      Home screeen
             </Text>
+
+    <Text>  ID:  {auth.Id}</Text>
+    
+    <Text>memberId: {auth.memberid}</Text>
+    <Text> Token: {auth.Token}</Text>
             </Content>
         <Footer>
           <FooterTab>
-            <Button>
+            <Button
+            
+            >
               <Icon name="apps" />
             </Button>
             <Button>
               <Icon name="camera" />
             </Button>
             <Button active>
-              <Icon active name="navigate" />
+              <Icon active name="navigate" 
+              
+              
+               onPress={()=>this.props.navigation.navigate('NotifClass')}
+              />
             </Button>
             <Button>
               <Icon name="person" />
@@ -48,7 +61,7 @@ import { Container, Header, Content, Footer, FooterTab, Button, Icon, Body, Titl
 
 
  const mapStateToProps=(state)=>({
-   auth:state.auth
+   auth:state.auth.userMpin
  })
 
-export default connect(mapStateToProps)  (Home)
+export default connect(mapStateToProps,{})  (Home)

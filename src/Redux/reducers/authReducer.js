@@ -10,18 +10,13 @@ const  initialState={
  export   default function(state=initialState, acton){
       switch(acton.type){
           case LOGIN_SUCCESS:
+              case MPIN_SUCCESS:{
               return{
                   ...state,
                   isLoading:true,
-                  userData:acton.payload
+                  userMpin:acton.payload
               }
-
-               case MPIN_SUCCESS:
-                   return{
-                       ...state,
-                       userMpin:acton.payload
-                   }
-             
+            }
               default:
         return state;
     }

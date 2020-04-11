@@ -14,11 +14,11 @@ export default class ForgotMpin extends Component {
                 <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
 
                     <Left>
-                        <Button transparent>
-                            <Icon name='arrow-back'
-                             onPress={() => this.props.navigation.navigate('Login')}
-                            />
-                        </Button>
+                    <Button transparent>
+              <Icon name='close' 
+              onPress={() => this.props.navigation.navigate('Login')}
+              />
+            </Button>
                     </Left>
                     <Body style={{alignItems:'flex-end' }} >
                         <Title style={styles.mpintext}  >Forgot MPIN</Title>

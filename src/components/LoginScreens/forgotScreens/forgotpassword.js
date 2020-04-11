@@ -1,18 +1,18 @@
 import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title, ListItem } from "native-base";
 import { StyleSheet, StatusBar } from 'react-native'
-
-
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
-
 import Modal from 'react-native-modal';
+ 
+
 export default class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
         selected2: undefined,
         password:'' ,
-         ismodelopen:false
+         ismodelopen:false,
+         showAlert: false 
     };
 }
 onValueChange2 = (value) => {
@@ -32,8 +32,12 @@ this.setState({
 this.props.navigation.navigate('passwordSet')
 }
 
+ 
+
+
+
   render() {
-     const{password}=this.state
+     const{password,showAlert}=this.state
     return (
 
       <Container style={styles.Container}>
@@ -43,13 +47,13 @@ this.props.navigation.navigate('passwordSet')
 
         <Left>
             <Button transparent>
-              <Icon name='arrow-back' 
+              <Icon name='close' 
               onPress={() => this.props.navigation.navigate('Login')}
               />
             </Button>
           </Left>
           <Body   style={{alignItems:'flex-end'}} >
-            <Title style={styles.mpintext}  >Forgot password</Title>
+            <Title style={styles.mpintext}>Forgot password</Title>
           </Body>
           <Right />
     
@@ -86,15 +90,12 @@ this.props.navigation.navigate('passwordSet')
           </Item>
 
         </Content>
-
         <View>
         <Modal style={{  width:280, maxHeight:200, alignSelf:'center', marginTop:200}} isVisible={this.state.ismodelopen} >
           <View style={{  backgroundColor:'white'}}>
 
              <Text style={styles.otp}>Enter OTP</Text>
              <Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
-
-
              <View style={{alignSelf:'center'}}>
           <SmoothPinCodeInput
               codeLength={5}
@@ -128,6 +129,9 @@ this.props.navigation.navigate('passwordSet')
         <Button block warning style={styles.btnSubmit} onPress={this.toggelopen} >
           <Text style={styles.submit}>Submit</Text>
         </Button>
+
+
+        
 
       </Container>
 

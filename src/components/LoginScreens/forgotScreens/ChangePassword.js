@@ -117,7 +117,7 @@ export default class ChangePasseword extends Component {
                     </View>
 
                 </Content>
-                <Button block warning style={styles.btnSubmit} onPress={()=>this.props.navigation.navigate('NotifClass')} >
+                <Button block warning style={styles.btnSubmit}  >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>
 

@@ -53,7 +53,7 @@ export default class Forgot extends Component {
         <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
           <Left>
             <Button transparent>
-              <Icon name='arrow-back'
+              <Icon name='close'
                 onPress={() => this.props.navigation.navigate('Login')} />
             </Button>
           </Left>
