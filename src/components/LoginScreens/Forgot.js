@@ -57,10 +57,10 @@ export default class Forgot extends Component {
                 onPress={() => this.props.navigation.navigate('Login')} />
             </Button>
           </Left>
-          <Body style={{ alignItems: 'center' }} >
+          <Body style={{ alignItems:'flex-start' }} >
             <Title style={styles.mpintext}  >Forgot MPIN</Title>
           </Body>
-          <Right />
+        
 
         </Header>
 
@@ -161,7 +161,7 @@ const styles = StyleSheet.create({
     fontWeight: 'normal',
     //  alignItems:'center',
     color: '#ffffff',
-    alignSelf: 'center'
+    // alignSelf: 'center'
 
 
   },

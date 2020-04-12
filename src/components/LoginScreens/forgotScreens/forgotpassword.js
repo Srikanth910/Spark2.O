@@ -52,10 +52,10 @@ this.props.navigation.navigate('passwordSet')
               />
             </Button>
           </Left>
-          <Body   style={{alignItems:'flex-end'}} >
+          <Body   style={{alignItems:'flex-start', marginLeft:40}} >
             <Title style={styles.mpintext}>Forgot password</Title>
           </Body>
-          <Right />
+         
     
         </Header>
 
@@ -147,9 +147,9 @@ const styles = StyleSheet.create({
     // width: 114,
     height: 27,
     fontFamily: 'Nunito',
-    fontSize: 20,
+    // fontSize: 20,
     fontWeight: 'normal',
-   alignItems:'center',
+  //  alignItems:'center',
     color: '#ffffff',
 
 
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
 
   },
   btnSubmit: {
-    marginBottom: 16,
+    marginBottom: 32,
     marginLeft: 16,
     marginRight: 16,
     alignItems: 'center',

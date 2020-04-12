@@ -15,10 +15,10 @@ export default class ForgotpasswordSet extends Component {
                             />
                         </Button>
                     </Left>
-                    <Body style={{ alignItems: 'flex-end' }} >
+                    <Body style={{ alignItems:'flex-start' }} >
                         <Title style={styles.mpintext}  >Forgot Password</Title>
                     </Body>
-                    <Right />
+                   
 
                 </Header>
 

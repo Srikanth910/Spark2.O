@@ -38,10 +38,10 @@ export default class ChangePasseword extends Component {
                             />
                         </Button>
                     </Left>
-                    <Body style={{ alignItems: 'center' }}>
-                        <Title   >Change Passeword</Title>
+                    <Body style={{ alignItems: 'flex-start' }}>
+                        <Title style={styles.title}   >Change Passeword</Title>
                     </Body>
-                    <Right />
+                   
 
                 </Header>
 
@@ -131,6 +131,11 @@ export default class ChangePasseword extends Component {
 
 const styles = StyleSheet.create({
     Container: {
+    },
+    title:{
+    textAlign:'center'
+    
+
     },
     mpintext: {
 

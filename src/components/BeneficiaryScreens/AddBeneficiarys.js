@@ -21,6 +21,7 @@ export default class AddBeneficiarys extends Component {
     }
 
     render() {
+         console.log(this.state.radioBtnOne)
         return (
             <Container>
                 <Header style={{ backgroundColor: "#1b1464", height: 50 }}>
@@ -77,11 +78,7 @@ export default class AddBeneficiarys extends Component {
                         </ListItem>
 
 
-
-
-
-
-
+                       
 
 
 

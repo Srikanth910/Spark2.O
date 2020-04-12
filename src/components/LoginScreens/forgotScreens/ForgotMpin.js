@@ -20,10 +20,10 @@ export default class ForgotMpin extends Component {
               />
             </Button>
                     </Left>
-                    <Body style={{alignItems:'flex-end' }} >
+                    <Body style={{alignItems:'flex-start' }} >
                         <Title style={styles.mpintext}  >Forgot MPIN</Title>
                     </Body>
-                    <Right />
+                   
 
                 </Header>
 
