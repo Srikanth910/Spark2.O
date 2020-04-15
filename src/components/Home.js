@@ -39,7 +39,10 @@ import { Container, Header, Content, Footer, FooterTab, Button, Icon, Body, Titl
             >
               <Icon name="apps" />
             </Button>
-            <Button>
+            <Button
+             onPress={()=>this.props.navigation.navigate('Beneficiary')}
+            
+            >
               <Icon name="camera" />
             </Button>
             <Button active>

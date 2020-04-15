@@ -9,7 +9,7 @@ export default function validatemPin(data) {
     errorsData.mpin = 'This field is required';
   }
 
-   if(!Validator.isLength(data.mpin,{min:1, max:6})){
+   if(!Validator.isLength(data.mpin,{min:6, max:6})){
      errorsData.mpin= 'must be 6 digits'
    }
 

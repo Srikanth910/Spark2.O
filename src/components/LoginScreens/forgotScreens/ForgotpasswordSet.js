@@ -1,8 +1,51 @@
 import React, { Component } from 'react'
 import { Container, Text, Header, Button, Icon, Body, Left, Right, Title, Content, List, ListItem, Item, Input } from 'native-base'
-import { StyleSheet, Image ,StatusBar,ImageBackground} from 'react-native'
+import { StyleSheet, Image ,StatusBar,ImageBackground, View} from 'react-native'
+import Dialog from "react-native-dialog";
+import { connect } from 'react-redux';
 
-export default class ForgotpasswordSet extends Component {
+ import {Createpassword} from '../../../Redux/actions/authAction'
+import validatePassword from '../Validation/validatePassword';
+class ForgotpasswordSet extends Component {
+     constructor(props) {
+         super(props)
+     
+         this.state = {
+              newPassword:'',
+              confirmPassword:'',
+         }
+     }
+
+     Dialogclose=()=>{
+        this.setState({
+          visible:false
+        })
+         this.props.navigation.navigate('Login')
+      }
+    
+    
+     
+
+    
+ passwordSubmit=()=>{
+      const{auth} =this.props
+      const passwords={
+        custId:auth.custId,
+        password:this.state.newPassword
+        
+      } 
+       
+       this.props.Createpassword(passwords,()=>{
+        this.setState({
+            visible:true
+          })
+       
+       })
+    
+
+ }
+
+     
     render() {
         return (
             <Container>
@@ -56,7 +99,10 @@ export default class ForgotpasswordSet extends Component {
 
                     <Text style={styles.mobileinput}>Enternew password</Text>
                     <Item regular style={styles.loginInput}>
-                        <Input placeholder='' style={styles.input} />
+                        <Input placeholder='' style={styles.input}
+                                 value={this.state.newPassword}
+                                 onChangeText={passwordText => this.setState({ newPassword: passwordText })}
+                        />
                         <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
 
                     </Item>
@@ -65,13 +111,34 @@ export default class ForgotpasswordSet extends Component {
 
                     <Item regular style={styles.loginInput}>
                         {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                        <Input placeholder='' style={styles.input} />
+                        <Input placeholder='' style={styles.input}
+                          value={this.state.confirmPassword}
+                          onChangeText={passwordText => this.setState({ confirmPassword: passwordText })}
+                         />
                         <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
 
                     </Item>
+
+
+                    <View>
+        <Dialog.Container visible={this.state.visible} >
+          <Dialog.Title>New password Set</Dialog.Title>
+          <Dialog.Description>
+            <Text style={styles.Dialogtext} >You have successfully Set a
+            new password</Text>
+            <Text>
+              
+            </Text>
+          </Dialog.Description>
+          
+          <Dialog.Button label="ok" color="#f7931e"  onPress={this.Dialogclose}
+          />
+        </Dialog.Container>
+      </View>
+
                 </Content>
                 <Button block warning style={styles.btnSubmit}
-                 onPress={()=>this.props.navigation.navigate('ChangePasseword')}
+                 onPress={this.passwordSubmit}
                 >
                     <Text style={styles.submit}  
                     
@@ -82,7 +149,10 @@ export default class ForgotpasswordSet extends Component {
         )
     }
 }
-
+const mapStateToProps=(state)=>({
+    auth:state.auth.userotpdetails
+  })
+ export default connect(mapStateToProps, {Createpassword})(ForgotpasswordSet)
 
 const styles = StyleSheet.create({
     Container: {
@@ -163,6 +233,7 @@ const styles = StyleSheet.create({
         marginLeft: 16,
         marginRight: 16,
         alignItems: 'center',
+        marginTop:50
     },
 
     image: {

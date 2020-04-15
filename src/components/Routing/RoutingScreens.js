@@ -19,6 +19,7 @@ import NotifClass from '../Notifications/NotifcationList';
 import AddBeneficiarys from '../BeneficiaryScreens/AddBeneficiarys';
 import Beneficiary from '../BeneficiaryScreens/Beneficiary';
 import Otherbank from '../BeneficiaryScreens/Otherbank';
+import Quick_login from '../LoginScreens/Quick_login';
 
 const Stack = createStackNavigator();
 
@@ -45,10 +46,13 @@ function Routing() {
 
         <Stack.Screen name="Beneficiary" component={Beneficiary} />
         <Stack.Screen name="Otherbank" component={Otherbank} /> 
+        <Stack.Screen name="Quicklogin" component={Quick_login} /> 
 
 
 
       
+      
+        
      
       </Stack.Navigator>
     </NavigationContainer>

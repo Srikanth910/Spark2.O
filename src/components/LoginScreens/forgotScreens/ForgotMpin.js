@@ -1,9 +1,32 @@
 import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title } from "native-base";
 import { StyleSheet, StatusBar } from 'react-native'
+import { connect } from "react-redux";
 
-export default class ForgotMpin extends Component {
+ import{updateMPIN} from '../../../Redux/actions/authAction'
+class ForgotMpin extends Component {
+     constructor(props) {
+         super(props)
+     
+         this.state = {
+              confirmMpin:'',
+              newMpin:''
+         }
+     }
+     updateMpin=()=>{
+          const{auth} =this.props
+         const mpinData={
+            custId: auth.custId,
+            mpinId:this.state.newMpin
+            
+         }
+          this.props.updateMPIN(mpinData,()=>{
+               this.props.navigation.navigate('Login')
+
+            })
+     }
    
+
 
     render() {
         return (
@@ -31,12 +54,23 @@ export default class ForgotMpin extends Component {
 
                     <Text style={styles.loginText}>Enter MPIN</Text>
                     <Item regular style={styles.textInput}>
-                        <Input placeholder='Enter mpin' style={styles.input} />
+                        <Input placeholder='Enter mpin' style={styles.input} 
+                value={this.state.newMpin}
+                onChangeText={mpinText =>
+                    this.setState({ newMpin: mpinText })
+                }
+                                        />
                     </Item>
 
                     <Text style={styles.loginText}> Confirm new MPIN</Text>
                     <Item regular style={styles.textInput}>
-                        <Input placeholder='Enter mpin' style={styles.input} />
+                        <Input placeholder='Enter mpin' style={styles.input}
+                        
+                        value={this.state.confirmMpin}
+                        onChangeText={mpinText =>
+                            this.setState({ confirmMpin: mpinText })
+                        }
+                        />
                     </Item>
 
 
@@ -44,7 +78,7 @@ export default class ForgotMpin extends Component {
 
 
                 <Button block warning style={styles.btnSubmit} 
-                onPress={()=>this.props.navigation.navigate('Setmpin')}
+                onPress={this.updateMpin}
                 >
                     <Text style={styles.submit}
                       
@@ -57,6 +91,12 @@ export default class ForgotMpin extends Component {
         );
     }
 }
+ const  mapStateToProps=state=>({
+    auth:state.auth.mpinOtp
+ })
+
+ export default  connect(mapStateToProps, {updateMPIN})(ForgotMpin)
+
 const styles = StyleSheet.create({
     Container: {
         flex: 1,

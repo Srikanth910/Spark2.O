@@ -24,6 +24,9 @@ import { Provider } from 'react-redux';
  import  store from './src/Redux/store'
 // import NotificationList from './src/components/Notifications/Notication';
 import NotifClass from './src/components/Notifications/NotifcationList';
+import Beneficiary from './src/components/BeneficiaryScreens/Beneficiary';
+import AddBeneficiarys from './src/components/BeneficiaryScreens/AddBeneficiarys';
+ import Otherbank  from './src/components/BeneficiaryScreens/Otherbank'
 export default class App extends Component {
   render() {
     return (

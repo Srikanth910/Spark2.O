@@ -59,10 +59,8 @@ class Login extends Component {
 
     handleSubmit = async () => {
 
-
          if(this.isLogin()){
               this.setState({errorsLogin:{}})
-      
           const user = {
             password: this.state.password,
             "DEVICEID": "fe13aa4656e467b4",
@@ -86,6 +84,7 @@ class Login extends Component {
 
     }
     mpinSubmit = async () => {
+         console.log(this.state.selected2)
         try {
             const loginData = await AsyncStorage.getItem('Loginuser')
             const user = JSON.parse(loginData)
@@ -136,6 +135,7 @@ class Login extends Component {
 
     render() {
         const { error } = this.props;
+         console.log('errors', error.loginError.Message)
          const {errorsData,errorsLogin}= this.state
 
         return (
@@ -183,7 +183,7 @@ class Login extends Component {
                             />
                         </Item>
                         <Item style={{ justifyContent: 'space-between', borderColor: 'transparent', marginTop: 5 }}>
-                            <Text style={styles.errorText}>{errorsData.mpin}</Text>
+        <Text style={styles.errorText}>{errorsData.mpin} { error.loginError.Message}</Text>
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
                                     onPress={() => this.props.navigation.navigate('Forgotview')}
@@ -261,7 +261,7 @@ class Login extends Component {
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
                                     onPress={() => this.props.navigation.navigate('Forgotpass')}
-                                >Forgot MPIN</Text>
+                                >Forgot password</Text>
                             </TouchableOpacity>
                         </Item>
                      
@@ -374,8 +374,8 @@ const styles = StyleSheet.create({
     },
     forgetText: {
         // marginLeft: 300,
-        width: 91,
-        marginRight: 14,
+        // width: 91,
+        marginRight: 13,
         height: 22,
         // marginTop: 10,
         fontFamily: 'Nunito',

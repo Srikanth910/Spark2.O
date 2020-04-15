@@ -6,7 +6,9 @@ import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 
 import Dialog from "react-native-dialog";
 import Modal from 'react-native-modal';
-export default class Forgot extends Component {
+ import{ResetMpinByMobileNo,otpVerification} from '../../Redux/actions/authAction'
+ import {connect} from 'react-redux'
+ class Forgot extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,6 +16,9 @@ export default class Forgot extends Component {
       password:'',
       isVisible:false,
       isModalVisible: false,
+       mobileNum:'',
+       password:'',
+       Otp:''
     };
   }
   onValueChange2 = (value) => {
@@ -21,30 +26,64 @@ export default class Forgot extends Component {
       selected2: value
     });
   }
-  toggleModal = () => {
-    this.setState({isModalVisible: !this.state.isModalVisible});
-  };
 
   modelopen=()=>{
+   this.setState({
+     isVisible:true
+   })
 
-    this.setState({
-      isVisible:true
-    })
   }
+  
   modelclose=()=>{
     this.setState({
       isVisible:false
     })
   }
 
-   modelview=()=>{
-     this.setState({
-      isVisible:false
-     })
-     this.props.navigation.navigate('ForgotMpin')
-   }
+
+  ResendOtpMpin=()=>{
+     console.log('resend')
+    const   ResendOtp={
+      custId: auth.custId,
+    }
+     this.props.ResendOtpForMPin(ResendOtp)
+
+     
+
+  }
+    
+  //  componentDidMount(){
+  //     this.modelopen()
+  //  }
+   modelSubmit=()=>{
+ const {auth}=this.props
+     const otp={
+    custId: auth.custId,
+     otp: this.state.Otp,
+     refNo:auth.refNo
+     }
+    this.props.otpVerification(otp,()=>{
+      this.setState({
+        isVisible:false
+       })
+       this.props.navigation.navigate('ForgotMpin')
+    })
+  }
+    
+
+    mpin=()=>{
+      const mpindata={
+      mobileNo:this.state.mobileNum,
+      password:this.state.password
+      }
+        
+       this.props.ResetMpinByMobileNo(mpindata,()=>{
+      this.modelopen();
+       })
+    }
   render() {
       const{ password}= this.state
+        console.log('data',this.props.auth)
     return (
 
       <Container style={styles.Container}>
@@ -78,12 +117,10 @@ export default class Forgot extends Component {
               onValueChange={this.onValueChange2.bind(this)}
             >
               <Picker.Item label="Select" value="key0" />
-              <Picker.Item label="Karnataka" value="key1" >
+              <Picker.Item label="Karnataka" value="Karnataka" >
                 <Item>hello</Item>
               </Picker.Item>
-
-
-              <Picker.Item label="maharashtra" value="key2" />
+              <Picker.Item label="maharashtra" value="maharashtra" />
 
             </Picker>
           </Item>
@@ -91,15 +128,23 @@ export default class Forgot extends Component {
 
           <Text style={styles.loginText}>Enter your mobile number</Text>
           <Item regular style={styles.textInput}>
-            <Input placeholder='No need to add +91' style={styles.input} />
+            <Input placeholder='No need to add +91' style={styles.input}
+              value={this.state.mobileNum}
+              onChangeText={mobileNumber => this.setState({ mobileNum: mobileNumber })}
+            
+            />
           </Item>
 
           <Text style={styles.loginText}> Enter your password</Text>
           <Item regular style={styles.textInput}>
-            <Input placeholder='Enter password' style={styles.input} />
+            <Input placeholder='Enter password' style={styles.input} 
+               value={this.state.password}
+               onChangeText={passwordText => this.setState({ password: passwordText })}
+             
+            />
           </Item>
           <View>
-        <Modal isVisible={this.state.isModalVisible} style={{  width:280, maxHeight:200, alignSelf:'center', marginTop:200}} >
+        <Modal isVisible={this.state.isVisible} style={{  width:280, maxHeight:200, alignSelf:'center', marginTop:200}} >
           <View style={{  backgroundColor:'white'}}>
 
              <Text style={styles.otp}>Enter OTP</Text>
@@ -115,21 +160,23 @@ export default class Forgot extends Component {
               }}
               cellStyleFocused={{
                 borderColor: 'black',              }}
-              value={password}
-              onTextChange={password => this.setState({ password })}
+              value={this.state.Otp}
+              onTextChange={Otp => this.setState({ Otp })}
             />
             </View> 
              <ListItem style={{justifyContent:'space-around',marginTop:10}}>
                <Text>2:00.0</Text>
-               <Text style={styles.resendOtp}>Resend OTP</Text>
+               <Text style={styles.resendOtp}
+                onPress={this.ResendOtpMpin}
+               >Resend OTP</Text>
              </ListItem>
           <ListItem style={{justifyContent:'flex-end'}} >
             <TouchableOpacity >
-            <Text  style={styles.cancel} onPress={this.toggleModal}>Cancel</Text>
+            <Text  style={styles.cancel} onPress={this.modelclose}>Cancel</Text>
             </TouchableOpacity>
             
             <TouchableOpacity >
-            <Text style={styles.otpSubmit} onPress={this.modelview}>Submit</Text>
+            <Text style={styles.otpSubmit} onPress={this.modelSubmit}>Submit</Text>
             </TouchableOpacity>
           
           </ListItem>
@@ -138,7 +185,7 @@ export default class Forgot extends Component {
       </View>
         </Content>
         <Button block warning style={styles.btnSubmit}
-          onPress={this.toggleModal}
+          onPress={this.mpin}
         >
           <Text style={styles.submit}>Submit</Text>
         </Button>
@@ -149,6 +196,18 @@ export default class Forgot extends Component {
     );
   }
 }
+
+
+
+  
+
+const mapStateToProps=(state)=>({
+  auth:state.auth.mpinOtp
+})
+
+export default connect(mapStateToProps,{ResetMpinByMobileNo,otpVerification})(Forgot)
+
+ 
 const styles = StyleSheet.create({
   Container: {
     flex: 1,

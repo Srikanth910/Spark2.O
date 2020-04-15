@@ -181,7 +181,7 @@ class Quicklogin extends Component {
                             <Text style={styles.bottomColor}> Terms And conditon  </Text> And
                             <Text style={styles.bottomColor}> Privacy Policy</Text>  </Text>
                                 <Button block warning
-                                    onPress={this.handleSubmit}
+                                    onPress={()=>this.props.navigation.navigate('Login')}
                                 >
                                     <Text>LOGIN</Text>
                                 </Button>
