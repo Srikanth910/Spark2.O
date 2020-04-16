@@ -8,14 +8,14 @@ export default function validatePassword(data) {
  
 
   if (Validator.isEmpty(data.newPassword)) {
-    errorsData.mpin = 'This field is required';
+    errorsData.newPassword = 'This field is required';
   }
   if (Validator.isEmpty(data.confirmPassword)) {
-    errorsData.mpin = 'This field is required';
+    errorsData.confirmPassword = 'This field is required';
   }
 
    if(!Validator.equals(data.newPassword, data.confirmPassword)){
-    errorsData.mpin = 'password must match';
+    errorsData.confirmPassword = 'ppassword do not match';
    }
 
   

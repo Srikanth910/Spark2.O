@@ -6,7 +6,8 @@ import { StyleSheet, TouchableOpacity, SafeAreaView, StatusBar, ImageBackground 
 import { connect } from 'react-redux';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { loginUser, userMpin } from '../../Redux/actions/authAction';
-
+import DeviceInfo from 'react-native-device-info';
+ import{getUniqueID} from 'react-native-device-info'
 import validatemPin from './Validation/mpin';
 import validateLogin from './Validation/Login';
 class Login extends Component {
@@ -22,12 +23,17 @@ class Login extends Component {
             loginUserData: {},
             DeviceID: '',
             showAlert: false,
-            errorsData:{},
-            errorsLogin:{},
-            
+            errorsData: {},
+            id:'',
+            errorsLogin: {},
+
 
         };
     }
+
+
+    
+    
     onValueChange2 = (value) => {
         this.setState({
             selected2: value
@@ -35,56 +41,52 @@ class Login extends Component {
         });
     }
 
-    //  componentDidMount(){
-    //      this.getDeviceId();
-    //  }
-
-
-
-    isValid(){
-         const{ errorsData, isValid}= validatemPin(this.state)
-          if(!isValid){
-               this.setState({errorsData})
-          }
-          return isValid
+    isValid() {
+        const { errorsData, isValid } = validatemPin(this.state)
+        if (!isValid) {
+            this.setState({ errorsData })
+        }
+        return isValid
     }
 
-    isLogin(){
-         const{errorsLogin, isValid} =validateLogin(this.state);
-          if(!isValid){
-              this.setState({errorsLogin})
-          }
-          return isValid
+    isLogin() {
+        const { errorsLogin, isValid } = validateLogin(this.state);
+        if (!isValid) {
+            this.setState({ errorsLogin })
+        }
+        return isValid
     }
 
     handleSubmit = async () => {
 
-         if(this.isLogin()){
-              this.setState({errorsLogin:{}})
-          const user = {
-            password: this.state.password,
-            "DEVICEID": "fe13aa4656e467b4",
-            mobileNo: this.state.mobile
+        if (this.isLogin()) {
+            this.setState({ errorsLogin: {} })
+            const user = {
+                password: this.state.password,
+                "DEVICEID": "fe13aa4656e467b4",
+                mobileNo: this.state.mobile
+            }
+
+            try {
+                await AsyncStorage.setItem('Loginuser', JSON.stringify(user))
+                console.log('login user saved')
+
+            } catch (e) {
+                console.log(e)
+            }
+
+            this.props.loginUser(user, () => {
+                this.props.navigation.navigate('Home')
+            })
+
         }
 
-        try {
-            await AsyncStorage.setItem('Loginuser', JSON.stringify(user))
-            console.log('login user saved')
-
-        } catch (e) {
-            console.log(e)
-        }
-
-        this.props.loginUser(user, () => {
-            this.props.navigation.navigate('Home')
-        })
-    
-    }
-  
 
     }
+
+
     mpinSubmit = async () => {
-         console.log(this.state.selected2)
+        console.log(this.state.selected2)
         try {
             const loginData = await AsyncStorage.getItem('Loginuser')
             const user = JSON.parse(loginData)
@@ -95,29 +97,20 @@ class Login extends Component {
             alert('Failed to load name.')
         }
 
-         if(this.isValid()){
-             
-             this.setState({errorsData:{}})
-        const { loginUserData } = this.state
-        const userMpin = {
-            mPin: this.state.mpin,
-            DEVICEID: loginUserData.DEVICEID,
-            mobileNo: loginUserData.mobileNo
+        if (this.isValid()) {
+            this.setState({ errorsData: {} })
+            const { loginUserData } = this.state
+            const userMpin = {
+                mPin: this.state.mpin,
+                DEVICEID: loginUserData.DEVICEID,
+                mobileNo: loginUserData.mobileNo
+            }
+
+            this.props.userMpin(userMpin, () => {
+                this.props.navigation.navigate('Home')
+            })
+
         }
-
-        this.props.userMpin(userMpin, () => {
-            this.props.navigation.navigate('Home')
-        })
-
-
-        
-
-         }
-         
-         console.log('eror',this.state.errorsData)
-
-
-
 
     }
     showAlert = () => {
@@ -128,15 +121,19 @@ class Login extends Component {
     };
 
     hideAlert = () => {
+
+         dispatch({
+             
+         })
         this.setState({
             showAlert: false
         });
     };
 
     render() {
-        const { error } = this.props;
-         console.log('errors', error.loginError.Message)
-         const {errorsData,errorsLogin}= this.state
+        const { error } = this.props; 
+        //  console.log('error',error)
+        const { errorsData, errorsLogin } = this.state
 
         return (
             <Container style={styles.container}>
@@ -168,12 +165,12 @@ class Login extends Component {
                 </Header>
                 <Tabs
                     tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }}
-                   
+
                 >
-                    <Tab 
-                   
-                      
-                    heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>QUICK ACCESS</Text></TabHeading>}>
+                    <Tab
+
+
+                        heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>QUICK ACCESS</Text></TabHeading>}>
                         <Text style={styles.textData}>Enter MPIN</Text>
                         <Item regular style={styles.textInput}>
                             <Input placeholder='Enter mpin' style={styles.input}
@@ -183,7 +180,7 @@ class Login extends Component {
                             />
                         </Item>
                         <Item style={{ justifyContent: 'space-between', borderColor: 'transparent', marginTop: 5 }}>
-        <Text style={styles.errorText}>{errorsData.mpin} { error.loginError.Message}</Text>
+                            <Text style={styles.errorText}>{errorsData.mpin} {error.loginError.Message}</Text>
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
                                     onPress={() => this.props.navigation.navigate('Forgotview')}
@@ -232,11 +229,10 @@ class Login extends Component {
                                         this.setState({ mobile: editedText })
                                     }
 
-
                                 />
 
                             </Item>
-                                <Text style={styles.errorText}>{errorsLogin.mobile}</Text>
+                            <Text style={styles.errorText}>{errorsLogin.mobile}</Text>
 
                             <Text style={styles.mobileinput} >Enter your password</Text>
 
@@ -252,9 +248,9 @@ class Login extends Component {
                                 <ImageBackground source={require('../../images/pass_icon.png')} style={{ width: 22, height: 19, marginRight: 10 }} />
 
                             </Item>
-                            
+
                         </Form>
-                        
+
 
                         <Item style={{ justifyContent: 'space-between', borderColor: 'transparent', }}>
                             <Text style={styles.errorText}>{errorsLogin.password}</Text>
@@ -264,7 +260,7 @@ class Login extends Component {
                                 >Forgot password</Text>
                             </TouchableOpacity>
                         </Item>
-                     
+
                         <View style={styles.btnbottom}>
                             <Text style={styles.bottomtext}>
                                 By logging in , you agree to our
@@ -286,8 +282,8 @@ class Login extends Component {
                     title="Mpin Worng"
                     message={error.loginError.Message}
                     closeOnTouchOutside={true}
-                    //   closeOnHardwareBackPress={false}
-                    //   showCancelButton={true}
+                    closeOnHardwareBackPress={false}
+                    showCancelButton={true}
                     showConfirmButton={true}
 
                     confirmText="ok"
@@ -340,7 +336,7 @@ const styles = StyleSheet.create({
         marginBottom: 32,
         marginLeft: 16,
         marginRight: 16,
-        marginTop:150,
+        marginTop: 150,
 
 
     },
@@ -455,7 +451,7 @@ const styles = StyleSheet.create({
 
 
     loginText: {
-        marginTop:20,
+        marginTop: 20,
         marginLeft: 20,
         color: '#474a4f',
         fontSize: 14,

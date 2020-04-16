@@ -13,7 +13,7 @@ import ChangeMpin from '../LoginScreens/forgotScreens/ChangeMpin';
 import ForgotpasswordSet from '../LoginScreens/forgotScreens/ForgotpasswordSet';
 import ChangePasseword from '../LoginScreens/forgotScreens/ChangePassword';
 import Setmpin from '../LoginScreens/forgotScreens/Setmpin';
-import Home from '../Home';
+import Home from '../Home/Home'
 import LoginButton from '../LoginScreens/LoginButton';
 import NotifClass from '../Notifications/NotifcationList';
 import AddBeneficiarys from '../BeneficiaryScreens/AddBeneficiarys';
@@ -21,6 +21,7 @@ import Beneficiary from '../BeneficiaryScreens/Beneficiary';
 import Otherbank from '../BeneficiaryScreens/Otherbank';
 import Quick_login from '../LoginScreens/Quick_login';
 
+import {ErrorAlert} from '../modelAlerts/DialogAlert'
 const Stack = createStackNavigator();
 
 function Routing() {
@@ -49,6 +50,7 @@ function Routing() {
         <Stack.Screen name="Quicklogin" component={Quick_login} /> 
 
 
+        {/* <Stack.Screen name="ErrorAlert" component={ErrorAlert} />  */}
 
       
       

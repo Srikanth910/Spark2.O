@@ -2,33 +2,45 @@ import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title } from "native-base";
 import { StyleSheet, StatusBar } from 'react-native'
 import { connect } from "react-redux";
-
- import{updateMPIN} from '../../../Redux/actions/authAction'
+import{updateMPIN} from '../../../Redux/actions/authAction'
+import validatePassword from "../Validation/validatePassword";
+import validateMpin from "../Validation/validateMpin";
 class ForgotMpin extends Component {
      constructor(props) {
          super(props)
      
          this.state = {
               confirmMpin:'',
-              newMpin:''
+              newMpin:'',
+              errorsData:{},
+
          }
      }
+
+     validMpin(){
+        const {errorsData, isValid} =validateMpin(this.state)
+         if(!isValid){
+             this.setState({errorsData})
+         }
+          return isValid
+   }
+      
      updateMpin=()=>{
+
+        if(this.validMpin()){
           const{auth} =this.props
          const mpinData={
             custId: auth.custId,
-            mpinId:this.state.newMpin
-            
+            mpinId:this.state.newMpin  
          }
           this.props.updateMPIN(mpinData,()=>{
                this.props.navigation.navigate('Login')
 
             })
+        }
      }
-   
-
-
     render() {
+         const{errorsData}=this.state
         return (
 
             <Container style={styles.Container}>
@@ -50,7 +62,7 @@ class ForgotMpin extends Component {
 
                 </Header>
 
-                <Content >
+                <Content  style={styles.groupField}>
 
                     <Text style={styles.loginText}>Enter MPIN</Text>
                     <Item regular style={styles.textInput}>
@@ -61,6 +73,7 @@ class ForgotMpin extends Component {
                 }
                                         />
                     </Item>
+            <Text style={styles.error}>{errorsData.newMpin}</Text>
 
                     <Text style={styles.loginText}> Confirm new MPIN</Text>
                     <Item regular style={styles.textInput}>
@@ -72,6 +85,7 @@ class ForgotMpin extends Component {
                         }
                         />
                     </Item>
+                    <Text style={styles.error}>{errorsData.confirmMpin}</Text>
 
 
                 </Content>
@@ -103,12 +117,15 @@ const styles = StyleSheet.create({
     },
    
     textInput: {
-        marginTop: 10,
+        // marginTop: 10,
         borderRadius: 5,
         height: 40,
         marginLeft: 17,
         marginRight: 15,
         backgroundColor: '#e1e4eb',
+    },
+    groupField:{
+  marginTop:20
     },
 
     input: {
@@ -119,7 +136,7 @@ const styles = StyleSheet.create({
     },
    
     loginText: {
-        paddingTop: 20,
+        // paddingTop: 20,
         marginTop:10,
         marginLeft: 15,
          color:'#474a4f',
@@ -146,6 +163,12 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         textAlign: 'center',
         color: '#ffffff'
-    }
+    },
+     error:{
+           color:'red',
+            fontSize:14,
+            marginLeft:15
+
+     }
 
 })

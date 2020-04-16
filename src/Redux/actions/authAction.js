@@ -47,6 +47,7 @@ export const userMpin = (data, callback) => dispatch => {
 
             let userMpin = res.data
             if (userMpin.code === "302") {
+               
                 dispatch({
                     type: MPIN_FAIL,
                     payload: res.data
@@ -59,7 +60,10 @@ export const userMpin = (data, callback) => dispatch => {
                 })
             }
         }).catch(err => {
-            console.log('error', err)
+             dispatch({
+                 type:GET_ERROR,
+                 payload:err
+             })
         })
 }
 

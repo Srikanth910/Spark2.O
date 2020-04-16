@@ -13,6 +13,7 @@ class ForgotpasswordSet extends Component {
          this.state = {
               newPassword:'',
               confirmPassword:'',
+               errorsData:{}
          }
      }
 
@@ -25,28 +26,42 @@ class ForgotpasswordSet extends Component {
     
     
      
-
+ validpassword(){
+      const {errorsData, isValid} =validatePassword(this.state)
+       if(!isValid){
+           this.setState({errorsData})
+       }
+        return isValid
+ }
     
  passwordSubmit=()=>{
+  
+     if(this.validpassword()){
+
+         this.setState({errorsData:{}})
       const{auth} =this.props
+
       const passwords={
         custId:auth.custId,
         password:this.state.newPassword
         
       } 
        
+       console.log(passwords)
        this.props.Createpassword(passwords,()=>{
         this.setState({
             visible:true
           })
        
        })
-    
+     }
 
  }
 
      
     render() {
+         const {errorsData}=this.state
+        //  console.log(this.state.errorsData)
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
@@ -96,7 +111,7 @@ class ForgotpasswordSet extends Component {
                         <Text style={styles.text}> No  special characters  </Text>
 
                     </Item>
-
+                   <View style={styles.groupFields}>
                     <Text style={styles.mobileinput}>Enternew password</Text>
                     <Item regular style={styles.loginInput}>
                         <Input placeholder='' style={styles.input}
@@ -106,6 +121,8 @@ class ForgotpasswordSet extends Component {
                         <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
 
                     </Item>
+
+           <Text style={styles.error}>{errorsData.newPassword}</Text>
 
                     <Text style={styles.mobileinput} >Enter  confirm password</Text>
 
@@ -118,8 +135,8 @@ class ForgotpasswordSet extends Component {
                         <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/>
 
                     </Item>
-
-
+                    <Text style={styles.error}>{errorsData.confirmPassword}</Text>
+                    </View>
                     <View>
         <Dialog.Container visible={this.state.visible} >
           <Dialog.Title>New password Set</Dialog.Title>
@@ -174,6 +191,10 @@ const styles = StyleSheet.create({
         marginLeft: 20
 
     },
+    groupFields:{
+        marginTop:15
+
+    },
 
     submit: {
         // width:52,
@@ -223,7 +244,7 @@ const styles = StyleSheet.create({
 
     },
     mobileinput: {
-        marginTop: 20,
+        // marginTop: 20,
         marginLeft: 20,
         color: '#474a4f',
         fontSize: 14,
@@ -243,6 +264,11 @@ const styles = StyleSheet.create({
         marginTop: 30
 
 
+    },
+    error:{
+        color:'red',
+         fontSize:14,
+         marginLeft:15
     }
 
 })

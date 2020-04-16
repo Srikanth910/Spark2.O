@@ -4,6 +4,7 @@ import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, 
 
   const initialState={
       loginError:{},
+      showAlert:false,
       catchERROR:{},
       otpError:{}
   }
@@ -15,13 +16,14 @@ import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, 
              case MPIN_FAIL:{
              return {
                  ...state,
-                 loginError:action.payload
+                 loginError:action.payload,
+                 showAlert:true,
              }
 
          }
            case LOGIN_SUCCESS:
                 return{
-                    loginError:{}
+                    loginError:{},
                 }
           case GET_ERROR:
               return{

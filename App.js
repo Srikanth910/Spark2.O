@@ -16,7 +16,7 @@ import ForgotpasswordSet from './src/components/LoginScreens/forgotScreens/Forgo
 import ChangePasseword from './src/components/LoginScreens/forgotScreens/ChangePassword';
 import Setmpin from './src/components/LoginScreens/forgotScreens/Setmpin';
 import ChangeMpin from './src/components/LoginScreens/forgotScreens/ChangeMpin';
-import Home from './src/components/Home';
+// import Home from './src/components/Home';
 import Forgot from './src/components/LoginScreens/Forgot';
 import { Provider } from 'react-redux';
 
@@ -27,6 +27,8 @@ import NotifClass from './src/components/Notifications/NotifcationList';
 import Beneficiary from './src/components/BeneficiaryScreens/Beneficiary';
 import AddBeneficiarys from './src/components/BeneficiaryScreens/AddBeneficiarys';
  import Otherbank  from './src/components/BeneficiaryScreens/Otherbank'
+import ErrorAlert from './src/components/modelAlerts/DialogAlert';
+import Home from './src/components/Home/Home';
 export default class App extends Component {
   render() {
     return (
@@ -34,7 +36,7 @@ export default class App extends Component {
       
       <Provider store={store}>
       
-        <Routing/>
+        <Home/>
         </Provider>
       </>
     );
