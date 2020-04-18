@@ -160,8 +160,8 @@ class Login extends Component {
             <Container style={styles.container}>
                 <Header style={{ backgroundColor: "#1b1464", height: 120 }}>
                     <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
-                    <Body>
-                        <Left style={{ marginLeft: 40, marginTop: 20 }}>
+                
+                        <Left style={{ marginLeft:10, marginTop: 20 }}>
 
                             <Button transparent  >
                                 <Icon name='close' style={styles.icon}
@@ -176,7 +176,7 @@ class Login extends Component {
 
 
                         <Right />
-                    </Body>
+                    
 
                     <Right>
                         <ImageBackground source={require('../../images/img_login2.png')} style={styles.loginbg} />

@@ -8,7 +8,6 @@ import {
     RESEND_OTP_FAIL,
     VALIDATE_OTP_SUCCESS, VALIDATE_OTP_FAIL, FORGET_MPIN_OTP_FAIL, FORGET_MPIN_OTP_SUCCESS, UPDATE_MPIN_FAIL, UPDATE_MPIN_SUCCESS
 } from '../constants/types';
-
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 export const loginUser = (data) => dispatch => {
     console.log('api', data)
@@ -38,16 +37,13 @@ export const loginUser = (data) => dispatch => {
                 payload: err
             })
         })
-
-
 }
 export const userMpin = (data, callback) => dispatch => {
     console.log(data)
     
      return axios.post(`${API_URL}/loginByMpinV2_O`, data)
         .then(res => {
-             
-
+    
             let userMpin = res.data
              console.log(userMpin)
             if (userMpin.code === "302") {

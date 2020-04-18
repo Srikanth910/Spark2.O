@@ -13,6 +13,7 @@ export default class AddBeneficiarys extends Component {
             radioBtnOne: false,
             radioBtnTwo: false,
             password: '',
+            name:'',
         };
     }
     onValueChange2 = (value) => {
@@ -32,6 +33,11 @@ export default class AddBeneficiarys extends Component {
             ismodelopen: false
         })
         this.props.navigation.navigate('passwordSet')
+    }
+    radiobtn=(name)=>{
+        this.setState({
+            name:name
+        })
     }
 
     render() {
@@ -78,22 +84,22 @@ export default class AddBeneficiarys extends Component {
                         </Item>
 
                         <Text style={styles.StateText}>Select beneficiary account type</Text>
-                        <ListItem onPress={() => this.setState({ radioBtnOne: !this.state.radioBtnOne })}>
+                        <ListItem >
                             <Right>
-                                <Radio selected={this.state.radioBtnOne} color="orange" selectedColor="orange" onPress={() => this.setState({ radioBtnOne: !this.state.radioBtnOne })} />
+                                <Radio selected={this.state.radioBtnOne} color="orange" selectedColor="orange" onPress={() => this.radiobtn('true') }/>
                             </Right>
                             <Text>  Savinges Account</Text>
                         </ListItem>
 
-                        <ListItem onPress={() => this.setState({ radioBtnTwo: !this.state.radioBtnTwo })}>
+                        <ListItem >
                             <Right>
-                                <Radio selected={this.state.radioBtnTwo} color="orange" selectedColor="orange" onPress={() => this.setState({ radioBtnTwo: !this.state.radioBtnTwo })} />
+                                <Radio selected={this.state.radioBtnTwo} color="orange" selectedColor="orange" onPress={() => this.radiobtn('false') }/>
                             </Right>
                             <Text>  Business Account</Text>
                         </ListItem>
 
 
-                        {this.state.radioBtnOne === true &&
+                        {this.state.name === "true" &&
                             <View>
                                 <Text style={styles.StateText}>Enter beneficiary phone number</Text>
                                 <Item style={styles.Inputstyle}>
@@ -107,7 +113,7 @@ export default class AddBeneficiarys extends Component {
                             </View>}
 
 
-                        {this.state.radioBtnTwo === true &&
+                        {this.state.name === "false" &&
                             <View>
                                 <Text style={styles.StateText}>Enter beneficiary Business Account ID</Text>
                                 <Item regular style={styles.Inputstyle}>

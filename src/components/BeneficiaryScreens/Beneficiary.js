@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { Container, Header, Tabs, Text, Tab, ListItem, TabHeading, Title, Item, Input, Button, Body, View, Icon, Left, Right } from 'native-base'
 import { StyleSheet, StatusBar, Image } from 'react-native';
@@ -51,7 +50,7 @@ export default class Beneficiary extends Component {
           <View>
             <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.ismodelopen} >
               <View style={{ backgroundColor: 'white' }}>
-                
+               
                 <Text style={styles.otpText}>Add Spark member as beneficiary</Text>
                 <Text style={styles.otpText}>Add a bank account as beneficiary</Text>
                 <ListItem style={{ justifyContent: 'flex-end' }} >
@@ -89,8 +88,8 @@ export default class Beneficiary extends Component {
 
 
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Others</Text></TabHeading>}>
-            {/* <Image style={styles.imagestyle} source={require('../../images/Spark_Profile.png')} */}
-              {/* style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
+            {/* <Image style={styles.imagestyle} source={require('../../images/Spark_Profile.png')}
+              style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
             </Image> */}
 
 
@@ -151,14 +150,14 @@ cancel:{
     color: '#f7931e',
     textAlign: 'right',
     marginRight:180,
-    
+   
 
 
 
 },
 
 otpText:{
-  
+ 
   height: 70,
   fontSize: 18,
   marginLeft:30
@@ -193,4 +192,3 @@ otpText:{
     width: 380,
   }
 })
-
