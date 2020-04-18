@@ -22,6 +22,9 @@ import Otherbank from '../BeneficiaryScreens/Otherbank';
 import Quick_login from '../LoginScreens/Quick_login';
 
 import {ErrorAlert} from '../modelAlerts/DialogAlert'
+import Landingpage from '../landingpage/Landingpage';
+import Signup from '../SignUpscreens/SignupScreen';
+
 const Stack = createStackNavigator();
 
 function Routing() {
@@ -31,6 +34,7 @@ function Routing() {
       screenOptions={{
         headerShown: false
       }}>
+         <Stack.Screen name="Landingpage" component={Landingpage} /> 
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Forgotpass" component={ForgotPassword} />
         <Stack.Screen name="ForgotMpin" component={ForgotMpin} />
@@ -48,11 +52,12 @@ function Routing() {
         <Stack.Screen name="Beneficiary" component={Beneficiary} />
         <Stack.Screen name="Otherbank" component={Otherbank} /> 
         <Stack.Screen name="Quicklogin" component={Quick_login} /> 
+        <Stack.Screen name="Signup" component={Signup} /> 
 
 
-        {/* <Stack.Screen name="ErrorAlert" component={ErrorAlert} />  */}
 
-      
+       
+   
       
         
      

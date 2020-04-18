@@ -496,10 +496,11 @@ const styles = StyleSheet.create({
 
     bottomtext: {
         color: "#999999",
-        width: 329,
+        // width: 329,
         height: 52.7,
         marginLeft: 16,
         paddingBottom: 10,
+        marginRight:16
 
 
     },

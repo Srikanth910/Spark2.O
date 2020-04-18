@@ -81,6 +81,7 @@ class ForgotPassword extends Component {
           <Body style={{ alignItems: 'flex-start', marginLeft: 40 }} >
             <Title style={styles.mpintext}>Forgot password</Title>
           </Body>
+          <Right/>
         </Header>
         <Content >
           <Form>

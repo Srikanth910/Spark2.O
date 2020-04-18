@@ -29,7 +29,8 @@ import AddBeneficiarys from './src/components/BeneficiaryScreens/AddBeneficiarys
  import Otherbank  from './src/components/BeneficiaryScreens/Otherbank'
 import ErrorAlert from './src/components/modelAlerts/DialogAlert';
 import Home from './src/components/Home/Home';
- import SignupScreen from './src/components/SignUpscreens/SignupScreen'
+ 
+import Landingpage from './src/components/landingpage/Landingpage';
 export default class App extends Component {
   render() {
     return (
