@@ -4,9 +4,9 @@ import { StyleSheet, StatusBar } from 'react-native'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 import Modal from 'react-native-modal';
 import { connect } from "react-redux";
- import {forgetPasswordResendOTP,otpVerification,resendOTP} from '../../../Redux/actions/authAction'
+import { forgetPasswordResendOTP, otpVerification, resendOTP } from '../../../Redux/actions/authAction'
 import { TouchableOpacity } from "react-native-gesture-handler";
- class ForgotPassword extends Component {
+class ForgotPassword extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -15,7 +15,7 @@ import { TouchableOpacity } from "react-native-gesture-handler";
       isVisible: false,
       showAlert: false,
       mobileNum: '',
-      mobileOtp:''
+      mobileOtp: ''
     };
   }
   onValueChange2 = (value) => {
@@ -25,47 +25,47 @@ import { TouchableOpacity } from "react-native-gesture-handler";
   }
   toggelopen = () => {
     this.setState({
-      isVisible:true
+      isVisible: true
     })
   }
   toggelclose = () => {
     this.setState({
-      isVisible:false
+      isVisible: false
     })
   }
-  handlesubmit=()=>{
-     console.log('ca;ed')
-    const user={
-      mobileNo:this.state.mobileNum
-         }
-        this.props.forgetPasswordResendOTP(user,()=>{
-           this.toggelopen()
-        })
+  handlesubmit = () => {
+    console.log('ca;ed')
+    const user = {
+      mobileNo: this.state.mobileNum
+    }
+    this.props.forgetPasswordResendOTP(user, () => {
+      this.toggelopen()
+    })
   }
-   otpSend=()=>{
-      console.log('data')
-      const {auth}=this.props
-     const userOtp={  
-      custId:auth.custId,
-      otp:this.state.mobileOtp,
-      refNo:auth.refNo
-     }
- this.props.otpVerification(userOtp,()=>{
-          this.toggelclose();     
-          this.props.navigation.navigate('passwordSet')
-         })
-   }
-   otpResend=()=>{
-    const {auth} =this.props
+  otpSend = () => {
+    console.log('data')
+    const { auth } = this.props
+    const userOtp = {
+      custId: auth.custId,
+      otp: this.state.mobileOtp,
+      refNo: auth.refNo
+    }
+    this.props.otpVerification(userOtp, () => {
+      this.toggelclose();
+      this.props.navigation.navigate('passwordSet')
+    })
+  }
+  otpResend = () => {
+    const { auth } = this.props
 
-    const resendotp={
-      custId:auth.custId
+    const resendotp = {
+      custId: auth.custId
     }
 
-    this.props.resendOTP (resendotp)
-    }
+    this.props.resendOTP(resendotp)
+  }
   render() {
-    const { password, showAlert,mobileOtp }= this.state
+    const { password, showAlert, mobileOtp } = this.state
     return (
       <Container style={styles.Container}>
         <Header icon="eye" style={{ backgroundColor: '#1b1464', height: 80 }}>
@@ -139,22 +139,22 @@ import { TouchableOpacity } from "react-native-gesture-handler";
               </View>
               <ListItem style={{ justifyContent: 'space-around', marginTop: 10 }}>
                 <Text>2:00.0</Text>
-                 <TouchableOpacity
-                    >
-                 <Text style={styles.resendOtp} 
-              onPress={this.otpResend}
-                >Resend OTP</Text>
-                 </TouchableOpacity>
-                
+                <TouchableOpacity
+                >
+                  <Text style={styles.resendOtp}
+                    onPress={this.otpResend}
+                  >Resend OTP</Text>
+                </TouchableOpacity>
+
               </ListItem>
               <ListItem style={{ justifyContent: 'flex-end' }} >
                 <Text style={styles.cancel} onPress={this.toggelclose}>Cancel</Text>
-                 <TouchableOpacity  onPress={this.otpsubmit}>
-               
-                <Text style={styles.otpSubmit}
-                 onPress={this.otpSend}
-                >Submit</Text>
-                
+                <TouchableOpacity onPress={this.otpsubmit}>
+
+                  <Text style={styles.otpSubmit}
+                    onPress={this.otpSend}
+                  >Submit</Text>
+
                 </TouchableOpacity>
               </ListItem>
             </View>
@@ -171,12 +171,12 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 }
 
 
-const mapStateToProps=(state)=>({
-  auth:state.auth.userotpdetails
+const mapStateToProps = (state) => ({
+  auth: state.auth.userotpdetails
 })
 
-export default connect(mapStateToProps,{forgetPasswordResendOTP,otpVerification,resendOTP}) (ForgotPassword)
- 
+export default connect(mapStateToProps, { forgetPasswordResendOTP, otpVerification, resendOTP })(ForgotPassword)
+
 const styles = StyleSheet.create({
   Container: {
     flex: 1,

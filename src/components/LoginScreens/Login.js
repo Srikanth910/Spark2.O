@@ -26,6 +26,7 @@ class Login extends Component {
             errorsData: {},
             id:'',
             errorsLogin: {},
+            errorAlert:{}
 
 
         };
@@ -75,8 +76,18 @@ class Login extends Component {
                 console.log(e)
             }
 
-            this.props.loginUser(user, () => {
+            this.props.loginUser(user).then(()=>{
+                 const {error,auth} =this.props
+                 if(error.loginError.code==="404"){
+
+                    this.setState({
+                   showAlert:true,
+                errorAlert:error.loginError
+                    })
+
+                 }else if(auth.userMpin.code==="200"){
                 this.props.navigation.navigate('Home')
+                 }
             })
 
         }
@@ -106,9 +117,21 @@ class Login extends Component {
                 mobileNo: loginUserData.mobileNo
             }
 
-            this.props.userMpin(userMpin, () => {
-                this.props.navigation.navigate('Home')
+            this.props.userMpin(userMpin).then(()=>{
+             const {error,auth}=this.props
+
+                if(error.loginError.code==="302"){
+                    this.setState({
+                        errorAlert:error.loginError,
+                        showAlert: true
+                    });
+
+                }else if(auth.userMpin.code==="200"){
+                    this.props.navigation.navigate('Home')
+                }
+
             })
+              
 
         }
 
@@ -122,18 +145,16 @@ class Login extends Component {
 
     hideAlert = () => {
 
-         dispatch({
-             
-         })
+         
         this.setState({
             showAlert: false
         });
     };
 
     render() {
-        const { error } = this.props; 
-        //  console.log('error',error)
-        const { errorsData, errorsLogin } = this.state
+        const { error,auth } = this.props; 
+         console.log('error',auth)
+        const { errorsData, errorsLogin, errorAlert } = this.state
 
         return (
             <Container style={styles.container}>
@@ -180,7 +201,7 @@ class Login extends Component {
                             />
                         </Item>
                         <Item style={{ justifyContent: 'space-between', borderColor: 'transparent', marginTop: 5 }}>
-                            <Text style={styles.errorText}>{errorsData.mpin} {error.loginError.Message}</Text>
+                            <Text style={styles.errorText}>{errorsData.mpin}</Text>
                             <TouchableOpacity >
                                 <Text style={styles.forgetText}
                                     onPress={() => this.props.navigation.navigate('Forgotview')}
@@ -279,9 +300,9 @@ class Login extends Component {
                 <AwesomeAlert
                     show={this.state.showAlert}
                     showProgress={false}
-                    title="Mpin Worng"
-                    message={error.loginError.Message}
-                    closeOnTouchOutside={true}
+                    title={error.loginError.Title}
+                    message={errorAlert.Message}
+                    // closeOnTouchOutside={true}
                     closeOnHardwareBackPress={false}
                     showCancelButton={true}
                     showConfirmButton={true}

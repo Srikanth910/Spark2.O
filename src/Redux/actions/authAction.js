@@ -10,9 +10,11 @@ import {
 } from '../constants/types';
 
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
-export const loginUser = (data, callback) => dispatch => {
+export const loginUser = (data) => dispatch => {
     console.log('api', data)
-    axios.post(`${API_URL}/loginByPasswordV2_O `, data)
+
+
+    return  axios.post(`${API_URL}/loginByPasswordV2_O `, data)
         .then(res => {
             console.log('res', res.data)
 
@@ -28,7 +30,6 @@ export const loginUser = (data, callback) => dispatch => {
                     type: LOGIN_SUCCESS,
                     payload: res.data.Data
                 })
-                callback();
 
             }
         }).catch(err => {
@@ -42,10 +43,13 @@ export const loginUser = (data, callback) => dispatch => {
 }
 export const userMpin = (data, callback) => dispatch => {
     console.log(data)
-    axios.post(`${API_URL}/loginByMpinV2_O`, data)
+    
+     return axios.post(`${API_URL}/loginByMpinV2_O`, data)
         .then(res => {
+             
 
             let userMpin = res.data
+             console.log(userMpin)
             if (userMpin.code === "302") {
                
                 dispatch({
@@ -53,7 +57,7 @@ export const userMpin = (data, callback) => dispatch => {
                     payload: res.data
                 })
             } else if (userMpin.Data.code === "200") {
-                callback()
+               
                 dispatch({
                     type: MPIN_SUCCESS,
                     payload: res.data.Data

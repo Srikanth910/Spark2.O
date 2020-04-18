@@ -1,35 +1,84 @@
 
 import React, { Component } from 'react'
+import { Container, Header, Tabs, Text, Tab, ListItem, TabHeading, Title, Item, Input, Button, Body, View, Icon, Left, Right } from 'native-base'
+import { StyleSheet, StatusBar, Image } from 'react-native';
+import Modal from 'react-native-modal';
 
-import { Container, Header, Tabs, Text, Tab, TabHeading, Title,Item, Input, Button, Body, View,Icon, Left } from 'native-base'
-import { StyleSheet ,StatusBar} from 'react-native'
+
 export default class Beneficiary extends Component {
+
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      selected2: undefined,
+      radioBtnOne: false,
+      radioBtnTwo: false,
+      password: '',
+
+    };
+  }
+  toggelopen = () => {
+    this.setState({
+      ismodelopen: !this.state.ismodelopen
+    })
+  }
+  changepage = () => {
+    this.setState({
+      ismodelopen: false
+    })
+    this.props.navigation.navigate('passwordSet')
+  }
   render() {
+    const { password } = this.state
     return (
       <Container>
 
         <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
-
-
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
-
           <Left>
             <Button transparent style={styles.btnclose}>
               <Icon name='close'
-                onPress={() => this.props.navigation.navigate('')}
+                onPress={() => this.props.navigation.navigate('Otherbank')}
               />
-              
             </Button>
-            <Body style={styles.heddertext} >
-                        <Title style={styles.headertext}>Beneficiaries</Title>
-                    </Body>
+            <Body style={{ alignItems: 'flex-start', marginRight: -250, bottom: 30 }}>
+              <Title >Beneficiaries</Title>
+            </Body>
           </Left>
-         
+
+
+          <View>
+            <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.ismodelopen} >
+              <View style={{ backgroundColor: 'white' }}>
+                
+                <Text style={styles.otpText}>Add Spark member as beneficiary</Text>
+                <Text style={styles.otpText}>Add a bank account as beneficiary</Text>
+                <ListItem style={{ justifyContent: 'flex-end' }} >
+                  <Text style={styles.cancel} onPress={this.toggelopen}>Cancel</Text>
+                </ListItem>
+              </View>
+            </Modal>
+          </View>
+
+
+          <Right>
+            <Button transparent style={styles.btnclose} onPress={this.toggelopen} >
+              <Icon name='md-add' />
+              {/* onPress={() => this.props.navigation.navigate('')} */}
+            </Button>
+          </Right>
+
         </Header>
 
 
         <Tabs tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }}>
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Spark</Text></TabHeading>}>
+
+            {/* <Image style={styles.imagestyle} source={require('../../images/Spark_Profile.png')}
+              style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
+            </Image> */}
+
             <Button block warning style={styles.Addbtnbeni}
 
               onPress={() => this.props.navigation.navigate('AddBeneficiarys')}>
@@ -40,8 +89,15 @@ export default class Beneficiary extends Component {
 
 
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Others</Text></TabHeading>}>
-            <Button block warning style={styles.Addbtnbeni}
+            {/* <Image style={styles.imagestyle} source={require('../../images/Spark_Profile.png')} */}
+              {/* style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
+            </Image> */}
 
+
+
+
+
+            <Button block warning style={styles.Addbtnbeni}
               onPress={() => this.props.navigation.navigate('Otherbank')}>
               <Text>Add beneficiries</Text>
 
@@ -63,9 +119,11 @@ export default class Beneficiary extends Component {
 
 const styles = StyleSheet.create({
   headerText: {
-    color: 'white'
-  },
+    color: 'white',
 
+
+
+  },
 
   forgetText: {
     marginLeft: 300,
@@ -85,22 +143,42 @@ const styles = StyleSheet.create({
 
 
   },
+cancel:{
+    width: 91,
+    height: 22,
+    fontFamily: 'Nunito',
+    fontSize: 16,
+    color: '#f7931e',
+    textAlign: 'right',
+    marginRight:180,
+    
+
+
+
+},
+
+otpText:{
   
+  height: 70,
+  fontSize: 18,
+  marginLeft:30
+
+},
 
   btnclose: {
-    marginTop:20,
+    marginTop: 20,
     width: 80,
-    marginLeft:-100,
+    marginLeft: 10,
 
 
   },
 
- 
+
   headertext: {
     marginTop: -37,
     width: 150,
-    marginLeft:-60,
-    fontSize:24,
+    marginLeft: -60,
+    fontSize: 24,
 
 
   },
@@ -110,10 +188,9 @@ const styles = StyleSheet.create({
 
   },
   Addbtnbeni: {
-    marginTop: 450,
-    marginLeft: 35,
-    width: 340,
+    marginTop: 20,
+    marginLeft: 16,
+    width: 380,
   }
 })
-
 

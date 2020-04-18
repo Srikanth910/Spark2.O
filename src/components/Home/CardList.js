@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Container, Text, Card, CardItem,Left,Button ,Body ,Icon, Right } from 'native-base'
  import {StyleSheet} from 'react-native'
+ import { SliderBox } from "react-native-image-slider-box";
+
 export default class CardList extends Component {
     render() {
         return (

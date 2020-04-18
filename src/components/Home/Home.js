@@ -1,11 +1,22 @@
 import React, { Component } from 'react';
 import { Container, Header, Content, Footer, FooterTab, Button, Icon, Body, Title, Text, Left, Right, Card } from 'native-base';
  import {connect } from 'react-redux';
-import{StyleSheet, StatusBar, View} from  'react-native';
+import{StyleSheet, StatusBar, View, ImageBackground} from  'react-native';
 import CardList from './CardList';
- 
+import KycAccordion from './kycAccordion';
+import ImageSilder from './ImageSilder';
 
  class Home extends Component {
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+     
+    }
+  }
+  
+
+
   render() {
     
      const{auth}=this.props
@@ -17,7 +28,7 @@ import CardList from './CardList';
 
                     <Left>
                       <Text style={styles.userName}>Srikanth</Text>
-                      <Text style={styles.id}>Member ID 1181</Text>
+                      <Text style={styles.id}>MemberID 1181</Text>
                         
                     </Left>
                    
@@ -27,6 +38,10 @@ import CardList from './CardList';
 
             
             <Content >
+              <ImageSilder/>
+
+          
+
               <View style={styles.Rectangle}>
                 <Text style={styles.saving}>SAVINGS</Text>
                 <Text style={styles.savingData}>This is your zero balance account which gives you up to 8% p.a. interest credited daily.</Text>
@@ -34,22 +49,29 @@ import CardList from './CardList';
           
    <CardList></CardList>
               </View>
-              <View style={styles.kycRectangle}>
+              <View style={styles.kycRectangle} >
+                <KycAccordion/>
 
               </View>
-              <View style={styles.fdRectangle}>
+             <View style={styles.fdRectangle}>
+               <Text style={styles.saving}>FIXED DEPOSITS</Text>
+               <Text style={styles.savingData}>You can earn up to 16% interest p.a. Also avail the option 
+                 to earn interest on deposit every month!</Text>
+               <View style={styles.fdcolor}>
+              
+               </View>
+               
 
               </View>
               <View style={styles.rdRectangle}>
 
-              </View>
-
+              </View> 
+            
             </Content>
         <Footer >
           <FooterTab style={{backgroundColor:'#ffffff'}} >
             <Button
             
-           
             >
               <Icon name="home" style={styles.bottomIcon} active/>
             </Button>
@@ -59,10 +81,12 @@ import CardList from './CardList';
                style={styles.bottomIcon}
 
               
-              //  onPress={()=>this.props.navigation.navigate('NotifClass')}
+            onPress={()=>this.props.navigation.navigate('NotifClass')}
               />
             </Button>
-            <Button>
+            <Button
+             onPress={()=>this.props.navigation.navigate('Beneficiary')}
+            >
               <Icon name="settings" style={styles.bottomIcon} />
             </Button>
           </FooterTab>
@@ -111,11 +135,12 @@ export default connect(mapStateToProps,{})  (Home)
      Rectangle:{
       //  width:360,
        height:260,
+       marginTop:20,
        backgroundColor:'#ffffff'
      },
      kycRectangle:{
        marginTop:30,
-      height:115,
+     height:0,
       backgroundColor:'#ffffff'
 
      },
@@ -154,6 +179,14 @@ marginLeft:16,
       fontWeight:'normal'
        
 
-     }
+     },
+     fdcolor:{
+
+      height:195,
+      backgroundColor:'#1b1464',
+     
+      // background-image: linear-gradient(184deg, #1b1464 65%, #3d3c77 -6%);
+    }
+     
 
  })
