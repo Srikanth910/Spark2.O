@@ -83,8 +83,8 @@ class Login extends Component {
             this.setState({ errorsLogin: {} })
             const user = {
                 password: this.state.password,
-                // "DEVICEID": "fe13aa4656e467b4",
-                DeviceID:this.state.DeviceID,
+                "DEVICEID": "fe13aa4656e467b4",
+                // DeviceID:this.state.DeviceID,
                 mobileNo: this.state.mobile
             }
 
@@ -133,7 +133,8 @@ class Login extends Component {
             const { loginUserData } = this.state
             const userMpin = {
                 mPin: this.state.mpin,
-                DEVICEID: this.state.DeviceID,
+                // DEVICEID: this.state.DeviceID,
+                "DEVICEID": "fe13aa4656e467b4",
                 mobileNo: loginUserData.mobileNo
             }
    console.log(userMpin)
