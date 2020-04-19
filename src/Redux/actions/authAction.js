@@ -44,6 +44,7 @@ export const userMpin = (data, callback) => dispatch => {
      return axios.post(`${API_URL}/loginByMpinV2_O`, data)
         .then(res => {
     
+             console.log(res.data)
             let userMpin = res.data
              console.log(userMpin)
             if (userMpin.code === "302") {
@@ -58,8 +59,18 @@ export const userMpin = (data, callback) => dispatch => {
                     type: MPIN_SUCCESS,
                     payload: res.data.Data
                 })
+            }else if(userMpin.Data.code==="504"){
+               
+                dispatch({
+                    type:MPIN_SUCCESS,
+                    payload:userMpin.Data
+                    
+
+                })
+                
             }
         }).catch(err => {
+             console.log(err)
              dispatch({
                  type:GET_ERROR,
                  payload:err

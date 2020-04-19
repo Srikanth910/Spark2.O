@@ -1,8 +1,11 @@
 import React, { Component } from 'react'
 import { Container, ListItem ,Button,Text, Item, Header, Content} from 'native-base'
  import{StyleSheet, StatusBar} from 'react-native'
-
+ import DeviceInfo from 'react-native-device-info';
+  import{getUniqueID} from 'react-native-device-info'
 export default class Landingpage extends Component {
+  
+
     render() {
         return (
            <Container style={styles.Container}>

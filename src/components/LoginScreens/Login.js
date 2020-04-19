@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
-
-import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form, Left } from 'native-base'
+import Modal from 'react-native-modal';
+import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form, Left, ListItem } from 'native-base'
 import { StyleSheet, TouchableOpacity, SafeAreaView, StatusBar, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { loginUser, userMpin } from '../../Redux/actions/authAction';
+import { loginUser, userMpin,otpVerification } from '../../Redux/actions/authAction';
 import DeviceInfo from 'react-native-device-info';
  import{getUniqueID} from 'react-native-device-info'
 import validatemPin from './Validation/mpin';
 import validateLogin from './Validation/Login';
+ import  Otpscreen from '../Hoc/Otpscreen'
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -20,13 +22,16 @@ class Login extends Component {
             password: '',
             mpin: '',
             name: '',
+            isVisible:false,
+
             loginUserData: {},
             DeviceID: '',
             showAlert: false,
             errorsData: {},
             id:'',
             errorsLogin: {},
-            errorAlert:{}
+            errorAlert:{},
+            mobileOtp:'',
 
 
         };
@@ -34,6 +39,20 @@ class Login extends Component {
 
 
     
+
+ componentDidMount=()=>{
+    //   this.toggle()
+    
+
+    let device = DeviceInfo.getDeviceId();
+   
+      DeviceInfo.getAndroidId().then(id=>{
+        this.setState({
+            DeviceID:id
+        })
+         
+      })
+ }
     
     onValueChange2 = (value) => {
         this.setState({
@@ -64,7 +83,8 @@ class Login extends Component {
             this.setState({ errorsLogin: {} })
             const user = {
                 password: this.state.password,
-                "DEVICEID": "fe13aa4656e467b4",
+                // "DEVICEID": "fe13aa4656e467b4",
+                DeviceID:this.state.DeviceID,
                 mobileNo: this.state.mobile
             }
 
@@ -97,7 +117,7 @@ class Login extends Component {
 
 
     mpinSubmit = async () => {
-        console.log(this.state.selected2)
+       
         try {
             const loginData = await AsyncStorage.getItem('Loginuser')
             const user = JSON.parse(loginData)
@@ -113,10 +133,10 @@ class Login extends Component {
             const { loginUserData } = this.state
             const userMpin = {
                 mPin: this.state.mpin,
-                DEVICEID: loginUserData.DEVICEID,
+                DEVICEID: this.state.DeviceID,
                 mobileNo: loginUserData.mobileNo
             }
-
+   console.log(userMpin)
             this.props.userMpin(userMpin).then(()=>{
              const {error,auth}=this.props
 
@@ -128,6 +148,10 @@ class Login extends Component {
 
                 }else if(auth.userMpin.code==="200"){
                     this.props.navigation.navigate('Home')
+                } else if(auth.userMpin.code==="504"){
+                    this.setState({
+                        isVisible:true
+                    })
                 }
 
             })
@@ -143,6 +167,12 @@ class Login extends Component {
         });
     };
 
+
+     toggle=()=>{
+         this.setState({
+             isVisible:true
+         })
+     }
     hideAlert = () => {
 
          
@@ -150,11 +180,31 @@ class Login extends Component {
             showAlert: false
         });
     };
+    toggelclose=()=>{
+        this.setState({
+            isVisible:false
+        })
+    }
 
+    otpverify=()=>{
+        const { auth } = this.props
+        refNum= auth.userMpin.refNo
+        const userOtp = {
+          custId: auth. userMpin.custId,
+          otp: this.state.mobileOtp,
+          refNo:auth.userMpin.refNo
+        }
+         console.log(userOtp)
+        this.props.otpVerification(userOtp, () => {
+            this.toggelclose();
+            this.props.navigation.navigate('Home')
+          })
+     
+     }
     render() {
         const { error,auth } = this.props; 
-         console.log('error',auth)
-        const { errorsData, errorsLogin, errorAlert } = this.state
+     
+        const { errorsData, errorsLogin, errorAlert ,mobileOtp} = this.state
 
         return (
             <Container style={styles.container}>
@@ -297,6 +347,7 @@ class Login extends Component {
 
                 </Tabs>
 
+
                 <AwesomeAlert
                     show={this.state.showAlert}
                     showProgress={false}
@@ -316,6 +367,52 @@ class Login extends Component {
                         this.hideAlert();
                     }}
                 />
+
+<Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
+
+<View style={{ backgroundColor: 'white' }}>
+
+<Text style={styles.otp}>Enter OTP</Text>
+<Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
+<View style={{ alignSelf: 'center' }}>
+  <SmoothPinCodeInput
+    codeLength={5}
+    cellStyle={{
+      borderBottomWidth: 1,
+      borderColor: 'gray',
+      width: 20,
+
+    }}
+    cellStyleFocused={{
+      borderColor: 'black',
+    }}
+    value={mobileOtp}
+    onTextChange={mobileOtp => this.setState({ mobileOtp })}
+  />
+</View>
+<ListItem style={{ justifyContent: 'space-around', marginTop: 10 }}>
+  <Text>2:00.0</Text>
+  <TouchableOpacity
+  >
+    <Text style={styles.resendOtp}
+      onPress={this.otpResend}
+    >Resend OTP</Text>
+  </TouchableOpacity>
+
+</ListItem>
+<ListItem style={{ justifyContent: 'flex-end' }} >
+  <Text style={styles.cancel} onPress={this.props.close}>Cancel</Text>
+  <TouchableOpacity>
+
+    <Text style={styles.otpSubmit}
+   onPress={this.otpverify}
+    >Submit</Text>
+
+  </TouchableOpacity>
+</ListItem>
+</View>
+
+    </Modal>
             </Container>
         )
     }
@@ -327,7 +424,7 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { loginUser, userMpin })(Login)
+export default connect(mapStateToProps, { loginUser, userMpin ,otpVerification })(Login)
 
 const styles = StyleSheet.create({
 
@@ -520,5 +617,53 @@ const styles = StyleSheet.create({
         color: '#ffffff',
         width: 14,
         height: 20
-    }
+    },
+    otp: {
+
+        width: 94,
+        height: 27,
+        marginTop: 15,
+        color: '#000000',
+        fontSize: 20,
+        marginLeft: 15,
+        fontWeight: "bold"
+    
+    
+      },
+      resendOtp: {
+        width: 91,
+        height: 22,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        color: '#f7931e',
+        textAlign: 'right',
+    
+    
+      },
+      cancel: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        color: '#999999',
+        textAlign: 'left'
+    
+      },
+      otpText: {
+        marginLeft: 15,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        marginTop: 10,
+        color: '#000000'
+    
+      },
+    
+      otpSubmit: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#f7931e',
+        textAlign: 'right'
+      }
 })
