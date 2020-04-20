@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import Modal from 'react-native-modal';
-import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form, Left, ListItem } from 'native-base'
+import { Container, Header, Tabs, Text, Tab, TabHeading, Picker, Item, Input, Button, Body, View, Icon, Right, Form, Left, ListItem, Spinner, Content } from 'native-base'
 import { StyleSheet, TouchableOpacity, SafeAreaView, StatusBar, ImageBackground } from 'react-native';
 import { connect } from 'react-redux';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 import AwesomeAlert from 'react-native-awesome-alerts';
-import { loginUser, userMpin,otpVerification } from '../../Redux/actions/authAction';
+import { loginUser, userMpin,otpVerification,otpVerificationforLogin } from '../../Redux/actions/authAction';
 import DeviceInfo from 'react-native-device-info';
  import{getUniqueID} from 'react-native-device-info'
 import validatemPin from './Validation/mpin';
@@ -41,16 +41,12 @@ class Login extends Component {
     
 
  componentDidMount=()=>{
-    //   this.toggle()
-    
-
-    let device = DeviceInfo.getDeviceId();
-   
+  console.log(this.state.loginUserData)
+    //  this.toggle();
       DeviceInfo.getAndroidId().then(id=>{
         this.setState({
             DeviceID:id
         })
-         
       })
  }
     
@@ -83,8 +79,8 @@ class Login extends Component {
             this.setState({ errorsLogin: {} })
             const user = {
                 password: this.state.password,
-                "DEVICEID": "fe13aa4656e467b4",
-                // DeviceID:this.state.DeviceID,
+                // "DEVICEID": "fe13aa4656e467b4",
+                DEVICEID:this.state.DeviceID,
                 mobileNo: this.state.mobile
             }
 
@@ -98,7 +94,7 @@ class Login extends Component {
 
             this.props.loginUser(user).then(()=>{
                  const {error,auth} =this.props
-                 if(error.loginError.code==="404"){
+                 if(error.loginError.code==="309"){
 
                     this.setState({
                    showAlert:true,
@@ -108,6 +104,11 @@ class Login extends Component {
                  }else if(auth.userMpin.code==="200"){
                 this.props.navigation.navigate('Home')
                  }
+                 else if(auth.DeviceOtp.code==="504"){
+                    this.setState({
+                        isVisible:true
+                    })
+                }
             })
 
         }
@@ -133,8 +134,9 @@ class Login extends Component {
             const { loginUserData } = this.state
             const userMpin = {
                 mPin: this.state.mpin,
-                // DEVICEID: this.state.DeviceID,
-                "DEVICEID": "fe13aa4656e467b4",
+                DEVICEID: this.state.DeviceID,
+                // "DEVICEID": "fe13aa4656e467b4",
+                 DEVICEID:this.state.DeviceID,
                 mobileNo: loginUserData.mobileNo
             }
    console.log(userMpin)
@@ -149,7 +151,7 @@ class Login extends Component {
 
                 }else if(auth.userMpin.code==="200"){
                     this.props.navigation.navigate('Home')
-                } else if(auth.userMpin.code==="504"){
+                } else if(auth.DeviceOtp.code==="504"){
                     this.setState({
                         isVisible:true
                     })
@@ -187,23 +189,51 @@ class Login extends Component {
         })
     }
 
-    otpverify=()=>{
+    otpverify= async()=>{
+
+        try {
+            const loginData = await AsyncStorage.getItem('Loginuser')
+            const user = JSON.parse(loginData)
+            this.setState({
+                loginUserData: user
+            })
+        } catch (e) {
+            alert('Failed to load name.')
+        }
         const { auth } = this.props
-        refNum= auth.userMpin.refNo
+         const {loginUserData}=this.state
+     
         const userOtp = {
-          custId: auth. userMpin.custId,
+            DEVICEID:this.state.DeviceID,
+            mobileNo:loginUserData.mobileNo,
+            memberid: auth.DeviceOtp.custId,
           otp: this.state.mobileOtp,
-          refNo:auth.userMpin.refNo
+          refNo:auth.DeviceOtp.refNo,
+          "DEVICEMODEL":"",
+           "IPADDRESS":""
         }
          console.log(userOtp)
-        this.props.otpVerification(userOtp, () => {
-            this.toggelclose();
-            this.props.navigation.navigate('Home')
-          })
+
+        this.props.otpVerificationforLogin(userOtp).then(()=>{
+           const {auth,error} =this.props
+              if(error.otpError.code==="306"){
+                      this.toggelclose();
+                  this.setState({
+                      showAlert:true,
+                      errorAlert:error.otpError
+                  })
+              } else 
+           if(auth. userotpdetails.code==="200"){
+               this.props.navigation.navigate('Home')
+           }
+        })
+       
+
      
      }
     render() {
         const { error,auth } = this.props; 
+         console.log(error.otpError)
      
         const { errorsData, errorsLogin, errorAlert ,mobileOtp} = this.state
 
@@ -348,11 +378,12 @@ class Login extends Component {
 
                 </Tabs>
 
+               
 
                 <AwesomeAlert
                     show={this.state.showAlert}
                     showProgress={false}
-                    title={error.loginError.Title}
+                    title={errorAlert.Title}
                     message={errorAlert.Message}
                     // closeOnTouchOutside={true}
                     closeOnHardwareBackPress={false}
@@ -425,7 +456,7 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { loginUser, userMpin ,otpVerification })(Login)
+export default connect(mapStateToProps, { loginUser, userMpin ,otpVerification,otpVerificationforLogin })(Login)
 
 const styles = StyleSheet.create({
 

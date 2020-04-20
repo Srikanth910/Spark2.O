@@ -1,4 +1,8 @@
-import { LOGIN_SUCCESS, MPIN_SUCCESS, FORGOT_PASS_OTP_SUCCESS, FORGOT_PASSWORD_SUCCESS, FORGET_MPIN_SUCCESS, VALIDATE_OTP_SUCCESS, FORGET_MPIN_OTP_SUCCESS, UPDATE_MPIN_SUCCESS, RESEND_OTP_SUCCESS } from "../constants/types";
+import { LOGIN_SUCCESS, MPIN_SUCCESS,
+  
+  FORGOT_PASS_OTP_SUCCESS
+  , FORGOT_PASSWORD_SUCCESS, FORGET_MPIN_SUCCESS, VALIDATE_OTP_SUCCESS,
+   FORGET_MPIN_OTP_SUCCESS, UPDATE_MPIN_SUCCESS, RESEND_OTP_SUCCESS, DEVICEID_OTP, MPIN_LOADING, DEVICE_CHECK_OTP_SUCCESS } from "../constants/types";
 
 const  initialState={
     userData:{},
@@ -10,18 +14,29 @@ userotpdetails:{},
   forgetMpin:{},
   verifyOtp:{},
    mpinOtp:{},
-   updateMpin:{}
+   updateMpin:{},
+   DeviceOtp:{}
 }
 
  export   default function(state=initialState, acton){
       switch(acton.type){
+        case  MPIN_LOADING:
+           return{
+             isLoading:true
+           }
           case LOGIN_SUCCESS:
               case MPIN_SUCCESS:
+                case DEVICE_CHECK_OTP_SUCCESS:
               return{
                   ...state,
-                  isLoading:true,
+                  isLoading:false,
                   userMpin:acton.payload
               }
+               case DEVICEID_OTP:
+                 return{
+                   ...state,
+                   DeviceOtp:acton.payload
+                 }
 
                
             

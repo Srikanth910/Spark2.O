@@ -20,6 +20,11 @@ import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, 
                  showAlert:true,
              }
 
+         } 
+         case VALIDATE_OTP_FAIL:
+
+         return{
+             otpError:action.payload
          }
            case LOGIN_SUCCESS:
                 return{

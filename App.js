@@ -31,7 +31,6 @@ import ErrorAlert from './src/components/modelAlerts/DialogAlert';
 import Home from './src/components/Home/Home';
  
 import Landingpage from './src/components/landingpage/Landingpage';
-import Fd from './src/components/LoginScreens/forgotScreens/Fd';
 export default class App extends Component {
   render() {
     return (
@@ -39,7 +38,7 @@ export default class App extends Component {
       
       <Provider store={store}>
       
-        <Fd/>
+        <Routing/>
         </Provider>
       </>
     );
