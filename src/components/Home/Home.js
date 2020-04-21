@@ -38,7 +38,7 @@ import ImageSilder from './ImageSilder';
 
             
             <Content >
-              <ImageSilder/>
+              {/* <ImageSilder/> */}
 
           
 

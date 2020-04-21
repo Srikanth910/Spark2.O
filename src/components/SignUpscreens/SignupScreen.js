@@ -5,10 +5,7 @@ export default class Signup extends Component {
     render() {
         return (
            <Container>
-               <Text>
-                   hello
-               </Text>
-           </Container>
+            </Container>
         )
     }
 }

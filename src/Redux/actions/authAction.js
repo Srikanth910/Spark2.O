@@ -94,43 +94,91 @@ export const userMpin = (data, callback) => dispatch => {
 }
 
 
-
-
- export   function otpVerificationforLogin(data){
-      console.log(data)
-
-    return async dispatch=>{
+ export const   otpVerificationforLogin=(data)=>{
+      console.log('res',data)
+     return async dispatch=>{
         try{
+         let  res=  await axios.post(`${API_URL}/otpVerificationforLoginV2_O`, data)
+           let deviceOtp= await res.data
 
-        let res= await axios.post(`${API_URL}/otpVerificationforLoginV2_O`, data)
-          let deviceOtp=  await res.data
+              console.log('res',deviceOtp)
 
+                    if(deviceOtp.code==="306"){
+                        dispatch({
+                            type:DEVICE_CHECK_OTP_FAIL,
+                            payload:deviceOtp
+                        })
 
-  console.log(deviceOtp)
-                 if(deviceOtp.code==="306"){
+                    
+                    }else if(deviceOtp.code==="307"){
+                        alert('hello')
                      dispatch({
                          type:DEVICE_CHECK_OTP_FAIL,
                          payload:deviceOtp
                      })
 
-                 }else{
-                     if(deviceOtp.Data.code==="200"){
+                 }else if(deviceOtp.Data.code==="200"){
+                    
                          dispatch({
                              type:DEVICE_CHECK_OTP_SUCCESS,
                              payload:deviceOtp.Data
                          })
                      }
-                 }
-                 
     
-        
-        } catch(err){
-              console.log(err)
 
-        }
-    }
+       }catch(err){
+             console
+             .log(err)
 
+       }
+
+          
+     } 
  }
+
+//  export  const otpVerificationforLogin=(data)=>dispatch=>{
+//       console.log(data)
+
+//   return   axios.post(`${API_URL}/otpVerificationforLoginV2_O`, data).
+//   then(res=>{
+
+
+//           let deviceOtp=  res.data
+
+//               console.log('res',deviceOtp)
+
+//                     if(deviceOtp.code==="306"){
+//                         dispatch({
+//                             type:DEVICE_CHECK_OTP_FAIL,
+//                             payload:deviceOtp
+//                         })
+
+                    
+//                     }else if(deviceOtp.code==="307"){
+//                         alert('hello')
+//                      dispatch({
+//                          type:DEVICE_CHECK_OTP_FAIL,
+//                          payload:deviceOtp
+//                      })
+
+//                  }else  if(deviceOtp.Data.code==="200"){
+                    
+//                          dispatch({
+//                              type:DEVICE_CHECK_OTP_SUCCESS,
+//                              payload:deviceOtp.Data
+//                          })
+//                      }
+    
+       
+//         }).catch(err=>{
+//             dispatch({
+//                 type:CATACH_ERROR,
+//                 payload:err
+//             })
+//         })
+
+//  }
+
     
 
       
@@ -275,10 +323,6 @@ export const ResetMpinByMobileNo = (data, callback) => async dispatch => {
 
 
 }
-
-
-
-
 
 export const updateMPIN = (data, callback) => async  dispatch => {
     try {

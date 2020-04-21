@@ -12,7 +12,8 @@ export default class CardList extends Component {
               <Left>
                
                 <Body>
-                  <Text>Ac: - 1213232434</Text>
+                  <Text style={styles.AcNO}>A/c NO :</Text>
+                
                  
                 </Body>
               </Left>
@@ -20,18 +21,24 @@ export default class CardList extends Component {
             <CardItem>
               <Body>
                 {/* <Image source={{uri: 'Image URL'}} style={{height: 200, width: 200, flex: 1}}/> */}
-                <Text>
-                  1000000
-                </Text>
+                <Text style={styles.bal}>10000</Text>
               </Body>
             </CardItem>
             <CardItem>
               <Left>
                 <Button transparent textStyle={{color: '#87838B'}}>
-                  <Icon name="logo-github" />
-                  <Text>1,926 stars</Text>
+                 
+                  <Text>LOAD</Text>
                 </Button>
               </Left>
+
+              <Right>
+              <Button transparent textStyle={{color: '#87838B'}}>
+                  
+                  <Text>TRANSFER</Text>
+                </Button>
+
+              </Right>
             </CardItem>
           </Card>
             </Container>
@@ -46,10 +53,27 @@ const styles=StyleSheet.create({
      card:{
          marginTop:5,
          marginLeft:16,
-         marginRight:16
+         marginRight:16,
+         backgroundColor:'red'
+         
     
-     }
+     },
 
-  
+     AcNO:{
+       width:50,
+  height:19,
+  fontFamily:'Nunito',
+  fontSize:14,
+  color:'grey'
+
+     },
+     bal:{
+       width:99,
+       height:26,
+       fontFamily:'Inconsolata',
+       fontSize:24
+,
+fontWeight:'bold',
+color:'#474a4f'     }
 
 })

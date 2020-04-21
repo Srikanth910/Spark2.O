@@ -1,4 +1,4 @@
-import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, VALIDATE_OTP_FAIL , } from "../constants/types";
+import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, VALIDATE_OTP_FAIL, DEVICE_CHECK_OTP_FAIL , } from "../constants/types";
 
  
 
@@ -21,11 +21,7 @@ import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, 
              }
 
          } 
-         case VALIDATE_OTP_FAIL:
-
-         return{
-             otpError:action.payload
-         }
+         
            case LOGIN_SUCCESS:
                 return{
                     loginError:{},
@@ -42,6 +38,7 @@ import { LOGIN_FAIL, GET_ERROR, MPIN_FAIL, LOGIN_SUCCESS, FORGOT_PASSWORD_FAIL, 
 
                     }
                      case VALIDATE_OTP_FAIL:
+                          case  DEVICE_CHECK_OTP_FAIL:
                          return{
                              ...state, 
                              otpError:action.payload

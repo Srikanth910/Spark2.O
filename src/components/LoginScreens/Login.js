@@ -41,8 +41,8 @@ class Login extends Component {
     
 
  componentDidMount=()=>{
-  console.log(this.state.loginUserData)
-    //  this.toggle();
+
+    
       DeviceInfo.getAndroidId().then(id=>{
         this.setState({
             DeviceID:id
@@ -139,10 +139,9 @@ class Login extends Component {
                  DEVICEID:this.state.DeviceID,
                 mobileNo: loginUserData.mobileNo
             }
-   console.log(userMpin)
+             console.log(userMpin)
             this.props.userMpin(userMpin).then(()=>{
              const {error,auth}=this.props
-
                 if(error.loginError.code==="302"){
                     this.setState({
                         errorAlert:error.loginError,
@@ -204,7 +203,13 @@ class Login extends Component {
          const {loginUserData}=this.state
      
         const userOtp = {
-            DEVICEID:this.state.DeviceID,
+        //     "DEVICEID": "580ec95cfed4f780", "memberid": "2470", 
+        //     "mobileNo": "9502565325", 
+        //     "otp": "12345", "refNo": "35243",
+        //    "DEVICEMODEL":"",
+        //    "IPADDRESS":""
+           
+           DEVICEID:this.state.DeviceID,
             mobileNo:loginUserData.mobileNo,
             memberid: auth.DeviceOtp.custId,
           otp: this.state.mobileOtp,
@@ -216,14 +221,26 @@ class Login extends Component {
 
         this.props.otpVerificationforLogin(userOtp).then(()=>{
            const {auth,error} =this.props
-              if(error.otpError.code==="306"){
+             if( error.otpError.code==="306"){
+              
+            this.setState({
+    
+                isVisible:false,
+                showAlert:true,
+                errorAlert:error.otpError
+            })
+
+             }else
+              if(error.otpError.code==="307"){
                       this.toggelclose();
+                    
                   this.setState({
+                    isVisible:false,
                       showAlert:true,
                       errorAlert:error.otpError
                   })
               } else 
-           if(auth. userotpdetails.code==="200"){
+           if(auth.userMpin.code==="200"){
                this.props.navigation.navigate('Home')
            }
         })
@@ -231,9 +248,12 @@ class Login extends Component {
 
      
      }
+     otpResend=()=>{
+
+     }
     render() {
         const { error,auth } = this.props; 
-         console.log(error.otpError)
+         console.log('g',auth.userotpdetails)
      
         const { errorsData, errorsLogin, errorAlert ,mobileOtp} = this.state
 
@@ -433,7 +453,7 @@ class Login extends Component {
 
 </ListItem>
 <ListItem style={{ justifyContent: 'flex-end' }} >
-  <Text style={styles.cancel} onPress={this.props.close}>Cancel</Text>
+  <Text style={styles.cancel} onPress={this.toggelclose}>Cancel</Text>
   <TouchableOpacity>
 
     <Text style={styles.otpSubmit}

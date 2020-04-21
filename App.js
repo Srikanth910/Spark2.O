@@ -31,6 +31,9 @@ import ErrorAlert from './src/components/modelAlerts/DialogAlert';
 import Home from './src/components/Home/Home';
  
 import Landingpage from './src/components/landingpage/Landingpage';
+import Loadmoney from './src/components/Home/LoadMoney/Loadmoney';
+import MoneyLoading from './src/components/Home/LoadMoney/MoneyLoading';
+import MoneyLoadingFail from './src/components/Home/LoadMoney/MoneyLoadFail';
 export default class App extends Component {
   render() {
     return (
@@ -38,7 +41,7 @@ export default class App extends Component {
       
       <Provider store={store}>
       
-        <Routing/>
+        <MoneyLoadingFail/>
         </Provider>
       </>
     );

@@ -2,7 +2,7 @@ import { LOGIN_SUCCESS, MPIN_SUCCESS,
   
   FORGOT_PASS_OTP_SUCCESS
   , FORGOT_PASSWORD_SUCCESS, FORGET_MPIN_SUCCESS, VALIDATE_OTP_SUCCESS,
-   FORGET_MPIN_OTP_SUCCESS, UPDATE_MPIN_SUCCESS, RESEND_OTP_SUCCESS, DEVICEID_OTP, MPIN_LOADING, DEVICE_CHECK_OTP_SUCCESS } from "../constants/types";
+   FORGET_MPIN_OTP_SUCCESS, UPDATE_MPIN_SUCCESS, RESEND_OTP_SUCCESS, DEVICEID_OTP, MPIN_LOADING, DEVICE_CHECK_OTP_SUCCESS, DEVICE_CHECK_OTP_FAIL } from "../constants/types";
 
 const  initialState={
     userData:{},
@@ -69,8 +69,7 @@ userotpdetails:{},
                                 mpinOtp:acton.payload
                                 
                              }
-
-                              case UPDATE_MPIN_SUCCESS:
+                        case UPDATE_MPIN_SUCCESS:
                                 return{
                                   ...state,
                                   updateMpin:acton.payload

@@ -24,6 +24,9 @@ import Quick_login from '../LoginScreens/Quick_login';
 import {ErrorAlert} from '../modelAlerts/DialogAlert'
 import Landingpage from '../landingpage/Landingpage';
 import Signup from '../SignUpscreens/SignupScreen';
+import Loadmoney from '../Home/LoadMoney/Loadmoney';
+import MoneyLoading from '../Home/LoadMoney/MoneyLoading';
+ import MoneyLoadingFail from '../../components/Home/LoadMoney/MoneyLoadFail'
 
 const Stack = createStackNavigator();
 
@@ -55,10 +58,14 @@ function Routing() {
         <Stack.Screen name="Signup" component={Signup} /> 
 
 
+        <Stack.Screen name="Loadmoney" component={Loadmoney} /> 
+        <Stack.Screen name="MoneyLoading" component={MoneyLoading} /> 
+        <Stack.Screen name="MoneyLoadingFail" component={MoneyLoadingFail} /> 
+
 
        
    
-      
+        
         
      
       </Stack.Navigator>
