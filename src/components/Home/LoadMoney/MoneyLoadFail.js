@@ -19,7 +19,7 @@ export default class MoneyLoadingFail extends Component {
                             />
                         </Button>
                         <Text style={styles.headerText}>
-                        Load money successful
+                        Transfer failed, please retry
                           </Text>
 
                     </Left>
@@ -37,15 +37,12 @@ export default class MoneyLoadingFail extends Component {
                             <Text style={styles.loaded}>loaded to</Text>
                             <Text style={styles.spark}>Can Tow Byte Systems</Text>
 
-                            <ListItem  style={styles.divider}>
+                           
                             <Text style={styles.user}>Srikanth, member id 11881</Text>
+                            <View style={styles.divider}></View>
 
-
-                            </ListItem >
                             <Item style={{ borderColor: 'transparent', marginTop: 10 }}>
-                                {/* <CheckBox checked={true} color="green" style={{ borderRadius: 15, }} />
-                                 */}
-                                 <Icon name="Dont"/>
+                                
 
                                 <Text style={styles.transaction}> Transaction successful</Text>
 
@@ -65,7 +62,7 @@ export default class MoneyLoadingFail extends Component {
                         <Text style={styles.current}> Account holder name</Text>
                         <Text style={styles.bal}>Can Tow Byte Systems</Text>
                         <Text style={styles.current} >Spark member ID</Text>
-                        <Text style={styles.bal}>I100123</Text>
+                        <Text style={styles.bal}>1100123</Text>
                         </View>
                     </View>
 
@@ -88,7 +85,7 @@ const styles = StyleSheet.create({
         height: 640
     },
     headerText: {
-        width: 221,
+        width: 250,
         height: 27,
         fontFamily: 'Nunito',
         fontSize: 20,
@@ -233,6 +230,11 @@ const styles = StyleSheet.create({
 
     },
     divider:{
+        borderLeftWidth: 1,
+        borderLeftColor: 'white',
+
+    
+        
        
        
     }

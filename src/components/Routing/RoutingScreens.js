@@ -27,6 +27,7 @@ import Signup from '../SignUpscreens/SignupScreen';
 import Loadmoney from '../Home/LoadMoney/Loadmoney';
 import MoneyLoading from '../Home/LoadMoney/MoneyLoading';
  import MoneyLoadingFail from '../../components/Home/LoadMoney/MoneyLoadFail'
+import CardList from '../Home/CardList';
 
 const Stack = createStackNavigator();
 
@@ -59,8 +60,9 @@ function Routing() {
 
 
         <Stack.Screen name="Loadmoney" component={Loadmoney} /> 
+        
         <Stack.Screen name="MoneyLoading" component={MoneyLoading} /> 
-        <Stack.Screen name="MoneyLoadingFail" component={MoneyLoadingFail} /> 
+        {/* <Stack.Screen name="CardList" component={CardList} />  */}
 
 
        

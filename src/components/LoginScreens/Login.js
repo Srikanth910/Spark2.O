@@ -12,6 +12,7 @@ import DeviceInfo from 'react-native-device-info';
 import validatemPin from './Validation/mpin';
 import validateLogin from './Validation/Login';
  import  Otpscreen from '../Hoc/Otpscreen'
+import { ScrollView } from 'react-native-gesture-handler';
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -324,6 +325,7 @@ class Login extends Component {
 
 
                     <Tab heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>LOGIN</Text></TabHeading>}>
+                        <ScrollView>
                         <Form>
                             <Text style={styles.loginText}>Select State</Text>
                             <Item regular style={styles.dropInput} >
@@ -394,6 +396,7 @@ class Login extends Component {
                                 <Text>LOGIN</Text>
                             </Button>
                         </View>
+                        </ScrollView>
                     </Tab>
 
                 </Tabs>
@@ -502,11 +505,15 @@ const styles = StyleSheet.create({
     btnbottom: {
 
         flex: 1,
-        justifyContent: 'flex-end',
-        marginBottom: 32,
+        // justifyContent: 'flex-end',
+
+        justifyContent:'flex-end',
+        marginBottom: 16,
         marginLeft: 16,
         marginRight: 16,
-        marginTop: 150,
+        marginTop:95
+        // alignContent:'center'
+    
 
 
     },

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Header, Content, Footer, FooterTab, Button, Icon, Body, Title, Text, Left, Right, Card } from 'native-base';
+import { Container, Header, Content, Footer, FooterTab,CardItem, Button, Icon, Body, Title, Text, Left, Right, Card, ListItem, Image } from 'native-base';
  import {connect } from 'react-redux';
 import{StyleSheet, StatusBar, View, ImageBackground} from  'react-native';
 import CardList from './CardList';
@@ -47,7 +47,62 @@ import ImageSilder from './ImageSilder';
                 <Text style={styles.savingData}>This is your zero balance account which gives you up to 8% p.a. interest credited daily.</Text>
 
           
-   <CardList></CardList>
+                <Card style={styles.card}>
+            <CardItem>
+              <Left>
+               
+                <Body>
+                  <Text style={styles.AcNO}>A/c NO : 
+                  <Text>121233233232</Text>
+                  </Text>
+                
+                 
+                </Body>
+              </Left>
+            </CardItem>
+            <CardItem>
+             
+
+<Left>
+<ImageBackground  source={require('../../images/rupi_icon.png')} style={{height:30, width:20 , marginTop:10}}/>
+<Text style={styles.bal}>10000</Text>
+</Left>
+<Body>
+                {/* <Image source={{uri: 'Image URL'}} style={{height: 200, width: 200, flex: 1}}/> */}
+               
+              </Body>
+
+              <Right>
+                <Button >
+                     <Icon name="home"/>
+                </Button>
+              </Right>
+
+             
+              
+              
+            </CardItem>
+           
+            <CardItem>
+              <Left>
+                <Button transparent textStyle={{color: '#87838B'}} 
+                             onPress={()=>this.props.navigation.navigate('NotifClass')}
+                >
+                 
+                  <Text>LOAD</Text>
+                </Button>
+              </Left>
+
+              <Right>
+              <Button transparent textStyle={{color: '#87838B'}}>
+                  
+                  <Text>TRANSFER</Text>
+                </Button>
+
+              </Right>
+            </CardItem>
+          </Card>
+            
               </View>
               <View style={styles.kycRectangle} >
                 <KycAccordion/>
@@ -186,7 +241,35 @@ marginLeft:16,
       backgroundColor:'#1b1464',
      
       // background-image: linear-gradient(184deg, #1b1464 65%, #3d3c77 -6%);
-    }
+    },
+    card:{
+      marginTop:5,
+      marginLeft:16,
+      marginRight:16,
+
+      shadowColor:'grey',
+
+      
+ 
+  },
+  
+
+  AcNO:{
+    width:50,
+height:19,
+fontFamily:'Nunito',
+fontSize:14,
+color:'grey'
+
+  },
+  bal:{
+    width:99,
+    height:26,
+    fontFamily:'Inconsolata',
+    fontSize:24
+,
+fontWeight:'bold',
+color:'#474a4f'     }
      
 
  })
