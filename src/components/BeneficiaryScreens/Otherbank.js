@@ -14,6 +14,13 @@ export default class Otherbank extends Component {
             radioBtnOne: false,
             radioBtnTwo: false,
             password: '',
+            Name:'',
+    Email:'',
+    AccontNo:'',
+    ConfirmAccontNo:'',
+    IFCS:'',
+    mobileNo:'',
+
         };
     }
     toggelopen = () => {
@@ -51,32 +58,65 @@ export default class Otherbank extends Component {
                     <ScrollView>
                         <Text style={styles.textstyle}>Name</Text>
                         <Item regular style={styles.Inputstyle}>
-                            <Input placeholder='Name' style={styles.input} />
+                            <Input placeholder='Name' style={styles.input}
+                            
+                             
+                                value={this.state.Name}
+                                onChangeText={Nametext => this.setState({ Name: Nametext })}
+                            />
+                            
                         </Item>
 
                         <Text style={styles.textstyle}>Account no.</Text>
                         <Item regular style={styles.Inputstyle}>
-                            <Input placeholder='Account number' style={styles.input} />
+                            <Input placeholder='Account number' style={styles.input}
+                            
+                            
+                            value={this.state.AccontNo}
+                            onChangeText={Accounttext => this.setState({ AccontNo: Accounttext })}
+                        />
+                            
                         </Item>
 
                         <Text style={styles.textstyle}>Re-Enter Account no.</Text>
                         <Item regular style={styles.Inputstyle}>
-                            <Input placeholder='Account number' style={styles.input} />
+                            <Input placeholder='Account number' style={styles.input} 
+                value={this.state.ConfirmAccontNo}
+                onChangeText={Accounttext => this.setState({ ConfirmAccontNo: Accounttext })}
+            />
+                
                         </Item>
 
                         <Text style={styles.textstyle}>IFSC code</Text>
                         <Item regular style={styles.Inputstyle}>
-                            <Input placeholder='IFSC code' style={styles.input} />
+                            <Input placeholder='IFSC code' style={styles.input}
+                            
+                            value={this.state.IFCS}
+                            onChangeText={Accounttext => this.setState({ IFCS: Accounttext })}
+                        />
+                            
+                        
                         </Item>
 
                         <Text style={styles.textstyle}>Email</Text>
                         <Item regular style={styles.Inputstyle}>
-                            <Input placeholder='Email' style={styles.input} />
+                            <Input placeholder='Email' style={styles.input}
+                            
+                            value={this.state.Email}
+                            onChangeText={Emailtext => this.setState({ Email: Emailtext })}
+                        />
+                            
                         </Item>
 
                         <Text style={styles.textstyle}>Phone</Text>
                         <Item regular style={styles.Inputstyle}>
-                            <Input placeholder='Phone' style={styles.input} />
+                            <Input placeholder='Phone' style={styles.input}
+                            
+                            value={this.state.mobileNo}
+                            onChangeText={mobilenumber => this.setState({ mobileNo: mobilenumber })}
+                        />
+                            
+                           
                         </Item>
 
                         <Text style={styles.textstyle}>Please ensure you enter the correct account details.Spark is not responsible for incorrect account details</Text>

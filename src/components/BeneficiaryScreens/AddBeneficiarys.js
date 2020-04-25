@@ -56,30 +56,13 @@ class AddBeneficiarys extends Component {
         console.log(Data)
 
         this.props.createOtpBeneficiary(Data, () => {
-            this.setState({
-                isVisible: true
-            })
+            this.props.navigation.navigate('Beneficiary')
         })
 
     }
-    redatasubmit = () => {
-        const Data = {
-            "custId": "1278",
-            mobileNo: this.state.mobilenum,
-            state: this.state.selected2,
-            accountType: this.state.name
+  
 
-
-        }
-        console.log(Data)
-
-        this.props.createOtpBeneficiary(Data, () => {
-            this.setState({
-                isVisible: true
-            })
-        })
-
-    }
+        
     render() {
         const { password, mobilenum, confirmMobilenum } = this.state
         return (

@@ -10,9 +10,10 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
 
 
 
- export const createOtpBeneficiary=(data, callback)=>async dispatch=>{
+ export const createOtpBeneficiary=(data)=>{
        console.log(data)
-    try{
+    return  async dispatch=>{
+          try{
          const res = await axios.post(`${API_URL}/createOtpForAddBeneficiary_V2_O `, data)
          let OtpBeneficiary = await res.data
           console.log('res',OtpBeneficiary)
@@ -23,7 +24,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
                })
 
           }else if(OtpBeneficiary.Data.code==="200"){
-               callback();
+          
                dispatch({
                     type:CREATE_OTP_BENEFICIARY_SUCCESS,
                     payload:OtpBeneficiary.Data
@@ -38,6 +39,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
          
          
     }
+}
  }
 
  

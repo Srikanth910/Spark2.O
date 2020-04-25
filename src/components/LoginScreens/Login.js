@@ -12,6 +12,7 @@ import DeviceInfo from 'react-native-device-info';
 import validatemPin from './Validation/mpin';
 import validateLogin from './Validation/Login';
  import  Otpscreen from '../Hoc/Otpscreen'
+ import RBSheet from "react-native-raw-bottom-sheet";
 import { ScrollView } from 'react-native-gesture-handler';
 class Login extends Component {
     constructor(props) {
@@ -33,6 +34,9 @@ class Login extends Component {
             errorsLogin: {},
             errorAlert:{},
             mobileOtp:'',
+            activeIndex:0,
+              Statevalue:''
+        
 
 
         };
@@ -256,6 +260,13 @@ class Login extends Component {
      otpResend=()=>{
 
      }
+     handleState=(name, id)=>{
+          this.setState({
+              activeIndex:id,
+              Statevalue:name
+          })
+
+     }
     render() {
         const { error,auth } = this.props; 
          console.log('g',auth.userotpdetails)
@@ -332,21 +343,51 @@ class Login extends Component {
                         <ScrollView>
                         <Form>
                             <Text style={styles.loginText}>Select State</Text>
-                            <Item regular style={styles.dropInput} >
-                                <Picker
-                                    mode="dropdown"
-                                    iosIcon={<Icon name="arrow-down" />}
-                                    style={{ width: undefined }}
-                                    placeholder="Select your SIM"
-                                    placeholderStyle={{ color: "#bfc6ea" }}
-                                    placeholderIconColor="#007aff"
-                                    selectedValue={this.state.selected2}
-                                    onValueChange={this.onValueChange2.bind(this)}
-                                >
-                                    <Picker.Item label="Select" value="key0" />
-                                    <Picker.Item label="Karnataka" value="karnataka" />
-                                    <Picker.Item label="maharashtra" value="maharashtra" />
-                                </Picker>
+                            <Item regular style={styles.dropInput}
+                            onPress={() => this.RBSheet.open()}
+                            >
+                           <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text>
+                            <Icon name='ios-arrow-down' 
+                             style={styles.arrowicon}
+                             
+                            
+                            
+                            />
+                            
+                             <RBSheet
+          ref={ref => {
+            this.RBSheet = ref;
+          }}
+          height={220}
+          duration={250}
+          customStyles={{
+            container: {
+              justifyContent:"flex-start",
+              alignItems: "flex-start"
+            }
+          }}
+        >
+            <Text style={styles.selectState}>
+            Select state
+            </Text>
+            
+            <View>
+            <TouchableOpacity onPress={()=>this.handleState('karnataka', 1)}
+                                style={this.state.activeIndex === 1 ? styles.btnActive : styles.btn}>
+                <Text style={styles.state}>Karnataka</Text>
+                <Text style={styles.Statesubtext}>Ayshwarya Syndicate Souharda Credit Co-operative Limited</Text></TouchableOpacity>
+            </View>
+            <View>
+                      <TouchableOpacity onPress= {()=>this.handleState('maharashtra',2)}
+                                                      style={this.state.activeIndex === 2 ? styles.btnActive : styles.btn}
+                      >
+            <Text style={styles.state}>Maharashtra</Text>
+            <Text style={styles.Statesubtext}>Ayshwarya Syndicate Souharda Credit Co-operative Limited</Text>
+</TouchableOpacity>
+            </View>
+      
+        </RBSheet>
+    
                             </Item>
                             <Text></Text>
                             <Text style={styles.mobileinput}>Enter your mobile number</Text>
@@ -472,6 +513,12 @@ class Login extends Component {
 </View>
 
     </Modal>
+
+<View>
+
+       
+</View>
+    
             </Container>
         )
     }
@@ -626,7 +673,8 @@ const styles = StyleSheet.create({
         marginRight: 15,
         borderRadius: 5,
         height: 40,
-        marginTop: 10
+        marginTop: 10,
+ justifyContent:"space-between"
 
     },
 
@@ -728,5 +776,68 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: '#f7931e',
         textAlign: 'right'
-      }
+      },
+      arrowicon:{
+           height:20,
+           width:40,
+alignContent:'space-around'
+           
+      },
+      selectState:{
+        width:88,
+        height:22,
+        opacity:0.87,
+        fontFamily:'Nunito',
+        fontSize:16,
+        fontWeight:'bold',
+         fontStyle:'normal',
+          color:'#000000',
+           textAlign:'left',
+           marginTop:15,
+           marginLeft: 16,
+      },
+      state:{
+        //   width:73,
+          height:22,
+          opacity:0.87,
+          fontFamily:'Nunito',
+           color:'#000000',
+           textAlign:"left",
+           marginTop:5,
+           marginLeft: 16,
+      },
+      Statesubtext:{
+          width:332,
+          height:60,
+          fontSize:16,
+          color:'#999999',
+          textAlign:'left',
+          fontStyle:'normal',
+          marginLeft: 16,
+
+      },
+      btn: {
+        
+        // backgroundColor: '#DDDDDD',
+        // borderColor: '#dc00ff',
+        // borderRadius: 10,
+        // borderWidth:1,
+        // padding: 10,
+        opacity: 0.5,
+        // marginLeft: 16,
+        
+    
+    },
+    btnActive: {
+        // alignItems: 'center',
+        // backgroundColor: '#f7931e',
+        borderColor: '#f7931e',
+        // borderRadius: 10,
+        borderWidth: 3,
+        height:80,
+        // padding: 10,
+        marginLeft: 8
+       
+        
+    },
 })
