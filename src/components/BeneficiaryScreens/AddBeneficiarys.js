@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Header,Text, Tab, TabHeading, Item, Input, Title, Button, Body, View, Picker, Icon } from 'native-base'
-import { StyleSheet,ScrollView, StatusBar } from 'react-native';
+import { Container, Header, Text, Tab, TabHeading, Item, Input, Title, Button, Body, View, Picker, Icon } from 'native-base'
+import { StyleSheet, ScrollView, StatusBar } from 'react-native';
 import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { Content, ListItem, Radio, Right, Left } from 'native-base';
 import { connect } from 'react-redux';
- import{ createOtpBeneficiary} from '../../Redux/actions/Beneficiary'
+import { createOtpBeneficiary, resendOtpBeneficiary } from '../../Redux/actions/Beneficiary'
 class AddBeneficiarys extends Component {
 
     constructor(props) {
@@ -14,11 +14,11 @@ class AddBeneficiarys extends Component {
             selected2: undefined,
             radioBtnOne: false,
             radioBtnTwo: false,
-            mobilenum:'',
-            name:'',
-             isVisible:false,
+            mobilenum: '',
+            name: '',
+            isVisible: false,
 
-            confirmMobilenum:'',
+            confirmMobilenum: '',
         };
     }
     onValueChange2 = (value) => {
@@ -28,40 +28,58 @@ class AddBeneficiarys extends Component {
     }
     toggleClose = () => {
         this.setState({
-          isVisible:false
+            isVisible: false
 
         })
-         this.props.navigation.navigate('Otherbank')
+        this.props.navigation.navigate('Otherbank')
     }
     changepage = () => {
         this.setState({
             ismodelopen: false
         })
-        this.props.navigation.navigate('passwordSet')
+        this.props.navigation.navigate('Beneficiary')
     }
-    radiobtn=(name)=>{
+    radiobtn = (name) => {
         this.setState({
-            name:name
+            name: name
         })
     }
-  Datasubmit=()=>{
-      const Data={
-          "custId":"1278",
-          mobileNo:this.state.mobilenum,
-          state:this.state.selected2,
-          accountType:this.state.name
+    Datasubmit = () => {
+        const Data = {
+            "custId": "1278",
+            mobileNo: this.state.mobilenum,
+            state: this.state.selected2,
+            accountType: this.state.name
 
 
-      }
-       console.log(Data)
+        }
+        console.log(Data)
 
-        this.props.createOtpBeneficiary(Data,()=>{
-         this.setState({
-              isVisible:true
-         })
+        this.props.createOtpBeneficiary(Data, () => {
+            this.setState({
+                isVisible: true
+            })
         })
 
-  }
+    }
+    redatasubmit = () => {
+        const Data = {
+            "custId": "1278",
+            mobileNo: this.state.mobilenum,
+            state: this.state.selected2,
+            accountType: this.state.name
+
+
+        }
+        console.log(Data)
+
+        this.props.createOtpBeneficiary(Data, () => {
+            this.setState({
+                isVisible: true
+            })
+        })
+
+    }
     render() {
         const { password, mobilenum, confirmMobilenum } = this.state
         return (
@@ -81,9 +99,11 @@ class AddBeneficiarys extends Component {
                     </Body>
                 </Header>
 
+               
                 <Tab heading={<TabHeading style={styles.tabColor}><Text> Add Beneficiary </Text></TabHeading>}>
                     <ScrollView>
                         <Text style={styles.StateText} >Select state </Text>
+                         <View  style={styles.separator} />
                         <Text style={styles.StateText}>Please select the Co-operative that the Beneficiary you want to add is a member of.</Text>
                         <Item regular style={styles.dropInput} >
                             <Picker
@@ -106,31 +126,32 @@ class AddBeneficiarys extends Component {
                         </Item>
 
                         <Text style={styles.StateText}>Select beneficiary account type</Text>
-                        <ListItem >
-                            <Right>
-                                <Radio selected={this.state.radioBtnOne} color="orange" selectedColor="orange" onPress={() => this.radiobtn('SavingsAccount') }/>
+                        <ListItem style={styles.liststyle}>
+                            <Right >
+                                <Radio selected={this.state.radioBtnOne} color="orange" selectedColor="orange" onPress={() => this.radiobtn('SavingsAccount')} />
                             </Right>
                             <Text>  Savinges Account</Text>
                         </ListItem>
 
-                        <ListItem >
+                        <ListItem style={styles.liststyle} >
                             <Right>
-                                <Radio selected={this.state.radioBtnTwo} color="orange" selectedColor="orange" onPress={() => this.radiobtn('false') }/>
+                                <Radio selected={this.state.radioBtnTwo} color="orange" selectedColor="orange" onPress={() => this.radiobtn('false')} />
                             </Right>
                             <Text>  Business Account</Text>
                         </ListItem>
 
+                     
 
-                        {this.state.name ==="SavingsAccount" &&
+                        {this.state.name === "SavingsAccount" &&
                             <View>
                                 <Text style={styles.StateText}>Enter beneficiary phone number</Text>
                                 <Item style={styles.Inputstyle}>
-                                <Input placeholder='' style={styles.input}
-                                    value={this.state.mobilenum}
-                                    onChangeText={editedText =>
-                                        this.setState({ mobilenum: editedText })
-                                    }
-/>
+                                    <Input placeholder='' style={styles.input}
+                                        value={this.state.mobilenum}
+                                        onChangeText={editedText =>
+                                            this.setState({ mobilenum: editedText })
+                                        }
+                                    />
                                 </Item>
 
                                 <Text style={styles.StateText}>Re-Enter beneficiary phone number</Text>
@@ -144,26 +165,26 @@ class AddBeneficiarys extends Component {
                             <View>
                                 <Text style={styles.StateText}>Enter beneficiary Business Account ID</Text>
                                 <Item regular style={styles.Inputstyle}>
-                                <Input placeholder='' style={styles.input}
-                                    value={this.state.password}
-                                    onChangeText={editedText =>
-                                        this.setState({ mobilenum: editedText })
-                                    }
+                                    <Input placeholder='' style={styles.input}
+                                        value={this.state.password}
+                                        onChangeText={editedText =>
+                                            this.setState({ mobilenum: editedText })
+                                        }
 
-                                />
+                                    />
                                 </Item>
 
                                 <Text style={styles.StateText}>Re-Enter beneficiary Business Account ID</Text>
                                 <Item regular style={styles.Inputstyle}>
-                        
-                                
-                                <Input placeholder='' style={styles.input}
-                                    value={this.state.confirmMobilenum}
-                                    onChangeText={editedText =>
-                                        this.setState({ confirmMobilenum: editedText })
-                                    }
 
-                                />                                
+
+                                    <Input placeholder='' style={styles.input}
+                                        value={this.state.confirmMobilenum}
+                                        onChangeText={editedText =>
+                                            this.setState({ confirmMobilenum: editedText })
+                                        }
+
+                                    />
                                 </Item>
                             </View>}
 
@@ -195,7 +216,7 @@ class AddBeneficiarys extends Component {
                                     </View>
                                     <ListItem style={{ justifyContent: 'space-around', marginTop: 10 }}>
                                         <Text>2:00.0</Text>
-                                        <Text style={styles.resendOtp}>Resend OTP</Text>
+                                        <Text style={styles.resendOtp} onPress={this.redatasubmit}>Resend OTP</Text>
                                     </ListItem>
                                     <ListItem style={{ justifyContent: 'flex-end' }} >
                                         <Text style={styles.cancel} onPress={this.toggleClose}>Cancel</Text>
@@ -203,6 +224,7 @@ class AddBeneficiarys extends Component {
                                             onPress={this.changepage}
                                         >Submit</Text>
                                     </ListItem>
+                                   
                                 </View>
                             </Modal>
                         </View>
@@ -221,9 +243,7 @@ class AddBeneficiarys extends Component {
     }
 }
 
-
- export default connect(null,{createOtpBeneficiary})(AddBeneficiarys)
-
+export default connect(null, { createOtpBeneficiary, resendOtpBeneficiary })(AddBeneficiarys)
 const styles = StyleSheet.create({
     tabHeading: {
 
@@ -235,6 +255,13 @@ const styles = StyleSheet.create({
         letterSpacing: 0.14,
         fontStyle: 'normal',
 
+    },
+    liststyle:{
+        flex: 1,
+        padding: 1,
+        borderColor:  'transparent',
+        marginRight:69
+   
     },
 
     StateText: {

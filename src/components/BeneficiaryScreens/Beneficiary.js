@@ -4,6 +4,7 @@ import { StyleSheet, StatusBar, Image } from 'react-native';
 import Modal from 'react-native-modal';
 
 
+
 export default class Beneficiary extends Component {
 
 
@@ -60,7 +61,6 @@ export default class Beneficiary extends Component {
             </Modal>
           </View>
 
-
           <Right>
             <Button transparent style={styles.btnclose} onPress={this.toggelopen} >
               <Icon name='md-add' />
@@ -70,13 +70,12 @@ export default class Beneficiary extends Component {
 
         </Header>
 
-
         <Tabs tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }}>
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Spark</Text></TabHeading>}>
 
-            {/* <Image style={styles.imagestyle} source={require('../../images/Spark_Profile.png')}
+            <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
               style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
-            </Image> */}
+            </Image>
 
             <Button block warning style={styles.Addbtnbeni}
 
@@ -86,15 +85,10 @@ export default class Beneficiary extends Component {
             </Button>
           </Tab>
 
-
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Others</Text></TabHeading>}>
-            {/* <Image style={styles.imagestyle} source={require('../../images/Spark_Profile.png')}
+            <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
               style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
-            </Image> */}
-
-
-
-
+            </Image>
 
             <Button block warning style={styles.Addbtnbeni}
               onPress={() => this.props.navigation.navigate('Otherbank')}>
@@ -192,3 +186,6 @@ otpText:{
     width: 380,
   }
 })
+
+
+

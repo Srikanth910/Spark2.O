@@ -1,4 +1,3 @@
-
 import React, { Component } from 'react'
 import { Container, Header, Tabs, Text, Tab,Item, Input, Button, Body, View, Title, Left, Icon,ListItem } from 'native-base'
 import { StyleSheet, ScrollView, StatusBar } from 'react-native';
@@ -250,7 +249,4 @@ const styles = StyleSheet.create({
     },
 
 })
-
-
-
 

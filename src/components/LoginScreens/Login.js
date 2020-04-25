@@ -242,6 +242,10 @@ class Login extends Component {
                   })
               } else 
            if(auth.userMpin.code==="200"){
+
+            this.setState({
+                isVisible:false,
+            })
                this.props.navigation.navigate('Home')
            }
         })
