@@ -3,7 +3,7 @@ import { Container, ListItem ,Button,Text, Item, Header, Content, View, } from '
  import{StyleSheet, StatusBar, ImageBackground, Image} from 'react-native'
  import DeviceInfo from 'react-native-device-info';
   import{getUniqueID} from 'react-native-device-info'
-export default class Landingpage extends Component {
+export default class Moneytransfer extends Component {
   
 
     render() {
@@ -11,7 +11,7 @@ export default class Landingpage extends Component {
            <Container style={styles.Container}>
                
             
-               <ImageBackground  source={require('../../images/signupimges/signUp_bg.png')} 
+               <ImageBackground  source={require('../../images/signupimges/money_bg.png')} 
                 resizeMode={'cover'}
                style={styles.Container}> 
 
@@ -19,20 +19,19 @@ export default class Landingpage extends Component {
                <StatusBar hidden
                 />
       <Content padder>
-               <View style={{justifyContent:'flex-end'}}>
+               <View >
                
                <Image
-                source={require('../../images/signupimges/sign_img.png')}  style={styles.signImge}/>
+                source={require('../../images/signupimges/money_img.png')}  style={styles.signImge}/>
                             <View>                                                                                                                
                 <Text style={styles.securetext}>
-                    Secure <Text style={styles.securetext_1}>Digital Savings Account </Text>
-                    <Text style={styles.securetext}>
-                    Paying you <Text style={styles.securetext_1}>Interest </Text>
+                Free money transfer
+                   
                     </Text>
-                    </Text>
-                    <Text style={styles.securetext}>
-                     <Text style={styles.securetext_1}>every day</Text>
-                    </Text>
+                    <Text style={styles.securetext_1}>at your fingertips with</Text>
+
+                     <Text style={styles.securetext}>high security</Text>
+                    
                    
                     </View>         
                      </View>
@@ -108,33 +107,32 @@ export default class Landingpage extends Component {
     signImge:{
         width:'100%',
         height:419,
-        marginRight:16,
-        marginLeft:16,
+       
         marginTop:40
     },
     securetext:{
         // height:75,
         fontFamily:'Nunito',
         fontSize:20,
-        color:'#ffffff',
+      
+        color:'#f69829',
         textAlign:'center',
         letterSpacing:2,
         fontStyle:'normal',
-        fontWeight:"bold",
+         fontWeight:'bold'
+        
         //   fontWeight:"900"
         
-
-    
-
-
-
     },
     securetext_1:{
-        height:75,
+        // height:75,
         fontFamily:'Nunito',
         fontSize:20,
-        color:'#f69829',
+        color:'#ffffff',
+      
 
-        fontStyle:'normal'
+   textAlign:'center',
+        fontStyle:'normal',
+        letterSpacing:2
     }
   })

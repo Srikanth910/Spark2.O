@@ -34,6 +34,12 @@ import Landingpage from './src/components/landingpage/Landingpage';
 import Loadmoney from './src/components/Home/LoadMoney/Loadmoney';
 import MoneyLoading from './src/components/Home/LoadMoney/MoneyLoading';
 import MoneyLoadingFail from './src/components/Home/LoadMoney/MoneyLoadFail';
+import LandingBillpay from './src/components/landingpage/LandingBillpay';
+import Moneytransfer from './src/components/landingpage/Moneytransfer';
+import FixedDeposite from './src/components/landingpage/Fd_layout';
+import Setpassword from './src/components/SignUpscreens/Setpassword';
+import Signup from './src/components/SignUpscreens/SignupScreen';
+import Welcomeboard from './src/components/landingpage/Welcomeboard';
 // import Bottom from './src/components/LoginScreens/Bottomsheet';
 export default class App extends Component {
   render() {
@@ -42,7 +48,7 @@ export default class App extends Component {
       
       <Provider store={store}>
       
-      <Routing />
+      <Welcomeboard />
         </Provider>
       </>
     );

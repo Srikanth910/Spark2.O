@@ -3,7 +3,7 @@ import { Container, ListItem ,Button,Text, Item, Header, Content, View, } from '
  import{StyleSheet, StatusBar, ImageBackground, Image} from 'react-native'
  import DeviceInfo from 'react-native-device-info';
   import{getUniqueID} from 'react-native-device-info'
-export default class Landingpage extends Component {
+export default class LandingBillpay extends Component {
   
 
     render() {
@@ -19,20 +19,19 @@ export default class Landingpage extends Component {
                <StatusBar hidden
                 />
       <Content padder>
-               <View style={{justifyContent:'flex-end'}}>
+               <View >
                
                <Image
-                source={require('../../images/signupimges/sign_img.png')}  style={styles.signImge}/>
+                source={require('../../images/signupimges/bill_img.png')}  style={styles.signImge}/>
                             <View>                                                                                                                
                 <Text style={styles.securetext}>
-                    Secure <Text style={styles.securetext_1}>Digital Savings Account </Text>
-                    <Text style={styles.securetext}>
-                    Paying you <Text style={styles.securetext_1}>Interest </Text>
+                     Pay for all
+                   
                     </Text>
-                    </Text>
-                    <Text style={styles.securetext}>
-                     <Text style={styles.securetext_1}>every day</Text>
-                    </Text>
+                    <Text style={styles.securetext_1}>Bills & Recharges</Text>
+
+                     <Text style={styles.securetext}>in one place</Text>
+                    
                    
                     </View>         
                      </View>
@@ -108,8 +107,7 @@ export default class Landingpage extends Component {
     signImge:{
         width:'100%',
         height:419,
-        marginRight:16,
-        marginLeft:16,
+       
         marginTop:40
     },
     securetext:{
@@ -120,21 +118,19 @@ export default class Landingpage extends Component {
         textAlign:'center',
         letterSpacing:2,
         fontStyle:'normal',
-        fontWeight:"bold",
+        
         //   fontWeight:"900"
         
-
-    
-
-
-
     },
     securetext_1:{
-        height:75,
+        // height:75,
         fontFamily:'Nunito',
         fontSize:20,
         color:'#f69829',
+        fontWeight:"bold",
 
-        fontStyle:'normal'
+   textAlign:'center',
+        fontStyle:'normal',
+        letterSpacing:2
     }
   })
