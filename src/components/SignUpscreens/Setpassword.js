@@ -29,24 +29,30 @@ export default class Setpassword extends Component {
     render() {
         return (
             <Container style={styles.Container}>
-                <Header style={{ backgroundColor: '#1b1464', height: 160 }}>
-                <StatusBar barStyle="light-content" backgroundColor="#1b1464"/>
-
-                    <Left>
-                        <Button transparent>
-                            <Icon name='arrow-back'
-                                onPress={() => this.props.navigation.navigate('Login')}
-                            />
-                        </Button>
-                        <Text  >Set your password</Text>
-                   
-                    </Left>
+                <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
+                    <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
+                
+                        <Left style={{ marginLeft:5 }}>
+ 
+                            <Button transparent  >
+                                <Icon name='arrow-back' style={styles.icon}
+                                    onPress={() => this.props.navigation.navigate('Login')}
+                                />
+                            </Button>
+                            <Text  style={styles.headerText} >
+                            Set your password
+                          </Text>
+                          
+                         
+                          
+                        </Left>
+                        
+ 
+                        <Right />
                     
-                       
-                   <Right/>
-
-                </Header>
-                <ScrollView>
+ 
+                </Header>         
+                       <ScrollView>
 
                <Content>
 
@@ -231,7 +237,26 @@ const styles = StyleSheet.create({
          height:344,
          width:'100%',
 
-    }
+    },
+    headerText: {
+        width: 221,
+        height: 27,
+        fontFamily: 'Nunito',
+        fontSize: 20,
+
+        marginLeft: 10,
+        color: '#ffffff',
+        alignItems: 'flex-start'
+    },
+    
+      textcolor: {
+       
+        height: 32,
+        marginLeft: 16,
+        color: '#ffffff',
+        fontFamily: 'Nunito',
+    
+      },
 
 })
 

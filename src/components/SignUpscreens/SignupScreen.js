@@ -35,6 +35,12 @@ export default class Signup extends Component {
         })
       }
      
+      OtpDetails=()=>{
+        this.setState({
+          isVisible:false
+        })
+        this.props.navigation.navigate('Setpassword')
+      }
     render() {
          const {mobileOtp}=this.state
         return (
@@ -203,7 +209,7 @@ export default class Signup extends Component {
                 <TouchableOpacity onPress={this.otpsubmit}>
 
                   <Text style={styles.otpSubmit}
-                    onPress={()=>this.props.navigation.navigate('Setpassword')}
+                    onPress={this.OtpDetails}
                   >Submit</Text>
 
                 </TouchableOpacity>
