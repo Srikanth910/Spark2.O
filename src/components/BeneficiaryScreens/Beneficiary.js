@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Header, Tabs, Text, Tab, ListItem, TabHeading, Title, Item, Input, Button, Body, View, Icon, Left, Right } from 'native-base'
+import { Container, Header, Tabs, Text, Tab, ListItem, TabHeading, Title, Item, Input, Button, Body, View, Icon, Left, Right, Thumbnail, Form } from 'native-base'
 import { StyleSheet, StatusBar, Image } from 'react-native';
 import Modal from 'react-native-modal';
 
+ import {connect } from 'react-redux'
 
-
-export default class Beneficiary extends Component {
+ class Beneficiary extends Component {
 
 
   constructor(props) {
@@ -18,6 +18,17 @@ export default class Beneficiary extends Component {
 
     };
   }
+
+   componentDidMount(){
+      const {beneficiary}=this.props
+       const userBeneficiary={
+        // membarId: beneficiary.memberDetials.customerId,
+        "isWithInCoop":"true",
+        "isPrimaryAccunt":"true",
+        "type":"1"
+       }
+        this.props.getBeneficiary(userBeneficiary)
+   }
   toggelopen = () => {
     this.setState({
       ismodelopen: !this.state.ismodelopen
@@ -27,14 +38,16 @@ export default class Beneficiary extends Component {
     this.setState({
       ismodelopen: false
     })
-    this.props.navigation.navigate('passwordSet')
+    this.props.navigation.navigate('Confirmationdetails')
   }
   render() {
     const { password } = this.state
+     const {getBeneficiary}=this.props
+      console.log(getBeneficiary)
     return (
       <Container>
 
-        <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
+        <Header style={{ backgroundColor: '#1b1464', height: 80 }} >
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
           <Left>
             <Button transparent style={styles.btnclose}>
@@ -52,8 +65,13 @@ export default class Beneficiary extends Component {
             <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.ismodelopen} >
               <View style={{ backgroundColor: 'white' }}>
                
-                <Text style={styles.otpText}>Add Spark member as beneficiary</Text>
-                <Text style={styles.otpText}>Add a bank account as beneficiary</Text>
+                <Text style={styles.otpText}
+                 onPress={()=>this.props.navigation.navigate('AddBeneficiarys')}
+                >Add Spark member as beneficiary</Text>
+                <Text style={styles.otpText}
+                
+                onPress={()=>this.props.navigation.navigate('Otherbank')}
+                >Add a bank account as beneficiary</Text>
                 <ListItem style={{ justifyContent: 'flex-end' }} >
                   <Text style={styles.cancel} onPress={this.toggelopen}>Cancel</Text>
                 </ListItem>
@@ -108,6 +126,14 @@ export default class Beneficiary extends Component {
     )
   }
 }
+const mapStateToProps = state => ({
+  beneficiary: state.beneficiary,
+  error: state.error
+
+})
+
+export default connect(mapStateToProps, { })(Beneficiary)
+
 
 
 const styles = StyleSheet.create({

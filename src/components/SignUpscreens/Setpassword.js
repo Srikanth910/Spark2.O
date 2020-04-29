@@ -104,7 +104,7 @@ export default class Setpassword extends Component {
                 </ScrollView>
                 <View style={{flex: 1,}}>
                 <Button block warning style={styles.btnSubmit} 
-                  onPress={()=>this.props.navigation.navigate('Quicklogin')}
+                  onPress={()=>this.props.navigation.navigate('Welcomeboard')}
                  >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>

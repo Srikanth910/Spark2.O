@@ -22,13 +22,17 @@ import Otherbank from '../BeneficiaryScreens/Otherbank';
 import Quick_login from '../LoginScreens/Quick_login';
 
 import {ErrorAlert} from '../modelAlerts/DialogAlert'
-import Landingpage from '../landingpage/Landingpage';
+
 import Signup from '../SignUpscreens/SignupScreen';
 import Loadmoney from '../Home/LoadMoney/Loadmoney';
 import MoneyLoading from '../Home/LoadMoney/MoneyLoading';
- import MoneyLoadingFail from '../../components/Home/LoadMoney/MoneyLoadFail'
+//  import MoneyLoadingFail from '../../components/Home/LoadMoney/MoneyLoadFail'
 import CardList from '../Home/CardList';
-
+ import Landingpage from '../landingpage/Landingpage'
+import Setpassword from '../SignUpscreens/Setpassword';
+import Welcomeboard from '../landingpage/Welcomeboard';
+import Confirmationdetails from '../BeneficiaryScreens/Confirmation';
+ 
 const Stack = createStackNavigator();
 
 function Routing() {
@@ -57,15 +61,19 @@ function Routing() {
         <Stack.Screen name="Otherbank" component={Otherbank} /> 
         <Stack.Screen name="Quicklogin" component={Quick_login} /> 
         <Stack.Screen name="Signup" component={Signup} /> 
+        <Stack.Screen name="Setpassword" component={Setpassword} /> 
 
 
         <Stack.Screen name="Loadmoney" component={Loadmoney} /> 
         
         <Stack.Screen name="MoneyLoading" component={MoneyLoading} /> 
-        {/* <Stack.Screen name="CardList" component={CardList} />  */}
+        <Stack.Screen name="Welcomeboard" component={Welcomeboard} /> 
+      
+        <Stack.Screen name="Confirmationdetails" component={Confirmationdetails} /> 
+      
 
-
-       
+        
+        
    
         
         

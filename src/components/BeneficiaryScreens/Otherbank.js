@@ -23,6 +23,8 @@ export default class Otherbank extends Component {
 
         };
     }
+
+     
     toggelopen = () => {
         this.setState({
             ismodelopen: !this.state.ismodelopen
@@ -34,6 +36,25 @@ export default class Otherbank extends Component {
             ismodelopen: false
         })
         this.props.navigation.navigate('passwordSet')
+    }
+    addSubmit=()=>{
+        const{ Name, AccontNo, ConfirmAccontNo, Email, IFCS, mobileNo}=this.state
+
+         const Beneficiary={
+            ifscCode:IFCS,
+            "membarId":"1278",
+            benificiaryAccNo: AccontNo,
+            "benificiaryName":"SavingsAccount",
+            phoneNo:mobileNo,
+            email:mobileNo,
+            "isPrimaryAccunt":true,
+            "isWithInCoop":true,
+            "refNo":"35118",
+            "otp":"12345",
+            "accountType":"savingsaccount",
+            "state":"karnataka"
+
+         }
     }
     render() {
         const { password } = this.state
@@ -95,7 +116,7 @@ export default class Otherbank extends Component {
                             onChangeText={Accounttext => this.setState({ IFCS: Accounttext })}
                         />
                             
-                        
+                    
                         </Item>
 
                         <Text style={styles.textstyle}>Email</Text>
@@ -157,7 +178,7 @@ export default class Otherbank extends Component {
                             </Modal>
                         </View>
 
-                        <Button block warning style={styles.SubmitButton} onPress={this.toggelopen}     >
+                        <Button block warning style={styles.SubmitButton} onPress={this.addSubmit}     >
                             <Text>Submit</Text>
 
                         </Button>

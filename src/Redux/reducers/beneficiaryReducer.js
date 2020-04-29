@@ -1,4 +1,6 @@
-import { CREATE_OTP_BENEFICIARY_SUCCESS, RESEND_OTP_BENEFICIARY_SUCCESS, ADD_BENEFICIARY_SUCCESS, GET_BENEFICIARY_SUCCESS, UPDATE_BENEFICIARY_SUCCESS, REMOVE_BENEFICIARY_SUCCESS } from "../constants/types"
+import { CREATE_OTP_BENEFICIARY_SUCCESS,
+     RESEND_OTP_BENEFICIARY_SUCCESS, ADD_BENEFICIARY_SUCCESS,
+      GET_BENEFICIARY_SUCCESS, UPDATE_BENEFICIARY_SUCCESS, REMOVE_BENEFICIARY_SUCCESS, GET_MEMBER_DT_SUCCESS } from "../constants/types"
 
 const initialState = {
     createBeneficiary: {},
@@ -6,7 +8,8 @@ const initialState = {
     beneficiaryData: {},
     getBeneficiary: [],
     updateBeneficiary: {},
-    removeBeneficiary: {}
+    removeBeneficiary: {},
+    memberDetial:{}
 }
 
 export default function (state = initialState, acton) {
@@ -44,7 +47,11 @@ export default function (state = initialState, acton) {
             return {
                 ...state,
                 removeBeneficiary: acton.payload
-            }
+            }      
+             case GET_MEMBER_DT_SUCCESS:
+                 return{
+                     memberDetial:action.payload
+                 }
 
 
 

@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import { Content, ListItem, Radio, Right, Left } from 'native-base';
 import { connect } from 'react-redux';
-import { createOtpBeneficiary, resendOtpBeneficiary } from '../../Redux/actions/Beneficiary'
+import { getmemberDetails } from '../../Redux/actions/Beneficiary'
 class AddBeneficiarys extends Component {
 
     constructor(props) {
@@ -46,17 +46,24 @@ class AddBeneficiarys extends Component {
     }
     Datasubmit = () => {
         const Data = {
-            "custId": "1278",
-            mobileNo: this.state.mobilenum,
-            state: this.state.selected2,
+            
+            mobileNoOrAccNo: this.state.mobilenum,
+            memberOf: this.state.selected2,
             accountType: this.state.name
 
 
         }
         console.log(Data)
 
-        this.props.createOtpBeneficiary(Data, () => {
-            this.props.navigation.navigate('Beneficiary')
+        this.props.getmemberDetails(Data, () => {
+             const {beneficiary}=this.props
+              if(beneficiary.memberDetials.code==="200"){
+                this.props.navigation.navigate('Confirmationdetails')
+
+              }else{
+                  alert('fail')
+              }
+             
         })
 
     }
@@ -64,6 +71,8 @@ class AddBeneficiarys extends Component {
 
         
     render() {
+         const {beneficiary}=this.props
+        //  console.log(beneficiary.memberDetials)
         const { password, mobilenum, confirmMobilenum } = this.state
         return (
             <Container>
@@ -226,7 +235,15 @@ class AddBeneficiarys extends Component {
     }
 }
 
-export default connect(null, { createOtpBeneficiary, resendOtpBeneficiary })(AddBeneficiarys)
+
+const mapStateToProps = state => ({
+    beneficiary: state.beneficiary,
+    error: state.error
+
+})
+
+export default connect(null, { getmemberDetails})(AddBeneficiarys)
+
 const styles = StyleSheet.create({
     tabHeading: {
 

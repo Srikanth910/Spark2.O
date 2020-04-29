@@ -4,7 +4,9 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
     UPDATE_BENEFICIARY_SUCCESS,
     UPDATE_BENEFICIARY_FAIL,
     
-    REMOVE_BENEFICIARY_SUCCESS } from '../constants/types';
+    REMOVE_BENEFICIARY_SUCCESS, 
+    GET_MEMBER_DT_SUCCESS,
+    GET_MEMBER_DT_FAIL} from '../constants/types';
 
 
 
@@ -99,18 +101,66 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
     }
  }
  
- export const getBeneficiary=(data, callback)=> async dispatch=>{
+
+
+
+ export const getmemberDetails=(data)=>{
+       console.log(data)
+
+     return async dispatch=>{
+
+     
+     try{
+          const res = await  axios.post(`${API_URL}/membarDetailsByMobileNoOrAccNo_V2_O`, data)
+          
+         
+          let memberDetials = await res.data
+           console.log(memberDetials)
+           if(memberDetials.code==="404"){
+                dispatch({
+                     type:GET_MEMBER_DT_FAIL,
+                     payload:memberDetials
+                })
+ 
+           }else if(memberDetials.Data.code==="200"){
+                callback();
+                dispatch({
+                     type:GET_MEMBER_DT_SUCCESS,
+                     payload:memberDetials.Data
+                })
+           }
+ 
+     }catch(err){
+           console.log(err)
+          dispatch({
+              type:CATACH_ERROR,
+              payload:err
+          })
+          
+          
+     }
+  }
+  
+
+ }
+
+ export const getBeneficiary=(data, callback)=>{
+       console.log(data)
+
+return async dispatch=>{
+
+
     try{
          const res =  axios.post(`${API_URL}/getBeneficiaryV2_O`, data)
          let OtpBeneficiary = await res.data
-          if(OtpBeneficiary.code===""){
+          if(OtpBeneficiary.code==="300"){
                dispatch({
                     type:GET_BENEFICIARY_FAIL,
                     payload:OtpBeneficiary
                })
 
           }else if(OtpBeneficiary.Data.code==="200"){
-               callback();
+         
                dispatch({
                     type:GET_BENEFICIARY_SUCCESS,
                     payload:OtpBeneficiary.Data
@@ -126,6 +176,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
          
     }
  }
+}
  
  export const removeBeneficiary=(data, callback)=>async dispatch=>{
     try{

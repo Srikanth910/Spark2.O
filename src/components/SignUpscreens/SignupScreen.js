@@ -1,47 +1,75 @@
 import React, { Component } from 'react'
-import { Container, Header, Left, Right, Button,Icon, Input,Text, Content, Form, Item,  } from 'native-base'
+import { Container, Header, Left, Right, Button,Icon, Input,Text,ListItem, Content, Form, Item, Footer,  } from 'native-base'
  import {StyleSheet, StatusBar, View, TouchableOpacity,Image} from 'react-native'
 import RBSheet from 'react-native-raw-bottom-sheet';
+import { ScrollView } from 'react-native-gesture-handler';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
     
-
+import Modal from 'react-native-modal';
 export default class Signup extends Component {
      constructor(props) {
          super(props)
      
          this.state = {
-            activeIndex:0
+            activeIndex:0,
+            mobileOtp:'',
+            isVisible:false,
+            Statevalue:''
          }
      }
+     handleState=(name, id)=>{
+        this.setState({
+            activeIndex:id,
+            Statevalue:name
+        })
+
+   }
+     toggelopen = () => {
+        this.setState({
+          isVisible: true
+        })
+      }
+      toggelclose = () => {
+        this.setState({
+          isVisible: false
+        })
+      }
      
     render() {
+         const {mobileOtp}=this.state
         return (
            <Container style={styles.Container}>
-                <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
+               <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
                     <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
                 
-                        <Left style={{ marginLeft:10, marginTop: 20 }}>
-
+                        <Left style={{ marginLeft:5 }}>
+ 
                             <Button transparent  >
-                                <Icon name='arrow-back'
+                                <Icon name='arrow-back' style={styles.icon}
                                     onPress={() => this.props.navigation.navigate('Login')}
                                 />
                             </Button>
-                             <Text style={styles.headerText}>
-                               Welcome
+                            <Text  style={styles.textcolor} >
+                                Welcome
                           </Text>
-
+                          
+                          <Text style={styles.headerText}>
+                          Sign up for a Spark Savings account in just a few {"\n"} tabs.
+                          </Text>
+                          
                         </Left>
-
-
+ 
                         <Right />
                     
+ 
                 </Header>
+                <ScrollView>
                 <Content style={styles.Content}>
                          
-                          <View>
+                          <View  style={styles.grp_fields}>
 
                    
-                            <Text style={styles.loginText}>Email</Text>
+                            <Text style={styles.mobileinput}>Email</Text>
                             <Item regular style={styles.loginInput}>
                             <Input placeholder='eg. vijay@emails.com' style={styles.input} value={this.state.mobile}
                                     value={this.state.mobile}
@@ -52,7 +80,7 @@ export default class Signup extends Component {
                                 />
                             </Item>
                            
-                            <Text style={styles.mobileinput}>Enter your mobile number</Text>
+                            <Text style={styles.mobileinput}>Mobile Number</Text>
                             <Item regular style={styles.loginInput}>
                                 <Input placeholder='No need to add +91' style={styles.input} value={this.state.mobile}
                                     value={this.state.mobile}
@@ -64,19 +92,19 @@ export default class Signup extends Component {
 
                             </Item>
                            
-                            <Text style={styles.mobileinput} >Enter your password</Text>
+                            <Text style={styles.mobileinput} >State</Text>
 
 
                             <Item regular style={styles.dropInput}
                             onPress={() => this.RBSheet.open()}
                             >
                            {/* <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text> */}
-                            <Icon name='ios-arrow-down' 
+                            {/* <Icon name='ios-arrow-down' 
                              style={styles.arrowicon}
                              
                             
                             
-                            />
+                            /> */}
                             
                              <RBSheet
           ref={ref => {
@@ -121,18 +149,68 @@ export default class Signup extends Component {
 
 
                    
-                </Content> 
-                <View style={styles.bottom}>
+                </Content>
+                
+    </ScrollView>
+                    <View style={{flex:1, justifyContent:'flex-end', bottom:0}} >
+                <View style={styles.bottom} >
                     <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text  style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
                 <Button block warning style={styles.btnSubmit} 
-                  onPress={()=>this.props.navigation.navigate('Quicklogin')}
+                  onPress={this.toggelopen}
                  >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>
                     < Image source={require('../../images/signupimges/grp_img.png')} style={styles.bottomImage}/>
                 </View>
+                </View>
               
+
+                <View>
+          <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
+            <View style={{ backgroundColor: 'white' }}>
+
+              <Text style={styles.otp}>Enter OTP</Text>
+              <Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
+              <View style={{ alignSelf: 'center' }}>
+                <SmoothPinCodeInput
+                  codeLength={5}
+                  cellStyle={{
+                    borderBottomWidth: 1,
+                    borderColor: 'gray',
+                    width: 20,
+
+                  }}
+                  cellStyleFocused={{
+                    borderColor: 'black',
+                  }}
+                  value={mobileOtp}
+                  onTextChange={mobileOtp => this.setState({ mobileOtp })}
+                />
+              </View>
+              <ListItem style={{ justifyContent: 'space-around', marginTop: 10, borderColor: 'transparent', }}>
+                <Text>2:00.0</Text>
+                <TouchableOpacity
+                >
+                  <Text style={styles.resendOtp}
+                    onPress={this.otpResend}
+                  >Resend OTP</Text>
+                </TouchableOpacity>
+
+              </ListItem>
+              <ListItem style={{ justifyContent: 'flex-end' }} >
+                <Text style={styles.cancel} onPress={this.toggelclose}>Cancel</Text>
+                <TouchableOpacity onPress={this.otpsubmit}>
+
+                  <Text style={styles.otpSubmit}
+                    onPress={()=>this.props.navigation.navigate('Setpassword')}
+                  >Submit</Text>
+
+                </TouchableOpacity>
+              </ListItem>
+            </View>
+          </Modal>
+        </View>
 
             </Container>
         )
@@ -148,15 +226,41 @@ const  styles= StyleSheet.create({
          width:'100%',
          height:'100%'
      },
-    headerText: {
-        width: 221,
-        height: 27,
-        fontFamily: 'Nunito',
-        fontSize: 20,
+     grp_fields:{
 
-        marginLeft: 10,
+        marginTop: 20,
+    },
+       
+        headerText: {
+            width: 400,
+            height: 36,
+            fontFamily: 'Nunito',
+            fontSize: 14,
+            marginLeft: 16,
+            marginRight: 16,
+            color: '#ffffff',
+            letterSpacing:0.5,
+            alignItems: 'flex-start',
+        
+    },
+    headerText_sb:{
+        fontFamily: 'Nunito',
+        fontSize: 14,
+        marginLeft: 16,
+        marginRight: 16,
         color: '#ffffff',
-        alignItems: 'flex-start'
+        letterSpacing:0.5,
+        alignItems: 'flex-start',
+    
+
+    },
+    textcolor:{
+      fontSize: 20,
+      height: 32,
+      marginLeft: 16,
+      color: '#ffffff',
+      fontFamily: 'Nunito',
+      alignItems: 'flex-start',
     },
     Content:{
         backgroundColor:'#ffffff',
@@ -199,21 +303,25 @@ const  styles= StyleSheet.create({
 
         height: 640
     },
-    headerText: {
-        width: 221,
-        height: 27,
-        fontFamily: 'Nunito',
-        fontSize: 20,
-
-        marginLeft: 10,
-        color: '#ffffff',
-        alignItems: 'flex-start'
-    },
+  
     input: {
         height: 40,
         backgroundColor: '#e1e4eb',
         borderRadius: 5,
     },
+    selectState:{
+        width:88,
+        height:22,
+        opacity:0.87,
+        fontFamily:'Nunito',
+        fontSize:16,
+        fontWeight:'bold',
+         fontStyle:'normal',
+          color:'#000000',
+           textAlign:'left',
+           marginTop:15,
+           marginLeft: 16,
+      },
     headerCross: {
         color: '#ffffff',
         marginLeft: 20,
@@ -313,10 +421,12 @@ const  styles= StyleSheet.create({
     },
 
     mobileinput: {
-        // marginTop: 5,
+        marginTop: 10,
         marginLeft: 20,
         color: '#474a4f',
         fontSize: 14,
+        height:19,
+
 
 
     },
@@ -347,7 +457,7 @@ const  styles= StyleSheet.create({
     icon: {
         marginLeft: 10,
         color: '#ffffff',
-        width: 14,
+        width: 16,
         height: 20
     },
     bottomImage:{
@@ -358,9 +468,104 @@ const  styles= StyleSheet.create({
         
     },
     bottom:{
-        flex:1,
-         justifyContent:"flex-end",
-        marginBottom:16
-    }
+       
+        backgroundColor:'#ffffff',
+      
+        marginBottom:16,
+     
+    },
+    otp: {
+
+        width: 94,
+        height: 27,
+        marginTop: 15,
+        color: '#000000',
+        fontSize: 20,
+        marginLeft: 15,
+        fontWeight: "bold"
+    
+    
+      },
+      resendOtp: {
+        width: 91,
+        height: 22,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        color: '#f7931e',
+        textAlign: 'right',
+    
+    
+      },
+      cancel: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        color: '#999999',
+        textAlign: 'left'
+    
+      },
+      otpText: {
+        marginLeft: 15,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        marginTop: 10,
+        color: '#000000'
+    
+      },
+    
+      otpSubmit: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#f7931e',
+        textAlign: 'right'
+      },
+      btn: {
+        
+        // backgroundColor: '#DDDDDD',
+        // borderColor: '#dc00ff',
+        // borderRadius: 10,
+        // borderWidth:1,
+        // padding: 10,
+        opacity: 0.5,
+        // marginLeft: 16,
+        
+    
+    },
+    btnActive: {
+        // alignItems: 'center',
+        // backgroundColor: '#f7931e',
+        borderColor: '#f7931e',
+        // borderRadius: 10,
+        borderWidth: 3,
+        height:80,
+        // padding: 10,
+        marginLeft: 8
+       
+        
+    },
+    state:{
+        //   width:73,
+          height:22,
+          opacity:0.87,
+          fontFamily:'Nunito',
+           color:'#000000',
+           textAlign:"left",
+           marginTop:5,
+           marginLeft: 16,
+      },
+      Statesubtext:{
+          width:332,
+          height:60,
+          fontSize:16,
+          color:'#999999',
+          textAlign:'left',
+          fontStyle:'normal',
+          marginLeft: 16,
+
+      },
+    
 
 })

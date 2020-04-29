@@ -40,7 +40,9 @@ export const FORGET_MPIN_FAIL = " FORGET_MPIN_FAIL";
       
         export const UPDATE_BENEFICIARY_FAIL="UPDATE_BENEFICIARY_FAIL";
         export const UPDATE_BENEFICIARY_SUCCESS="UPDATE_BENEFICIARY_SUCCESS";
-         export const DEVICEID_OTP=" DEVICEID_OTP"
+         export const DEVICEID_OTP=" DEVICEID_OTP";
+          export const GET_MEMBER_DT_FAIL="GET_MEMBER_DT_FAIL";
+          export const GET_MEMBER_DT_SUCCESS="GET_MEMBER_DT_SUCCESS";
       
 
 

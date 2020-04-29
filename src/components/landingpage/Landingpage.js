@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { Container, ListItem ,Button,Text, Item, Header, Content, View, } from 'native-base'
  import{StyleSheet, StatusBar, ImageBackground, Image} from 'react-native'
- import DeviceInfo from 'react-native-device-info';
-  import{getUniqueID} from 'react-native-device-info'
+
 export default class Landingpage extends Component {
   
 
@@ -98,7 +97,7 @@ export default class Landingpage extends Component {
 
         // paddingLeft: 10,\
 
-        
+
       
         marginBottom:16
 
