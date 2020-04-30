@@ -112,8 +112,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
      
      try{
           const res = await  axios.post(`${API_URL}/membarDetailsByMobileNoOrAccNo_V2_O`, data)
-          
-         
+     
           let memberDetials = await res.data
            console.log(memberDetials)
            if(memberDetials.code==="404"){
@@ -123,7 +122,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
                 })
  
            }else if(memberDetials.Data.code==="200"){
-                callback();
+               
                 dispatch({
                      type:GET_MEMBER_DT_SUCCESS,
                      payload:memberDetials.Data

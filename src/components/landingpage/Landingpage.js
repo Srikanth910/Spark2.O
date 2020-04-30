@@ -13,12 +13,13 @@ export default class Landingpage extends Component {
                <ImageBackground  source={require('../../images/signupimges/signUp_bg.png')} 
                 resizeMode={'cover'}
                style={styles.Container}> 
+               <Header transparent>
 
-               
-               <StatusBar hidden
-                />
-      <Content padder>
-               <View style={{justifyContent:'flex-end'}}>
+  <StatusBar barStyle="light-content" backgroundColor="#311b61"/>
+
+               </Header>
+           <Content >
+               <View style={styles.secureimg}>
                
                <Image
                 source={require('../../images/signupimges/sign_img.png')}  style={styles.signImge}/>
@@ -48,23 +49,7 @@ export default class Landingpage extends Component {
           </Button>
                </ListItem> 
                </ImageBackground>
-               {/* <Header style={styles.Container}>
-               <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
-               </Header>
-               <Content>
-
-               </Content>
-
-               <ListItem style={styles.btnGroup}>
-               <Button warning style={styles.btnSignup}
-             onPress={() => this.props.navigation.navigate('Signup')}
-               ><Text > SING UP </Text></Button>
-               <Button bordered warning style={styles.btnLogin}
-                   onPress={() => this.props.navigation.navigate('Login')}
-                >
-            <Text>LOGIN</Text>
-          </Button>
-               </ListItem> */}
+             
            </Container>
         )
     }
@@ -105,11 +90,16 @@ export default class Landingpage extends Component {
              
     },
     signImge:{
-        width:'100%',
+        
         height:419,
         marginRight:16,
         marginLeft:16,
-        marginTop:40
+        
+    },
+    secureimg:{
+        justifyContent:'center',
+        marginTop: 20,
+
     },
     securetext:{
         // height:75,

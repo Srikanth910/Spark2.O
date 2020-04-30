@@ -10,9 +10,9 @@ export default class ImageSilder extends Component {
         this.state = {
             images: [
         
-                require('../../../src/images/img_box.png'),  
-                require('../../../src/images/img_box.png'),   
-                require('../../../src/images/img_box.png'),       // Local image
+                require('../../images/home/home_img.png'),  
+                require('../../images/home/home_img.png'),    
+                require('../../images/home/home_img.png'),      // Local image
               ]
         
         }
@@ -23,8 +23,8 @@ export default class ImageSilder extends Component {
             <View>
 
 <SliderBox images={this.state.images}
-             sliderBoxHeight={150}
-             sliderBoxHeight={150}
+             sliderBoxHeight={144}
+             sliderBoxHeight={144}
   onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
   dotColor="#FFEE58"
   inactiveDotColor="#90A4AE"
@@ -51,7 +51,7 @@ export default class ImageSilder extends Component {
     margin: 0,
     backgroundColor: "rgba(128, 128, 128, 0.92)"
   }}
-  ImageComponentStyle={{ marginLeft: 16, marginRight: 16, marginTop: 5}}
+  ImageComponentStyle={{ marginLeft: 16, marginRight: 16, marginTop: 15}}
   imageLoadingColor="#2196F3"
             />
             </View>

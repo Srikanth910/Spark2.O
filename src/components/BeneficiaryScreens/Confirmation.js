@@ -14,7 +14,7 @@ class Confirmationdetails extends Component {
         this.state = {
             isVisible:false,
             mobileOtp:''
-        }
+        
     }
     
     toggleClose = () => {
@@ -29,36 +29,36 @@ class Confirmationdetails extends Component {
             isVisible:true
          })
      }
-    handleSubmit=()=>{
+     Datasubmit=()=>{
+        alert('hbdjwdkj')
     const{beneficiary}=this.props
      const member={
          	
 	
 	
-membarId:beneficiary.memberDetails.customerId,
+"membarId":"1259",
 "benificiaryAccNo":"",
 "benificiaryName":"",
-phoneNo:beneficiary.memberDetails.mobileNo,
+"phoneNo":"9908970734",
 "isPrimaryAccunt":"true",
 "isWithInCoop":"true",
 "state":"",
 "accountType":""
      }
-
-      this.props.createOtpBeneficiary(member,()=>{
-          if(beneficiary.memberDetails.code==="200"){
-               this.setState({
-                   isVisible:true
-               })
+console.log(member)
+      this.props.createOtpBeneficiary(member).then(()=>{
+          if(beneficiary.createBeneficiary.code==="200"){
+              alert('ssss')
+            //    this.setState({
+            //        isVisible:true
+            //    })
           }
       })
 
     }
 
 
-     resendOtp=()=>{
-
-     }
+   
      otpVerify=()=>{
        
        
@@ -86,6 +86,7 @@ phoneNo:beneficiary.memberDetails.mobileNo,
              })
 
      }
+    }
     render() {
          const{beneficiary}=this.props
           const{mobileOtp}=this.state
@@ -112,15 +113,15 @@ phoneNo:beneficiary.memberDetails.mobileNo,
                 <Tab tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }} >
                     <ScrollView>
                         <Text style={styles.textstyle}>Please confirm the beneficiary details</Text>
-        <Text style={styles.namestyle}>{beneficiary.memberDetails.name}</Text>
-        <Text style={styles.statestyle} >Phone :{beneficiary.memberDetails.mobileNo}</Text>
+        {/* <Text style={styles.namestyle}>{beneficiary.memberDetails.name}</Text> */}
+        {/* <Text style={styles.statestyle} >Phone :{beneficiary.memberDetails.mobileNo}</Text> */}
                         <Text style={styles.statestyle} >State:Maharashtra(Ayshwarya Syndicate Credit Co-OPerative Limited)</Text>
                         <Text style={styles.notetext}>Please ensure you enter the correct account details.Spark is not responsible for incorrect account details</Text>
-                        
-                        <Button block warning style={styles.SubmitButton} onPress={this.handleSubmit}     >
-                        <Text >Submit</Text></Button>
+                     
                     </ScrollView>
-
+   
+                    <Button block warning style={styles.SubmitButton} onPress={this.Datasubmit}> 
+                        <Text >Submit</Text></Button>
  
 
                 </Tab>
@@ -133,13 +134,13 @@ phoneNo:beneficiary.memberDetails.mobileNo,
     }
 }
 
-// const mapStateToProps = state => ({
-//     beneficiary: state.beneficiary,
-//     error: state.error
+const mapStateToProps = state => ({
+    beneficiary: state.beneficiary,
+    error: state.error
 
-// })
+})
 
-// export default connect(mapStateToProps, { createOtpBeneficiary})(Confirmationdetails)
+export default connect(mapStateToProps, { createOtpBeneficiary})(Confirmationdetails)
 
 
 
@@ -161,6 +162,9 @@ const styles = StyleSheet.create({
     SubmitButton: {
         marginLeft: 16,
         width: 382,
+        marginRight: 16,
+
+        marginBottom:32,
     },
     notetext: {
         marginTop: 300,

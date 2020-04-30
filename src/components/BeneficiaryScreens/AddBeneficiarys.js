@@ -55,11 +55,11 @@ class AddBeneficiarys extends Component {
         }
         console.log(Data)
 
-        this.props.getmemberDetails(Data, () => {
+        this.props.getmemberDetails(Data).then(() => {
              const {beneficiary}=this.props
               if(beneficiary.memberDetials.code==="200"){
-                this.props.navigation.navigate('Confirmationdetails')
-
+        this.prop.navigation.navigate('Confirmationdetails')
+               
               }else{
                   alert('fail')
               }
@@ -72,7 +72,7 @@ class AddBeneficiarys extends Component {
         
     render() {
          const {beneficiary}=this.props
-        //  console.log(beneficiary.memberDetials)
+         console.log(beneficiary.memberDetials.code)
         const { password, mobilenum, confirmMobilenum } = this.state
         return (
             <Container>
@@ -109,10 +109,10 @@ class AddBeneficiarys extends Component {
                                 onValueChange={this.onValueChange2.bind(this)}
                             >
                                 <Picker.Item label="Select" value="key0" />
-                                <Picker.Item label="Karnataka" value="karnataka" >
+                                <Picker.Item label="Karnataka" value="KA" >
                                     <Item>hello</Item>
                                 </Picker.Item>
-                                <Picker.Item label="maharashtra" value="maharashtra" />
+                                <Picker.Item label="maharashtra" value="MH" />
                             </Picker>
 
                         </Item>
@@ -242,7 +242,7 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(null, { getmemberDetails})(AddBeneficiarys)
+export default connect(mapStateToProps, { getmemberDetails})(AddBeneficiarys)
 
 const styles = StyleSheet.create({
     tabHeading: {

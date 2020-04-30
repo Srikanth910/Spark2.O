@@ -69,7 +69,7 @@ function Routing() {
         <Stack.Screen name="MoneyLoading" component={MoneyLoading} /> 
         <Stack.Screen name="Welcomeboard" component={Welcomeboard} /> 
       
-        {/* <Stack.Screen name="Confirmationdetails" component={Confirmationdetails} />  */}
+        <Stack.Screen name="Confirmationdetails" component={Confirmationdetails} /> 
       
 
         

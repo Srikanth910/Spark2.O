@@ -15,11 +15,9 @@ export default class LandingBillpay extends Component {
                 resizeMode={'cover'}
                style={styles.Container}> 
 
-               
-               <StatusBar hidden
-                />
+            
       <Content padder>
-               <View >
+               <View style={styles.moneyimg} >
                
                <Image
                 source={require('../../images/signupimges/bill_img.png')}  style={styles.signImge}/>
@@ -107,9 +105,16 @@ export default class LandingBillpay extends Component {
     signImge:{
         width:'100%',
         height:419,
+        marginLeft:16,
+        marginRight:16
        
-        marginTop:40
+       
     },
+    moneyimg:{
+      alignItems:'center',
+      marginTop:20
+    },
+
     securetext:{
         // height:75,
         fontFamily:'Nunito',

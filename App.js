@@ -41,6 +41,7 @@ import Setpassword from './src/components/SignUpscreens/Setpassword';
 import Signup from './src/components/SignUpscreens/SignupScreen';
 import Welcomeboard from './src/components/landingpage/Welcomeboard';
 // import Bottom from './src/components/LoginScreens/Bottomsheet';
+import Confirmationdetails from'./src/components/BeneficiaryScreens/Confirmation'
 export default class App extends Component {
   render() {
     return (
@@ -48,7 +49,7 @@ export default class App extends Component {
       
       <Provider store={store}>
       
-      <Routing />
+      <Home />
         </Provider>
       </>
     );

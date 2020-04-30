@@ -9,11 +9,11 @@ const initialState = {
     getBeneficiary: [],
     updateBeneficiary: {},
     removeBeneficiary: {},
-    memberDetial:{}
+    memberDetials:{}
 }
 
-export default function (state = initialState, acton) {
-    switch (acton.type) {
+export default function (state = initialState, action) {
+    switch (action.type) {
         case CREATE_OTP_BENEFICIARY_SUCCESS:
 
             return {
@@ -50,7 +50,8 @@ export default function (state = initialState, acton) {
             }      
              case GET_MEMBER_DT_SUCCESS:
                  return{
-                     memberDetial:action.payload
+                     ...state,
+                     memberDetials:action.payload
                  }
 
 
