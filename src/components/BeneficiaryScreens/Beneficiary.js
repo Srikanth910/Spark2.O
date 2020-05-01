@@ -22,12 +22,12 @@ import Modal from 'react-native-modal';
 
    componentDidMount(){
       const {beneficiary}=this.props
-       const userBeneficiary={
-        "membarId":"1278",
+       const userBeneficiary= {
+        membarId:beneficiary.memberDetials.customerId,
         "isWithInCoop":"true",
         "isPrimaryAccunt":"true",
         "type":"1"
-       }
+        }
         this.props.getBeneficiaryDetails(userBeneficiary)
    }
   toggelopen = () => {
@@ -43,8 +43,8 @@ import Modal from 'react-native-modal';
   }
   render() {
     const { password } = this.state
-     const{beneficiary} =this.props
-        console.log( 'benfiry',beneficiary.getBeneficiary);
+     const{getBeneficiary} =this.props.beneficiary
+        console.log( 'benfiry',getBeneficiary.array);
         
    
 
@@ -95,9 +95,21 @@ import Modal from 'react-native-modal';
         <Tabs tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }}>
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Spark</Text></TabHeading>}>
 
-            <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
+            {/* <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
               style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
-            </Image>
+            </Image> */}
+
+{getBeneficiary.array.length>=0&& getBeneficiary.array.map(data=>{
+         console.log('vale',data)
+
+        return(
+
+          <View style={{ margin: 10 }}>
+          <Text>{data.AccountType}</Text>
+          <Text>{data.BeneficiaryAccNo}</Text>
+        </View>
+        )
+      })}
 
             <Button block warning style={styles.Addbtnbeni}
 
@@ -108,6 +120,8 @@ import Modal from 'react-native-modal';
           </Tab>
 
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Others</Text></TabHeading>}>
+     
+            
             <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
               style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
             </Image>

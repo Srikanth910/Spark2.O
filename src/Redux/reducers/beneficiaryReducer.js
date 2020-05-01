@@ -6,7 +6,7 @@ const initialState = {
     createBeneficiary: {},
     resendOtp: {},
     beneficiaryData: {},
-    getBeneficiary: [],
+    getBeneficiary: {},
     updateBeneficiary: {},
     removeBeneficiary: {},
     memberDetials:{},
@@ -16,6 +16,7 @@ const initialState = {
 export default function (state = initialState, action) {
     switch (action.type) {
         case CREATE_OTP_BENEFICIARY_SUCCESS:
+            case RESEND_OTP_BENEFICIARY_SUCCESS:
 
             return {
                 ...state,

@@ -24,7 +24,7 @@ class Home extends Component {
     console.log('reducer', auth)
     return (
       <Container style={styles.Container}>
-        <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
+        <Header style={{ backgroundColor: '#1b1464', height: 90 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
           <Left>
@@ -155,7 +155,10 @@ class Home extends Component {
                     onPress={() => this.props.navigation.navigate('NotifClass')}
                   >
 
-                    <Text style={styles.loadstyle} >LOAD</Text>
+                    <Text style={styles.loadstyle} 
+                    
+                     onPress={()=>this.props.navigation.navigate('Loadmoney')}
+                    >LOAD</Text>
                   </Button>
                   
                 </Left>

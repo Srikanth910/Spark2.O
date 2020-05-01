@@ -45,10 +45,16 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
  }
 
  
- export const resendOtpBeneficiary=(data, callback)=>async dispatch=>{
+ export const resendOtpBeneficiary=(data)=>{
+       console.log(data)
+      return async dispatch=>{
+
+      
     try{
-         const res =  axios.post(`${API_URL}/resendOtpForAddBeneficiary_V2_O`, data)
+         const res = await  axios.post(`${API_URL}/resendOtpForAddBeneficiary_V2_O`, data)
          let OtpBeneficiary = await res.data
+         console.log(OtpBeneficiary)
+     
           if(OtpBeneficiary.code===""){
                dispatch({
                     type:RESEND_OTP_BENEFICIARY_FAIL,
@@ -56,7 +62,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
                })
 
           }else if(OtpBeneficiary.Data.code==="200"){
-               callback();
+            
                dispatch({
                     type:RESEND_OTP_BENEFICIARY_SUCCESS,
                     payload:OtpBeneficiary.Data
@@ -69,7 +75,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
              payload:err
          })
          
-         
+     } 
     }
  }
  
@@ -157,7 +163,7 @@ return async dispatch=>{
 
 
     try{
-         const res = await  axios.post(`${API_URL}/getBeneficiaryV2_O`, data)
+         const res = await  axios.post(`${API_URL}/getBeneficiary_V2_O`, data)
          let getBeneficiary = await res.data
            console.log(getBeneficiary)
           if(getBeneficiary.code==="300"){

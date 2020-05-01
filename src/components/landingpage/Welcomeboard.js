@@ -17,8 +17,7 @@ export default class Welcomeboard extends Component {
                style={styles.Container}> 
 
                
-               <StatusBar hidden
-                />
+               
       <Content >
                <View >
                    <View style={styles.welcomimg}>

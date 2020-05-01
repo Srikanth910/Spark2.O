@@ -4,7 +4,7 @@ import { StyleSheet, ScrollView, StatusBar,TouchableOpacity } from 'react-native
 import { connect } from 'react-redux';
 import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
- import {createOtpBeneficiary,addBeneficiaryDetails} from '../../Redux/actions/Beneficiary'
+ import {createOtpBeneficiary,addBeneficiaryDetails,resendOtpBeneficiary} from '../../Redux/actions/Beneficiary'
 
 class Confirmationdetails extends Component {
 
@@ -21,7 +21,7 @@ class Confirmationdetails extends Component {
     }
 
     
-
+ 
     
     toggleclose = () => {
         this.setState({
@@ -94,6 +94,23 @@ console.log(member)
          }
      })
 
+
+ }
+
+ otpResend=()=>{
+    const otp=
+  {
+    // membarId:beneficiary.memberDetials.customerId,
+    "membarId":'1278',
+    "benificiaryAccNo":"",
+    "benificiaryName":"",
+    "phoneNo":"",
+    "isPrimaryAccunt":"true",
+    "isWithInCoop":"true",
+    "state":"",
+    "accountType":""
+    }
+     this.props.resendOtpBeneficiary(otp)
 
  }
     render() {
@@ -203,7 +220,7 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { addBeneficiaryDetails,createOtpBeneficiary})(Confirmationdetails)
+export default connect(mapStateToProps, { resendOtpBeneficiary,addBeneficiaryDetails,createOtpBeneficiary})(Confirmationdetails)
 
 
 

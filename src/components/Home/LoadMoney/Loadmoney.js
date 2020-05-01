@@ -133,7 +133,7 @@ export default class Loadmoney extends Component {
                         </Item>
 
                         <Button block warning style={styles.bottombtn}
-                            onPress={this.handleSubmit} >
+                            onPress={()=>this.props.navigation.navigate('MoneyLoading')} >
                             <Text>proceed</Text>
                         </Button>
                     </Content>
