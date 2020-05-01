@@ -191,8 +191,6 @@ export default class Otherbank extends Component {
         )
     }
 }
-
-
 const styles = StyleSheet.create({
 
     textstyle: {

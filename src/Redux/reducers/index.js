@@ -5,6 +5,6 @@ import error from './errorReducer'
 const rootReducer = combineReducers({
     auth:auth,
     error:error,
-    beneficiary:beneficiary
+    beneficiay:beneficiary
 });
 export default rootReducer;
