@@ -48,7 +48,7 @@ class Home extends Component {
 
         <Content >
 
-
+  <ImageSilder/>
  
 
 
@@ -107,13 +107,14 @@ class Home extends Component {
 
           <View style={styles.Rectangle}>
 
+          <View style={styles.fdCard}>
             <ListItem style={styles.listview}>
 
               <Image source={require('../../images/home/spk_logo.png')} style={styles.logo} />
               <Text style={styles.saving}>SAVINGS</Text>
             </ListItem>
             <Text style={styles.savingData}>This is your zero balance account which gives you up to 8% p.a. interest credited daily.</Text>
-<View   style={styles.contentview}>
+
 
 
                                  
@@ -130,21 +131,19 @@ class Home extends Component {
                   </Body>
                 </Left>
               </CardItem>
-              <CardItem>
+              <CardItem >
 
-<ListItem>
                 <Left>
-                  <ImageBackground source={require('../../images/rupi_icon.png')} style={{ height: 30, width: 20, marginTop: 10 }} />
+                  <ImageBackground source={require('../../images/rupi_icon.png')} style={{ height: 16, width: 10, marginTop: 10 }} />
                   <Text style={styles.bal}>10000</Text>
                 </Left>
               
 
                 <Right>
-                  <Button transparent >
-                    <Icon name='ios-arrow-forward' style={this.forwardicon} />
-                  </Button>
+                  <Button transparent>
+                 <Image source={require('../../images/home/arrow.png')}/></Button>
                 </Right>
-                </ListItem>
+                
 
 
 
@@ -152,18 +151,19 @@ class Home extends Component {
 
               <CardItem>
                 <Left>
-                  <Button transparent textStyle={{ color: '#87838B' }}
+                  <Button transparent 
                     onPress={() => this.props.navigation.navigate('NotifClass')}
                   >
 
-                    <Text >LOAD</Text>
+                    <Text style={styles.loadstyle} >LOAD</Text>
                   </Button>
+                  
                 </Left>
 
                 <Right>
-                  <Button transparent textStyle={{ color: '#87838B' }}>
+                  <Button transparent >
 
-                    <Text>TRANSFER</Text>
+                    <Text style={styles.loadstyle}>TRANSFER</Text>
                   </Button>
 
                 </Right>
@@ -171,12 +171,9 @@ class Home extends Component {
 
             </Card> 
             </View>
+            </View>
 
-          </View>
-          {/* <View style={styles.kycRectangle} > */}
-{/*           
-
-          </View> */}
+       
           <View style={styles.billpay}>
 
             <View >
@@ -190,7 +187,75 @@ class Home extends Component {
                   
 
               </ListItem>
+              <View style={{ flexDirection:"row", marginLeft:20, }}>
+              <View style={styles.box}>
+                  <Image source={require('../../images/home/phone.png')} style={styles.billIcon}/>
+        <Text style={styles.iconText}>Mobile {"\n"}Prepaid</Text>
+
+
+                </View>
+                <View style={styles.box}>
+                  <Image source={require('../../images/home/phone.png')} style={styles.billIcon}/>
+        <Text style={styles.iconText}>Mobile Postpaid</Text>
+
+
+                </View>
+                <View style={styles.box}>
+                  <Image source={require('../../images/home/Broadband.png')} style={styles.broadband}/>
+        <Text style={styles.iconText}>Broadband</Text>
+
+
+                </View>
+                <View style={styles.box}>
+                  <Image source={require('../../images/home/Electricity.png')} style={styles.billIcon}/>
+        <Text style={styles.iconText}>Electricity</Text>
+
+
+                </View>
+               
+                
+
+              </View>
+
+
+              <View style={{flex:1, flexDirection:"row", marginLeft:20, marginTop: 15,}}>
+                <View style={styles.box}>
+                  <Image source={require('../../images/home/DTH.png')} style={styles.billIcon}/>
+        <Text style={styles.iconText}>DTH</Text>
+
+
+                </View>
+                <View style={styles.box}>
+                <Image source={require('../../images/home/euro.png')} style={styles.euroicon}/>
+<Text style={styles.iconText}>PAYMENT</Text>
+
+
+
+
+                </View>
+                <View style={styles.box}>
+                <Image source={require('../../images/home/water.png')} style={styles.watericon}/>
+
+<Text style={styles.iconText}>water</Text>
+                </View>
+
+
+<View style={styles.dottedmore}>
+                {/* <View style={styles.more}> */}
+
+
+
+                  <Text style={styles.moretext}>More</Text>
+                
+                {/* </View> */}
+                </View>
+          
+              </View>
+              
             </View>
+
+
+
           </View>
 
           <View style={styles.fdRectangle}>
@@ -204,7 +269,24 @@ class Home extends Component {
               <Text style={styles.savingData}>You can earn up to 16% interest p.a. Also avail the option
                  to earn interest on deposit every month!</Text>
               <View >
-                <ImageBackground source={require('../../images/home/fd_bg.png')} style={styles.fd_rdbg} />
+                <ImageBackground source={require('../../images/home/fd_bg.png')} style={styles.fd_rdbg} >
+
+                <View style={styles.dottedlines}>
+                            <Text style={styles.fddotedtext}>Open a Fixed Deposit  at an incredible rate up to
+                       
+
+                         <Text style={styles.pa}>
+                                  16% p.a.
+                                  </Text>
+                                  </Text>
+                                  
+                           
+                        </View>
+
+                </ImageBackground>
+         
+
+
 
               </View>
               <View style={styles.rdbottombtn}>
@@ -244,7 +326,20 @@ class Home extends Component {
               <Text style={styles.savingData}>Earn up to 15% p.a. with periodic investment discipline of Recurring Deposits.!</Text>
 
               <View>
-                <ImageBackground source={require('../../images/home/rd_bg.png')} style={styles.fd_rdbg} />
+                <ImageBackground source={require('../../images/home/rd_bg.png')} style={styles.fd_rdbg} >
+               
+
+                
+                <View style={styles.rddottedlines}>
+                            <Text style={styles.fddotedtext}>Open a Recurring Depositat an amazing rate up to
+                         <Text style={styles.pa}>
+                                  15% p.a.
+                                  </Text>
+                                  </Text>
+                                  
+                           
+                        </View>
+                  </ImageBackground>
               </View>
               <View>
                 <View style={styles.rdbottombtn}>
@@ -279,7 +374,7 @@ class Home extends Component {
 
             >
               <Icon name="home" style={styles.bottomIcon} active />
-              
+              <Text style={styles.footertext}>Home</Text>
             </Button>
 
             <Button >
@@ -289,11 +384,13 @@ class Home extends Component {
 
                 onPress={() => this.props.navigation.navigate('NotifClass')}
               />
+              <Text style={styles.footertext}>Notification</Text>
             </Button>
             <Button
               onPress={() => this.props.navigation.navigate('Beneficiary')}
             >
               <Icon name="settings" style={styles.bottomIcon} />
+              <Text style={styles.footertext}>settings</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -427,7 +524,20 @@ const styles = StyleSheet.create({
   },
   card: {
    backgroundColor:'#ffffff',
-  height:148
+  // height:148,
+  marginLeft:16,
+  marginRight: 16,
+  borderWidth: 5,
+  shadowOffset:{width:0, height:2},
+  shadowColor:'grey',
+  shadowOpacity:0.4,
+  shadowRadius:4,
+  borderTopWidth: 2,
+  borderBottomWidth: 2,
+  borderRightWidth:1,
+  borderLeftWidth:1,
+  marginTop:10
+ 
 
 
 
@@ -444,22 +554,27 @@ const styles = StyleSheet.create({
     width: 50,
     height: 19,
     fontFamily: 'Nunito',
+     fontWeight:'bold',
+     textAlign:'left',
     fontSize: 14,
     color: 'grey'
 
   },
   bal: {
-    width: 99,
+    width: 63,
     height: 26,
     fontFamily: 'Inconsolata',
-    fontSize: 24
-    ,
+    fontSize: 24,
+    fontFamily:'Inconslata',
+
+    
     fontWeight: 'bold',
+  textAlign:'left',
     color: '#474a4f'
   },
   forwardicon: {
 
-    backgroundColor: '#f79d32'
+backgroundColor:'red'
 
   },
   spicon: {
@@ -506,8 +621,8 @@ const styles = StyleSheet.create({
   },
   fd_rdbg: {
     height: 195,
-    width: "100%",
-    marginTop: 10
+   
+    // marginTop: 10/
   },
   fd_rdbtn: {
 
@@ -584,6 +699,173 @@ contentview: {
   
 
 
-}
+},
+loadstyle:{
+  
+  // height:20,
+  fontSize:14,
+  textAlign:'center',
+   color:'#f7931e',
+   fontWeight:'bold',
+   letterSpacing:2
+   
+
+},
+fd_box:{
+ 
+  
+},
+iconText:{ 
+
+  fontFamily:'Nunito',
+  fontSize:12,
+  color:'#474a4f',
+  textAlign:'center'
+  
+
+
+},
+box:{
+  backgroundColor:'#ffffff',
+   height:75,
+   width:75,
+   
+
+   borderRadius: 10,
+ marginLeft:10,
+alignContent:'center',
+  
+
+},
+billIcon:{
+  height:42,
+  width:24,
+  marginTop: 5,
+  alignSelf:'center'
+  
+
+},
+broadband:{
+  height:42,
+  width:34,
+  marginTop: 5,
+  alignSelf:'center'
+
+},
+
+watericon:{
+  height:42,
+  width:40,
+  marginTop: 5,
+  alignSelf:'center'
+},
+euroicon:{
+  height:42,
+  width:40,
+  marginTop: 5,
+  alignSelf:'center'
+
+},
+more:{
+  backgroundColor:'#c3c1de',
+  height:65,
+   width:75,
+   
+
+   borderRadius: 10,
+ marginLeft:10,
+
+},
+
+ footertext:{
+   
+     height:16,
+      fontSize:13,
+       fontFamily:'Nunito',
+        color:'#474a4f',
+  
+          opacity:0.8
+ },
+  active:{
+    color:'blue'
+  },
+  moretext:{
+     textAlign:'center',
+    color:'#f77d0e',
+     marginTop: 20,
+
+      fontSize:12,
+       height:16,
+
+  },
+  dottedlines: {
+   
+    // backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 40,
+    marginHorizontal: 16,
+    borderColor: '#ffffff',
+
+    
+    borderRadius: 2,
+    borderWidth: 2,
+    borderStyle: 'dashed',
+    height:97,
+    width:204,
+    marginBottom:20
+
+   
+  },
+
+  dottedmore:{
+    
+    marginHorizontal: 16,
+    borderColor:"#c3c1de",
+      backgroundColor:'#c3c1de',
+    borderRadius: 10,
+    borderWidth: 2,
+    borderStyle: 'dashed',
+    height:65,
+    width:70,
+    marginBottom:20
+
+  },
+  fddotedtext:{
+    width:189,
+    height:82,
+    fontFamily:'Nunito',
+    fontSize:16,
+     fontWeight:'bold',
+     
+      color:'#ffffff',
+      textAlign:'center'
+
+  },
+  pa:{
+  
+    height:41,
+     fontFamily:'Nunito',
+       fontSize:30,
+        fontWeight:'bold',
+          color:'#ffffff'
+  },
+  rddottedlines:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    
+    marginVertical: 40,
+    marginHorizontal: 170,
+    borderColor: '#ffffff',
+
+    
+    borderRadius: 5,
+    borderWidth: 2,
+    borderStyle: 'dashed',
+    height:97,
+    width:207,
+    marginBottom:20
+
+  },
 
 })

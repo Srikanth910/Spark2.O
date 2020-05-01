@@ -9,7 +9,8 @@ const initialState = {
     getBeneficiary: [],
     updateBeneficiary: {},
     removeBeneficiary: {},
-    memberDetials:{}
+    memberDetials:{},
+    beneficiaryDetails:{}
 }
 
 export default function (state = initialState, action) {
@@ -19,23 +20,24 @@ export default function (state = initialState, action) {
             return {
                 ...state,
                 isLoading: true,
-                createBeneficiary: acton.payload
+                createBeneficiary: action.payload
             }
         case RESEND_OTP_BENEFICIARY_SUCCESS:
             return {
                 ...state,
-                resendOtp: acton.payload
+                resendOtp: action.payload
 
             }
         case ADD_BENEFICIARY_SUCCESS:
             return {
                 ...state,
+                 beneficiaryDetails:action.payload
 
             }
         case GET_BENEFICIARY_SUCCESS:
             return {
                 ...state,
-                getBeneficiary: acton.payload
+                getBeneficiary:action.payload
 
             }
         case UPDATE_BENEFICIARY_SUCCESS:

@@ -23,8 +23,9 @@ export default class ImageSilder extends Component {
             <View>
 
 <SliderBox images={this.state.images}
+             sliderBoxHeight={100}
              sliderBoxHeight={144}
-             sliderBoxHeight={144}
+             
   onCurrentImagePressed={index => console.warn(`image ${index} pressed`)}
   dotColor="#FFEE58"
   inactiveDotColor="#90A4AE"
@@ -51,7 +52,7 @@ export default class ImageSilder extends Component {
     margin: 0,
     backgroundColor: "rgba(128, 128, 128, 0.92)"
   }}
-  ImageComponentStyle={{ marginLeft: 16, marginRight: 16, marginTop: 15}}
+  ImageComponentStyle={{ marginLeft: 16, marginRight: 16, width: '97%', marginTop: 15}}
   imageLoadingColor="#2196F3"
             />
             </View>

@@ -311,7 +311,7 @@ class Login extends Component {
                         heading={<TabHeading style={styles.tabColor}><Text style={styles.tabHeading}>QUICK ACCESS</Text></TabHeading>}>
                         <Text style={styles.textData}>Enter MPIN</Text>
                         <Item regular style={styles.textInput}>
-                            <Input textContentType="password" placeholder='Enter mpin' style={styles.input}
+                            <Input textContentType="password  " placeholder='Enter mpin' style={styles.input}
 
                                 value={this.state.mpin}
                                 onChangeText={mpintext => this.setState({ mpin: mpintext })}

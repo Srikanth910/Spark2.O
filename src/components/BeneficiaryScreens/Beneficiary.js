@@ -4,6 +4,7 @@ import { StyleSheet, StatusBar, Image } from 'react-native';
 import Modal from 'react-native-modal';
 
  import {connect } from 'react-redux'
+  import {getBeneficiaryDetails} from '../../Redux/actions/Beneficiary'
 
  class Beneficiary extends Component {
 
@@ -22,12 +23,12 @@ import Modal from 'react-native-modal';
    componentDidMount(){
       const {beneficiary}=this.props
        const userBeneficiary={
-        // membarId: beneficiary.memberDetials.customerId,
+        "membarId":"1278",
         "isWithInCoop":"true",
         "isPrimaryAccunt":"true",
         "type":"1"
        }
-        this.props.getBeneficiary(userBeneficiary)
+        this.props.getBeneficiaryDetails(userBeneficiary)
    }
   toggelopen = () => {
     this.setState({
@@ -42,8 +43,11 @@ import Modal from 'react-native-modal';
   }
   render() {
     const { password } = this.state
-     const {getBeneficiary}=this.props
-      console.log(getBeneficiary)
+     const{beneficiary} =this.props
+        console.log( 'benfiry',beneficiary.getBeneficiary);
+        
+   
+
     return (
       <Container>
 
@@ -132,7 +136,7 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { })(Beneficiary)
+export default connect(mapStateToProps, { getBeneficiaryDetails})(Beneficiary)
 
 
 

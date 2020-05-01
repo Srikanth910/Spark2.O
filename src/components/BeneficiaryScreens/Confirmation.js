@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { Container, Header, Text, Tab, Button, Body, Title, Left, Icon } from 'native-base'
-import { StyleSheet, ScrollView, StatusBar } from 'react-native';
+import { Container, Header, Text, Tab, Button, Body, Title, Left, Icon, View, ListItem } from 'native-base'
+import { StyleSheet, ScrollView, StatusBar,TouchableOpacity } from 'react-native';
 import { connect } from 'react-redux';
- import {createOtpBeneficiary} from '../../Redux/actions/Beneficiary'
+import Modal from 'react-native-modal';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
+ import {createOtpBeneficiary,addBeneficiaryDetails} from '../../Redux/actions/Beneficiary'
 
 class Confirmationdetails extends Component {
 
@@ -14,10 +16,14 @@ class Confirmationdetails extends Component {
         this.state = {
             isVisible:false,
             mobileOtp:''
+        }
         
     }
+
     
-    toggleClose = () => {
+
+    
+    toggleclose = () => {
         this.setState({
             isVisible: false
 
@@ -29,66 +35,70 @@ class Confirmationdetails extends Component {
             isVisible:true
          })
      }
-     Datasubmit=()=>{
-        alert('hbdjwdkj')
-    const{beneficiary}=this.props
-     const member={
-         	
-	
-	
-"membarId":"1259",
-"benificiaryAccNo":"",
-"benificiaryName":"",
-"phoneNo":"9908970734",
-"isPrimaryAccunt":"true",
-"isWithInCoop":"true",
-"state":"",
-"accountType":""
-     }
-console.log(member)
-      this.props.createOtpBeneficiary(member).then(()=>{
-          if(beneficiary.createBeneficiary.code==="200"){
-              alert('ssss')
-            //    this.setState({
-            //        isVisible:true
-            //    })
-          }
-      })
-
-    }
-
-
+     
+    
    
      otpVerify=()=>{
+        const {beneficiary}=this.props
        
        
-        const beneficiary= {
+        const details= {
             "ifscCode":"",
-            membarId:beneficiary.memberDetails.customerId,
+            "membarId":"",
             "benificiaryAccNo":"",
             "benificiaryName":"",
-            phoneNo:beneficiary.memberDetails.mobileNo,
-            email:beneficiary.memberDetails.emailID,
-            "isPrimaryAccunt":true,
-            "isWithInCoop":true,
-            refNo:beneficiary.createBeneficiary.refNo,
+            "phoneNo":"",
+            "email":"",
+            "isPrimaryAccunt":"true",
+            "isWithInCoop":"true",
+            refNo:beneficiary.createOtpBeneficiary.refNo,
         
             otp:this.state.mobileOtp,
             "accountType":"",
             "state":""
             }
 
-             this.props.createOtpBeneficiary(beneficiary,()=>{
+             this.props.addBeneficiaryDetails(details).then(()=>{
                 const {beneficiary}=this.props
-                if(beneficiary.createBeneficiary.code==="200"){
+                if(beneficiary.beneficiaryDetails.code==="200"){
+                    alert('ss')
+                     
                     this.props.navigation.navigate('Beneficiary ')
                 }
              })
 
      }
+    
+ handleSubmit=()=>{
+    const{beneficiary}=this.props
+    const member={
+membarId:beneficiary.memberDetials.customerId,
+"benificiaryAccNo":"",
+"benificiaryName":"",
+"phoneNo":"",
+"isPrimaryAccunt":"true",
+"isWithInCoop":"true",
+"state":"",
+"accountType":""
     }
+console.log(member)
+     this.props.createOtpBeneficiary(member).then(()=>{
+         if(beneficiary.createBeneficiary.code==="200"){
+           
+             this.setState({
+                 isVisible:true
+             })
+           
+         }else{
+             alert('fail')
+         }
+     })
+
+
+ }
     render() {
          const{beneficiary}=this.props
+          console.log(beneficiary.createBeneficiary)
           const{mobileOtp}=this.state
         return (
             <Container>
@@ -110,21 +120,74 @@ console.log(member)
 
  
 
-                <Tab tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }} >
-                    <ScrollView>
+            
+              
                         <Text style={styles.textstyle}>Please confirm the beneficiary details</Text>
         {/* <Text style={styles.namestyle}>{beneficiary.memberDetails.name}</Text> */}
         {/* <Text style={styles.statestyle} >Phone :{beneficiary.memberDetails.mobileNo}</Text> */}
                         <Text style={styles.statestyle} >State:Maharashtra(Ayshwarya Syndicate Credit Co-OPerative Limited)</Text>
                         <Text style={styles.notetext}>Please ensure you enter the correct account details.Spark is not responsible for incorrect account details</Text>
                      
-                    </ScrollView>
+                
    
-                    <Button block warning style={styles.SubmitButton} onPress={this.Datasubmit}> 
-                        <Text >Submit</Text></Button>
  
+                <Button block warning  
+                   onPress={this.handleSubmit}
+                style={styles.SubmitButton}  > 
+                        <Text  >Submit</Text></Button>
+ 
+  <View>
+      
+<Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
 
-                </Tab>
+<View style={{ backgroundColor: 'white' }}>
+
+<Text style={styles.otp}>Enter OTP</Text>
+<Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
+<View style={{ alignSelf: 'center' }}>
+  <SmoothPinCodeInput
+    codeLength={5}
+    cellStyle={{
+      borderBottomWidth: 1,
+      borderColor: 'gray',
+      width: 20,
+
+    }}
+    cellStyleFocused={{
+      borderColor: 'black',
+    }}
+    value={mobileOtp}
+    onTextChange={mobileOtp => this.setState({ mobileOtp })}
+  />
+</View>
+<ListItem style={{ justifyContent: 'space-around', marginTop: 10 }}>
+  <Text>2:00.0</Text>
+  <TouchableOpacity
+  >
+    <Text style={styles.resendOtp}
+      onPress={this.otpResend}
+    >Resend OTP</Text>
+  </TouchableOpacity>
+
+</ListItem>
+<ListItem style={{ justifyContent: 'flex-end' }} >
+  <Text style={styles.cancel} onPress={this.toggleclose}>Cancel</Text>
+  <TouchableOpacity>
+
+    <Text 
+    
+    style={styles.otpSubmit}
+    onPress={this.otpVerify}
+   
+    >Submit</Text>
+
+  </TouchableOpacity>
+</ListItem>
+</View>
+
+    </Modal>
+
+  </View>
             </Container>
 
  
@@ -140,7 +203,7 @@ const mapStateToProps = state => ({
 
 })
 
-export default connect(mapStateToProps, { createOtpBeneficiary})(Confirmationdetails)
+export default connect(mapStateToProps, { addBeneficiaryDetails,createOtpBeneficiary})(Confirmationdetails)
 
 
 
@@ -190,7 +253,55 @@ const styles = StyleSheet.create({
 
  
 
-    }
+    },
+    otp: {
+
+        width: 94,
+        height: 27,
+        marginTop: 15,
+        color: '#000000',
+        fontSize: 20,
+        marginLeft: 15,
+        fontWeight: "bold"
+    
+    
+      },
+      resendOtp: {
+        width: 91,
+        height: 22,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        color: '#f7931e',
+        textAlign: 'right',
+    
+    
+      },
+      cancel: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        color: '#999999',
+        textAlign: 'left'
+    
+      },
+      otpText: {
+        marginLeft: 15,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        marginTop: 10,
+        color: '#000000'
+    
+      },
+    
+      otpSubmit: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#f7931e',
+        textAlign: 'right'
+      },
 
  
 
