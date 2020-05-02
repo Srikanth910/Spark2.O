@@ -156,9 +156,9 @@ export default class Signup extends Component {
 
 
           </Content>
-
+          
         </ScrollView>
-        <View style={{ flex: 1, justifyContent: 'flex-end', bottom: 0 }} >
+          <View style={{ stifyContent: 'flex-end' ,alignContent:'flex-end', marginBottom:16}} >
           <View style={styles.bottom} >
             <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
@@ -171,6 +171,8 @@ export default class Signup extends Component {
           </View>
         </View>
 
+
+        
 
         <View>
           <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
@@ -293,14 +295,12 @@ const styles = StyleSheet.create({
   },
   btnbottom: {
 
-    flex: 1,
-    // justifyContent: 'flex-end',
-    justifyContent: 'flex-end',
-    marginBottom: 16,
+  
+
     marginLeft: 16,
     marginRight: 16,
-    marginTop: 95
-    // alignContent:'center'
+  
+    alignContent:'center'
 
   },
   container: {

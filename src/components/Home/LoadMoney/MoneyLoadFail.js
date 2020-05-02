@@ -11,7 +11,7 @@ export default class MoneyLoadingFail extends Component {
                 <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
                     <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
-                    <Left style={{ marginLeft: 10, marginTop: 0 }}>
+                    <Left style={{ marginLeft: 10, marginTop: 0, alignSelf:'flex-start' }}>
 
                         <Button transparent  >
                             <Icon name='close' style={styles.icon}

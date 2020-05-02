@@ -3,9 +3,10 @@ import { Container, Header, Tabs, Text, Tab,Item, Input, Button, Body, View, Tit
 import { StyleSheet, ScrollView, StatusBar } from 'react-native';
 import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-
-
-export default class Otherbank extends Component {
+ import{ resendOtpBeneficiary,addBeneficiaryDetails,createOtpBeneficiary} from '../../Redux/actions/Beneficiary'
+import { connect } from 'react-redux';
+ 
+ class Otherbank extends Component {
 
     constructor(props) {
         super(props);
@@ -20,17 +21,64 @@ export default class Otherbank extends Component {
     ConfirmAccontNo:'',
     IFCS:'',
     mobileNo:'',
+     isVisible:false
 
         };
     }
+     componentDidMount(){
+          this.setState({
+               isVisible:true
+          })
+     }
 
      
+
+    otpVerify=()=>{
+        const {beneficiary}=this.props
+       
+       
+        const details= {
+            "ifscCode":"",
+            "membarId":"1278",
+            "benificiaryAccNo":"",
+            "benificiaryName":"",
+            "phoneNo":"",
+            "email":"",
+            "isPrimaryAccunt":"true",
+            "isWithInCoop":"true",
+            "refNo":"35834",
+        
+            "otp":"12345",
+            "accountType":"",
+            "state":""
+            }
+
+             this.props.addBeneficiaryDetails(details).then(()=>{
+                const {beneficiary}=this.props
+                if(beneficiary.beneficiaryDetails.code==="200"){
+                        this.setState({
+                            isVisible:false
+                        })
+                     
+                    this.props.navigation.navigate('Beneficiary ')
+                }
+             })
+
+     }
     toggelopen = () => {
         this.setState({
-            ismodelopen: !this.state.ismodelopen
+           isVisible:true
         })
-         this.props.navigation.navigate('Login')
+       
     }
+     toggelclose=()=>{
+          this.setState({
+            isVisible:true
+
+          })
+       
+
+     }
     changepage = () => {
         this.setState({
             ismodelopen: false
@@ -41,21 +89,49 @@ export default class Otherbank extends Component {
         const{ Name, AccontNo, ConfirmAccontNo, Email, IFCS, mobileNo}=this.state
 
          const Beneficiary={
-            ifscCode:IFCS,
-            "membarId":"1278",
-            benificiaryAccNo: AccontNo,
-            "benificiaryName":"SavingsAccount",
-            phoneNo:mobileNo,
-            email:mobileNo,
-            "isPrimaryAccunt":true,
-            "isWithInCoop":true,
-            "refNo":"35118",
-            "otp":"12345",
-            "accountType":"savingsaccount",
-            "state":"karnataka"
+                            "membarId":"1278",
+                "benificiaryAccNo":"9908970734",
+                "benificiaryName":"dxfcfv",
+                "phoneNo":"9908970734",
+                "isPrimaryAccunt":"false",
+                "isWithInCoop":"false",
+                "state":"",
+                "ifscCode":"567878",
+                 "email":"abs@gmail.com",
+                  "accountType":"Otherbank"
+                
 
          }
+
+         this.props.createOtpBeneficiary(Beneficiary).then(()=>{
+              const{beneficiary}=this.props
+            if(beneficiary.createBeneficiary.code==="200"){
+              
+                this.setState({
+                    isVisible:true
+                })
+              
+            }else{
+                alert('fail')
+            }
+        })
     }
+    otpResend=()=>{
+        const otp=
+      {
+        // membarId:beneficiary.memberDetials.customerId,
+        "membarId":'1278',
+        "benificiaryAccNo":"",
+        "benificiaryName":"",
+        "phoneNo":"",
+        "isPrimaryAccunt":"true",
+        "isWithInCoop":"true",
+        "state":"",
+        "accountType":""
+        }
+         this.props.resendOtpBeneficiary(otp)
+    
+     }
     render() {
         const { password } = this.state
         return (
@@ -143,7 +219,7 @@ export default class Otherbank extends Component {
                         <Text style={styles.textstyle}>Please ensure you enter the correct account details.Spark is not responsible for incorrect account details</Text>
 
                         <View>
-                            <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.ismodelopen} >
+                            <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
                                 <View style={{ backgroundColor: 'white' }}>
 
                                     <Text style={styles.otp}>Enter OTP</Text>
@@ -171,7 +247,7 @@ export default class Otherbank extends Component {
                                     <ListItem style={{ justifyContent: 'flex-end' }} >
                                         <Text style={styles.cancel} onPress={this.toggelopen}>Cancel</Text>
                                         <Text style={styles.otpSubmit}
-                                            onPress={this.changepage}
+                                            onPress={this.otpVerify}
                                         >Submit</Text>
                                     </ListItem>
                                 </View>
@@ -191,6 +267,16 @@ export default class Otherbank extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    beneficiary: state.beneficiary,
+    error: state.error
+
+})
+
+export default connect(mapStateToProps, { resendOtpBeneficiary,addBeneficiaryDetails,createOtpBeneficiary})(Otherbank)
+
+
 const styles = StyleSheet.create({
 
     textstyle: {

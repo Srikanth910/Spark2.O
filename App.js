@@ -42,6 +42,10 @@ import Signup from './src/components/SignUpscreens/SignupScreen';
 import Welcomeboard from './src/components/landingpage/Welcomeboard';
 // import Bottom from './src/components/LoginScreens/Bottomsheet';
 import Confirmationdetails from'./src/components/BeneficiaryScreens/Confirmation'
+import FDCloseSuccessScreen from './src/components/fd&rdScreens/FDCloseSuccessScreen';
+import RDAmountScreen from './src/components/fd&rdScreens/rdAmountScreen';
+import SettingPage from './src/components/SettingScreens/SettingScreen';
+import LoadSpark from './src/components/Home/LoadMoney/LoadSpark';
 export default class App extends Component {
   render() {
     return (
@@ -49,7 +53,7 @@ export default class App extends Component {
       
       <Provider store={store}>
       
-      <Confirmationdetails />
+      <Loadmoney />
         </Provider>
       </>
     );

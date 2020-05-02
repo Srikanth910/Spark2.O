@@ -43,6 +43,10 @@ export const FORGET_MPIN_FAIL = " FORGET_MPIN_FAIL";
          export const DEVICEID_OTP=" DEVICEID_OTP";
           export const GET_MEMBER_DT_FAIL="GET_MEMBER_DT_FAIL";
           export const GET_MEMBER_DT_SUCCESS="GET_MEMBER_DT_SUCCESS";
+           export const GET_RAZORPAY_DETAILS_SUCCESS="GET_RAZORPAY_DETAILS_SUCCESS";
+            export const  GET_RAZORPAY_DETAILS_FAIL=" GET_RAZORPAY_DETAILS_FAIL";
+             export const GET_CARD_SUCCESS="GET_CARD_SUCCESS";
+             export const GET_CARD_FAIL="GET_CARD_FAIL"
       
 
 

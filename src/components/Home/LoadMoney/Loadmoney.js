@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
 import { Container, Header, Left, Body, Button, Icon, Title, Content, Text, Item, Input, CardItem, Card, CheckBox, View } from 'native-base'
-import { StatusBar, StyleSheet ,TouchableOpacity, Image, ImageBackgroundBase} from 'react-native'
+import { StatusBar, StyleSheet, TouchableOpacity, Image, ImageBackgroundBase } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { connect } from 'react-redux';
 
-export default class Loadmoney extends Component {
+import { checkCarddetails } from '../../../Redux/actions/LoadMoneyaction'
+class Loadmoney extends Component {
     state = { activeIndex: 0 };
 
     constructor(props) {
@@ -13,6 +15,9 @@ export default class Loadmoney extends Component {
             value: false
         }
     }
+    componentDidMount() {
+        this.props.checkCarddetails();
+    }
     checked = () => {
         this.setState({
             value: !this.state.value
@@ -20,6 +25,10 @@ export default class Loadmoney extends Component {
     }
 
     render() {
+        const { cardDetails } = this.props.loadmoney
+        console.log('data', cardDetails);
+
+
         return (
             <Container>
                 <Header style={{ backgroundColor: '#1b1464', height: 80 }}>
@@ -47,14 +56,14 @@ export default class Loadmoney extends Component {
                             <Input placeholder='' />
 
                         </Item >
-                            <Item style={styles.borderline}>
-                                <Image source={require('../../../images/info.png')} style={styles.infoicon}/>
-                        <Text style={styles.text}>Loaded amount may be adjusted with pending amount of Rs. 1100.
-                            <Text  style={{color: '#f7931e'}} > Tap to know more</Text></Text>
-                            
+                        <Item style={styles.borderline}>
+                            <Image source={require('../../../images/info.png')} style={styles.infoicon} />
+                            <Text style={styles.text}>Loaded amount may be adjusted with pending amount of Rs. 1100.
+                            <Text style={{ color: '#f7931e' }} > Tap to know more</Text></Text>
+
                         </Item>
                         <Text style={styles.textAmount}>Description / Purpose</Text>
-                        
+
 
                         <Item regular style={styles.loginInput}>
                             <Input placeholder='Member Deposit' />
@@ -65,7 +74,88 @@ export default class Loadmoney extends Component {
                             Select payment method
                             </Text>
 
-                           <View style={styles.cardlist}>
+
+
+
+                        { cardDetails.length >0 &&   cardDetails.map(data => {
+                            if (data.status === true) {
+                                return (
+                                    <>
+                                        {data.name === "DC-Razorpay" ?
+
+
+                                            <View style={styles.cardlist}>
+                                                <TouchableOpacity onPress={() => { this.setState({ activeIndex: 1 }) }}
+                                                    style={this.state.activeIndex === 1 && data.status === true ? styles.btnActive : styles.btn}>
+                                                    <Item style={styles.borderline}>
+                                                        <Image source={require('../../../images/cr-card.png')} style={styles.Icon} />
+                                                        <View style={styles.cardtext}>
+                                                            <Text> Debit card </Text>
+                                                            <Text style={{ color: '#f7931e' }}> charges  {data.charges} % </Text></View></Item>
+                                                </TouchableOpacity>
+                                            </View>
+
+                                            :
+
+                                            data.name === "NB-Razorpay" ?
+
+
+
+                                                <View style={styles.cardlist}>
+
+                                                    <TouchableOpacity onPress={() => { this.setState({ activeIndex: 0 }) }}
+                                                        style={this.state.activeIndex === 0 ? styles.btnActive : styles.btn}>
+                                                        <Item style={styles.borderline}>
+                                                            <Image source={require('../../../images/loptop.png')} style={styles.Icon} />
+
+                                                            <View style={styles.cardtext} >
+                                                                <Text>Net banking </Text>
+                                                                <Text style={{ color: '#f7931e' }}> charges {data.charges}% </Text></View>
+                                                        </Item>
+                                                    </TouchableOpacity>
+                                                </View> :
+
+                                                data.name === "CC-Razorpay" ?
+
+                                                    <View style={styles.cardlist}>
+                                                        <TouchableOpacity onPress={() => { this.setState({ activeIndex: 2 }) }}
+                                                            style={this.state.activeIndex === 2 && data.status===true ? styles.btnActive : styles.btn}>
+
+                                                            <Item style={styles.borderline}>
+                                                                <Image source={require('../../../images/cr-card.png')} style={styles.Icon} />
+
+                                                                <View style={styles.cardtext}>
+
+                                                                    <Text> Credit card  </Text>
+                                                                    <Text> Charges up to {data.charges}% apply </Text>
+                                                                </View>
+                                                            </Item>
+                                                        </TouchableOpacity>
+                                                    </View> :
+                                                    data.name === "Wallets-Razorpay" ?
+                                                        <View style={styles.cardlist}>
+                                                            <TouchableOpacity onPress={() => { this.setState({ activeIndex: 3 }) }}
+                                                                style={this.state.activeIndex === 3 && data.status ? styles.btnActive : styles.btn}>
+                                                                <Item style={styles.borderline} >
+                                                                    <Image source={require('../../../images/wallet.png')} style={styles.Icon} />
+
+                                                                    <View style={styles.cardtext}>
+                                                                        <Text> Paytm </Text>
+                                                                        <Text> Charges up to {data.charges}% onely  </Text>
+                                                                    </View>
+
+                                                                </Item>
+                                                            </TouchableOpacity>
+                                                        </View>
+
+                                                        : null}
+                                    </>
+                                )
+                            }
+                        })}
+
+                        {/* <View style={styles.cardlist}>
+                             
                             <TouchableOpacity onPress={() => { this.setState({ activeIndex: 0 }) }}
                                 style={this.state.activeIndex === 0? styles.btnActive : styles.btn}>
                                 <Item style={styles.borderline}>
@@ -76,9 +166,9 @@ export default class Loadmoney extends Component {
                                 <Text style={{ color: '#f7931e' }}> no charges </Text></View>
                                 </Item>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
 
-                        <View style={styles.cardlist}>
+                        {/* <View style={styles.cardlist}>
                             <TouchableOpacity onPress={() => { this.setState({ activeIndex: 1 }) }}
                                 style={this.state.activeIndex === 1 ? styles.btnActive : styles.btn}>
                                     <Item style={styles.borderline}>
@@ -87,8 +177,8 @@ export default class Loadmoney extends Component {
                                 <Text> Debit card </Text>
                                 <Text  style={{ color: '#f7931e'}}> No charges </Text></View></Item>
                             </TouchableOpacity>
-                        </View>
-                        <View style={styles.cardlist}>
+                        </View> */}
+                        {/* <View style={styles.cardlist}>
                             <TouchableOpacity onPress={() => { this.setState({ activeIndex: 2 }) }}
                                 style={this.state.activeIndex === 2 ? styles.btnActive : styles.btn}>
 
@@ -102,8 +192,8 @@ export default class Loadmoney extends Component {
                                 </View>
                                 </Item>
                             </TouchableOpacity>
-                        </View>
-                        <View style={styles.cardlist}>
+                        </View> */}
+                        {/* <View style={styles.cardlist}>
                             <TouchableOpacity onPress={() => { this.setState({ activeIndex: 3 }) }}
                                 style={this.state.activeIndex === 3 ? styles.btnActive : styles.btn}>
                               <Item style={styles.borderline} >
@@ -116,7 +206,7 @@ export default class Loadmoney extends Component {
                              
                              </Item>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
 
 
                         <Text style={styles.bottomtext}>
@@ -133,7 +223,7 @@ export default class Loadmoney extends Component {
                         </Item>
 
                         <Button block warning style={styles.bottombtn}
-                            onPress={()=>this.props.navigation.navigate('MoneyLoading')} >
+                            onPress={() => this.props.navigation.navigate('MoneyLoading')} >
                             <Text>proceed</Text>
                         </Button>
                     </Content>
@@ -146,6 +236,12 @@ export default class Loadmoney extends Component {
     }
 }
 
+const mapStateToProps = (state) => ({
+    loadmoney: state.loadmoney
+})
+
+export default connect(mapStateToProps, { checkCarddetails, })(Loadmoney)
+
 
 
 const styles = StyleSheet.create({
@@ -154,23 +250,23 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
 
     },
-    Icon:{
-        width:30,
-        height:20,
-        marginLeft:10
+    Icon: {
+        width: 30,
+        height: 20,
+        marginLeft: 10
 
     },
 
     btn: {
-        
+
         // backgroundColor: '#DDDDDD',
         // borderColor: '#dc00ff',
         // borderRadius: 10,
-        borderWidth:1,
+        borderWidth: 1,
         padding: 10,
         opacity: 0.5,
-        
-    
+
+
     },
     btnActive: {
         // alignItems: 'center',
@@ -179,10 +275,10 @@ const styles = StyleSheet.create({
         // borderRadius: 10,
         borderWidth: 2,
         padding: 10,
-       
-        
+
+
     },
-     notetext: {
+    notetext: {
         marginTop: 300,
         marginLeft: 14,
         width: 328,
@@ -214,8 +310,8 @@ const styles = StyleSheet.create({
         marginTop: 20
 
     },
-    cardtext:{
-          marginLeft:30
+    cardtext: {
+        marginLeft: 30
     },
     text: {
         width: 304,
@@ -224,7 +320,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         fontWeight: "normal",
         color: '#474a4f',
-      
+
     },
 
     selecttext
@@ -293,32 +389,32 @@ const styles = StyleSheet.create({
         // height:14,
         // width:14,
         borderRadius: 2,
-         backgroundColor: '#f7931e'
+        backgroundColor: '#f7931e'
     },
     grpItem: {
         marginTop: 20,
         borderColor: 'transparent',
-        marginRight:16,
-        marginLeft:16
+        marginRight: 16,
+        marginLeft: 16
     },
-    cardlist:{
-        marginLeft:16,
-        marginRight:16,
-        padding:10
-    },
-    infoicon:{
-        
-         height:16,
-         width:16, 
-         marginBottom:10,
-        marginRight:16,
+    cardlist: {
         marginLeft: 16,
-         
-         
-         
+        marginRight: 16,
+        padding: 10
     },
-    borderline:{
-        borderColor:'transparent'
+    infoicon: {
+
+        height: 16,
+        width: 16,
+        marginBottom: 10,
+        marginRight: 16,
+        marginLeft: 16,
+
+
+
+    },
+    borderline: {
+        borderColor: 'transparent'
     }
 
 
