@@ -144,9 +144,16 @@ import Modal from 'react-native-modal';
     )
   }
 }
+const mapStateToProps = state => ({
+  beneficiary: state.beneficiary,
+  error: state.error
+
+})
+
+export default connect(mapStateToProps, { getBeneficiaryDetails})(Beneficiary)
 
 
-export default connect(, { getBeneficiaryDetails})(Beneficiary)
+
 const styles = StyleSheet.create({
   headerText: {
     color: 'white',
