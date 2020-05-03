@@ -67,7 +67,11 @@ import {getRazorpayDetails} from '../../../Redux/actions/LoadMoneyaction'
                           Note: You can load up to Rs. 5,00,000 at a time through this feature.
                           </Text>
                           
-                          <Button bordered warning  style={styles.warningbtn}>
+                          <Button bordered warning  style={styles.warningbtn}
+                          
+                           onPress={()=>this.props.navigation.navigate('Loadmoney')}
+                          
+                          >
                         <Text>Load Money</Text>
                     </Button>
 
@@ -217,7 +221,7 @@ const mapStateToProps = (state) => ({
              textAlign:'left',
             
               marginLeft: 16,
-              marginBottom: 5,
+              
       },
       icon: {
         marginLeft: 16,

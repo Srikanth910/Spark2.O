@@ -25,30 +25,29 @@ import { connect } from 'react-redux';
 
         };
     }
-     componentDidMount(){
-          this.setState({
-               isVisible:true
-          })
-     }
+    //  componentDidMount(){
+    //       this.setState({
+    //            isVisible:true
+    //       })
+    //  }
 
      
 
     otpVerify=()=>{
         const {beneficiary}=this.props
-       
-       
+
         const details= {
             "ifscCode":"",
-            "membarId":"1278",
+            membarId:beneficiary.memberDetials.customerId, 
             "benificiaryAccNo":"",
             "benificiaryName":"",
             "phoneNo":"",
             "email":"",
             "isPrimaryAccunt":"true",
             "isWithInCoop":"true",
-            "refNo":"35834",
+            refNo:beneficiary.createOtpBeneficiary.refNo,
         
-            "otp":"12345",
+            otp:this.state.mobileOtp,
             "accountType":"",
             "state":""
             }
@@ -87,17 +86,17 @@ import { connect } from 'react-redux';
     }
     addSubmit=()=>{
         const{ Name, AccontNo, ConfirmAccontNo, Email, IFCS, mobileNo}=this.state
-
+     const { beneficiary}=this.props
          const Beneficiary={
-                            "membarId":"1278",
-                "benificiaryAccNo":"9908970734",
-                "benificiaryName":"dxfcfv",
-                "phoneNo":"9908970734",
+            membarId:beneficiary.memberDetials.customerId, 
+                benificiaryAccNo:this.state.AccontNo,
+                benificiaryName:this.state.Name,
+                phoneNo:this.state.mobileNo,
                 "isPrimaryAccunt":"false",
                 "isWithInCoop":"false",
                 "state":"",
-                "ifscCode":"567878",
-                 "email":"abs@gmail.com",
+                ifscCode:this.state.IFCS,
+                 email:this.state.Email,
                   "accountType":"Otherbank"
                 
 
@@ -116,16 +115,47 @@ import { connect } from 'react-redux';
             }
         })
     }
+
+    otpVerify=()=>{
+        const {beneficiary}=this.props
+       
+       
+        const details= {
+            "ifscCode":"",
+            membarId:beneficiary.memberDetials.customerId, 
+            "benificiaryAccNo":"",
+            "benificiaryName":"",
+            "phoneNo":"",
+            "email":"",
+            "isPrimaryAccunt":"true",
+            "isWithInCoop":"true",
+            refNo:beneficiary.createOtpBeneficiary.refNo,
+        
+            otp:this.state.mobileOtp,
+            "accountType":"",
+            "state":""
+            }
+
+             this.props.addBeneficiaryDetails(details).then(()=>{
+                const {beneficiary}=this.props
+                if(beneficiary.beneficiaryDetails.code==="200"){
+                    alert('ss')
+                     
+                    this.props.navigation.navigate('Beneficiary ')
+                }
+             })
+
+     }
     otpResend=()=>{
         const otp=
       {
-        // membarId:beneficiary.memberDetials.customerId,
-        "membarId":'1278',
+        membarId:beneficiary.memberDetials.customerId,
+        // "membarId":'1278',
         "benificiaryAccNo":"",
         "benificiaryName":"",
         "phoneNo":"",
-        "isPrimaryAccunt":"true",
-        "isWithInCoop":"true",
+        "isPrimaryAccunt":"false",
+        "isWithInCoop":"false",
         "state":"",
         "accountType":""
         }
@@ -275,8 +305,6 @@ const mapStateToProps = state => ({
 })
 
 export default connect(mapStateToProps, { resendOtpBeneficiary,addBeneficiaryDetails,createOtpBeneficiary})(Otherbank)
-
-
 const styles = StyleSheet.create({
 
     textstyle: {

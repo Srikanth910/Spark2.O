@@ -26,8 +26,8 @@ console.log('trying to close RD')
                 <View style={styles.header}>
                     <View style={styles.buttonRow}>
                         <Button transparent>
-                            <Icon name = {'close'} style={{color:'white'}}>
-                            </Icon>
+                            <Icon name = {'close'} style={{color:'white'}}/>
+                           
                         </Button>
                         <Text style={{color:'white',
                         fontSize:20,

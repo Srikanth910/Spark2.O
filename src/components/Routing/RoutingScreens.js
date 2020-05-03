@@ -21,7 +21,8 @@ import Beneficiary from '../BeneficiaryScreens/Beneficiary';
 import Otherbank from '../BeneficiaryScreens/Otherbank';
 import Quick_login from '../LoginScreens/Quick_login';
 
-import {ErrorAlert} from '../modelAlerts/DialogAlert'
+import {ErrorAlert} from '../modelAlerts/DialogAlert';
+ import LoadSpark from '../Home/LoadMoney/LoadSpark'
 
 import Signup from '../SignUpscreens/SignupScreen';
 import Loadmoney from '../Home/LoadMoney/Loadmoney';
@@ -32,6 +33,10 @@ import CardList from '../Home/CardList';
 import Setpassword from '../SignUpscreens/Setpassword';
 import Welcomeboard from '../landingpage/Welcomeboard';
 import Confirmationdetails from '../BeneficiaryScreens/Confirmation';
+import SettingPage from '../SettingScreens/SettingScreen';
+import RecurringDepositScreen from '../fd&rdScreens/recurringDeposit';
+import ConfirmCloseRDScreen from '../fd&rdScreens/confirmCloseRDScreen';
+import FixedDepositScreen from '../fd&rdScreens/Fdscreen';
  
 const Stack = createStackNavigator();
 
@@ -72,12 +77,25 @@ function Routing() {
         <Stack.Screen name="Confirmationdetails" component={Confirmationdetails} /> 
       
 
+       
+        <Stack.Screen name="SettingPage" component={SettingPage} /> 
+      
+
+        <Stack.Screen name="RDScreen" component={RecurringDepositScreen} /> 
+      
+
+        <Stack.Screen name="LoadSpark" component={LoadSpark} /> 
+      
         
-        
-   
-        
-        
+        <Stack.Screen name=" ConfirmCloseRDScreen" component={ ConfirmCloseRDScreen} /> 
+      
+
      
+        <Stack.Screen name="Fdscreen" component={ FixedDepositScreen} /> 
+      
+
+        
+
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -58,13 +58,14 @@ class AddBeneficiarys extends Component {
         this.props.getmemberDetails(Data).then(() => {
              const {beneficiary}=this.props
               if(beneficiary.memberDetials.code==="200"){
-        this.prop.navigation.navigate('Confirmationdetails')
+            this.prop.navigation.navigate('Confirmationdetails')
                
               }else{
                   alert('fail')
               }
              
         })
+        this.prop.navigation.navigate('Confirmationdetails')
 
     }
   

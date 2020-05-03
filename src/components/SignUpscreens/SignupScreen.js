@@ -157,8 +157,11 @@ export default class Signup extends Component {
 
           </Content>
           
+         
         </ScrollView>
-          <View style={{ stifyContent: 'flex-end' ,alignContent:'flex-end', marginBottom:16}} >
+          
+
+        <View style={{ flex:1, justifyContent:'flex-end' ,alignContent:'flex-end', }} >
           <View style={styles.bottom} >
             <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
@@ -170,8 +173,6 @@ export default class Signup extends Component {
             < Image source={require('../../images/signupimges/grp_img.png')} style={styles.bottomImage} />
           </View>
         </View>
-
-
         
 
         <View>
@@ -300,7 +301,8 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
   
-    alignContent:'center'
+    alignContent:'flex-end',
+      
 
   },
   container: {
@@ -469,14 +471,17 @@ const styles = StyleSheet.create({
     height: 70,
 
     alignSelf: 'center',
-    marginTop: 20
+    marginTop: 20,
+     marginBottom:16,
+     alignContent:'flex-end'
+
 
   },
   bottom: {
 
     backgroundColor: '#ffffff',
 
-    marginBottom: 16,
+    
 
   },
   otp: {

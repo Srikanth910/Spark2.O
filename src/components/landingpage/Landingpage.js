@@ -92,9 +92,8 @@ export default class Landingpage extends Component {
     signImge:{
         
         height:419,
-        marginRight:16,
-        marginLeft:16,
-        
+        justifyContent:'center'
+       
     },
     secureimg:{
         justifyContent:'center',

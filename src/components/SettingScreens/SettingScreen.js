@@ -70,7 +70,9 @@ Credit Co-operative Limited</Text>
              <Icon name="ios-arrow-forward" />
              </Right>
             </ListItem>
-            <ListItem style={{justifyContent:'center',alignItems:'center'}}>
+            <ListItem style={{justifyContent:'center',alignItems:'center'}}
+               onPress={() => this.props.navigation.navigate('Beneficiary')}
+            >
                 <Left>
             <Image  source={require('../../images/beneficiary.png')} style={{marginTop:8}}/> 
                 <Text style={styles.list_item} >Beneficiaries</Text>
@@ -92,7 +94,10 @@ Credit Co-operative Limited</Text>
                         </Item>
   
                         <List>
-            <ListItem style={{justifyContent:'center',alignItems:'center'}}>
+            <ListItem style={{justifyContent:'center',alignItems:'center'}}
+            
+             onPress={()=>this.props.navigation.navigate('ChangePasseword')}
+             >
        <Left>
             <Image  source={require('../../images/password.png')}/> 
                 <Text style={styles.list_item} >Change password</Text>

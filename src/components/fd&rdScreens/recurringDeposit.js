@@ -35,10 +35,10 @@ constructor(props){
   }
 }
 
-componentDidMount(){
-  console.log('successful to write API')
-  this.props.getActiveRD()
-}
+// componentDidMount(){
+//   console.log('successful to write API')
+//   this.props.getActiveRD()
+// }
 handleDepositAnimations =(imageValue,click)  =>{
   Animated.timing(this.animatedValue,{
     toValue :imageValue,
@@ -264,9 +264,9 @@ justifyContent:'space-between'}}>
  </View>
  
   </View>
-  <ImageBackground style={{position: 'absolute',left:0,right: 0,top:50,bottom:0,overflow:false}} source = {require('../images/orangeSky.png')}></ImageBackground>
+  <ImageBackground style={{position: 'absolute',left:0,right: 0,top:50,bottom:0}} source = {require('../../images/fd&rd/orangeSky.png')}></ImageBackground>
   <Animated.Image style={[styles.animImage,position]} 
-  source = {require('../images/RDBalloon.png')}></Animated.Image>
+  source = {require('../../images/fd&rd/RDBalloon.png')}></Animated.Image>
   <View style={styles.row}>
     <Text style={styles.headerTitle}> 1. Amount</Text>
     <Text style={styles.headerTitle}> 2. Tenure</Text>
@@ -299,13 +299,13 @@ indicatorStyle = {null}
    height:this.state.amountHeight,
    backgroundColor:'#F0F0FF',
    marginBottom: 0,
-   overflow:'visible',
+  //  overflow:'visible',
   //  alignItems:'center',
   flexDirection:'column',
    justifyContent:'flex-end',
  opacity:1
 }:{ marginBottom: 0,
-    overflow:'visible',
+    // overflow:'visible',
     // alignItems:'center',
     opacity:0,
     height:0}}>
@@ -339,7 +339,7 @@ resizeMode = {'contain'}
 style={{height:this.state.sheetHeight * 0.2,
   width:width,
   marginVertical:16}}
-  source = {require('../images/RDBalloon.png')}>
+  source = {require('../../images/fd&rd/RDBalloon.png')}>
 </Image>
 <View style={styles.card}>
   <View>
@@ -347,7 +347,7 @@ style={{height:this.state.sheetHeight * 0.2,
 <Text style={styles.amount}>₹ 2,000</Text>
   </View>
 
-<Image resizeMode = {'center'} style={{height:18,width:18}} source = {require('../images/rightTriangle.png')}></Image>
+<Image resizeMode = {'center'} style={{height:18,width:18}} source = {require('../../images/fd&rd/rightTriangle.png')}></Image>
 <View>
   <Text style={styles.orangeContent}>On maturity</Text>
 <Text style={styles.orangeAmount}>₹ 28,000</Text>
@@ -437,7 +437,7 @@ alignItems:'center',
     height:this.amountHeight,
     backgroundColor:'#F0F0FF',
     marginBottom: 0,
-    overflow:'visible',
+    // overflow:'visible',/
     alignItems:'center',
   opacity:1},
   animImage:{height:70,

@@ -54,7 +54,7 @@ class ViewRDScreen extends Component{
     _renderItem =({item})=>{
     return(
         <View style={{shadowRadius:6,shadowColor: 'gray',shadowOpacity:0.5,marginLeft:16,flex:1,backgroundColor:'transparent',}}>
-<ImageBackground style={{flex:1,resizeMode:'contain',justifyContent:'center',alignItems:'center'}} source ={require('../images/deposit.png')}>
+<ImageBackground style={{flex:1,resizeMode:'contain',justifyContent:'center',alignItems:'center'}} source ={require('../../images/fd&rd/deposit.png')}>
 <View style={{justifyContent:'space-between',flexDirection:'row',paddingVertical:8}}>
     <List style={{alignItems:'flex-start'}}>
         <Text style={{color:'#999999',fontSize:14,paddingVertical: 2,}}>Amount</Text>

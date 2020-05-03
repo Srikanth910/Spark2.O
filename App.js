@@ -46,14 +46,19 @@ import FDCloseSuccessScreen from './src/components/fd&rdScreens/FDCloseSuccessSc
 import RDAmountScreen from './src/components/fd&rdScreens/rdAmountScreen';
 import SettingPage from './src/components/SettingScreens/SettingScreen';
 import LoadSpark from './src/components/Home/LoadMoney/LoadSpark';
+import RazorApp from './src/components/Razorpay/Razorpay';
+import ViewRDScreen from './src/components/fd&rdScreens/viewRDScreen';
+import RecurringDepositScreen from './src/components/fd&rdScreens/recurringDeposit';
+import RDTenureScreen from './src/components/fd&rdScreens/rdtenureScreen';
+ import Fdscreen from './src/components/fd&rdScreens/Fdscreen'
 export default class App extends Component {
   render() {
     return (
       <>
       
       <Provider store={store}>
-      
-      <Loadmoney />
+< Routing
+       />
         </Provider>
       </>
     );

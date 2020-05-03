@@ -95,11 +95,11 @@ import Modal from 'react-native-modal';
         <Tabs tabBarUnderlineStyle={{ backgroundColor: '#f3a549' }}>
           <Tab heading={<TabHeading style={styles.tabColor}><Text>Spark</Text></TabHeading>}>
 
-            {/* <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
+            <Image style={styles.imagestyle} source={require('../../images/spark_ben.png')}
               style={{ height: 450, width: 255, left: 70, bottom: -50 }}>
-            </Image> */}
+            </Image>
 
-{getBeneficiary.array.length>=0&& getBeneficiary.array.map(data=>{
+{/* {getBeneficiary.array.length>=0&& getBeneficiary.array.map(data=>{
          console.log('vale',data)
 
         return(
@@ -109,7 +109,7 @@ import Modal from 'react-native-modal';
           <Text>{data.BeneficiaryAccNo}</Text>
         </View>
         )
-      })}
+      })} */}
 
             <Button block warning style={styles.Addbtnbeni}
 

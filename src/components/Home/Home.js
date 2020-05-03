@@ -157,7 +157,7 @@ class Home extends Component {
 
                     <Text style={styles.loadstyle} 
                     
-                     onPress={()=>this.props.navigation.navigate('Loadmoney')}
+                     onPress={()=>this.props.navigation.navigate('LoadSpark')}
                     >LOAD</Text>
                   </Button>
                   
@@ -302,7 +302,11 @@ class Home extends Component {
                     </Item>
                   </Left>
                   <Right>
-                    <Item style={styles.itemview}>
+                    <Item style={styles.itemview} 
+                    
+                     onPress={()=>this.props.navigation.navigate('Fdscreen')}
+                    
+                    >
                       <Image source={require('../../images/home/trendup.png')} style={styles.fd_rdiicon} />
                       <Text style={styles.fd_rdbtn}>  FD RATES</Text></Item>
                   </Right>
@@ -355,7 +359,9 @@ class Home extends Component {
                       </Item>
                     </Left>
                     <Right>
-                      <Item style={styles.itemview}>
+                      <Item style={styles.itemview}
+                       onPress={()=>this.props.navigation.navigate('RDScreen')}
+                      >
                         <Image source={require('../../images/home/trendup.png')} style={styles.fd_rdiicon} />
                         <Text style={styles.fd_rdbtn}>  RD RATES</Text></Item>
                     </Right>
@@ -390,7 +396,7 @@ class Home extends Component {
               <Text style={styles.footertext}>Notification</Text>
             </Button>
             <Button
-              onPress={() => this.props.navigation.navigate('Beneficiary')}
+              onPress={() => this.props.navigation.navigate('SettingPage')}
             >
               <Icon name="settings" style={styles.bottomIcon} />
               <Text style={styles.footertext}>settings</Text>
@@ -630,7 +636,7 @@ backgroundColor:'red'
   fd_rdbtn: {
 
 
-    height: 19,
+    
     fontFamily: 'Nunito',
     color: '#f79d32'
     ,
