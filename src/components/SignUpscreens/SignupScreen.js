@@ -45,6 +45,7 @@ export default class Signup extends Component {
     const { mobileOtp } = this.state
     return (
       <Container style={styles.Container}>
+         <ScrollView>
         <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
@@ -69,7 +70,7 @@ export default class Signup extends Component {
 
 
         </Header>
-        <ScrollView>
+       
           <Content style={styles.Content}>
 
             <View style={styles.grp_fields}>
@@ -156,13 +157,8 @@ export default class Signup extends Component {
 
 
           </Content>
-          
+         {/* <View  style={{   justifyContent:'flex-end' ,marginBottom:32, marginTop: 95, marginHorizontal: 16,}} >
          
-        </ScrollView>
-          
-
-        <View style={{ flex:1, justifyContent:'flex-end' ,alignContent:'flex-end', }} >
-          <View style={styles.bottom} >
             <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
             <Button block warning style={styles.btnSubmit}
@@ -170,11 +166,26 @@ export default class Signup extends Component {
             >
               <Text style={styles.submit}>Submit</Text>
             </Button>
-            < Image source={require('../../images/signupimges/grp_img.png')} style={styles.bottomImage} />
-          </View>
+         
+        </View> */}
+         
+         <View style={{alignItems:'flex-end', marginHorizontal: 16 , marginBottom: 16,}}>
+        <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
+                    <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
+            <Button block warning style={styles.btnSubmit}
+              onPress={this.toggelopen}
+            >
+              <Text style={styles.submit}>Submit</Text>
+            </Button>
         </View>
+       
+        
         
 
+       
+        </ScrollView>
+
+       
         <View>
           <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
             <View style={{ backgroundColor: 'white' }}>
@@ -230,7 +241,7 @@ export default class Signup extends Component {
 
 const styles = StyleSheet.create({
   Container: {
-    flex: 1,
+ 
     backgroundColor: '#f5f5ff',
     
   },
@@ -272,16 +283,15 @@ const styles = StyleSheet.create({
   },
   Content: {
     backgroundColor: '#ffffff',
-    width: '100%',
-    height: 464,
+    width: '100%'
     // marginTop:50
   },
   btnSubmit: {
 
-    marginLeft: 16,
-    marginRight: 16,
+   
     alignItems: 'center',
-    marginTop: 15
+   
+    marginTop:20
 
 
   },
@@ -297,9 +307,6 @@ const styles = StyleSheet.create({
   btnbottom: {
 
   
-
-    marginLeft: 16,
-    marginRight: 16,
   
     alignContent:'flex-end',
       
@@ -308,7 +315,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
 
-    height: 640
+  
   },
 
   input: {
@@ -440,13 +447,13 @@ const styles = StyleSheet.create({
 
   bottomtext: {
     color: "#999999",
-
-    height: 33,
-    marginLeft: 16,
-
-    marginRight: 16,
+marginTop: 50,
+  
+  height:33,
     fontSize: 12,
-    fontFamily: 'Nunito'
+     
+    fontFamily: 'Nunito',
+ 
 
 
   },

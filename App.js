@@ -57,7 +57,7 @@ export default class App extends Component {
       <>
       
       <Provider store={store}>
-< Routing
+< Signup
        />
         </Provider>
       </>

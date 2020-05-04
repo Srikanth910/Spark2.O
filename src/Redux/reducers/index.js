@@ -6,7 +6,7 @@ import error from './errorReducer'
 const rootReducer = combineReducers({
     auth:auth,
     error:error,
-    beneficiary:beneficiary,
+    beneficiary:beneficiasy,
      loadmoney:loadmoneyDetails
 });
 export default rootReducer;
