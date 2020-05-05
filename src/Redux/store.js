@@ -5,7 +5,9 @@ import rootReducer from '../Redux/reducers';
 import { composeWithDevTools } from 'redux-devtools-extension';
   const initialState={}
 let store = createStore(rootReducer,
-     initialState,)
-    
+     initialState,
+     composeWithDevTools(
+        applyMiddleware(...middleware),
+     ))
 
 export default store;

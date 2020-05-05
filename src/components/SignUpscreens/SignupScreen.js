@@ -45,7 +45,7 @@ export default class Signup extends Component {
     const { mobileOtp } = this.state
     return (
       <Container style={styles.Container}>
-         <ScrollView>
+        
         <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
@@ -70,9 +70,9 @@ export default class Signup extends Component {
 
 
         </Header>
-       
+        <ScrollView>
           <Content style={styles.Content}>
-
+        
             <View style={styles.grp_fields}>
 
 
@@ -169,7 +169,13 @@ export default class Signup extends Component {
          
         </View> */}
          
-         <View style={{alignItems:'flex-end', marginHorizontal: 16 , marginBottom: 16,}}>
+        
+        
+       
+       
+        </ScrollView>
+
+        <View style={ { alignItems:'flex-end', marginHorizontal: 16 , marginBottom: 16,}}>
         <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
             <Button block warning style={styles.btnSubmit}
@@ -178,12 +184,6 @@ export default class Signup extends Component {
               <Text style={styles.submit}>Submit</Text>
             </Button>
         </View>
-       
-        
-        
-
-       
-        </ScrollView>
 
        
         <View>

@@ -107,15 +107,17 @@ export default class Setpassword extends Component {
                    </View>
 
                 </Content>
+                
+
                 </ScrollView>
-                <View style={{flex: 1,}}>
+                <View style={{ alignItems:'flex-end'}}>
                 <Button block warning style={styles.btnSubmit} 
                   onPress={()=>this.props.navigation.navigate('Welcomeboard')}
                  >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>
                 </View>
-
+               
                 
             </Container>
         )
