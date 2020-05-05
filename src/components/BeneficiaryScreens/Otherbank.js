@@ -72,7 +72,7 @@ import { connect } from 'react-redux';
     }
      toggelclose=()=>{
           this.setState({
-            isVisible:true
+            isVisible:false
 
           })
        
@@ -248,7 +248,7 @@ import { connect } from 'react-redux';
 
                         <Text style={styles.textstyle}>Please ensure you enter the correct account details.Spark is not responsible for incorrect account details</Text>
 
-                        <View>
+                        {/* <View>
                             <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
                                 <View style={{ backgroundColor: 'white' }}>
 
@@ -282,9 +282,34 @@ import { connect } from 'react-redux';
                                     </ListItem>
                                 </View>
                             </Modal>
+                        </View> */}
+
+
+
+<View>
+                            <Modal style={{ width: 320, maxHeight: 240, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
+                                <View style={{ backgroundColor: 'white' }}>
+
+                                    <Text style={styles.otp}>Confirm details  </Text>
+                    <Text style={styles.otpText}>Name:{this.state.Name}</Text>
+                                    <Text style={styles.otpText}>no:{this.state.AccontNo}   </Text>
+                                    <Text style={styles.otpText}>IFSC code:{this.state.IFCS}    </Text>
+                                    <Text style={styles.otpText}>Email: {this.state.Email}      </Text>
+                                    <Text style={styles.otpText}>Phone: {this.state.mobileNo}       </Text>
+                              
+                                   
+                                    <ListItem style={{ justifyContent: 'flex-end' }} >
+                                        <Text style={styles.cancel} onPress={this.toggelclose}>Cancel</Text>
+                                        <Text style={styles.otpSubmit}
+                                            onPress={this.addSubmit} 
+                                        >Ok</Text>
+                                    </ListItem>
+                                </View>
+                            </Modal>
                         </View>
 
-                        <Button block warning style={styles.SubmitButton} onPress={this.addSubmit}     >
+
+                        <Button block warning style={styles.SubmitButton} onPress={this.toggelopen}     >
                             <Text>Submit</Text>
 
                         </Button>
@@ -400,13 +425,13 @@ const styles = StyleSheet.create({
     },
     otp: {
 
-        width: 94,
+        // width: 120,
         height: 27,
         marginTop: 15,
         color: '#000000',
         fontSize: 20,
         marginLeft: 15,
-        fontWeight: "bold"
+        // fontWeight: "bold"
 
 
     },
@@ -416,10 +441,11 @@ const styles = StyleSheet.create({
         marginLeft: 15,
         fontFamily: 'Nunito',
         fontSize: 16,
-        marginTop: 10,
+        marginTop:10,
         color: '#000000'
 
     },
 
 })
+
 

@@ -46,7 +46,7 @@ export default class App extends Component {
     return (
       <>
       <Provider store={store}>
-  <Routing />
+  <Otherbank />
      </Provider>
       </>
     );
