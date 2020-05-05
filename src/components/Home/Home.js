@@ -148,8 +148,9 @@ class Home extends Component {
 
 
               </CardItem>
+              
 
-              <CardItem>
+              {/* <CardItem>
                 <Left>
                   <Button transparent 
                     onPress={() => this.props.navigation.navigate('NotifClass')}
@@ -170,7 +171,25 @@ class Home extends Component {
                   </Button>
 
                 </Right>
-              </CardItem>
+              </CardItem> */}
+             
+              <Item style={styles.bottomcurd}>
+              
+              <Button transparent >
+
+<Text style={styles.loadstyle}>LOAD</Text>
+</Button>
+<Text>|</Text>
+<Button transparent 
+                    onPress={() => this.props.navigation.navigate('NotifClass')}
+                  >
+
+                    <Text style={styles.loadstyle} 
+                    
+                     onPress={()=>this.props.navigation.navigate('LoadSpark')}
+                    >TRANSFER</Text>
+                  </Button>
+              </Item>
 
             </Card> 
             </View>
@@ -878,5 +897,13 @@ more:{
     marginBottom:20
 
   },
+   bottomcurd:
+    {justifyContent:'center',
+    justifyContent:'space-around',
+    borderTopWidth:0.5,
+    marginLeft: 20
+    , marginRight: 20,
+   borderTopColor: 'grey'
+   }
 
 })
