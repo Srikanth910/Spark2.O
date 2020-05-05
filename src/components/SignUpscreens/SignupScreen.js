@@ -258,7 +258,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     color: '#ffffff',
-    letterSpacing: 0.5,
+  
     alignItems: 'flex-start',
 
   },
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     color: '#ffffff',
-    letterSpacing: 0.5,
+    
    
 
 

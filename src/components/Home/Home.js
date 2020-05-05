@@ -190,7 +190,7 @@ class Home extends Component {
                   
 
               </ListItem>
-              <View style={{ flexDirection:"row", marginLeft:20, }}>
+              <View style={{ flexDirection:"row", marginVertical:16, }}>
               <View style={styles.box}>
                   <Image source={require('../../images/home/phone.png')} style={styles.billIcon}/>
         <Text style={styles.iconText}>Mobile {"\n"}Prepaid</Text>
@@ -221,7 +221,7 @@ class Home extends Component {
               </View>
 
 
-              <View style={{flex:1, flexDirection:"row", marginLeft:20, marginTop: 15,}}>
+              <View style={{flex:1, flexDirection:"row", marginVertical:16, marginTop: 15,}}>
                 <View style={styles.box}>
                   <Image source={require('../../images/home/DTH.png')} style={styles.billIcon}/>
         <Text style={styles.iconText}>DTH</Text>
@@ -360,10 +360,12 @@ class Home extends Component {
                     </Left>
                     <Right>
                       <Item style={styles.itemview}
-                       onPress={()=>this.props.navigation.navigate('RDScreen')}
+                      
                       >
                         <Image source={require('../../images/home/trendup.png')} style={styles.fd_rdiicon} />
-                        <Text style={styles.fd_rdbtn}>  RD RATES</Text></Item>
+                        <Text style={styles.fd_rdbtn}
+                        onPress={()=>this.props.navigation.navigate('RDScreen')}
+                        >  RD RATES</Text></Item>
                     </Right>
                   </ListItem>
                 </View>
@@ -638,8 +640,8 @@ backgroundColor:'red'
 
     
     fontFamily: 'Nunito',
-    color: '#f79d32'
-    ,
+    color: '#f79d32',
+    
     fontSize: 14,
 
     fontWeight: "bold"
@@ -656,7 +658,7 @@ backgroundColor:'red'
   },
   rdbottombtn: {
     marginTop: 10,
-    marginLeft:16,
+     marginVertical:16
     
 
   },
@@ -713,10 +715,10 @@ loadstyle:{
   
   // height:20,
   fontSize:14,
-  textAlign:'center',
+ 
    color:'#f7931e',
    fontWeight:'bold',
-   letterSpacing:2
+ 
    
 
 },
@@ -741,7 +743,7 @@ box:{
    
 
    borderRadius: 10,
- marginLeft:10,
+ marginLeft:15,
 alignContent:'center',
   
 

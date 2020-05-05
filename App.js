@@ -40,26 +40,14 @@ import FixedDeposite from './src/components/landingpage/Fd_layout';
 import Setpassword from './src/components/SignUpscreens/Setpassword';
 import Signup from './src/components/SignUpscreens/SignupScreen';
 import Welcomeboard from './src/components/landingpage/Welcomeboard';
-// import Bottom from './src/components/LoginScreens/Bottomsheet';
-import Confirmationdetails from'./src/components/BeneficiaryScreens/Confirmation'
-import FDCloseSuccessScreen from './src/components/fd&rdScreens/FDCloseSuccessScreen';
-import RDAmountScreen from './src/components/fd&rdScreens/rdAmountScreen';
-import SettingPage from './src/components/SettingScreens/SettingScreen';
-import LoadSpark from './src/components/Home/LoadMoney/LoadSpark';
-import RazorApp from './src/components/Razorpay/Razorpay';
-import ViewRDScreen from './src/components/fd&rdScreens/viewRDScreen';
-import RecurringDepositScreen from './src/components/fd&rdScreens/recurringDeposit';
-import RDTenureScreen from './src/components/fd&rdScreens/rdtenureScreen';
- import Fdscreen from './src/components/fd&rdScreens/Fdscreen'
+
 export default class App extends Component {
   render() {
     return (
       <>
-      
       <Provider store={store}>
-< Routing
-       />
-        </Provider>
+  <Routing />
+     </Provider>
       </>
     );
   }
