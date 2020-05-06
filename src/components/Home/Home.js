@@ -5,6 +5,7 @@ import { StyleSheet, StatusBar, View, ImageBackground, Image, } from 'react-nati
 import CardList from './CardList';
 import KycAccordion from './kycAccordion';
 import ImageSilder from './ImageSilder';
+import HomeFooter from './Footer';
 // import ImageSilder from './ImageSilder';
 
 class Home extends Component {
@@ -81,12 +82,12 @@ checkTabSelected(tab){
     console.log('reducer', auth)
     return (
       <Container style={styles.Container}>
-        <Header style={{ backgroundColor: '#1b1464', height: 90 }}>
+        <Header style={{ backgroundColor: '#1b1464', height: 100 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
-
+ 
           <Left>
 
-            <ListItem style={styles.listview}>
+            <ListItem style={styles.listview} >
               <Image source={require('../../images/home/spk_icon.png')} style={styles.spicon} />
 
               <View style={styles.userid}>
@@ -99,9 +100,8 @@ checkTabSelected(tab){
           <Right >
             <Image source={require('../../images/home/white_dot.png')} style={styles.doticon} />
           </Right>
-
         </Header>
-
+ 
 
         <Content >
 
@@ -266,7 +266,8 @@ checkTabSelected(tab){
                   
 
               </ListItem>
-              <View style={{alignItems:'center'}}>
+              <View style={{alignItems:'center' ,marginVertical
+            :16}}>
               <View style={{ flexDirection:"row", }}>
               <View style={styles.box}>
                   <Image source={require('../../images/home/phone.png')} style={styles.billIcon}/>
@@ -456,6 +457,10 @@ checkTabSelected(tab){
           </View>
 
         </Content>
+
+
+
+        
         <Footer >
           <FooterTab style={{ backgroundColor: '#ffffff' }} >
             <Button
@@ -489,7 +494,8 @@ onPress={()=>{this.checkTabSelected(1)}} active={this.state.tabStatus1} style={{
             </Button>
           </FooterTab>
         </Footer>
-      </Container>
+       
+              </Container>
     );
   }
 }
@@ -528,7 +534,8 @@ const styles = StyleSheet.create({
     height: 29,
     width: 71,
     textAlign: 'left',
-    paddingTop: 10
+    paddingTop: 10,
+    alignSelf:'center'
 
 
 
@@ -546,7 +553,11 @@ const styles = StyleSheet.create({
 
   },
   userid: {
-    paddingLeft: 10
+ 
+    paddingLeft: 10, 
+    alignSelf:'center'
+  
+    
   },
   id: {
     height: 16,
@@ -572,13 +583,13 @@ const styles = StyleSheet.create({
   },
   fdRectangle: {
     marginTop: 30,
-    height: 328,
+    height:'auto',
     backgroundColor: '#ffffff'
 
   },
   rdRectangle: {
     marginTop: 30,
-    height: 324,
+    height:'auto',
     backgroundColor: '#ffffff'
 
   },
@@ -656,7 +667,7 @@ const styles = StyleSheet.create({
 
   },
   bal: {
-    width: 63,
+    
     height: 26,
     fontFamily: 'Inconsolata',
     fontSize: 24,
@@ -907,7 +918,7 @@ more:{
     borderWidth: 2,
     borderStyle: 'dashed',
     height:97,
-    width:204,
+    width:210,
     marginBottom:20
 
    

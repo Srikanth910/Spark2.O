@@ -37,6 +37,7 @@ import SettingPage from '../SettingScreens/SettingScreen';
 import RecurringDepositScreen from '../fd&rdScreens/recurringDeposit';
 import ConfirmCloseRDScreen from '../fd&rdScreens/confirmCloseRDScreen';
 import FixedDepositScreen from '../fd&rdScreens/Fdscreen';
+import HomeFooter from '../Home/Footer';
  
 const Stack = createStackNavigator();
 
@@ -94,8 +95,11 @@ function Routing() {
         <Stack.Screen name="Fdscreen" component={ FixedDepositScreen} /> 
       
 
-        
+{/*         
+        <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
+       */}
 
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

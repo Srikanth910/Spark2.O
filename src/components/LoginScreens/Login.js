@@ -544,7 +544,7 @@ const styles = StyleSheet.create({
     },
 
     tabHeading: {
-        height: 19,
+      
         fontFamily: 'Nunito',
         fontSize: 16,
         color: '#ffffff',
@@ -562,7 +562,7 @@ const styles = StyleSheet.create({
         marginBottom: 32,
         marginLeft: 16,
         marginRight: 16,
-        marginTop:95
+        marginTop:90
         // alignContent:'center'
     
 
@@ -705,15 +705,17 @@ const styles = StyleSheet.create({
     bottomtext: {
         color: "#999999",
         // width: 329,
-        height: 52.7,
+      
         marginLeft: 16,
         paddingBottom: 10,
-        marginRight:16
+        marginRight:16,
+         fontSize:14
 
 
     },
     bottomColor: {
-        color: '#f7931e'
+        color: '#f7931e',
+        fontSize:14
 
     },
     loginbg: {

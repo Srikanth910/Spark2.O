@@ -49,13 +49,14 @@ export default class Signup extends Component {
         <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
-          <Left style={{ marginLeft: 5 }}>
+          <Left style={{ marginLeft: 5 , alignSelf:'flex-start' ,marginVertical:15 }}>
 
             <Button transparent  >
               <Icon name='arrow-back' style={styles.icon}
                 onPress={() => this.props.navigation.navigate('Login')}
               />
             </Button>
+
             <Text style={styles.textcolor} >
               Welcome
                           </Text>
@@ -65,9 +66,10 @@ export default class Signup extends Component {
                           </Text>
 
           </Left>
+<Right>
 
-          <Right />
-
+</Right>
+          
 
         </Header>
         <ScrollView>
@@ -172,10 +174,7 @@ export default class Signup extends Component {
         
         
        
-       
-        </ScrollView>
-
-        <View style={ { alignItems:'flex-end', marginHorizontal: 16 , marginBottom: 32,}}>
+        <View style={ { justifyContent:'flex-end', marginHorizontal: 16 ,  marginVertical: 80,  marginBottom: 16, }}>
         <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
             <Button block warning style={styles.btnSubmit}
@@ -183,10 +182,14 @@ export default class Signup extends Component {
             >
               <Text style={styles.submit}>Submit</Text>
             </Button>
-        </View>
+        </View> 
 
+        </ScrollView> 
        
-        <View>
+
+        <View></View>
+       
+        
           <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
             <View style={{ backgroundColor: 'white' }}>
 
@@ -230,7 +233,7 @@ export default class Signup extends Component {
               </ListItem>
             </View>
           </Modal>
-        </View>
+        
 
       </Container>
     )
@@ -252,12 +255,13 @@ const styles = StyleSheet.create({
 
   headerText: {
     width: 400,
-    height: 36,
+   
     fontFamily: 'Nunito',
     fontSize: 14,
-    marginLeft: 16,
-    marginRight: 16,
+  marginVertical:16,
     color: '#ffffff',
+ marginHorizontal: 16,
+    marginLeft:16,
   
     alignItems: 'flex-start',
 
@@ -275,17 +279,13 @@ const styles = StyleSheet.create({
   },
   textcolor: {
     fontSize: 20,
-    height: 32,
+    
     marginLeft: 16,
     color: '#ffffff',
     fontFamily: 'Nunito',
     
   },
-  Content: {
-    backgroundColor: '#ffffff',
-    width: '100%'
-    // marginTop:50
-  },
+ 
   btnSubmit: {
 
    
@@ -312,11 +312,7 @@ const styles = StyleSheet.create({
       
 
   },
-  container: {
-    flex: 1,
-
-  
-  },
+ 
 
   input: {
     height: 40,
@@ -448,8 +444,7 @@ const styles = StyleSheet.create({
   bottomtext: {
     color: "#999999",
 marginTop: 50,
-  
-  height:33,
+
     fontSize: 12,
      
     fontFamily: 'Nunito',
@@ -458,7 +453,10 @@ marginTop: 50,
 
   },
   bottomColor: {
-    color: '#f7931e'
+    color: '#f7931e',
+    fontSize: 12,
+     
+    fontFamily: 'Nunito',
 
   },
   loginbg: {

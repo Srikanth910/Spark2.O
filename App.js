@@ -40,13 +40,15 @@ import FixedDeposite from './src/components/landingpage/Fd_layout';
 import Setpassword from './src/components/SignUpscreens/Setpassword';
 import Signup from './src/components/SignUpscreens/SignupScreen';
 import Welcomeboard from './src/components/landingpage/Welcomeboard';
+import RazorApp from './src/components/Razorpay/Razorpay';
+import RecurringDepositScreen from './src/components/fd&rdScreens/recurringDeposit';
 
 export default class App extends Component {
   render() {
     return (
       <>
       <Provider store={store}>
-  <Routing />
+  < RecurringDepositScreen/>
      </Provider>
       </>
     );

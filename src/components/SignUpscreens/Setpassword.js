@@ -109,14 +109,15 @@ export default class Setpassword extends Component {
                 </Content>
                 
 
-                </ScrollView>
-                <View style={{ alignItems:'flex-end'}}>
+                
+                <View style={{ justifyContent:'flex-end', alignContent:"flex-end",marginVertical: 60, marginBottom: 0, }}>
                 <Button block warning style={styles.btnSubmit} 
                   onPress={()=>this.props.navigation.navigate('Welcomeboard')}
                  >
                     <Text style={styles.submit}>Submit</Text>
                 </Button>
                 </View>
+                </ScrollView>
                
                 
             </Container>
@@ -128,7 +129,7 @@ export default class Setpassword extends Component {
 const styles = StyleSheet.create({
     Container: {
         backgroundColor:'#f5f5ff',
-        flex: 1,
+      
     },
    
     mpintext: {
@@ -213,7 +214,7 @@ const styles = StyleSheet.create({
         marginBottom: 32,
         marginLeft: 16,
         marginRight: 16,
-        alignItems: 'center',
+       
         // position:'fixed'
       
 
