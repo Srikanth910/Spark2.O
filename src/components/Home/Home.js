@@ -12,9 +12,66 @@ class Home extends Component {
     super(props)
 
     this.state = {
+      
+      
+
+      tabStatus1:true,
+      tabStatus2:false,
+      tabStatus3:false,
+      tabStatus4:false,
 
     }
   }
+
+
+
+checkTabSelected(tab){
+  switch(tab) {
+    case 1:
+      this.setState({
+
+        tabStatus1:true,
+        tabStatus2:false,
+        tabStatus3:false,
+        tabStatus4:false
+      })
+      // code block
+      break;
+    case 2:
+      this.setState({
+
+        tabStatus1:false,
+        tabStatus2:true,
+        tabStatus3:false,
+        tabStatus4:false
+      })
+      // code block
+      break;
+    case 3:
+      // code block
+      this.setState({
+
+        tabStatus1:false,
+        tabStatus2:false,
+        tabStatus3:true,
+        tabStatus4:false
+      })
+     this.props.navigation.navigate('SettingPage')
+      break;
+    case 4:
+      this.setState({
+
+        tabStatus1:false,
+        tabStatus2:false,
+        tabStatus3:false,
+        tabStatus4:true
+      })
+      // code block
+      break;
+
+  }
+}
+
 
 
 
@@ -179,7 +236,7 @@ class Home extends Component {
 
 <Text style={styles.loadstyle}>LOAD</Text>
 </Button>
-<Text>|</Text>
+<Text style={{color:'grey'}}>|</Text>
 <Button transparent 
                     onPress={() => this.props.navigation.navigate('NotifClass')}
                   >
@@ -209,7 +266,8 @@ class Home extends Component {
                   
 
               </ListItem>
-              <View style={{ flexDirection:"row", marginVertical:16, }}>
+              <View style={{alignItems:'center'}}>
+              <View style={{ flexDirection:"row", }}>
               <View style={styles.box}>
                   <Image source={require('../../images/home/phone.png')} style={styles.billIcon}/>
         <Text style={styles.iconText}>Mobile {"\n"}Prepaid</Text>
@@ -271,7 +329,7 @@ class Home extends Component {
                 
                 {/* </View> */}
                 </View>
-          
+          </View>
               </View>
               
             </View>
@@ -401,26 +459,33 @@ class Home extends Component {
         <Footer >
           <FooterTab style={{ backgroundColor: '#ffffff' }} >
             <Button
-
-            >
-              <Icon name="home" style={styles.bottomIcon} active />
-              <Text style={styles.footertext}>Home</Text>
+onPress={()=>{this.checkTabSelected(1)}} active={this.state.tabStatus1} style={{backgroundColor: this.state.tabStatus1?null:null}} >
+            
+              <Icon name="home" style={styles.bottomIcon} style={{color:this.state.tabStatus1?'#1b1464':'#474a4f'}} />
+              <Text style={styles.footertext} style={{color:this.state.tabStatus1?'#1b1464':'#474a4f'}}>Home</Text>
             </Button>
 
-            <Button >
+            <Button
+           onPress={()=>{this.checkTabSelected(2)}} active={this.state.tabStatus2} style={{backgroundColor: this.state.tabStatus1?null:null}} >
+        
               <Icon name="notifications"
                 style={styles.bottomIcon}
 
-
-                onPress={() => this.props.navigation.navigate('NotifClass')}
+                style={{color:this.state.tabStatus2?'#1b1464':'#474a4f'}}
+                // onPress={() => this.props.navigation.navigate('NotifClass')}
               />
-              <Text style={styles.footertext}>Notification</Text>
+              <Text style={styles.footertext}
+              style={{color:this.state.tabStatus2?'#1b1464':'#474a4f'}}
+              >Notification</Text>
             </Button>
             <Button
-              onPress={() => this.props.navigation.navigate('SettingPage')}
-            >
-              <Icon name="settings" style={styles.bottomIcon} />
-              <Text style={styles.footertext}>settings</Text>
+           onPress={()=>{this.checkTabSelected(3)}} active={this.state.tabStatus3} style={{backgroundColor: this.state.tabStatus3?null:null}} >
+        
+            
+              <Icon name="settings" style={styles.bottomIcon}
+              style={{color:this.state.tabStatus3?'#1b1464':'#474a4f'}} />
+              <Text style={styles.footertext}
+              style={{color:this.state.tabStatus3?'#1b1464':'#474a4f'}}>settings</Text>
             </Button>
           </FooterTab>
         </Footer>
@@ -812,7 +877,7 @@ more:{
      height:16,
       fontSize:13,
        fontFamily:'Nunito',
-        color:'#474a4f',
+       
   
           opacity:0.8
  },

@@ -65,7 +65,7 @@ class AddBeneficiarys extends Component {
               }
              
         })
-        this.prop.navigation.navigate('Confirmationdetails')
+      
 
     }
   

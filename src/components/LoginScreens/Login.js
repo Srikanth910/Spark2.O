@@ -559,7 +559,7 @@ const styles = StyleSheet.create({
         // justifyContent: 'flex-end',
 
         justifyContent:'flex-end',
-        marginBottom: 16,
+        marginBottom: 32,
         marginLeft: 16,
         marginRight: 16,
         marginTop:95

@@ -175,7 +175,7 @@ export default class Signup extends Component {
        
         </ScrollView>
 
-        <View style={ { alignItems:'flex-end', marginHorizontal: 16 , marginBottom: 16,}}>
+        <View style={ { alignItems:'flex-end', marginHorizontal: 16 , marginBottom: 32,}}>
         <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
             <Button block warning style={styles.btnSubmit}
