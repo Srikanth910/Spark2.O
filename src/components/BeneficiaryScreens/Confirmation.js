@@ -43,15 +43,17 @@ class Confirmationdetails extends Component {
        
        
         const details= {
+           membarId:beneficiary.memberDetials.customerId,
             "ifscCode":"",
-            "membarId":"",
+           
+            // "membarId":"",
             "benificiaryAccNo":"",
             "benificiaryName":"",
             "phoneNo":"",
             "email":"",
             "isPrimaryAccunt":"true",
             "isWithInCoop":"true",
-            refNo:beneficiary.createOtpBeneficiary.refNo,
+            refNo:beneficiary.createBeneficiary.refNo,
         
             otp:this.state.mobileOtp,
             "accountType":"",
@@ -61,9 +63,13 @@ class Confirmationdetails extends Component {
              this.props.addBeneficiaryDetails(details).then(()=>{
                 const {beneficiary}=this.props
                 if(beneficiary.beneficiaryDetails.code==="200"){
-                    alert('ss')
-                     
+                   
                     this.props.navigation.navigate('Beneficiary ')
+                }else{
+                   this.setState({
+                     isVisible:false
+                   })
+                  alert('fail')
                 }
              })
 
@@ -72,7 +78,8 @@ class Confirmationdetails extends Component {
  handleSubmit=()=>{
     const{beneficiary}=this.props
     const member={
-membarId:beneficiary.memberDetials.customerId,
+// membarId:beneficiary.memberDetials.customerId,
+"memberId":"",
 "benificiaryAccNo":"",
 "benificiaryName":"",
 "phoneNo":"",
@@ -114,8 +121,8 @@ console.log(member)
 
  }
     render() {
-         const{beneficiary}=this.props
-          console.log(beneficiary.createBeneficiary)
+         const{error}=this.props
+          console.log(error)
           const{mobileOtp}=this.state
         return (
             <Container>

@@ -88,7 +88,8 @@ import { connect } from 'react-redux';
         const{ Name, AccontNo, ConfirmAccontNo, Email, IFCS, mobileNo}=this.state
      const { beneficiary}=this.props
          const Beneficiary={
-            membarId:beneficiary.memberDetials.customerId, 
+             "memberId":"1259",
+            // membarId:beneficiary.memberDetials.customerId, 
                 benificiaryAccNo:this.state.AccontNo,
                 benificiaryName:this.state.Name,
                 phoneNo:this.state.mobileNo,
@@ -98,8 +99,7 @@ import { connect } from 'react-redux';
                 ifscCode:this.state.IFCS,
                  email:this.state.Email,
                   "accountType":"Otherbank"
-                
-
+        
          }
 
          this.props.createOtpBeneficiary(Beneficiary).then(()=>{
@@ -122,14 +122,15 @@ import { connect } from 'react-redux';
        
         const details= {
             "ifscCode":"",
-            membarId:beneficiary.memberDetials.customerId, 
+            "membarId":"1259",
+            // membarId:beneficiary.memberDetials.customerId, 
             "benificiaryAccNo":"",
             "benificiaryName":"",
             "phoneNo":"",
             "email":"",
             "isPrimaryAccunt":"true",
             "isWithInCoop":"true",
-            refNo:beneficiary.createOtpBeneficiary.refNo,
+            refNo:beneficiary.createBeneficiary.refNo,
         
             otp:this.state.mobileOtp,
             "accountType":"",

@@ -83,9 +83,6 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
        console.log(data)
        return async dispatch=>{
 
-       
-
-
     try{
          const res = await axios.post(`${API_URL}/addBeneficiary_V2_O`, data)
          let addBeneficiary = await res.data
@@ -97,7 +94,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
                })
 
           }else if(addBeneficiary.Data.code==="200"){
-               callback();
+           
                dispatch({
                     type:ADD_BENEFICIARY_SUCCESS,
                     payload:addBeneficiary.Data
@@ -125,7 +122,6 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
      return async dispatch=>{
      try{
           const res = await axios.post(`${API_URL}/membarDetailsByMobileNoOrAccNo_V2_O`, data)
-     
           let memberDetials = await res.data
            console.log(memberDetials)
            if(memberDetials.code==="404"){
