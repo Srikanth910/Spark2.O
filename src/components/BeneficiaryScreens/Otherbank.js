@@ -21,7 +21,8 @@ import { connect } from 'react-redux';
     ConfirmAccontNo:'',
     IFCS:'',
     mobileNo:'',
-     isVisible:false
+     isVisible:false,
+      otpvisible:false
 
         };
     }
@@ -56,7 +57,7 @@ import { connect } from 'react-redux';
                 const {beneficiary}=this.props
                 if(beneficiary.beneficiaryDetails.code==="200"){
                         this.setState({
-                            isVisible:false
+                            otpvisible:false
                         })
                      
                     this.props.navigation.navigate('Beneficiary ')
@@ -85,6 +86,10 @@ import { connect } from 'react-redux';
         this.props.navigation.navigate('passwordSet')
     }
     addSubmit=()=>{
+
+         this.setState({
+              isVisible:false
+         })
         const{ Name, AccontNo, ConfirmAccontNo, Email, IFCS, mobileNo}=this.state
      const { beneficiary}=this.props
          const Beneficiary={
@@ -107,7 +112,8 @@ import { connect } from 'react-redux';
             if(beneficiary.createBeneficiary.code==="200"){
               
                 this.setState({
-                    isVisible:true
+                     isVisible:false,
+                    otpvisible:true
                 })
               
             }else{
@@ -249,8 +255,8 @@ import { connect } from 'react-redux';
 
                         <Text style={styles.textstyle}>Please ensure you enter the correct account details.Spark is not responsible for incorrect account details</Text>
 
-                        {/* <View>
-                            <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
+                        <View>
+                            <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.otpvisible} >
                                 <View style={{ backgroundColor: 'white' }}>
 
                                     <Text style={styles.otp}>Enter OTP</Text>
@@ -283,7 +289,7 @@ import { connect } from 'react-redux';
                                     </ListItem>
                                 </View>
                             </Modal>
-                        </View> */}
+                        </View> 
 
 
 
