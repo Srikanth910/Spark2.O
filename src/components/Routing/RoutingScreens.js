@@ -41,7 +41,9 @@ import HomeFooter from '../Home/Footer';
 import Loadmoneyprogress from '../Home/LoadMoney/Loadmoneyprogress';
 import LoadmoneySuccess from '../Home/LoadMoney/LoadmoneySuccess';
 import Loadmoneyfail from '../Home/LoadMoney/Loadmoneyfail';
-import Paymentportal from '../Home/LoadMoney/Paymentportal';
+import PayBill from '../Bill_Payments/PayBill_rc';
+import LoanPayment from '../Bill_Payments/LoanPayment';
+import Loanpaymentprogress from '../Bill_Payments/LoanPaymentprogess';
  
 const Stack = createStackNavigator();
 
@@ -100,13 +102,15 @@ function Routing() {
         <Stack.Screen name="Loadmoneyprogress" component={ Loadmoneyprogress} /> 
         <Stack.Screen name="LoadmoneySuccess" component={ LoadmoneySuccess} /> 
         <Stack.Screen name="Loadmoneyfail" component={Loadmoneyfail} /> 
-        <Stack.Screen name="Paymentportal" component={Paymentportal} /> 
+
+        <Stack.Screen name="PayBill" component={PayBill} /> 
+        <Stack.Screen name="LoanPayment" component={LoanPayment} /> 
+        
+        <Stack.Screen name="Loanpaymentprogress" component={Loanpaymentprogress} /> 
+        
 
 
-
-
-
-      
+        
 {/*         Loadmoneyprogress
         <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
        */}

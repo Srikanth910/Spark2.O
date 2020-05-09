@@ -52,13 +52,14 @@ import PayBill from './src/components/Bill_Payments/PayBill_rc';
 import LoanPayment from './src/components/Bill_Payments/LoanPayment';
 import Loanpaymentprogress from './src/components/Bill_Payments/LoanPaymentprogess';
 import LoanpaymentSuccess from './src/components/Bill_Payments/LoanpaymentSuccess';
+import ScheduleTransfer from './src/components/TransferScreens/ScheduleTransfer';
 
 export default class App extends Component {
   render() {
     return (
       <>
       <Provider store={store}>
-  < Routing
+  < ScheduleTransfer
   />
      </Provider>
       </>

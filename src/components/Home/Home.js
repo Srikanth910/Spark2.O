@@ -305,10 +305,13 @@ checkTabSelected(tab){
                 <Text style={styles.iconText}>water</Text>
                 </View>
                   <View style={styles.dottedmore}
-                   onPress={()=>this.props.navigation.navigate('PayBill')}
+                  
                   >
 
-                  <Text style={styles.moretext}>More</Text>
+                  <Text style={styles.moretext}
+                  
+                  onPress={()=>this.props.navigation.navigate('PayBill')}
+                  >More</Text>
                 </View>
                </View>
               </View>

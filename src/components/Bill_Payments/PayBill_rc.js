@@ -1,29 +1,26 @@
 import React, { Component } from 'react'
 import { Container, Header, Content, Left, Button, Icon, Body, Text, Right, ListItem, List } from 'native-base'
 import { StatusBar ,StyleSheet, View,Image} from 'react-native'
+import { TouchableOpacity } from 'react-native-gesture-handler'
 
 export default class PayBill extends Component {
     render() {
         return (
            <Container>
-              <Header  style={{ backgroundColor: "#1b1464", height: 80 }}>
+              <Header  style={{ backgroundColor: "#1b1464", height:  90}}>
                  <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
                 
-                 <Left style={{ marginLeft:5 }}>
+                <View style={{flexDirection:"row",  flex:1, alignItems:'center',justifyContent:'space-around'}}>
  
- <Button transparent  >
      <Icon name='arrow-back'
          onPress={() => this.props.navigation.navigate('Loasmoney')}
+          style={{color:'#ffffff'}}
      />
-
-
- </Button>
- </Left>
- <Body>
      <Text style={styles.headerText}>Pay Bills and Recharge</Text>
 
- </Body>
-    
+        <Image source ={require('../../images/billpay/faq_ic.png')}/>
+        </View>
+
                  </Header>
                <Content>
                    <View style={{backgroundColor:'#f0f0ff', height:20}}>
@@ -76,18 +73,25 @@ export default class PayBill extends Component {
                 <Text style={styles.iconText}>PAYMENT</Text>
 
                 </View>
+
+                <TouchableOpacity
+                 onPress={()=>this.props.navigation.navigate('LoanPayment')}
+                >
                 <View style={styles.box}>
                 <View style={{height:10, width:40, backgroundColor:'#f77d0e', borderRadius:20, alignSelf:'center', marginTop: 6,}}>
              <Text style={{fontSize:10, textAlign:"center", color:'#ffffff' ,bottom:2}}>new</Text>
                      </View>
                 <Image source={require('../../images/home/water.png')} style={styles.watericon}
                 
-                 onPress={()=>this.prop.navigation.navigate('LoanPayment')}
+                
                 />
             
 
-                <Text style={styles.iconText}>water</Text>
+                <Text style={styles.iconText}
+                
+                >water</Text>
                 </View>
+                </TouchableOpacity>
                 <View style={styles.box}>
                 <Image source={require('../../images/home/Landline.png')} style={styles.watericon}/>
 
