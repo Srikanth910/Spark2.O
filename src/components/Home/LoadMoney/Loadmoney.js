@@ -223,7 +223,8 @@ class Loadmoney extends Component {
                         </Item>
 
                         <Button block warning style={styles.bottombtn}
-                            onPress={() => this.props.navigation.navigate('Paymentportal')} >
+                         onPress={() => this.props.navigation.navigate('Paymentportal')}
+                            >
                             <Text>proceed</Text>
                         </Button>
                     </Content>
