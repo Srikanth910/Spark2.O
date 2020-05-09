@@ -223,13 +223,17 @@ class Loadmoney extends Component {
                         </Item>
 
                         <Button block warning style={styles.bottombtn}
-                            onPress={() => this.props.navigation.navigate('MoneyLoading')} >
+                            onPress={() => this.props.navigation.navigate('Paymentportal')} >
                             <Text>proceed</Text>
                         </Button>
                     </Content>
 
 
                 </ScrollView>
+
+
+
+
             </Container>
 
         )
@@ -259,13 +263,19 @@ const styles = StyleSheet.create({
 
     btn: {
 
-        // backgroundColor: '#DDDDDD',
+        backgroundColor: '#ffffff',
         // borderColor: '#dc00ff',
         // borderRadius: 10,
         borderWidth: 1,
         padding: 10,
         opacity: 0.5,
-
+        
+        
+        shadowOpacity: 0.25,
+        shadowColor: "#ffffff",
+        shadowRadius: 2.84,
+        
+        elevation: 2
 
     },
     btnActive: {
@@ -400,7 +410,16 @@ const styles = StyleSheet.create({
     cardlist: {
         marginLeft: 16,
         marginRight: 16,
-        padding: 10
+        padding: 10,
+        shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 2,
+},
+shadowOpacity: 0.25,
+shadowRadius: 3.84,
+
+elevation: 5
     },
     infoicon: {
 

@@ -39,9 +39,7 @@ export default class Setpassword extends Component {
                                     onPress={() => this.props.navigation.navigate('Login')}
                                 />
                             </Button>
-                            <Text  style={styles.headerText} >
-                            Set your password
-                          </Text>
+                          
                           
                          
                           

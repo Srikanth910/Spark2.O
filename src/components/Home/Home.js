@@ -6,6 +6,7 @@ import CardList from './CardList';
 import KycAccordion from './kycAccordion';
 import ImageSilder from './ImageSilder';
 import HomeFooter from './Footer';
+import AsyncStorage from '@react-native-community/async-storage';
 // import ImageSilder from './ImageSilder';
 
 class Home extends Component {
@@ -26,6 +27,15 @@ class Home extends Component {
 
 
 
+  async componentDidMount(){
+    try {
+      const loginData = await AsyncStorage.getItem('userdetials')
+      const user = JSON.parse(loginData)
+     console.log(user)
+  } catch (e) {
+      alert('Failed to load name.')
+  }
+}
 checkTabSelected(tab){
   switch(tab) {
     case 1:
@@ -207,28 +217,6 @@ checkTabSelected(tab){
               </CardItem>
               
 
-              {/* <CardItem>
-                <Left>
-                  <Button transparent 
-                    onPress={() => this.props.navigation.navigate('NotifClass')}
-                  >
-
-                    <Text style={styles.loadstyle} 
-                    
-                     onPress={()=>this.props.navigation.navigate('LoadSpark')}
-                    >LOAD</Text>
-                  </Button>
-                  
-                </Left>
-
-                <Right>
-                  <Button transparent >
-
-                    <Text style={styles.loadstyle}>TRANSFER</Text>
-                  </Button>
-
-                </Right>
-              </CardItem> */}
              
               <Item style={styles.bottomcurd}>
               
@@ -268,7 +256,7 @@ checkTabSelected(tab){
               </ListItem>
               <View style={{alignItems:'center' ,marginVertical
             :16}}>
-              <View style={{ flexDirection:"row", }}>
+              <View style={{ flexDirection:"row",alignItems:'center' }}>
               <View style={styles.box}>
                   <Image source={require('../../images/home/phone.png')} style={styles.billIcon}/>
         <Text style={styles.iconText}>Mobile {"\n"}Prepaid</Text>
@@ -299,38 +287,30 @@ checkTabSelected(tab){
               </View>
 
 
-              <View style={{flex:1, flexDirection:"row", marginVertical:16, marginTop: 15,}}>
+              <View style={{flex:1, flexDirection:"row", marginVertical:16, marginTop: 15,  marginLeft:10}}>
                 <View style={styles.box}>
                   <Image source={require('../../images/home/DTH.png')} style={styles.billIcon}/>
-        <Text style={styles.iconText}>DTH</Text>
+                 <Text style={styles.iconText}>DTH</Text>
 
 
                 </View>
                 <View style={styles.box}>
                 <Image source={require('../../images/home/euro.png')} style={styles.euroicon}/>
-<Text style={styles.iconText}>PAYMENT</Text>
-
-
-
+                <Text style={styles.iconText}>PAYMENT</Text>
 
                 </View>
                 <View style={styles.box}>
                 <Image source={require('../../images/home/water.png')} style={styles.watericon}/>
 
-<Text style={styles.iconText}>water</Text>
+                <Text style={styles.iconText}>water</Text>
                 </View>
-
-
-<View style={styles.dottedmore}>
-                {/* <View style={styles.more}> */}
-
-
+                  <View style={styles.dottedmore}
+                   onPress={()=>this.props.navigation.navigate('PayBill')}
+                  >
 
                   <Text style={styles.moretext}>More</Text>
-                
-                {/* </View> */}
                 </View>
-          </View>
+               </View>
               </View>
               
             </View>
@@ -642,7 +622,16 @@ const styles = StyleSheet.create({
   borderBottomWidth: 2,
   borderRightWidth:1,
   borderLeftWidth:1,
-  marginTop:10
+  marginTop:10,
+  shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 9,
+},
+shadowOpacity: 0.48,
+shadowRadius: 11.95,
+
+elevation: 18,
  
 
 
@@ -838,8 +827,17 @@ box:{
    
 
    borderRadius: 10,
- marginLeft:15,
-alignContent:'center',
+ marginLeft:20,
+alignContent:'center',shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 9,
+},
+shadowOpacity: 0.48,
+shadowRadius: 11.95,
+
+elevation: 5,
+
   
 
 },
@@ -874,12 +872,21 @@ euroicon:{
 },
 more:{
   backgroundColor:'#c3c1de',
-  height:65,
+  height:75,
    width:75,
    
 
    borderRadius: 10,
  marginLeft:10,
+ shadowColor: "#000",
+shadowOffset: {
+	width: 0,
+	height: 9,
+},
+shadowOpacity: 0.48,
+shadowRadius: 11.95,
+
+elevation: 18,
 
 },
 
@@ -898,10 +905,10 @@ more:{
   moretext:{
      textAlign:'center',
     color:'#f77d0e',
-     marginTop: 20,
-
-      fontSize:12,
+       fontSize:12,
        height:16,
+       marginTop:30
+      
 
   },
   dottedlines: {
@@ -932,8 +939,8 @@ more:{
     borderRadius: 10,
     borderWidth: 2,
     borderStyle: 'dashed',
-    height:65,
-    width:70,
+    height:75,
+    width:75,
     marginBottom:20
 
   },

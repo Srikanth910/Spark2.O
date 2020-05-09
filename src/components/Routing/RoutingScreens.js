@@ -38,6 +38,9 @@ import RecurringDepositScreen from '../fd&rdScreens/recurringDeposit';
 import ConfirmCloseRDScreen from '../fd&rdScreens/confirmCloseRDScreen';
 import FixedDepositScreen from '../fd&rdScreens/Fdscreen';
 import HomeFooter from '../Home/Footer';
+import Loadmoneyprogress from '../Home/LoadMoney/Loadmoneyprogress';
+import LoadmoneySuccess from '../Home/LoadMoney/LoadmoneySuccess';
+import Loadmoneyfail from '../Home/LoadMoney/Loadmoneyfail';
  
 const Stack = createStackNavigator();
 
@@ -93,9 +96,13 @@ function Routing() {
 
      
         <Stack.Screen name="Fdscreen" component={ FixedDepositScreen} /> 
-      
+        <Stack.Screen name="Loadmoneyprogress" component={ Loadmoneyprogress} /> 
+        <Stack.Screen name="LoadmoneySuccess" component={ LoadmoneySuccess} /> 
+        <Stack.Screen name="Loadmoneyfail" component={Loadmoneyfail} /> 
 
-{/*         
+
+      
+{/*         Loadmoneyprogress
         <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
        */}
 

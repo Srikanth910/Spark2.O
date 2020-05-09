@@ -42,6 +42,16 @@ import Signup from './src/components/SignUpscreens/SignupScreen';
 import Welcomeboard from './src/components/landingpage/Welcomeboard';
 import RazorApp from './src/components/Razorpay/Razorpay';
 import RecurringDepositScreen from './src/components/fd&rdScreens/recurringDeposit';
+import LoadSpark from './src/components/Home/LoadMoney/LoadSpark';
+import FixedDepositScreen from './src/components/fd&rdScreens/Fdscreen';
+import Paymentportal from './src/components/Home/LoadMoney/Paymentportal';
+import LoadmoneySuccess from './src/components/Home/LoadMoney/LoadmoneySuccess';
+import Loadmoneyfail from './src/components/Home/LoadMoney/Loadmoneyfail';
+import Loadmoneyprogress from './src/components/Home/LoadMoney/Loadmoneyprogress';
+import PayBill from './src/components/Bill_Payments/PayBill_rc';
+import LoanPayment from './src/components/Bill_Payments/LoanPayment';
+import Loanpaymentprogress from './src/components/Bill_Payments/LoanPaymentprogess';
+import LoanpaymentSuccess from './src/components/Bill_Payments/LoanpaymentSuccess';
 
 export default class App extends Component {
   render() {

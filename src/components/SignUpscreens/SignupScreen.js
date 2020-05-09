@@ -49,7 +49,7 @@ export default class Signup extends Component {
         <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
-          <Left style={{ marginLeft: 5 , alignSelf:'flex-start' ,marginVertical:15 }}>
+          <Left style={{ marginLeft: 5 , alignSelf:'flex-start' ,alignSelf:'flex-end' }}>
 
             <Button transparent  >
               <Icon name='arrow-back' style={styles.icon}
@@ -72,7 +72,7 @@ export default class Signup extends Component {
           
 
         </Header>
-        <ScrollView>
+        <ScrollView >
           <Content style={styles.Content}>
         
             <View style={styles.grp_fields}>
@@ -174,7 +174,7 @@ export default class Signup extends Component {
         
         
        
-        <View style={ { justifyContent:'flex-end', marginHorizontal: 16 ,  marginVertical: 80,  marginBottom: 16, }}>
+        <View style={ { justifyContent:'flex-end', marginHorizontal: 16 ,  marginVertical: 80,  marginBottom: 16,  alignSelf:'flex-end'}}>
         <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
                     <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
             <Button block warning style={styles.btnSubmit}

@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Otpscreen from './Otpscreen';
+import Erroralert from  '../Hoc/Erroralert'
 
 const Otpmodel = (WrappedComponent) => {
   class Otpmodel extends React.Component {
@@ -9,35 +9,27 @@ const Otpmodel = (WrappedComponent) => {
         super(props)
     
         this.state = {
-            isVisible:false
+            isVisible:true,
+            showAlert:false
              
         }
     }
     
     
-    toggelopen = () => {
-         alert('hello')
-        this.setState({
+    showmodel = () => {
+      console.log('show')
+      this.setState({
           isVisible: true
-        })
-      }
-      toggelclose = () => {
-          console.log('helo')
-        this.setState({
-          isVisible: false
-        })
-      }
-      otpSubmit=()=>{
-          alert('hello')
-      }
-
+      });
+  };
 
     render() {
-      console.log('HOC');
+   
       return (
         <>
         
-        <WrappedComponent toggle={this.toggelopen}  {...this.props} />
+        <WrappedComponent toggle={this.showmodel}  {...this.props} />
+        <Erroralert showAlert={this.state.isVisible} />
         
         </>
       );

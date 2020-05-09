@@ -78,11 +78,11 @@ class Confirmationdetails extends Component {
  handleSubmit=()=>{
     const{beneficiary}=this.props
     const member={
-// membarId:beneficiary.memberDetials.customerId,
-"memberId":"",
+      membarId:beneficiary.memberDetials.customerId,
+// "memberId":"",
 "benificiaryAccNo":"",
 "benificiaryName":"",
-"phoneNo":"",
+phoneNo:beneficiary.memberDetials.mobileNo,
 "isPrimaryAccunt":"true",
 "isWithInCoop":"true",
 "state":"",
@@ -91,14 +91,12 @@ class Confirmationdetails extends Component {
 console.log(member)
      this.props.createOtpBeneficiary(member).then(()=>{
          if(beneficiary.createBeneficiary.code==="200"){
+           alert('hsdvsc')
            
              this.setState({
                  isVisible:true
              })
-           
-         }else{
-             alert('fail')
-         }
+            }
      })
 
 
@@ -121,8 +119,8 @@ console.log(member)
 
  }
     render() {
-         const{error}=this.props
-          console.log(error)
+         const{beneficiary}=this.props
+          console.log(beneficiary)
           const{mobileOtp}=this.state
         return (
             <Container>

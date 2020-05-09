@@ -34,6 +34,7 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
           }
 
     }catch(err){
+          console.log(err)
          dispatch({
              type:CATACH_ERROR,
              payload:err
@@ -87,6 +88,13 @@ import { CREATE_OTP_BENEFICIARY_SUCCESS, CREATE_OTP_BENEFICIARY_FAIL, CATACH_ERR
          const res = await axios.post(`${API_URL}/addBeneficiary_V2_O`, data)
          let addBeneficiary = await res.data
           console.log(addBeneficiary)
+           if(addBeneficiary.code==="313"){
+               dispatch({
+                    type:ADD_BENEFICIARY_FAIL,
+                    payload:addBeneficiary
+               })
+
+           }else
           if(addBeneficiary.code==="306"){
                dispatch({
                     type:ADD_BENEFICIARY_FAIL,

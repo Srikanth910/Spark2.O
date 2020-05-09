@@ -29,7 +29,7 @@ import {getRazorpayDetails} from '../../../Redux/actions/LoadMoneyaction'
           <Header style={{ backgroundColor: "#1b1464", height: 130 }}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
          
-         <View  style={{justifyContent:'center',alignSelf:'flex-start'}}>
+         <View  style={{justifyContent:'center',alignSelf:'flex-start' ,alignSelf:'flex-end'}}>
 
          
           <Button transparent  >
@@ -90,11 +90,11 @@ import {getRazorpayDetails} from '../../../Redux/actions/LoadMoneyaction'
                  <View>
                      <Item style={styles.Item}>
                      <Text style={styles.accDetails}>Account no. * </Text>
-        <Text>{accountDetails.AccNo }</Text>
+        {/* <Text>{accountDetails.AccNo }</Text> */}
                      </Item>
                      <Item style={styles.Item}>
                      <Text style={styles.accDetails}>IFSC code * </Text>
-        <Text>{accountDetails.IFSCCode}</Text>
+        {/* <Text>{accountDetails.IFSCCode}</Text> */}
                      </Item>
                      <Item style={styles.Item}>
                      <Text style={styles.accDetails}>Bank </Text>
