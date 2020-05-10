@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Container, Header, Content, Button, View, ListItem, Item, } from 'native-base'
-import { StatusBar, Text, StyleSheet, Image, ImageBackground } from 'react-native'
+import { StatusBar, Text, StyleSheet, Image, ImageBackground, TouchableOpacity } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 
@@ -11,7 +11,11 @@ export default class Loadmoneyprogress extends Component {
 
                 <ImageBackground source={require('../../../images/home/progress_bg.png')} style={{ height: '100%', width: '100%', flex: 0.7, bottom:0 }} >
                 
+                <StatusBar barStyle="light-content" backgroundColor='#fbbe05' 
+      
 
+    />
+                
                     <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>
 
                         <View style={styles.header}>
@@ -75,11 +79,16 @@ export default class Loadmoneyprogress extends Component {
                         
                         </ScrollView>
                         <View style={{flex:1}}>
+
+                            {/* /<TouchableOpacity 
+                            onPress={()=>alert('hell')}
+                            > */}
                         <Button block warning style={styles.btn}
                                 onPress={() => this.props.navigation.navigate('LoadmoneySuccess')}
                             >
                                 <Text style={{ color: '#ffffff' }}>Done</Text>
                             </Button>
+                            {/* </TouchableOpacity> */}
                             </View>
 
 

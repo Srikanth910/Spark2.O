@@ -65,6 +65,9 @@ export default class PayBill extends Component {
 
 
                 </View>
+                <TouchableOpacity
+                 onPress={()=>this.props.navigation.navigate('LoanPayment')}
+                >
                 <View style={styles.box}>
                 <View style={{height:10, width:40, backgroundColor:'#f77d0e', borderRadius:20, alignSelf:'center', marginTop:2,}}>
              <Text style={{fontSize:10, textAlign:"center", color:'#ffffff' ,bottom:2}}>new</Text>
@@ -73,6 +76,7 @@ export default class PayBill extends Component {
                 <Text style={styles.iconText}>PAYMENT</Text>
 
                 </View>
+                </TouchableOpacity>
 
                 <TouchableOpacity
                  onPress={()=>this.props.navigation.navigate('LoanPayment')}

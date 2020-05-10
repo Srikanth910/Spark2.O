@@ -10,6 +10,11 @@ export default class Loadmoneyfail extends Component {
            <Container>
 
                <ImageBackground  source={require('../../../images/home/fail_bg.png')}style={{height:'100%', width:'100%'}} >
+               <StatusBar barStyle="light-content" backgroundColor='#d51a1a'
+
+/>
+                
+             
               <ScrollView>
                
                 <ListItem style={{borderColor:'transparent', justifyContent: 'center',}}>

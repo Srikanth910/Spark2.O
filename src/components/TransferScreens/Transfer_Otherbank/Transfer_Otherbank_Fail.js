@@ -1,26 +1,29 @@
+
 import React, { Component } from 'react'
-import { Container, Header, Content, Button, View, ListItem, } from 'native-base'
+import { Container, Header, Content, Button, View, ListItem, Item, } from 'native-base'
 import { StatusBar, Text, StyleSheet, Image, ImageBackground } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 
-export default class Transfer_Schedule_Success extends Component {
+export default class Transfer_Otherbank_Fail extends Component {
     render() {
         return (
             <Container>
 
-                <ImageBackground source={require('../../images/home/success_bg.png')} style={{ height: '100%', width: '100%' }} >
+                <ImageBackground source={require('../../images/home/fail_bg.png')} style={{ height: '100%', width: '100%' }} >
                     <ScrollView>
 
                         <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>
 
-                            <Image source={require('../../images/home/white_rupi.png')} />
                             <View style={styles.header}>
-                                <Text style={styles.headerbal}>
-                                    25,000
+                                <Item style={{ borderColor: 'transparent', alignSelf: 'center' }}>
+                                    <Image source={require('../../images/home/white_rupi.png')} />
+                                    <Text style={styles.headerbal}>
+                                        5,0000
                         </Text>
+                                </Item>
                                 <Text style={styles.text}>
-                                    Paid successfully
+                                    payment declined:reason
 
                         </Text >
                                 <Text style={styles.text} >TXN ID: CC1ZK173928, 07-05-2020, 10:30:23</Text>
@@ -32,49 +35,41 @@ export default class Transfer_Schedule_Success extends Component {
                             <Content padder >
                                 <View style={{ marginHorizontal: 23, }} >
                                     <View style={styles.curd_user}>
-
-                                        <ListItem >
-                                            <Image source={require('../../images/Transfer/My_Bank.png')} style={styles.bank} />
+                                        <ListItem>
+                                            <Image source={require('../../images/Transfer/Other_Bank.png')} style={styles.bank} />
                                             <View style={{ paddingLeft: 20 }}>
                                                 <Text style={styles.usertext}>
-                                                    K.shivashankar
-                                                               </Text>
-                                                <Text style={styles.curdtext}>Account ID :7895678987</Text>
+                                                    k.Shivashankar goud
+                           </Text>
+                                                <Text style={styles.curdtext}>Account ID:28275657</Text>
 
-                                                <Text style={styles.curdtext}>IFSC code :HDFC0003487 </Text>
-                                               
+                                                <Text style={styles.curdtext}>IFSC code:HDFC3456</Text>
+
                                             </View>
 
                                         </ListItem>
 
                                     </View>
                                     <View style={styles.curdview}>
-                                        <Text style={styles.transctiondetials}>Transaction details</Text>
-                                        <Text style={styles.textdetails}>House loan payment 2020...</Text>
+                                        <Text style={styles.transctiondetials}>Transfer details</Text>
+                                        <Text style={styles.textdetails}>For family expenses</Text>
+                                        <Text style={styles.textdetails}>NEFT</Text>
                                         <Text style={styles.textdetails}>Transfer charges</Text>
-                                        <Text style={styles.textdetails}>Rs .0</Text>
-
-
-                                    </View>
-
-                                    <View style={styles.curd_user}>
-
-                                        <Text style={styles.transctiondetials}>Scheduled</Text>
-                                        <Text style={styles.textdetails}>Starts on :4/5/2020</Text>
-                                        <Text style={styles.textdetails}>Monthly,0/48 transfers done</Text>
-
+                                        <Text style={styles.textdetails}>Rs.0</Text>
 
                                     </View>
+
+
                                 </View>
 
-                                
+                                {/* <Image source={require('../../images/home/success_img.png')} style={styles.img}/> */}
 
 
 
-                                <Button block success style={styles.btn}
-                                    onPress={() => this.props.navigation.navigate('Transfer_Schedule_Progress')}
+                                <Button block danger style={styles.btn}
+                                    onPress={() => this.props.navigation.navigate('Home')}
                                 >
-                                    <Text style={{ color: '#ffffff' }}>Success</Text>
+                                    <Text style={{ color: '#ffffff' }}>Done</Text>
                                 </Button>
                             </Content>
 
@@ -98,26 +93,20 @@ const styles = StyleSheet.create({
 
     headerbal: {
         fontSize: 36,
+        paddingLeft: 5,
         textAlign: 'center',
         color: '#ffffff',
         fontFamily: 'Inconsolata',
         fontWeight: "bold"
-
-
     },
     text: {
         fontSize: 14,
         color: '#ffffff',
-
         alignSelf: 'center',
-
-
     },
     curdview: {
         backgroundColor: '#ffffff',
-        height: 97,
-
-
+        height: 127,
         shadowColor: "#000",
         shadowOffset: {
             width: 10,
@@ -125,15 +114,13 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 10,
 
     },
     curd_user: {
         backgroundColor: '#ffffff',
-        height: 130,
+        height: 110,
         marginVertical: 20,
-
         shadowColor: "#000",
         shadowOffset: {
             width: 10,
@@ -141,7 +128,6 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
-
         elevation: 10,
 
     },
@@ -152,9 +138,10 @@ const styles = StyleSheet.create({
         marginHorizontal: 16,
     },
     btn: {
-
-        marginVertical: 21,
+        marginTop: 180,
         marginHorizontal: 16,
+        marginBottom: 16,
+
     },
     usertext: {
         color: '#1b1464',
@@ -162,9 +149,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         fontSize: 16,
         textAlign: 'left'
-
-
-
 
     },
 
@@ -204,14 +188,14 @@ const styles = StyleSheet.create({
         height: '100%',
         backgroundColor: '#ffffff',
         width: '100%',
-
+        marginVertical: 20,
         borderTopLeftRadius: 20,
         borderTopRightRadius: 20,
     },
     bank: {
 
         height: 40,
-        width: 34,
+        width: 60,
         alignSelf: 'center'
 
     }

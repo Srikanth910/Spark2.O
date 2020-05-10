@@ -8,12 +8,15 @@ export default class LoanPayment extends Component {
      
          this.state = {
             mobileNum:'',
-             isVisible:false
+             isVisible:false,
+             Data:""
          }
      }
-     handlepayment=( value)=>{
+     handlepayment=( name)=>{
           this.setState({
                isVisible:true,
+               Data:name
+              
               
           })
         this.RBSheet.close()
@@ -49,11 +52,13 @@ export default class LoanPayment extends Component {
                 <Content>
                 <Text style={styles.loginText}>lender</Text>
             <Item regular style={styles.textInput}
-             onPress={() => this.RBSheet.open()}>
-              {/* <Input placeholder="" style={styles.input}
-                value={this.state.mobileNum}
-                onChangeText={mobileText => this.setState({ mobileNum: mobileText })}
-              /> */}
+            >
+             <Input placeholder="" style={styles.input}
+                value={this.state.Data}
+                
+              />
+                <Icon name='ios-arrow-down'  onPress={() => this.RBSheet.open()}
+                             />
             </Item>
             
             <RBSheet
@@ -79,7 +84,7 @@ export default class LoanPayment extends Component {
             </Item>
             <View>
                 <List>
-                    <ListItem onPress={this.handlepayment}>
+                    <ListItem onPress={()=>this.handlepayment('Loanpayment')}>
                         <Image source={require('../../images/billpay/Airtel.png')}/>
                         <Text style={{marginLeft:20}}>Loan Payment</Text>
                     </ListItem>
@@ -115,14 +120,14 @@ export default class LoanPayment extends Component {
                     </ListItem>
                     {this.state.isVisible===true?
                     <Button block warning
-                                onPress={this.handleSubmit}
+                    onPress={()=>this.props.navigation.navigate('LoanpaymentSuccess')}
                                 >
                                     <Text>Get Payable Amount</Text>
                                 
                             </Button>:
 
                             <Button block warning
-                                onPress={this.props.navigation.navigate('Loanpaymentprogress')}
+                               
                                 >
                                 <Text>Proceed</Text>
                             </Button>

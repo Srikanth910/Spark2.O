@@ -9,7 +9,10 @@ export default class LoadmoneySuccess extends Component {
         return (
            <Container>
 
-               <ImageBackground  source={require('../../../images/home/success_bg.png')}style={{height:'100%', width:'100%'}} >
+               <ImageBackground  source={require('../../../images/home/success_bg.png')}style={{height:'100%', width:'100%', flex:1}} >
+             
+               <StatusBar barStyle="light-content" backgroundColor="#429c40" />
+                
               <ScrollView>
                
                 <ListItem style={{borderColor:'transparent', justifyContent: 'center',}}>
@@ -60,11 +63,16 @@ export default class LoadmoneySuccess extends Component {
 
 
 
+
+                  <View  style={{flex:1}}>
                   <Button block success style={styles.btn}
                    onPress={() => this.props.navigation.navigate('Loadmoneyfail')}
                    >
             <Text style={{color:'#ffffff'}}>Success</Text>
+
+
           </Button> 
+          </View>
               </Content>
 
 

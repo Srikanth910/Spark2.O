@@ -4,17 +4,17 @@ import { StatusBar, Text, StyleSheet, Image, ImageBackground } from 'react-nativ
 import { ScrollView } from 'react-native-gesture-handler'
 
 
-export default class Transfer_Schedule_Success extends Component {
+export default class Transfer_Otherbank_Success extends Component {
     render() {
         return (
             <Container>
 
-                <ImageBackground source={require('../../images/home/success_bg.png')} style={{ height: '100%', width: '100%' }} >
+                <ImageBackground source={require('../../../images/home/success_bg.png')} style={{ height: '100%', width: '100%' }} >
                     <ScrollView>
 
                         <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>
 
-                            <Image source={require('../../images/home/white_rupi.png')} />
+                            <Image source={require('../../../images/home/white_rupi.png')} />
                             <View style={styles.header}>
                                 <Text style={styles.headerbal}>
                                     25,000
@@ -34,7 +34,7 @@ export default class Transfer_Schedule_Success extends Component {
                                     <View style={styles.curd_user}>
 
                                         <ListItem >
-                                            <Image source={require('../../images/Transfer/My_Bank.png')} style={styles.bank} />
+                                            <Image source={require('../../../images/Transfer/Other_Bank.png')} style={styles.bank} />
                                             <View style={{ paddingLeft: 20 }}>
                                                 <Text style={styles.usertext}>
                                                     K.shivashankar
@@ -42,7 +42,7 @@ export default class Transfer_Schedule_Success extends Component {
                                                 <Text style={styles.curdtext}>Account ID :7895678987</Text>
 
                                                 <Text style={styles.curdtext}>IFSC code :HDFC0003487 </Text>
-                                               
+
                                             </View>
 
                                         </ListItem>
@@ -50,29 +50,23 @@ export default class Transfer_Schedule_Success extends Component {
                                     </View>
                                     <View style={styles.curdview}>
                                         <Text style={styles.transctiondetials}>Transaction details</Text>
-                                        <Text style={styles.textdetails}>House loan payment 2020...</Text>
+                                        <Text style={styles.textdetails}>For family expenses</Text>
+                                        <Text style={styles.textdetails}>NEFT</Text>
                                         <Text style={styles.textdetails}>Transfer charges</Text>
                                         <Text style={styles.textdetails}>Rs .0</Text>
 
 
                                     </View>
 
-                                    <View style={styles.curd_user}>
 
-                                        <Text style={styles.transctiondetials}>Scheduled</Text>
-                                        <Text style={styles.textdetails}>Starts on :4/5/2020</Text>
-                                        <Text style={styles.textdetails}>Monthly,0/48 transfers done</Text>
-
-
-                                    </View>
                                 </View>
 
-                                
+
 
 
 
                                 <Button block success style={styles.btn}
-                                    onPress={() => this.props.navigation.navigate('Transfer_Schedule_Progress')}
+                                    onPress={() => this.props.navigation.navigate('Home')}
                                 >
                                     <Text style={{ color: '#ffffff' }}>Success</Text>
                                 </Button>
@@ -115,7 +109,7 @@ const styles = StyleSheet.create({
     },
     curdview: {
         backgroundColor: '#ffffff',
-        height: 97,
+        height: 114,
 
 
         shadowColor: "#000",
@@ -155,6 +149,7 @@ const styles = StyleSheet.create({
 
         marginVertical: 21,
         marginHorizontal: 16,
+        marginTop: 190,
     },
     usertext: {
         color: '#1b1464',
@@ -211,7 +206,7 @@ const styles = StyleSheet.create({
     bank: {
 
         height: 40,
-        width: 34,
+        width: 64,
         alignSelf: 'center'
 
     }

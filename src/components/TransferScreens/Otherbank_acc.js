@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Container, Header, Content, View, Text, Icon, ListItem, Item, Input } from 'native-base'
+import { Container, Header, Content, View, Text, Icon, ListItem, Item, Input,Button } from 'native-base'
 import { StatusBar, Image, StyleSheet } from 'react-native'
 
 export default class Otherbank_acc extends Component {
@@ -15,7 +15,7 @@ export default class Otherbank_acc extends Component {
                             onPress={() => this.props.navigation.navigate('Loasmoney')}
                             style={{ color: '#ffffff' }}
                         />
-                        <Text style={styles.headerText}>To My Bank Account</Text>
+                        <Text style={styles.headerText}>To Other Bank Account</Text>
 
                         <Image source={require('../../images/billpay/faq_ic.png')} />
                     </View>
@@ -113,7 +113,7 @@ export default class Otherbank_acc extends Component {
                          
                            >
                                <Text style={styles.btntext}
-                               
+                                onPress={() => this.props.navigation.navigate('Home')}
                                
                                >Pay now</Text>
                            </Button>

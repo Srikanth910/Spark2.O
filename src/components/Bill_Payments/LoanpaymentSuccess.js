@@ -16,6 +16,7 @@ export default class LoanpaymentSuccess extends Component {
          }
      }
       toggleopen=()=>{
+          
           this.setState({
               isVisible:true
           })
@@ -37,8 +38,10 @@ export default class LoanpaymentSuccess extends Component {
         return (
             <Container>
 
-                <ImageBackground source={require('../../images/home/confirm_bg.png')} style={{ height: '100%', width: '100%', flex:1 }} >
-                <View style={{flexDirection:'row', justifyContent:"space-around"  }}>
+                <ImageBackground source={require('../../images/home/confirm_bg.png')} style={{ height: '100%', width: '100%', flex:1}} >
+                <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
+                
+                <View style={{flexDirection:'row', justifyContent:"space-around",   alignItems:'center' ,marginVertical:20 }}>
                     
  
      <Icon name='arrow-back'  style={{color:'#ffffff',}}
@@ -48,7 +51,7 @@ export default class LoanpaymentSuccess extends Component {
 
                     <Text style={{color:'#ffffff', fontSize:20,textAlign:'center'}}>Confirm Loan Payment</Text>
                     
-                    <Text>??</Text>
+                    <Image source={require('../../images/billpay/faq_ic.png')}/>
                 </View>
 
                     <ListItem style={{ borderColor: 'transparent' ,  }}>
@@ -80,15 +83,15 @@ export default class LoanpaymentSuccess extends Component {
 
                         <Content padder>
                            
-                            <View style={{ marginHorizontal: 23, }} >
+                            <View style={{ marginHorizontal: 23,  justifyContent:"space-around"}} >
                                 <View style={styles.curd_user}>
-                                    <ListItem>
+                                    <ListItem style={{borderColor: 'transparent',}}>
                                         <Image source={require('../../images/home/pet_bank.png')} style={styles.bank} />
                                         <View style={{ paddingLeft: 20 }}>
                                             <Text style={styles.usertext}>
                                                 B.Srikanth
                            </Text>
-                                            <Text style={styles.curdtext}>Loan A/c no.          012345678901</Text>
+                                            <Text style={styles.curdtext}>Loan A/c no.    012345678901</Text>
 
                                             
                                         </View>
@@ -211,22 +214,27 @@ export default class LoanpaymentSuccess extends Component {
                        
                         
                        
-                        <View style={{flex:1, justifyContent:'flex-end',  marginTop: 30,}}>
+                      
+                      
+                            </ScrollView>
+                            {/* <View style={{flex:0.5, justifyContent:'flex-end',  marginBottom: 16, }}>
+                            <View>
                             <Text style={styles.bottomText}>Your service provider will take two 
                                 working days to reflect amount paid in your account.</Text>
-                        {/* <Button block warning 
-                                onPress={() => this.props.navigation.navigate('LoadmoneySuccess')}
-                            >
-                                <Text style={{ color: '#ffffff' }}>Done</Text>
-                            </Button> */}
-
+                                </View>
+                         <TouchableOpacity 
+                          onPress={()=>alert('hello')} >
                             <Button block light  style={styles.btn}>
 
             <Text style={{ color: '#ffffff' }}>confirm</Text>
-          </Button>
-                            </View>
+               </Button>
+               </TouchableOpacity>
+                           
+              
+                            
+                            </View> */}
 
-                            </ScrollView>
+                          
                     </View>
 
 
@@ -235,6 +243,28 @@ export default class LoanpaymentSuccess extends Component {
 
                   
                 </ImageBackground>
+
+
+                <View style={{ justifyContent:'flex-end', alignSelf:"flex-end" , }}>
+                            
+                            <Text style={styles.bottomText}>Your service provider will take two 
+                                working days to reflect amount paid in your account.</Text>
+                                
+                         <TouchableOpacity 
+                           >
+                            <Button block light  style={styles.btn}
+                             onPress={this.toggleopen}
+                            >
+
+            <Text style={{ color: '#ffffff' }}>confirm</Text>
+               </Button>
+               </TouchableOpacity>
+                           
+              
+                            
+                            </View>
+
+                          
 
                 <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
 
@@ -273,7 +303,7 @@ export default class LoanpaymentSuccess extends Component {
   <TouchableOpacity>
 
     <Text style={styles.otpSubmit}
-   onPress={this.handlesumbit}
+   onPress={()=>this.props.navigation.navigate('Home')}
     >Submit</Text>
 
   </TouchableOpacity>
@@ -475,7 +505,56 @@ const styles = StyleSheet.create({
           fontSize:11,
            letterSpacing:0.33,
            marginHorizontal: 16,
+            marginTop: 10,
 
-     }
+     },
+     otp: {
+
+        width: 94,
+        height: 27,
+        marginTop: 15,
+        color: '#000000',
+        fontSize: 20,
+        marginLeft: 15,
+        fontWeight: "bold"
+    
+    
+      },
+      resendOtp: {
+        width: 91,
+        height: 22,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        color: '#f7931e',
+        textAlign: 'right',
+    
+    
+      },
+      cancel: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        color: '#999999',
+        textAlign: 'left'
+    
+      },
+      otpText: {
+        marginLeft: 15,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        marginTop: 10,
+        color: '#000000'
+    
+      },
+    
+      otpSubmit: {
+        width: 73,
+        height: 39,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: '#f7931e',
+        textAlign: 'right'
+      },
 
 })

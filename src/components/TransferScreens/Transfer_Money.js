@@ -34,11 +34,15 @@ export default class Transfer_Money extends Component {
                         <TouchableOpacity
                                onPress={()=>this.props.navigation.navigate('To_sparkAcc ')}
                               >
+                                   <TouchableOpacity
+                               onPress={()=>this.props.navigation.navigate('To_sparkAcc')}
+                              >
                             <View style={styles.box}>
                                 <Image source={require('../../images/Transfer/Spark_Saving.png')} style={styles.sparksavinges} />
                                 <Text style={styles.iconText}>Spark Savings {"\n"}</Text>
 
                             </View>
+                            </TouchableOpacity>
                             </TouchableOpacity>
 
                             <View style={styles.box}>
@@ -58,7 +62,7 @@ export default class Transfer_Money extends Component {
                                  </View>
                             </TouchableOpacity>
                             <TouchableOpacity
-                               onPress={()=>this.props.navigation.navigate('Otherbank_acc ')}
+                               onPress={()=>this.props.navigation.navigate('Otherbank_acc')}
                               >
                             <View style={styles.box}>
                                 <Image source={require('../../images/Transfer/Other_Bank.png')} style={styles.otherbank} />

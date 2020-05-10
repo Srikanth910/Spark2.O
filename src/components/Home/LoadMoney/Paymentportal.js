@@ -48,7 +48,7 @@ style={styles.portalimg}
                                 <Text>Failure</Text>
                             </Button>
                             <Button block warning
-                                 onPress={() => this.props.navigation.navigate('Loadmoneyprogress')}
+                                 onPress={() => this.props.navigation.navigate('LoadmoneySuccess')}
                                 style={{marginTop:20}}
                             >
                                 <Text>Success</Text>

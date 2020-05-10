@@ -2,7 +2,7 @@
 import React, { Component } from 'react'
 import { Container, Header, Content, Button, View, ListItem, Item, } from 'native-base'
 import { StatusBar, Text, StyleSheet, Image, ImageBackground } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
 
 
 export default class Transfer_Schedule_Confirm extends Component {
@@ -85,12 +85,17 @@ export default class Transfer_Schedule_Confirm extends Component {
 
 
                         </ScrollView>
-                        <View style={{ flex: 1 }}>
+                        <View style={{ flex: 0.3 }}>
+                            <TouchableOpacity
+                             onPress={() => this.props.navigation.navigate('Home')}
+                            >
+
                             <Button block warning style={styles.btn}
-                                onPress={() => this.props.navigation.navigate('LoadmoneySuccess')}
+                               
                             >
                                 <Text style={{ color: '#ffffff' }}>Done</Text>
                             </Button>
+                            </TouchableOpacity>
                         </View>
 
 
@@ -178,7 +183,7 @@ const styles = StyleSheet.create({
     btn: {
 
         marginHorizontal: 16,
-        marginBottom: 32,
+        marginBottom: 16,
 
 
         height: 40,

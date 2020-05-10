@@ -574,7 +574,7 @@ const styles = StyleSheet.create({
         height: 640
     },
     headerText: {
-        width: 221,
+        width: 300,
         height: 27,
         fontFamily: 'Nunito',
         fontSize: 20,

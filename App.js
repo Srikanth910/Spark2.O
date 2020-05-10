@@ -62,6 +62,8 @@ import Transfer_Money from './src/components/TransferScreens/Transfer_Money';
 import MyBank_Account from './src/components/TransferScreens/MyBank_Account';
 import Transfer_Schedule_Success from './src/components/TransferScreens/Transfer_Schedule_Success';
 import Transfer_Schedule_Confirm from './src/components/TransferScreens/Transfer_Schedule_Confirm';
+import Transfer_Otherbank_Success from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Success';
+import Transfer_Otherbank_confirm from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Confirm';
 export default class App extends Component {
    constructor(props) {
      super(props)
@@ -72,11 +74,11 @@ export default class App extends Component {
    }
    
   render() {
-     console.log(this.state.date)
+    
     return (
       <>
       <Provider store={store}>
-  < Transfer_Schedule_Confirm
+  <  Routing
   />
      </Provider>
 

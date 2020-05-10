@@ -112,7 +112,7 @@ export default class To_sparkAcc extends Component {
                 <View style={{flexDirection:'row',  justifyContent:'center' ,marginVertical: 16, marginHorizontal: 16,     }}>
                
                <Button  warning style={styles.paynowbtn}
-                         
+                           onPress={()=>this.props.navigation.navigate('Transfer_Otherbank_confirm')}
                            >
                                <Text style={styles.btntext}
                                

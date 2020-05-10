@@ -55,6 +55,11 @@ import Otherbank_acc from '../TransferScreens/Otherbank_acc';
 import To_sparkAcc from '../TransferScreens/To_sparkAcc';
 import Transfer_Schedule_Success from '../TransferScreens/Transfer_Schedule_Success';
 import Transfer_Schedule_Confirm from '../TransferScreens/Transfer_Schedule_Confirm';
+import Transfer_Schedule_Progress from '../TransferScreens/Transfer_Schedule_Progress';
+import LoanpaymentSuccess from '../Bill_Payments/LoanpaymentSuccess';
+import Paymentportal from '../Home/LoadMoney/Paymentportal';
+import Transfer_Otherbank_confirm from '../TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Confirm';
+import Transfer_Otherbank_Success from '../TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Success';
  
 const Stack = createStackNavigator();
 
@@ -125,19 +130,30 @@ function Routing() {
         <Stack.Screen name="Mybank_Confirm" component={Mybank_Confirm } /> 
         
         <Stack.Screen name="Transfer_Money" component={Transfer_Money } /> 
-        <Stack.Screen name="To_myBankAcc" component={To_myBankAcc } /> 
-        <Stack.Screen name="Schedulemybank" component={Schedulemybank } /> 
-        <Stack.Screen name="Otherbank_acc" component={Otherbank_acc } /> 
-        <Stack.Screen name="To_sparkAcc" component={To_sparkAcc } /> 
+        <Stack.Screen name="To_myBankAcc" component={To_myBankAcc} /> 
+        <Stack.Screen name="Schedulemybank" component={Schedulemybank} /> 
+        <Stack.Screen name="Otherbank_acc" component={Otherbank_acc} /> 
+        <Stack.Screen name="To_sparkAcc" component={To_sparkAcc} /> 
        
         <Stack.Screen name="Transfer_Schedule_Success" component={Transfer_Schedule_Success } /> 
        
          
-        <Stack.Screen name="Transfer_Schedule_Progress" component={Transfer_Schedule_Progress } /> 
+         <Stack.Screen name="Transfer_Schedule_Progress" component={Transfer_Schedule_Progress } /> 
+         <Stack.Screen name="Transfer_Schedule_Confirm" component={Transfer_Schedule_Confirm } /> 
+    
+         <Stack.Screen name="LoanpaymentSuccess" component={LoanpaymentSuccess} /> 
+    
+         <Stack.Screen name="Paymentportal" component={Paymentportal} /> 
+         <Stack.Screen name="Transfer_Otherbank_confirm" component={Transfer_Otherbank_confirm} /> 
+    
+         <Stack.Screen name="Transfer_Otherbank_Success" component={Transfer_Otherbank_Success} /> 
+    
        
+       
+         
+         
         
-        
-        
+         
 {/*         Loadmoneyprogress
         <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
        */}

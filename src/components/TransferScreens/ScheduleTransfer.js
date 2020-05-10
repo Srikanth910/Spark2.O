@@ -195,7 +195,7 @@ export default class ScheduleTransfer extends Component {
 
                 <View style={{ justifyContent: 'flex-end', marginVertical: 16, marginHorizontal: 16 }}>
                     <Button block warning
-                    onPress={()=>this.props.navigation.navigate('ScheduleTransfer')}
+                    onPress={()=>this.props.navigation.navigate('Transfer_Schedule_Success')}
         
                     >
                         <Text>Set</Text>

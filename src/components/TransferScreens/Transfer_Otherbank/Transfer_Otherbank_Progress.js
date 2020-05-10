@@ -1,13 +1,10 @@
 import React, { Component } from 'react'
 import { Container, Header, Content, Button, View, ListItem, Item, } from 'native-base'
 import { StatusBar, Text, StyleSheet, Image, ImageBackground } from 'react-native'
-import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler'
+import { ScrollView } from 'react-native-gesture-handler'
 
 
-export default class Transfer_Schedule_Progress extends Component {
-    handlepage=()=>{
-        alert('jjjjj')
-    }
+export default class Transfer_Otherbank_Progress extends Component {
     render() {
         return (
             <Container>
@@ -44,7 +41,7 @@ export default class Transfer_Schedule_Progress extends Component {
                                 <View style={{ marginHorizontal: 23, }} >
                                     <View style={styles.curd_user}>
                                         <ListItem>
-                                            <Image source={require('../../images/Transfer/My_Bank.png')} style={styles.bank} />
+                                            <Image source={require('../../images/Transfer/Other_Bank.png')} style={styles.bank} />
                                             <View style={{ paddingLeft: 20 }}>
                                                 <Text style={styles.usertext}>
                                                     B.Srikanth
@@ -62,20 +59,14 @@ export default class Transfer_Schedule_Progress extends Component {
                                     <View style={styles.curdview}>
 
                                         <Text style={styles.transctiondetials}>Transfer details</Text>
-                                        <Text style={styles.textdetails}>House Loan Payment 2020..</Text>
+                                        <Text style={styles.textdetails}>For family expenses</Text>
+                                        <Text style={styles.textdetails}>NEFT</Text>
                                         <Text style={styles.textdetails}>Transfer charges</Text>
                                         <Text style={styles.textdetails}>Rs.0</Text>
 
                                     </View>
 
-                                    <View style={styles.curd_user}>
-
-                                        <Text style={styles.transctiondetials}>Scheduled</Text>
-                                        <Text style={styles.textdetails}>Starts on :4/5/2020</Text>
-                                        <Text style={styles.textdetails}>Monthly,0/48 transfers done</Text>
-                                       
-
-                                    </View>
+                              
 
 
 
@@ -87,22 +78,14 @@ export default class Transfer_Schedule_Progress extends Component {
 
 
                         </ScrollView>
-
-                         <View  style={{flex:1}}>
-                        <TouchableOpacity
-                        onPress={() => this.props.navigation.navigate('Transfer_Schedule_Confirm')}
-                        >
-                            <Button block  style={styles.btn}
-
-
-                              
-                                
+                        <View style={{ flex: 1 }}>
+                            <Button block warning style={styles.btn}
+                                onPress={() => this.props.navigation.navigate('LoadmoneySuccess')}
                             >
                                 <Text style={{ color: '#ffffff' }}>Done</Text>
                             </Button>
-                        </TouchableOpacity>
+                        </View>
 
-</View>
 
                     </View>
 
@@ -145,7 +128,7 @@ const styles = StyleSheet.create({
     },
     curdview: {
         backgroundColor: '#ffffff',
-        height: 97,
+        height: 127,
 
 
         shadowColor: "#000",
@@ -160,7 +143,7 @@ const styles = StyleSheet.create({
 
     },
 
-   
+
 
 
     curd_user: {
@@ -188,11 +171,8 @@ const styles = StyleSheet.create({
     btn: {
 
         marginHorizontal: 16,
-        marginBottom: 32,
-
-
+        marginTop: 72,
         height: 40,
-
         backgroundColor: '#fbbe05'
 
     },
@@ -252,7 +232,7 @@ const styles = StyleSheet.create({
     bank: {
 
         height: 40,
-        width: 34,
+        width: 64,
         alignSelf: 'center'
 
     }

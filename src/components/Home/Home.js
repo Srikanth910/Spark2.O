@@ -220,13 +220,16 @@ checkTabSelected(tab){
              
               <Item style={styles.bottomcurd}>
               
-              <Button transparent >
+              <Button transparent 
+               onPress={() => this.props.navigation.navigate('LoadSpark')}
+              >
+                
 
 <Text style={styles.loadstyle}>LOAD</Text>
 </Button>
 <Text style={{color:'grey'}}>|</Text>
 <Button transparent 
-                    onPress={() => this.props.navigation.navigate('LoadSpark')}
+   
                   >
 
                     <Text style={styles.loadstyle} Transfer_Money
@@ -365,11 +368,16 @@ checkTabSelected(tab){
                   <Right>
                     <Item style={styles.itemview} 
                     
-                     onPress={()=>this.props.navigation.navigate('Fdscreen')}
-                    
                     >
                       <Image source={require('../../images/home/trendup.png')} style={styles.fd_rdiicon} />
-                      <Text style={styles.fd_rdbtn}>  FD RATES</Text></Item>
+                      
+                      
+                      
+                      <Text style={styles.fd_rdbtn}
+                       onPress={()=>this.props.navigation.navigate('Fdscreen')}
+                    
+                      
+                      >  FD RATES</Text></Item>
                   </Right>
                 </ListItem>
               </View>
@@ -420,6 +428,7 @@ checkTabSelected(tab){
                       </Item>
                     </Left>
                     <Right>
+                      
                       <Item style={styles.itemview}
                       
                       >

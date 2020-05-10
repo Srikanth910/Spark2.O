@@ -41,6 +41,7 @@ export default class Setpassword extends Component {
                             </Button>
                           
                           
+                          <Text style={{color:'#ffffff', marginLeft: 10, width: 167}}>Set your password</Text>
                          
                           
                         </Left>
