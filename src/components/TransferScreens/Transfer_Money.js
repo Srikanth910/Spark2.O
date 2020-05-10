@@ -1,6 +1,7 @@
 import React, { Component } from "react";
-import { Header, Container, Body, Text, Content, Button,Icon, View, Left, Right, Title } from "native-base";
+import { Header, Container, Body, Text, Content, ListItem, Item, Input, Button, Icon, View, Left, Right, Title } from "native-base";
 import { StyleSheet, StatusBar, Image } from 'react-native'
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 
 export default class Transfer_Money extends Component {
@@ -28,61 +29,142 @@ export default class Transfer_Money extends Component {
 
                 <Content >
 
-
-                    <View style={styles.billpay}>
-
-                        <View >
-
-                            <View style={{
-                                alignItems: 'center', marginVertical
-                                    : 16
-                            }}>
-                                <View style={{ flexDirection: "row", }}>
-
-                                    <View style={styles.box}>
-                                        <Image source={require('../../images/Transfer/Spark_Saving.png')} style={styles.billIcon} />
-                                        <Text style={styles.iconText}>Spark Savings</Text>
-
-
-                                    </View>
-
-                                    <View style={styles.box}>
-                                        <Image source={require('../../images/Transfer/Spark_Business.png')} style={styles.billIcon} />
-                                        <Text style={styles.iconText}>Spark Business</Text>
-
-
-                                    </View>
-
-                                    <View style={styles.box}>
-                                        <Image source={require('../../images/Transfer/My_Bank.png')} style={styles.billIcon} />
-                                        <Text style={styles.iconText}>My Bank Account</Text>
-
-
-                                    </View>
-
-                                    <View style={styles.box}>
-                                        <Image source={require('../../images/Transfer/Other_Bank.png')} style={styles.billIcon} />
-                                        <Text style={styles.iconText}>Other Bank Account</Text>
-
-
-                                    </View>
-
-                                </View>
+                    <View style={{ alignItems: 'center', marginVertical: 16 }}>
+                        <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                        <TouchableOpacity
+                               onPress={()=>this.props.navigation.navigate('To_sparkAcc ')}
+                              >
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/Spark_Saving.png')} style={styles.sparksavinges} />
+                                <Text style={styles.iconText}>Spark Savings {"\n"}</Text>
 
                             </View>
-                        </View>
+                            </TouchableOpacity>
 
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/Spark_Business.png')} style={styles.billIcon} />
+                                <Text style={styles.iconText}>Spark Business</Text>
+
+
+                            </View>
+                              <TouchableOpacity
+                               onPress={()=>this.props.navigation.navigate('AddBank_Account')}
+                              >
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/My_Bank.png')} style={styles.broadband} />
+                                <Text style={styles.iconText}>My Bank Account</Text>
+
+
+                                 </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                               onPress={()=>this.props.navigation.navigate('Otherbank_acc ')}
+                              >
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/Other_Bank.png')} style={styles.otherbank} />
+                                <Text style={styles.iconText}>Other Bank Account</Text>
+
+                                
+                            </View>
+                            </TouchableOpacity>
+                        </View>
                     </View>
 
                     <View>
-                        <Text style={styles.text} >Scheduled list </Text>
-                        <Text style={styles.savingData}>you can set a schedule when you transfer money </Text>
-                        <Image source={require('../../images/Transfer/Transfer_Main.png')} style={{ width: 248, height: 224, alignSelf: 'center' }} />
+                        <Text style={styles.Recent} >
+                            Recent
+                        </Text>
                     </View>
+
+
+
+                    <View style={{ alignItems: 'center', marginVertical: 16 }}>
+                        <View style={{ flexDirection: "row", alignItems: 'center' }}>
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/Spark_Saving.png')} style={styles.sparksavinges} />
+                                <Text style={styles.iconText}>Spark Savings {"\n"}</Text>
+
+                            </View>
+
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/Spark_Business.png')} style={styles.billIcon} />
+                                <Text style={styles.iconText}>Spark Business</Text>
+
+
+                            </View>
+
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/My_Bank.png')} style={styles.broadband} />
+                                <Text style={styles.iconText}>My Bank Account</Text>
+
+
+                            </View>
+                            <View style={styles.box}>
+                                <Image source={require('../../images/Transfer/Other_Bank.png')} style={styles.otherbank} />
+                                <Text style={styles.iconText}>Other Bank Account</Text>
+                            </View>
+                        </View>
+                    </View>
+
+
+                    <View>
+                        <Text style={styles.Recent} >
+                            Scheduled
+                        </Text>
+                    </View>
+
+
+
+                    <View style={styles.curd_user}>
+                        <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>
+
+                            <View style={{ paddingLeft: 10 }}>
+                                <Text style={styles.usertext}>
+                                    House Loan Payment 2020...
+                                                               </Text>
+                                <Text style={styles.curdtext}>Upcoming</Text>
+
+                                <Text style={styles.curdtext}>Mothaly,6/48 transfer done</Text>
+
+
+                                <ListItem style={{ borderColor: 'transparent', }}>
+                                    <Text style={styles.curdtext}>Location</Text>
+                                    <Text style={styles.curdtext}>Location</Text><Button full transparent>
+                                        <Icon active name="trash" />
+                                    </Button>
+
+
+                                </ListItem>
+                              
+
+
+
+                            </View>
+                            <View>
+                                <Right>
+                                    <Button transparent >
+                                        <Icon style={styles.arrowbutton} name='ios-arrow-forward'
+                                            onPress={() => this.props.navigation.navigate('')}
+                                        />
+                                    </Button>
+                                </Right>
+                            </View>
+
+
+                        </ListItem>
+
+                        
+                    </View>
+
+
+
+
+
+
 
                 </Content>
 
-            </Container>
+            </Container >
 
 
         );
@@ -100,18 +182,81 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
         marginTop: 16,
     },
+    curd_user: {
+        backgroundColor: '#eae9f5',
+        height: 107,
+        marginLeft: 21,
+        marginRight: 21,
+        marginVertical: 20,
+        shadowColor: "#000",
+        shadowOffset: {
+            width: 10,
+            height: 0,
+        },
+        shadowOpacity: 0.25,
+        shadowRadius: 3.84,
+        elevation: 10,
 
+    },
+    curdtext: {
+
+        color: '#1b1464',
+        fontFamily: 'Nunnito',
+        fontSize: 14,
+        textAlign: 'left'
+    },
 
     box: {
         backgroundColor: '#ffffff',
         height: 75,
         width: 75,
+
+
         borderRadius: 10,
-        marginLeft: 15,
-        alignContent: 'center',
+        marginLeft: 16,
+        alignContent: 'center', shadowColor: "#000",
+        shadowOffset: {
+            width: 0,
+            height: 9,
+        },
+        shadowOpacity: 0.48,
+        shadowRadius: 11.95,
+
+        elevation: 5,
+
+    },
+    billIcon: {
+        height: 42,
+        width: 45,
+        marginTop: 5,
+        alignSelf: 'center'
 
 
     },
+    sparksavinges: {
+        height: 40,
+        width: 34,
+        marginTop: 5,
+        alignSelf: 'center'
+
+    },
+
+    otherbank: {
+        height: 42,
+        width: 60,
+        marginTop: 5,
+        alignSelf: 'center'
+
+    },
+    broadband: {
+        height: 42,
+        width: 40,
+        marginTop: 5,
+        alignSelf: 'center'
+
+    },
+
+
 
     iconText: {
         fontFamily: 'Nunito',
@@ -120,28 +265,22 @@ const styles = StyleSheet.create({
         textAlign: 'center',
 
     },
-    billIcon: {
-        height: 95,
-        width: 90,
-        marginTop: 5,
-        alignSelf: 'center'
-    },
+
 
     savingData: {
         height: 36,
         fontFamily: 'Nunito',
         fontSize: 14,
         color: '#aaadb2',
-        marginLeft: 16,
+        marginLeft: 10,
         fontWeight: 'normal',
         marginBottom: 10
     },
     text: {
-        height: 36,
+        height: 40,
         fontFamily: 'Nunito',
         fontSize: 16,
-        marginRight: 16,
-        marginLeft: 16,
+        marginLeft: 5,
         fontWeight: 'normal',
 
     },
@@ -153,6 +292,15 @@ const styles = StyleSheet.create({
         fontWeight: 'normal',
         alignItems: 'center',
     },
+
+    Recent: {
+        height: 27,
+        marginLeft: 21,
+        fontFamily: 'Nunito',
+        fontSize: 16,
+        fontWeight: 'normal',
+        alignItems: 'center',
+    },
     textInput: {
         marginTop: 10,
         borderRadius: 5,
@@ -161,4 +309,6 @@ const styles = StyleSheet.create({
         marginRight: 15,
         backgroundColor: '#e1e4eb',
     },
+
+
 })

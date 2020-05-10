@@ -44,6 +44,17 @@ import Loadmoneyfail from '../Home/LoadMoney/Loadmoneyfail';
 import PayBill from '../Bill_Payments/PayBill_rc';
 import LoanPayment from '../Bill_Payments/LoanPayment';
 import Loanpaymentprogress from '../Bill_Payments/LoanPaymentprogess';
+import ScheduleTransfer from '../TransferScreens/ScheduleTransfer';
+import AddBank_Account from '../TransferScreens/AddBank_Account';
+import MyBank_Account from '../TransferScreens/MyBank_Account';
+import Mybank_Confirm from '../TransferScreens/Mybank_Confirm';
+import Transfer_Money from '../TransferScreens/Transfer_Money';
+import To_myBankAcc from '../TransferScreens/To_myBankAcc';
+import Schedulemybank from '../TransferScreens/Schedulemybank';
+import Otherbank_acc from '../TransferScreens/Otherbank_acc';
+import To_sparkAcc from '../TransferScreens/To_sparkAcc';
+import Transfer_Schedule_Success from '../TransferScreens/Transfer_Schedule_Success';
+import Transfer_Schedule_Confirm from '../TransferScreens/Transfer_Schedule_Confirm';
  
 const Stack = createStackNavigator();
 
@@ -107,9 +118,25 @@ function Routing() {
         <Stack.Screen name="LoanPayment" component={LoanPayment} /> 
         
         <Stack.Screen name="Loanpaymentprogress" component={Loanpaymentprogress} /> 
+        <Stack.Screen name="ScheduleTransfer" component={ScheduleTransfer} /> 
         
-
-
+        <Stack.Screen name="AddBank_Account" component={AddBank_Account} /> 
+        <Stack.Screen name="MyBank_Account" component={MyBank_Account } /> 
+        <Stack.Screen name="Mybank_Confirm" component={Mybank_Confirm } /> 
+        
+        <Stack.Screen name="Transfer_Money" component={Transfer_Money } /> 
+        <Stack.Screen name="To_myBankAcc" component={To_myBankAcc } /> 
+        <Stack.Screen name="Schedulemybank" component={Schedulemybank } /> 
+        <Stack.Screen name="Otherbank_acc" component={Otherbank_acc } /> 
+        <Stack.Screen name="To_sparkAcc" component={To_sparkAcc } /> 
+       
+        <Stack.Screen name="Transfer_Schedule_Success" component={Transfer_Schedule_Success } /> 
+       
+         
+        <Stack.Screen name="Transfer_Schedule_Progress" component={Transfer_Schedule_Progress } /> 
+       
+        
+        
         
 {/*         Loadmoneyprogress
         <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 

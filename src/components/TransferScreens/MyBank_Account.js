@@ -52,7 +52,8 @@ export default class MyBank_Account extends Component {
                     </View>
 
                        <Button  style={styles.submit} block warning
-                            onPress={this.passwordSubmit}>
+ onPress={()=>this.props.navigation.navigate('Mybank_Confirm')}
+                            >
                             <Text >Proceed</Text>
                         </Button>
 

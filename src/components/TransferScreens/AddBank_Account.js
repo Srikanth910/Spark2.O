@@ -61,7 +61,8 @@ export default class AddBank_Account extends Component {
                 </Content>
 
                 <Button block warning style={styles.btnSubmit}
-                    onPress={this.passwordSubmit}>
+                  onPress={()=>this.props.navigation.navigate('MyBank_Account')}
+                  >
                     <Text style={styles.submit}>Add My Bank Account </Text>
                 </Button>
 

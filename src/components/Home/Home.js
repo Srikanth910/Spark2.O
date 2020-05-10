@@ -226,12 +226,12 @@ checkTabSelected(tab){
 </Button>
 <Text style={{color:'grey'}}>|</Text>
 <Button transparent 
-                    onPress={() => this.props.navigation.navigate('NotifClass')}
+                    onPress={() => this.props.navigation.navigate('LoadSpark')}
                   >
 
-                    <Text style={styles.loadstyle} 
+                    <Text style={styles.loadstyle} Transfer_Money
                     
-                     onPress={()=>this.props.navigation.navigate('LoadSpark')}
+                     onPress={()=>this.props.navigation.navigate('Transfer_Money')}
                     >TRANSFER</Text>
                   </Button>
               </Item>

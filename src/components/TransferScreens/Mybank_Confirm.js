@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 
 
 export default class Mybank_Confirm extends Component {
-
+    To_myBankAcc
     render() {
 
         return (
@@ -92,7 +92,8 @@ export default class Mybank_Confirm extends Component {
 
 
                 <Button block warning style={styles.btnSubmit}
-                    onPress={this.passwordSubmit}>
+ onPress={()=>this.props.navigation.navigate('To_myBankAcc')}
+                    >
                     <Text style={styles.submit}>Confirm</Text>
                 </Button>
 

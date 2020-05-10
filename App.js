@@ -53,15 +53,37 @@ import LoanPayment from './src/components/Bill_Payments/LoanPayment';
 import Loanpaymentprogress from './src/components/Bill_Payments/LoanPaymentprogess';
 import LoanpaymentSuccess from './src/components/Bill_Payments/LoanpaymentSuccess';
 import ScheduleTransfer from './src/components/TransferScreens/ScheduleTransfer';
-
+import DatePicker from 'react-native-datepicker';
+import To_myBankAcc from './src/components/TransferScreens/To_myBankAcc';
+import To_sparkAcc from './src/components/TransferScreens/To_sparkAcc';
+import ScheduleSpark from './src/components/TransferScreens/ScheduleSpark';
+import Schedulemybank from './src/components/TransferScreens/Schedulemybank';
+import Transfer_Money from './src/components/TransferScreens/Transfer_Money';
+import MyBank_Account from './src/components/TransferScreens/MyBank_Account';
+import Transfer_Schedule_Success from './src/components/TransferScreens/Transfer_Schedule_Success';
+import Transfer_Schedule_Confirm from './src/components/TransferScreens/Transfer_Schedule_Confirm';
 export default class App extends Component {
+   constructor(props) {
+     super(props)
+   
+     this.state = {
+         date:''
+     }
+   }
+   
   render() {
+     console.log(this.state.date)
     return (
       <>
       <Provider store={store}>
-  < ScheduleTransfer
+  < Transfer_Schedule_Confirm
   />
      </Provider>
+
+
+
+
+
       </>
     );
   }
