@@ -64,6 +64,7 @@ import Transfer_Schedule_Success from './src/components/TransferScreens/Transfer
 import Transfer_Schedule_Confirm from './src/components/TransferScreens/Transfer_Schedule_Confirm';
 import Transfer_Otherbank_Success from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Success';
 import Transfer_Otherbank_confirm from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Confirm';
+import Loanpayment_Success from './src/components/Bill_Payments/Lanpayment_Success';
 export default class App extends Component {
    constructor(props) {
      super(props)

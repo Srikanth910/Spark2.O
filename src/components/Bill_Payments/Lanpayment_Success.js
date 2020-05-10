@@ -5,7 +5,7 @@ import { ScrollView } from 'react-native-gesture-handler'
 import { max } from 'react-native-reanimated'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 import Modal from 'react-native-modal';
-export default class LoanpaymentSuccess extends Component {
+export default class Loanpayment_Success extends Component {
 
      constructor(props) {
          super(props)
@@ -38,10 +38,10 @@ export default class LoanpaymentSuccess extends Component {
         return (
             <Container>
 
-                <ImageBackground source={require('../../images/home/confirm_bg.png')} style={{ height: '100%', width: '100%', flex:1}} >
-                <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
+                <ImageBackground source={require('../../images/home/success_bg.png')} style={{ height: '100%', width: '100%', flex:1}} >
+                <StatusBar barStyle="light-content" backgroundColor="#429c40" />
                 
-                <View style={{flexDirection:'row', justifyContent:"space-around",   alignItems:'center' ,marginVertical:20 }}>
+                {/* <View style={{flexDirection:'row', justifyContent:"space-around",   alignItems:'center' ,marginVertical:20 }}>
                     
  
      <Icon name='arrow-back'  style={{color:'#ffffff',}}
@@ -51,14 +51,14 @@ export default class LoanpaymentSuccess extends Component {
 
                     <Text style={{color:'#ffffff', fontSize:20,textAlign:'center'}}>Confirm Loan Payment</Text>
                     
-                    <Image source={require('../../images/billpay/faq_ic.png')}/>
-                </View>
+                    <Image source={require('../../images/billpay/faq_ic.png')}/> */}
+                {/* </View> */}
 
                     <ListItem style={{ borderColor: 'transparent' ,  }}>
                <Image source={require('../../images/billpay/logo_b.png')}/>
                         <View   style={{marginLeft:40}} >
                             <Item style={{ borderColor: 'transparent', alignSelf: 'center' }}>
-                                <Image source={require('../../images/home/blue_rupi.png')} style={{ height: 23, width: 15,  }} />
+                                <Image source={require('../../images/Transfer/rupi_icon.png')} style={{ height: 23, width: 15,  }} />
                                 <Text style={styles.headerbal}>
                                 24,000
                         </Text>
@@ -74,7 +74,7 @@ export default class LoanpaymentSuccess extends Component {
                         </View>
 
                     </ListItem>
-                    <Text style={styles.promocode} >Have a promocode?</Text>
+                    {/* <Text style={styles.promocode} >Have a promocode?</Text> */}
 
 
                     <View style={styles.overlopcurd}>
@@ -253,10 +253,10 @@ export default class LoanpaymentSuccess extends Component {
                          <TouchableOpacity 
                            >
                             <Button block light  style={styles.btn}
-                             onPress={this.toggleopen}
+                             onPress={()=>this.props.navigation.navigate('Home')}
                             >
 
-            <Text style={{ color: '#ffffff' }}>confirm</Text>
+            <Text style={{ color: '#ffffff' }}>Success</Text>
                </Button>
                </TouchableOpacity>
                            
@@ -303,7 +303,7 @@ export default class LoanpaymentSuccess extends Component {
   <TouchableOpacity>
 
     <Text style={styles.otpSubmit}
-   onPress={()=>this.props.navigation.navigate('Loanpayment_Success')}
+   onPress={()=>this.props.navigation.navigate('Home')}
     >Submit</Text>
 
   </TouchableOpacity>
@@ -421,7 +421,7 @@ const styles = StyleSheet.create({
       
         height: 40,
        
-        backgroundColor:"#1b1464",
+        backgroundColor:'#429c40',
 
         
 
