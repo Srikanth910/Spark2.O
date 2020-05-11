@@ -92,7 +92,7 @@ export default class Mybank_Confirm extends Component {
 
 
                 <Button block warning style={styles.btnSubmit}
- onPress={()=>this.props.navigation.navigate('To_myBankAcc')}
+ onPress={()=>this.props.navigation.navigate('To_myBankAcc', {type:1,name:'To My Bank Account'})}
                     >
                     <Text style={styles.submit}>Confirm</Text>
                 </Button>
