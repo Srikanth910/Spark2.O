@@ -13,20 +13,61 @@ import {
 } from 'native-base';
 import {StatusBar, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import {connect} from 'react-redux';
+import {
+  getBeneficiaryBank,
+  getActivemethods,
+} from '../../Redux/actions/TransferAction';
 
-export default class To_myBankAcc extends Component {
+class To_myBankAcc extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       activeIndex: 0,
+      data: [
+        {
+          AccountType: '',
+          BeneficiaryAccNo: '1111111111',
+          CustomerId: '1421',
+          Email: '',
+          IFSCCode: 'SBIN0000901',
+          Id: '1040',
+          Name: '',
+          PhoneNo: '',
+          memberOf: '',
+        },
+      ],
     };
   }
 
+  //  if(params.type===2){
+  //   const data = {
+  //     "membarId": '1421',
+  //     "isPrimaryAccunt": 'false',
+  //     "isWithInCoop": 'true',
+  //     "type": "1",
+  //   };
+  //   this.props.getBeneficiaryBank(data);
+
+  //  }else
+
+  // if (params.type === 4) {
+  //   const data = {
+  //     "membarId": '1421',
+  //     "isPrimaryAccunt": 'false',
+  //     "isWithInCoop": 'false',
+  //     "type": '2',
+  //   };
+  //   this.props.getBeneficiaryBank(data);
+  //   this.props.getActivemethods();
+  // }
+
+  // }
   render() {
     const {params} = this.props.route;
-    console.log(params);
-
+    const {transferDetails} = this.props;
+    console.log('backend res', transferDetails);
     return (
       <Container>
         <Header style={{backgroundColor: '#1b1464', height: 90}}>
@@ -63,7 +104,7 @@ export default class To_myBankAcc extends Component {
 
           <View style={styles.curdview}>
             <ListItem
-              style={{justifyContent: 'space-around', alignItems: 'center'}}>
+              style={{justifyContent: 'space-around', alignItems: 'center' , borderColor: 'transparent', marginVertical:10}}>
               {params.type === 4 ? (
                 <Image
                   source={require('../../images/Transfer/otherbank.png')}
@@ -74,12 +115,34 @@ export default class To_myBankAcc extends Component {
                 <Image source={require('../../images/home/pet_bank.png')} />
               ) : null}
 
-              <View>
-                <Text style={styles.user}>srikanth</Text>
-                <Text style={styles.acctext}>AC No. - 00003541610094987</Text>
-                <Text style={styles.acctext}>IFSC - HDFC0000354</Text>
-              </View>
-              <Image source={require('../../images/home/arrow.png')} />
+              {params.type === 1 ? (
+                <View>
+                  {transferDetails.array > 0 &&
+                    transferDetails.array.map(item => {
+                      return (
+                        <>
+                          <Text style={styles.user}>null</Text>
+                          <Text style={styles.user}>
+                            {item.BeneficiaryAccNo}
+                          </Text>
+                          <Text style={styles.user}>{item.IFSCCode}</Text>
+                        </>
+                      );
+                    })}
+                </View>
+              ) :<View>
+                <Text>Select Beneficiary</Text>
+                </View>}
+                
+<TouchableOpacity
+ onPress={()=>this.props.navigation.navigate('Transfer_Spark_otherbank')}
+                
+>
+              <Image source={require('../../images/home/arrow.png')}
+              
+             
+              />
+              </TouchableOpacity>
             </ListItem>
           </View>
 
@@ -113,70 +176,73 @@ export default class To_myBankAcc extends Component {
             <Input placeholder="" style={styles.input} />
           </Item>
 
-
-       {params.type===1||params.type===4?
-       <View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginVertical: 15,
-              marginHorizontal: 16,
-            }}>
-            <Text style={styles.selecttext}>Transfer mode</Text>
-            <Text style={styles.addbenficiarytext}>View charges</Text>
-          </View>
-          <Item
-            regular
-            style={styles.textInput}
-            onPress={() => this.RBSheet.open()}>
-            <Input placeholder="" style={styles.input} />
-
-            {/* <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text> */}
-            <Icon name="ios-arrow-down" style={styles.arrowicon} />
-          </Item>
-
-          <RBSheet
-            ref={ref => {
-              this.RBSheet = ref;
-            }}
-            height={220}
-            duration={250}
-            customStyles={{
-              container: {
-                justifyContent: 'flex-start',
-                alignItems: 'flex-start',
-              },
-            }}>
-            <Text style={styles.selectState}>Select state</Text>
-
+          {params.type === 1 || params.type === 4 ? (
             <View>
-              <TouchableOpacity
-                onPress={() => this.handleState('karnataka', 1)}
-                style={
-                  this.state.activeIndex === 1 ? styles.btnActive : styles.btn
-                }>
-                <Text style={styles.state}>Karnataka</Text>
-                <Text style={styles.Statesubtext}>
-                  Ayshwarya Syndicate Souharda Credit Co-operative Limited
-                </Text>
-              </TouchableOpacity>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  marginVertical: 15,
+                  marginHorizontal: 16,
+                }}>
+                <Text style={styles.selecttext}>Transfer mode</Text>
+                <Text style={styles.addbenficiarytext}>View charges</Text>
+              </View>
+              <Item
+                regular
+                style={styles.textInput}
+                onPress={() => this.RBSheet.open()}>
+                <Input placeholder="" style={styles.input} />
+
+                {/* <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text> */}
+                <Icon name="ios-arrow-down" style={styles.arrowicon} />
+              </Item>
+
+              <RBSheet
+                ref={ref => {
+                  this.RBSheet = ref;
+                }}
+                height={220}
+                duration={250}
+                customStyles={{
+                  container: {
+                    justifyContent: 'flex-start',
+                    alignItems: 'flex-start',
+                  },
+                }}>
+                <Text style={styles.selectState}>Select state</Text>
+
+                <View>
+                  <TouchableOpacity
+                    onPress={() => this.handleState('karnataka', 1)}
+                    style={
+                      this.state.activeIndex === 1
+                        ? styles.btnActive
+                        : styles.btn
+                    }>
+                    <Text style={styles.state}>Karnataka</Text>
+                    <Text style={styles.Statesubtext}>
+                      Ayshwarya Syndicate Souharda Credit Co-operative Limited
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+                <View>
+                  <TouchableOpacity
+                    onPress={() => this.handleState('maharashtra', 2)}
+                    style={
+                      this.state.activeIndex === 2
+                        ? styles.btnActive
+                        : styles.btn
+                    }>
+                    <Text style={styles.state}>Maharashtra</Text>
+                    <Text style={styles.Statesubtext}>
+                      Ayshwarya Syndicate Souharda Credit Co-operative Limited
+                    </Text>
+                  </TouchableOpacity>
+                </View>
+              </RBSheet>
             </View>
-            <View>
-              <TouchableOpacity
-                onPress={() => this.handleState('maharashtra', 2)}
-                style={
-                  this.state.activeIndex === 2 ? styles.btnActive : styles.btn
-                }>
-                <Text style={styles.state}>Maharashtra</Text>
-                <Text style={styles.Statesubtext}>
-                  Ayshwarya Syndicate Souharda Credit Co-operative Limited
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </RBSheet>
-          </View>
- :null }
+          ) : null}
 
           <View
             style={{
@@ -191,33 +257,37 @@ export default class To_myBankAcc extends Component {
           <Item regular style={styles.textInput}>
             <Input placeholder="" style={styles.input} />
           </Item>
-
-         
         </Content>
         <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              marginVertical: 16,
-              marginHorizontal: 16,
-              marginTop: 30,
-            }}>
-            <Button warning style={styles.paynowbtn}>
-              <Text style={styles.btntext}>Pay now</Text>
-            </Button>
-            <Button
-              warning
-              style={styles.schedulebtn}
-              onPress={() =>
-                this.props.navigation.navigate('ScheduleTransfer')
-              }>
-              <Text style={styles.btntext_1}>schedule</Text>
-            </Button>
-          </View>
+          style={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            marginVertical: 16,
+            marginHorizontal: 16,
+            marginTop: 30,
+          }}>
+          <Button warning style={styles.paynowbtn}>
+            <Text style={styles.btntext}>Pay now</Text>
+          </Button>
+          <Button
+            warning
+            style={styles.schedulebtn}
+            onPress={() => this.props.navigation.navigate('ScheduleTransfer')}>
+            <Text style={styles.btntext_1}>schedule</Text>
+          </Button>
+        </View>
       </Container>
     );
   }
 }
+const mapStateToProps = state => ({
+  transferDetails: state.transferDetails.getbackDetials,
+});
+
+export default connect(
+  mapStateToProps,
+  {getBeneficiaryBank, getActivemethods},
+)(To_myBankAcc);
 
 const styles = StyleSheet.create({
   headerText: {

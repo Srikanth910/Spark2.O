@@ -1,114 +1,131 @@
-import React, { Component } from 'react'
-import { Container, Header, Left, Right, Button, Icon, Input, Text, ListItem, Content, Form, Item, Footer, } from 'native-base'
-import { StyleSheet, StatusBar, View, TouchableOpacity, Image } from 'react-native'
+import React, {Component} from 'react';
+import {
+  Container,
+  Header,
+  Left,
+  Right,
+  Button,
+  Icon,
+  Input,
+  Text,
+  ListItem,
+  Content,
+  Form,
+  Item,
+  Footer,
+} from 'native-base';
+import {
+  StyleSheet,
+  StatusBar,
+  View,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
-import { ScrollView } from 'react-native-gesture-handler';
-import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
+import {ScrollView} from 'react-native-gesture-handler';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 import Modal from 'react-native-modal';
-export default class Signup extends Component {
+import { connect } from 'react-redux';
+ class Signup extends Component {
   constructor(props) {
-    super(props)
+    super(props);
 
     this.state = {
       activeIndex: 0,
       mobileOtp: '',
       isVisible: false,
-      Statevalue: ''
-    }
+      Statevalue: '',
+    };
   }
   handleState = (name, id) => {
     this.setState({
       activeIndex: id,
-      Statevalue: name
-    })
-
-  }
+      Statevalue: name,
+    });
+  };
   toggelopen = () => {
     this.setState({
-      isVisible: true
-    })
-  }
+      isVisible: true,
+    });
+  };
   toggelclose = () => {
     this.setState({
-      isVisible: false
-    })
-  }
+      isVisible: false,
+    });
+  };
 
   OtpDetails = () => {
     this.setState({
-      isVisible: false
-    })
-    this.props.navigation.navigate('Setpassword')
-  }
+      isVisible: false,
+    });
+    this.props.navigation.navigate('Setpassword');
+  };
   render() {
-    const { mobileOtp } = this.state
-    
+    const {mobileOtp} = this.state;
 
     return (
       <Container style={styles.Container}>
-        
-        <Header style={{ backgroundColor: "#1b1464", height: 160 }}>
+        <Header style={{backgroundColor: '#1b1464', height: 160}}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
-          <Left style={{ marginLeft: 5 , alignSelf:'flex-start' ,alignSelf:'flex-end' }}>
-
-            <Button transparent  >
-              <Icon name='arrow-back' style={styles.icon}
+          <Left
+            style={{
+              marginLeft: 5,
+              alignSelf: 'flex-start',
+              alignSelf: 'flex-end',
+            }}>
+            <Button transparent>
+              <Icon
+                name="arrow-back"
+                style={styles.icon}
                 onPress={() => this.props.navigation.navigate('Login')}
               />
             </Button>
 
-            <Text style={styles.textcolor} >
-              Welcome
-                          </Text>
+            <Text style={styles.textcolor}>Welcome</Text>
 
             <Text style={styles.headerText}>
-              Sign up for a Spark Savings account in just a few {"\n"} tabs.
-                          </Text>
-
+              Sign up for a Spark Savings account in just a few {'\n'} tabs.
+            </Text>
           </Left>
-<Right>
-
-</Right>
-          
-
+          <Right />
         </Header>
-        <ScrollView >
+        <ScrollView>
           <Content style={styles.Content}>
-        
             <View style={styles.grp_fields}>
-
-
               <Text style={styles.mobileinput}>Email</Text>
               <Item regular style={styles.loginInput}>
-                <Input placeholder='eg. vijay@emails.com' style={styles.input} value={this.state.mobile}
+                <Input
+                  placeholder="eg. vijay@emails.com"
+                  style={styles.input}
+                  value={this.state.mobile}
                   value={this.state.mobile}
                   onChangeText={editedText =>
-                    this.setState({ mobile: editedText })
+                    this.setState({mobile: editedText})
                   }
-
                 />
               </Item>
 
               <Text style={styles.mobileinput}>Mobile Number</Text>
               <Item regular style={styles.loginInput}>
-                <Input placeholder='No need to add +91' style={styles.input} value={this.state.mobile}
+                <Input
+                  placeholder="No need to add +91"
+                  style={styles.input}
+                  value={this.state.mobile}
                   value={this.state.mobile}
                   onChangeText={editedText =>
-                    this.setState({ mobile: editedText })
+                    this.setState({mobile: editedText})
                   }
-
                 />
-
               </Item>
 
-              <Text style={styles.mobileinput} >State</Text>
+              <Text style={styles.mobileinput}>State</Text>
 
-
-              <Item regular style={styles.dropInput}
-                onPress={() => this.RBSheet.open()}
-              >
+              <Item
+                regular
+                style={styles.dropInput}
+                onPress={() => this.RBSheet.open()}>
                 {/* <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text> */}
                 {/* <Icon name='ios-arrow-down' 
                              style={styles.arrowicon}
@@ -125,148 +142,162 @@ export default class Signup extends Component {
                   duration={250}
                   customStyles={{
                     container: {
-                      justifyContent: "flex-start",
-                      alignItems: "flex-start"
-                    }
-                  }}
-                >
-                  <Text style={styles.selectState}>
-                    Select state
-            </Text>
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                    },
+                  }}>
+                  <Text style={styles.selectState}>Select state</Text>
 
                   <View>
-                    <TouchableOpacity onPress={() => this.handleState('karnataka', 1)}
-                      style={this.state.activeIndex === 1 ? styles.btnActive : styles.btn}>
+                    <TouchableOpacity
+                      onPress={() => this.handleState('karnataka', 1)}
+                      style={
+                        this.state.activeIndex === 1
+                          ? styles.btnActive
+                          : styles.btn
+                      }>
                       <Text style={styles.state}>Karnataka</Text>
-                      <Text style={styles.Statesubtext}>Ayshwarya Syndicate Souharda Credit Co-operative Limited</Text></TouchableOpacity>
-                  </View>
-                  <View>
-                    <TouchableOpacity onPress={() => this.handleState('maharashtra', 2)}
-                      style={this.state.activeIndex === 2 ? styles.btnActive : styles.btn}
-                    >
-                      <Text style={styles.state}>Maharashtra</Text>
-                      <Text style={styles.Statesubtext}>Ayshwarya Syndicate Souharda Credit Co-operative Limited</Text>
+                      <Text style={styles.Statesubtext}>
+                        Ayshwarya Syndicate Souharda Credit Co-operative Limited
+                      </Text>
                     </TouchableOpacity>
                   </View>
-
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => this.handleState('maharashtra', 2)}
+                      style={
+                        this.state.activeIndex === 2
+                          ? styles.btnActive
+                          : styles.btn
+                      }>
+                      <Text style={styles.state}>Maharashtra</Text>
+                      <Text style={styles.Statesubtext}>
+                        Ayshwarya Syndicate Souharda Credit Co-operative Limited
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
                 </RBSheet>
-
               </Item>
-
-
-
-
             </View>
-
-
-
           </Content>
-         {/* <View  style={{   justifyContent:'flex-end' ,marginBottom:32, marginTop: 95, marginHorizontal: 16,}} >
-         
-            <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
-                    <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
-            <Button block warning style={styles.btnSubmit}
-              onPress={this.toggelopen}
-            >
+        
+
+          <View
+            style={{
+              justifyContent: 'flex-end',
+              marginHorizontal: 16,
+              marginVertical: 80,
+              marginBottom: 16,
+              alignSelf: 'flex-end',
+            }}>
+            <Text style={styles.bottomtext}>
+              By clicking on Proceed, you state that you are 18 years old and
+              agree to our
+              <Text style={styles.bottomColor}>
+                {' '}
+                Terms and Conditions{' '}
+              </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text>
+            </Text>
+            <Button
+              block
+              warning
+              style={styles.btnSubmit}
+              onPress={this.toggelopen}>
               <Text style={styles.submit}>Submit</Text>
             </Button>
-         
-        </View> */}
-         
-        
-        
-       
-        <View style={ { justifyContent:'flex-end', marginHorizontal: 16 ,  marginVertical: 80,  marginBottom: 16,  alignSelf:'flex-end'}}>
-        <Text style={styles.bottomtext} >By clicking on Proceed, you state that you are 18 years old and agree to our
-                    <Text style={styles.bottomColor}> Terms and Conditions </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text></Text>
-            <Button block warning style={styles.btnSubmit}
-              onPress={this.toggelopen}
-            >
-              <Text style={styles.submit}>Submit</Text>
-            </Button>
-        </View> 
+          </View>
+        </ScrollView>
 
-        </ScrollView> 
-       
+        <View />
 
-        <View></View>
-       
-        
-          <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
-            <View style={{ backgroundColor: 'white' }}>
-
-              <Text style={styles.otp}>Enter OTP</Text>
-              <Text style={styles.otpText}> Enter the 5-digit one time password (OTP)</Text>
-              <View style={{ alignSelf: 'center' }}>
-                <SmoothPinCodeInput
-                  codeLength={5}
-                  cellStyle={{
-                    borderBottomWidth: 1,
-                    borderColor: 'gray',
-                    width: 20,
-
-                  }}
-                  cellStyleFocused={{
-                    borderColor: 'black',
-                  }}
-                  value={mobileOtp}
-                  onTextChange={mobileOtp => this.setState({ mobileOtp })}
-                />
-              </View>
-              <ListItem style={{ justifyContent: 'space-around', marginTop: 10, borderColor: 'transparent', }}>
-                <Text>2:00.0</Text>
-                <TouchableOpacity
-                >
-                  <Text style={styles.resendOtp}
-                    onPress={this.otpResend}
-                  >Resend OTP</Text>
-                </TouchableOpacity>
-
-              </ListItem>
-              <ListItem style={{ justifyContent: 'flex-end' }} >
-                <Text style={styles.cancel} onPress={this.toggelclose}>Cancel</Text>
-                <TouchableOpacity onPress={this.otpsubmit}>
-
-                  <Text style={styles.otpSubmit}
-                    onPress={this.OtpDetails}
-                  >Submit</Text>
-
-                </TouchableOpacity>
-              </ListItem>
+        <Modal
+          style={{
+            width: 280,
+            maxHeight: 200,
+            alignSelf: 'center',
+            marginTop: 200,
+          }}
+          isVisible={this.state.isVisible}>
+          <View style={{backgroundColor: 'white'}}>
+            <Text style={styles.otp}>Enter OTP</Text>
+            <Text style={styles.otpText}>
+              {' '}
+              Enter the 5-digit one time password (OTP)
+            </Text>
+            <View style={{alignSelf: 'center'}}>
+              <SmoothPinCodeInput
+                codeLength={5}
+                cellStyle={{
+                  borderBottomWidth: 1,
+                  borderColor: 'gray',
+                  width: 20,
+                }}
+                cellStyleFocused={{
+                  borderColor: 'black',
+                }}
+                value={mobileOtp}
+                onTextChange={mobileOtp => this.setState({mobileOtp})}
+              />
             </View>
-          </Modal>
-        
-
+            <ListItem
+              style={{
+                justifyContent: 'space-around',
+                marginTop: 10,
+                borderColor: 'transparent',
+              }}>
+              <Text>2:00.0</Text>
+              <TouchableOpacity>
+                <Text style={styles.resendOtp} onPress={this.otpResend}>
+                  Resend OTP
+                </Text>
+              </TouchableOpacity>
+            </ListItem>
+            <ListItem style={{justifyContent: 'flex-end'}}>
+              <Text style={styles.cancel} onPress={this.toggelclose}>
+                Cancel
+              </Text>
+              <TouchableOpacity onPress={this.otpsubmit}>
+                <Text style={styles.otpSubmit} onPress={this.OtpDetails}>
+                  Submit
+                </Text>
+              </TouchableOpacity>
+            </ListItem>
+          </View>
+        </Modal>
       </Container>
-    )
+    );
   }
 }
 
 
+const mapStateToProps = state => ({
+  auth: state.auth.userMpin,
+});
+
+export default connect(
+  mapStateToProps,
+  {},
+)(Signup);
 
 const styles = StyleSheet.create({
   Container: {
- 
     backgroundColor: '#f5f5ff',
-    
   },
   grp_fields: {
-
     marginTop: 20,
   },
 
   headerText: {
     width: 400,
-   
+
     fontFamily: 'Nunito',
     fontSize: 14,
-  marginVertical:16,
+    marginVertical: 16,
     color: '#ffffff',
- marginHorizontal: 16,
-    marginLeft:16,
-  
-    alignItems: 'flex-start',
+    marginHorizontal: 16,
+    marginLeft: 16,
 
+    alignItems: 'flex-start',
   },
   headerText_sb: {
     fontFamily: 'Nunito',
@@ -274,28 +305,19 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     color: '#ffffff',
-    
-   
-
-
   },
   textcolor: {
     fontSize: 20,
-    
+
     marginLeft: 16,
     color: '#ffffff',
     fontFamily: 'Nunito',
-    
   },
- 
+
   btnSubmit: {
-
-   
     alignItems: 'center',
-   
-    marginTop:20
 
-
+    marginTop: 20,
   },
   submit: {
     // width:52,
@@ -304,17 +326,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'normal',
     textAlign: 'center',
-    color: '#ffffff'
+    color: '#ffffff',
   },
   btnbottom: {
-
-  
-  
-    alignContent:'flex-end',
-      
-
+    alignContent: 'flex-end',
   },
- 
 
   input: {
     height: 40,
@@ -338,7 +354,7 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     marginLeft: 20,
     marginTop: 20,
-    height: 20
+    height: 20,
   },
   forgetText: {
     marginRight: 13,
@@ -346,7 +362,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Nunito',
     fontSize: 16,
     color: '#f7931e',
-
   },
 
   forgetpassword: {
@@ -355,22 +370,20 @@ const styles = StyleSheet.create({
     marginTop: 10,
     fontFamily: 'Nunito',
     fontSize: 16,
-    color: '#f7931e'
+    color: '#f7931e',
   },
   forgotPassword: {
-
     height: 22,
     fontFamily: 'Nunito',
     fontSize: 16,
     color: '#f7931e',
-    marginLeft: 270
+    marginLeft: 270,
   },
   bottomColor: {
-    color: '#f7931e'
-
+    color: '#f7931e',
   },
   tabColor: {
-    backgroundColor: "#1b1464"
+    backgroundColor: '#1b1464',
   },
 
   textInput: {
@@ -389,22 +402,17 @@ const styles = StyleSheet.create({
     marginRight: 15,
     marginTop: 5,
     backgroundColor: '#e1e4eb',
-
   },
   textData: {
     marginTop: 20,
     marginLeft: 20,
     color: '#474a4f',
     fontSize: 14,
-
   },
   LoginButton: {
-
     marginLeft: 16,
     marginRight: 15,
-
   },
-
 
   dropInput: {
     backgroundColor: '#e1e4eb',
@@ -413,23 +421,18 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     height: 40,
     marginTop: 10,
-    justifyContent: "space-between"
-
+    justifyContent: 'space-between',
   },
-
 
   loginText: {
     marginTop: 20,
     marginLeft: 20,
     color: '#474a4f',
     fontSize: 14,
-
   },
   passwordicon: {
     height: 20,
     width: 40,
-
-
   },
 
   mobileinput: {
@@ -438,70 +441,54 @@ const styles = StyleSheet.create({
     color: '#474a4f',
     fontSize: 14,
     height: 19,
-
-
-
   },
 
   bottomtext: {
-    color: "#999999",
-marginTop: 50,
+    color: '#999999',
+    marginTop: 50,
 
     fontSize: 12,
-     
+
     fontFamily: 'Nunito',
- 
-
-
   },
   bottomColor: {
     color: '#f7931e',
     fontSize: 12,
-     
-    fontFamily: 'Nunito',
 
+    fontFamily: 'Nunito',
   },
   loginbg: {
     height: 48,
     width: 48,
     marginTop: 50,
-    alignSelf: 'flex-end'
+    alignSelf: 'flex-end',
   },
 
   icon: {
     marginLeft: 10,
     color: '#ffffff',
     width: 16,
-    height: 20
+    height: 20,
   },
   bottomImage: {
     height: 70,
 
     alignSelf: 'center',
     marginTop: 20,
-     marginBottom:16,
-     alignContent:'flex-end'
-
-
+    marginBottom: 16,
+    alignContent: 'flex-end',
   },
   bottom: {
-
     backgroundColor: '#ffffff',
-
-    
-
   },
   otp: {
-
     width: 94,
     height: 27,
     marginTop: 15,
     color: '#000000',
     fontSize: 20,
     marginLeft: 15,
-    fontWeight: "bold"
-
-
+    fontWeight: 'bold',
   },
   resendOtp: {
     width: 91,
@@ -510,24 +497,20 @@ marginTop: 50,
     fontSize: 16,
     color: '#f7931e',
     textAlign: 'right',
-
-
   },
   cancel: {
     width: 73,
     height: 39,
     fontFamily: 'Nunito',
     color: '#999999',
-    textAlign: 'left'
-
+    textAlign: 'left',
   },
   otpText: {
     marginLeft: 15,
     fontFamily: 'Nunito',
     fontSize: 16,
     marginTop: 10,
-    color: '#000000'
-
+    color: '#000000',
   },
 
   otpSubmit: {
@@ -537,10 +520,9 @@ marginTop: 50,
     fontSize: 16,
     fontWeight: 'bold',
     color: '#f7931e',
-    textAlign: 'right'
+    textAlign: 'right',
   },
   btn: {
-
     // backgroundColor: '#DDDDDD',
     // borderColor: '#dc00ff',
     // borderRadius: 10,
@@ -548,8 +530,6 @@ marginTop: 50,
     // padding: 10,
     opacity: 0.5,
     // marginLeft: 16,
-
-
   },
   btnActive: {
     // alignItems: 'center',
@@ -559,9 +539,7 @@ marginTop: 50,
     borderWidth: 3,
     height: 80,
     // padding: 10,
-    marginLeft: 8
-
-
+    marginLeft: 8,
   },
   state: {
     //   width:73,
@@ -569,7 +547,7 @@ marginTop: 50,
     opacity: 0.87,
     fontFamily: 'Nunito',
     color: '#000000',
-    textAlign: "left",
+    textAlign: 'left',
     marginTop: 5,
     marginLeft: 16,
   },
@@ -581,8 +559,5 @@ marginTop: 50,
     textAlign: 'left',
     fontStyle: 'normal',
     marginLeft: 16,
-
   },
-
-
-})
+});

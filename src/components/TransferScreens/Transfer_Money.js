@@ -19,6 +19,8 @@ import {StyleSheet, StatusBar, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 export default class Transfer_Money extends Component {
+
+  
   render() {
     return (
       <Container style={styles.Container}>

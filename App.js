@@ -18,18 +18,18 @@ import Setmpin from './src/components/LoginScreens/forgotScreens/Setmpin';
 import ChangeMpin from './src/components/LoginScreens/forgotScreens/ChangeMpin';
 // import Home from './src/components/Home';
 import Forgot from './src/components/LoginScreens/Forgot';
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 
- import Quicklogin from './src/components/LoginScreens/Quick_login'
- import  store from './src/Redux/store'
+import Quicklogin from './src/components/LoginScreens/Quick_login';
+import store from './src/Redux/store';
 // import NotificationList from './src/components/Notifications/Notication';
 import NotifClass from './src/components/Notifications/NotifcationList';
 import Beneficiary from './src/components/BeneficiaryScreens/Beneficiary';
 import AddBeneficiarys from './src/components/BeneficiaryScreens/AddBeneficiarys';
- import Otherbank  from './src/components/BeneficiaryScreens/Otherbank'
+import Otherbank from './src/components/BeneficiaryScreens/Otherbank';
 import ErrorAlert from './src/components/modelAlerts/DialogAlert';
 import Home from './src/components/Home/Home';
- 
+
 import Landingpage from './src/components/landingpage/Landingpage';
 import Loadmoney from './src/components/Home/LoadMoney/Loadmoney';
 import MoneyLoading from './src/components/Home/LoadMoney/MoneyLoading';
@@ -66,31 +66,23 @@ import Transfer_Otherbank_Success from './src/components/TransferScreens/Transfe
 import Transfer_Otherbank_confirm from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Confirm';
 import Loanpayment_Success from './src/components/Bill_Payments/Lanpayment_Success';
 import Otherbank_acc from './src/components/TransferScreens/Otherbank_acc';
+import Transfer_Spark_otherbank from './src/components/TransferScreens/Transfer_Spark_otherbank';
 export default class App extends Component {
-   constructor(props) {
-     super(props)
-   
-     this.state = {
-         date:''
-     }
-   }
-   
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      date: '',
+    };
+  }
+
   render() {
-    
     return (
       <>
-      <Provider store={store}>
-  < Home
-  />
-     </Provider>
-
-
-
-
-
+        <Provider store={store}>
+          <Routing />
+        </Provider>
       </>
     );
   }
 }
-
-
