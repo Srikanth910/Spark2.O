@@ -1,12 +1,34 @@
 import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Button, Icon, ListItem, View, Left, Right, Title } from "native-base";
 import { StyleSheet, StatusBar, Image } from 'react-native'
+import { connect } from "react-redux";
+ import {getBeneficiaryBank} from '../../Redux/actions/TransferAction'
 
 
-export default class AddBank_Account extends Component {
+ class AddBank_Account extends Component {
+
+     componentDidMount(){
+
+
+         this.props.getBeneficiaryBank()
+        //   this.props.getBeneficiaryBank(()=>{
+        //        const {transferDetails}=this.props
+        //         if(transferDetails.code==="200"){
+        //              this.props.navigation.navigate('To_myBankAcc')
+        //         } else{
+
+        //              this.props.navigation.navigate('MyBank_Account')
+
+        //         }
+      
+            
+               
+        //   })
+     }
 
     render() {
 
+         console.log(this.props.transferDetails)
         return (
             <Container style={styles.Container}>
                 <Header icon="eye" style={{ backgroundColor: '#1b1464', height: 80 }}>
@@ -73,6 +95,13 @@ export default class AddBank_Account extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => ({
+    transferDetails: state.transferDetails
+  })
+  
+  export default connect(mapStateToProps, {getBeneficiaryBank})(AddBank_Account)
+  
 
 
 const styles = StyleSheet.create({

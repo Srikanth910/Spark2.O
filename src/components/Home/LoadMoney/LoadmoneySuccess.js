@@ -5,34 +5,75 @@ import { ScrollView } from 'react-native-gesture-handler'
 
 
 export default class LoadmoneySuccess extends Component {
+
+     constructor(props) {
+         super(props)
+     
+         this.state = {
+    value:1000,
+     interest:12,
+     tenure:12,
+      maturity:''         
+
+
+
+         }
+     }
+    //   componentDidMount(){
+    //        this.getmount()
+             
+           
+        
+       
+    //   }
+    //   getmount=()=>{
+    //     const{value,interest,tenure}=this.state
+    //     let interestAmount = (   value* (interest * 0.01)) *( tenure * 0.0833333333)
+    //     this.setState({
+    //          maturity:value+interestAmount
+    //     })
+
+    //   }
+     
     render() {
+
+ console.log(this.state.maturity)
         return (
            <Container>
-
-               <ImageBackground  source={require('../../../images/home/success_bg.png')}style={{height:'100%', width:'100%', flex:1}} >
-             
-               <StatusBar barStyle="light-content" backgroundColor="#429c40" />
+<Header style={{ backgroundColor:"#429c40",height:140 ,}}>
+      
+ <StatusBar barStyle="light-content" backgroundColor="#429c40" /> 
                 
-              <ScrollView>
+    
+               <ImageBackground  source={require('../../../images/Transfer/success_wave.png')}style={{width:'100%'  }} >
+           
+    
                
-                <ListItem style={{borderColor:'transparent', justifyContent: 'center',}}>
+                <ListItem style={{borderColor:'transparent', marginTop:50,}} thumbnail>
                    
-                    <Image source ={require('../../../images/home/white_rupi.png')}/>
+                    <Image source ={require('../../../images/Transfer/logo_s.png')}/>
                     <View style={styles.header}>
                         <Text style={styles.headerbal}>
-                        5,000
+                        ₹ 5,000
                         </Text>
-                        <Text style={styles.text}>
+                        <Text style={styles.text_1} >
                         Paid successfully
 
                         </Text >
-                        <Text style={styles.text} >TXN ID: CC1ZK173928, 07-05-2020, 10:30:23</Text>
+                       
                     </View>
                     
                 </ListItem>
+                <Text style={styles.text} >TXN ID: CC1ZK173928, 07-05-2020, 10:30:23</Text>
+               
+                </ImageBackground>
               
-               <View style={styles.overlopcurd}>
-               <Content padder >
+                </Header>
+               {/* <View style={styles.overlopcurd}> */}
+
+               
+               <Content padder style={{borderTopRightRadius:20, borderTopRightRadius: 20,}}>
+                 
                   <View style={{marginHorizontal: 23,}} >
                   <View style={styles.curd_user}>
                       <ListItem>
@@ -64,7 +105,11 @@ export default class LoadmoneySuccess extends Component {
 
 
 
-                  <View  style={{flex:1}}>
+                 
+              </Content>
+
+
+              <View  >
                   <Button block success style={styles.btn}
                    onPress={() => this.props.navigation.navigate('Loadmoneyfail')}
                    >
@@ -73,16 +118,8 @@ export default class LoadmoneySuccess extends Component {
 
           </Button> 
           </View>
-              </Content>
-
-
-
-               </View>
-               </ScrollView>
-        
-               </ImageBackground>
+               
              
-          
 
     
            </Container>
@@ -98,7 +135,8 @@ export default class LoadmoneySuccess extends Component {
            textAlign:'center',
              color:'#ffffff',
               fontFamily:'Inconsolata',
-                fontWeight:"bold"
+                fontWeight:"bold",
+                 marginLeft: 30,
      
 
      },
@@ -108,7 +146,16 @@ export default class LoadmoneySuccess extends Component {
          
              alignSelf:'center', 
              
+             
 
+      },
+      text_1:{
+        fontSize:14,
+        color:'#ffffff',
+      
+          alignSelf:'center', 
+          
+     marginLeft: 30,
       },
       curdview:{ 
            backgroundColor:'#ffffff',
@@ -149,8 +196,8 @@ export default class LoadmoneySuccess extends Component {
          marginHorizontal: 16,
       },
       btn:{
-
-          marginVertical: 21,
+     marginVertical:21,
+        
            marginHorizontal: 16,
       } ,
        usertext:{

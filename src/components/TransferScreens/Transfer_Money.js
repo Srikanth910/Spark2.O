@@ -48,7 +48,7 @@ export default class Transfer_Money extends Component {
  onPress={() =>
     this.props.navigation.navigate('To_myBankAcc', {
       type: 2,
-      name: 'To Spark Business Account',
+      name: 'To Spark Savings Account',
     })
   }>
 
@@ -61,14 +61,28 @@ export default class Transfer_Money extends Component {
                   </View>
                 </TouchableOpacity>
             
+        
 
+          <TouchableOpacity
+          onPress={() =>
+            this.props.navigation.navigate('To_myBankAcc', {
+              type: 3,
+              name: 'To Spark Business Account',
+            })
+          }
+          
+          
+          >
               <View style={styles.box}>
                 <Image
                   source={require('../../images/Transfer/Spark_Business.png')}
                   style={styles.billIcon}
                 />
                 <Text style={styles.iconText}>Spark Business</Text>
-              </View>
+              </View> 
+              </TouchableOpacity>
+            
+
               <TouchableOpacity
                 onPress={() =>
                   this.props.navigation.navigate('AddBank_Account')

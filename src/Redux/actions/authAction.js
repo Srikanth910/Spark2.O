@@ -12,6 +12,7 @@ import {
     VALIDATE_OTP_SUCCESS, VALIDATE_OTP_FAIL, FORGET_MPIN_OTP_FAIL, FORGET_MPIN_OTP_SUCCESS, UPDATE_MPIN_FAIL, UPDATE_MPIN_SUCCESS, LOGIN_LOADNIG, CATACH_ERROR,
      DEVICE_CHECK_OTP_FAIL
 } from '../constants/types';
+import { setAuthToken } from '../../components/utils/setAuthToken';
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 export const loginUser = (data) => async dispatch => {
 
@@ -37,6 +38,10 @@ export const loginUser = (data) => async dispatch => {
             } 
             
             else if (loginDetail.Data.Message === 'SUCCESS') {
+
+                 const token=loginDetail.Data.Token
+               
+                setAuthToken(token)
 
                 dispatch({
                     type: LOGIN_SUCCESS,

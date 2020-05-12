@@ -4,8 +4,7 @@ import { StatusBar, Image, StyleSheet } from 'react-native'
 
 export default class Otherbank_acc extends Component {
     render() {
-          const{params}=this.props.route
-           console.log(params)
+          
         return (
             <Container>
                 <Header style={{ backgroundColor: "#1b1464", height: 90 }}>

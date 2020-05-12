@@ -6,6 +6,7 @@ import CardList from './CardList';
 import KycAccordion from './kycAccordion';
 import ImageSilder from './ImageSilder';
 import HomeFooter from './Footer';
+ import{getActivemethods,getBeneficiaryBank} from '../../Redux/actions/TransferAction'
 import AsyncStorage from '@react-native-community/async-storage';
 // import ImageSilder from './ImageSilder';
 
@@ -27,14 +28,19 @@ class Home extends Component {
 
 
 
-  async componentDidMount(){
-    try {
-      const loginData = await AsyncStorage.getItem('userdetials')
-      const user = JSON.parse(loginData)
-     console.log(user)
-  } catch (e) {
-      alert('Failed to load name.')
+   componentDidMount(){
+    const data={
+      "memberId":"1421",
+      "isPrimaryAccunt":"true",
+       "isWithInCoop":"false",
+        "type":"2"
   }
+
+   this.props.getBeneficiaryBank(data)
+      this.props.getActivemethods()
+      
+
+   
 }
 checkTabSelected(tab){
   switch(tab) {
@@ -497,7 +503,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth.userMpin
 })
 
-export default connect(mapStateToProps, {})(Home)
+export default connect(mapStateToProps, {getActivemethods,getBeneficiaryBank})(Home)
 
 const styles = StyleSheet.create({
 

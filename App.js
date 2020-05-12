@@ -65,6 +65,7 @@ import Transfer_Schedule_Confirm from './src/components/TransferScreens/Transfer
 import Transfer_Otherbank_Success from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Success';
 import Transfer_Otherbank_confirm from './src/components/TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Confirm';
 import Loanpayment_Success from './src/components/Bill_Payments/Lanpayment_Success';
+import Otherbank_acc from './src/components/TransferScreens/Otherbank_acc';
 export default class App extends Component {
    constructor(props) {
      super(props)
@@ -79,7 +80,7 @@ export default class App extends Component {
     return (
       <>
       <Provider store={store}>
-  <  Routing
+  < Home
   />
      </Provider>
 
