@@ -26,6 +26,8 @@ import {ThemeColors} from 'react-navigation';
 import Dialog from 'react-native-dialog';
 import {ScrollView} from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
+import { NetworkInfo } from "react-native-network-info";
+
  class Setpassword extends Component {
   constructor(props) {
     super(props);
@@ -57,6 +59,9 @@ import { connect } from 'react-redux';
    componentDidMount=()=>{
     let model = DeviceInfo.getModel();
       console.log(model)
+      NetworkInfo.getIPAddress().then(ipAddress => {
+        console.log(ipAddress);
+      });
 
    }
 
