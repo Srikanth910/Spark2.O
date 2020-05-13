@@ -26,8 +26,12 @@ import {ScrollView} from 'react-native-gesture-handler';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 import Modal from 'react-native-modal';
-import { connect } from 'react-redux';
- class Signup extends Component {
+import AsyncStorage from '@react-native-community/async-storage';
+
+import {connect} from 'react-redux';
+import {signupCheckmobile, checkMoblieno} from '../../Redux/actions/authAction';
+
+class Signup extends Component {
   constructor(props) {
     super(props);
 
@@ -36,6 +40,7 @@ import { connect } from 'react-redux';
       mobileOtp: '',
       isVisible: false,
       Statevalue: '',
+      MobileNO: '',
     };
   }
   handleState = (name, id) => {
@@ -56,13 +61,51 @@ import { connect } from 'react-redux';
   };
 
   OtpDetails = () => {
-    this.setState({
-      isVisible: false,
+    const {signUpDetails} = this.props.auth;
+    const otp = {
+      refNo: signUpDetails.refNo,
+      otp: this.state.mobileOtp,
+    };
+
+    this.props.checkMoblieno(otp).then(() => {
+      const {signUpotp} = this.props.auth;
+      if (signUpotp.code === '200') {
+        this.setState({
+          isVisible: false,
+        });
+        this.props.navigation.navigate('Setpassword');
+      }
     });
-    this.props.navigation.navigate('Setpassword');
   };
+
+  userDetails = async  ()=> {
+    const userDetails = {
+      email: this.state.Email,
+      mobileno: this.state.MobileNO,
+    };
+
+
+    try {
+      await AsyncStorage.setItem('signupDetails', JSON.stringify(userDetails));
+      console.log(' user saved');
+    } catch (e) {
+      console.log(e);
+    }
+
+
+    this.props.signupCheckmobile(userDetails).then(() => {
+      const {signUpDetails} = this.props.auth;
+      if (signUpDetails.code === '200') {
+        this.setState({
+          isVisible: true,
+        });
+      }
+    });
+  };
+
   render() {
     const {mobileOtp} = this.state;
+    const {auth} = this.props;
 
     return (
       <Container style={styles.Container}>
@@ -99,10 +142,9 @@ import { connect } from 'react-redux';
                 <Input
                   placeholder="eg. vijay@emails.com"
                   style={styles.input}
-                  value={this.state.mobile}
-                  value={this.state.mobile}
+                  value={this.state.Email}
                   onChangeText={editedText =>
-                    this.setState({mobile: editedText})
+                    this.setState({Email: editedText})
                   }
                 />
               </Item>
@@ -112,10 +154,9 @@ import { connect } from 'react-redux';
                 <Input
                   placeholder="No need to add +91"
                   style={styles.input}
-                  value={this.state.mobile}
-                  value={this.state.mobile}
+                  value={this.state.MobileNO}
                   onChangeText={editedText =>
-                    this.setState({mobile: editedText})
+                    this.setState({MobileNO: editedText})
                   }
                 />
               </Item>
@@ -180,7 +221,6 @@ import { connect } from 'react-redux';
               </Item>
             </View>
           </Content>
-        
 
           <View
             style={{
@@ -202,7 +242,7 @@ import { connect } from 'react-redux';
               block
               warning
               style={styles.btnSubmit}
-              onPress={this.toggelopen}>
+              onPress={this.userDetails}>
               <Text style={styles.submit}>Submit</Text>
             </Button>
           </View>
@@ -269,14 +309,13 @@ import { connect } from 'react-redux';
   }
 }
 
-
 const mapStateToProps = state => ({
-  auth: state.auth.userMpin,
+  auth: state.auth,
 });
 
 export default connect(
   mapStateToProps,
-  {},
+  {signupCheckmobile, checkMoblieno},
 )(Signup);
 
 const styles = StyleSheet.create({

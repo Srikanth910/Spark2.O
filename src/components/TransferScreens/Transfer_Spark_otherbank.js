@@ -23,12 +23,137 @@ import {
 import {StyleSheet, StatusBar, Image} from 'react-native';
 import Modal from 'react-native-modal';
 import {connect} from 'react-redux';
- import {getBeneficiaryBank} from '../../Redux/actions/TransferAction'
+import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
+import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 
 class Transfer_Spark_otherbank extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      data: [
+        {
+          BeneficiaryAccNo: '56346456345',
+          Email: 'scvgdfbfd@gmail.com',
+          PhoneNo: '4632534754',
+          IFSCCode: 'SBIN0000901',
+          Id: '838',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'CBC_revert',
+        },
+        {
+          BeneficiaryAccNo: '45692873465348956',
+          Email: 'ghdhg@gmail.com',
+          PhoneNo: '2463785423',
+          IFSCCode: 'SBIN0000901',
+          Id: '897',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'gvjvgv',
+        },
+        {
+          BeneficiaryAccNo: '1234567890',
+          Email: 'sgahhah@gmail.com',
+          PhoneNo: '4615454884',
+          IFSCCode: 'SBIN0000901',
+          Id: '1253',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'hkdjdh',
+        },
+        {
+          BeneficiaryAccNo: '764515455',
+          Email: 'tuiuu@gmail.co.',
+          PhoneNo: '4236614454',
+          IFSCCode: 'SBIN0000901',
+          Id: '567',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'Raghava',
+        },
+        {
+          BeneficiaryAccNo: '12345678',
+          Email: 'rahdgkagj@gmail.com',
+          PhoneNo: '2345678900',
+          IFSCCode: 'YESB0000022',
+          Id: '1162',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'raghava_reddy',
+        },
+        {
+          BeneficiaryAccNo: '4278563498523465963',
+          Email: 'bvrr93@gmail.com',
+          PhoneNo: '9160721227',
+          IFSCCode: 'SBIN0000901',
+          Id: '747',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'raghavendraReddy',
+        },
+        {
+          BeneficiaryAccNo: '454654555',
+          Email: 'rahhhha@gmail.com',
+          PhoneNo: '1235466666',
+          IFSCCode: 'SBIN0000901',
+          Id: '570',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'staying',
+        },
+        {
+          BeneficiaryAccNo: '26784529332452345',
+          Email: 'ffkfjC@gmail.com',
+          PhoneNo: '4523454524',
+          IFSCCode: 'SBIN0000901',
+          Id: '981',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'subba_reddy',
+        },
+        {
+          BeneficiaryAccNo: '2435235662536565',
+          Email: 'dfdghj@gmail.com',
+          PhoneNo: '3243785436',
+          IFSCCode: 'SBIN0000901',
+          Id: '839',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'vbvcbcv_wrr',
+        },
+        {
+          BeneficiaryAccNo: '324254352345',
+          Email: 'fgdhfg@gmail.com',
+          PhoneNo: '3246257349',
+          IFSCCode: 'SBIN0000901',
+          Id: '849',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'veera_raghava_reddy',
+        },
+        {
+          BeneficiaryAccNo: '24535943868',
+          Email: 'vhjvlhj.@gmail.com',
+          PhoneNo: '3246534753',
+          IFSCCode: 'SBIN0000901',
+          Id: '842',
+          CustomerId: '1421',
+          memberOf: '',
+          AccountType: '',
+          Name: 'wrtdsfgrtghtr',
+        },
+      ],
+    };
   }
 
   componentDidMount() {
@@ -42,6 +167,7 @@ class Transfer_Spark_otherbank extends Component {
   }
 
   render() {
+    const {transferDetails} = this.props;
     return (
       <Container>
         <Header style={{backgroundColor: '#1b1464', height: 90}}>
@@ -84,35 +210,31 @@ class Transfer_Spark_otherbank extends Component {
             <Input placeholder="Search" style={styles.input} />
           </InputGroup>
         </ListItem>
-
-        <View style={styles.curd_user}>
-          <ListItem
-            style={{borderColor: 'transparent', justifyContent: 'center'}}>
-            <Image
-              source={require('../../images/Transfer/Other_Bank.png')}
-              style={styles.bank}
-            />
-            <View style={{paddingLeft: 40}}>
-              <Text style={styles.usertext}>k.shivashankar</Text>
-              <Text style={styles.curdtext}>A/C No -657465787</Text>
-              <Text style={styles.curdtext}>IFSC code - HDFC6574</Text>
-            </View>
-          </ListItem>
-        </View>
-        <View style={styles.curd_user}>
-          <ListItem
-            style={{borderColor: 'transparent', justifyContent: 'center'}}>
-            <Image
-              source={require('../../images/Transfer/Other_Bank.png')}
-              style={styles.bank}
-            />
-            <View style={{paddingLeft: 60}}>
-              <Text style={styles.usertext}>k.shivashankar</Text>
-              <Text style={styles.curdtext}>A/C No -657465787</Text>
-              <Text style={styles.curdtext}>IFSC code - HDFC6574</Text>
-            </View>
-          </ListItem>
-        </View>
+        <ScrollView>
+          {transferDetails.array &&
+            transferDetails.array.map(data => {
+              return (
+                // <TouchableOpacity onPress={()=>alert('hello')}>
+                <View style={styles.curd_user}>
+                  <ListItem
+                    style={{
+                      borderColor: 'transparent',
+                      justifyContent: 'center',
+                    }}>
+                    <Image
+                      source={require('../../images/Transfer/Other_Bank.png')}
+                      style={styles.bank}
+                    />
+                    <View style={{paddingLeft: 40}}>
+                      <Text style={styles.usertext}>{data.Name}</Text>
+                      <Text style={styles.user}>{data.BeneficiaryAccNo}</Text>
+                      <Text style={styles.user}>{data.IFSCCode}</Text>
+                    </View>
+                  </ListItem>
+                </View>
+              );
+            })}
+        </ScrollView>
       </Container>
     );
   }
@@ -124,7 +246,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getBeneficiaryBank,},
+  {getBeneficiaryBank},
 )(Transfer_Spark_otherbank);
 
 const styles = StyleSheet.create({
@@ -146,7 +268,7 @@ const styles = StyleSheet.create({
     marginRight: 100,
   },
   bank: {
-    marginLeft: 16,
+    // marginLeft: 16,
     height: 40,
     width: 60,
     alignSelf: 'center',

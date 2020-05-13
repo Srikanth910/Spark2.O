@@ -33,6 +33,7 @@
     "react-native-loading-spinner-overlay": "^1.1.0",
     "react-native-modal": "^11.5.6",
     "react-native-modal-datetime-picker": "^8.6.0",
+    "react-native-network-info": "^5.2.1",
     "react-native-paytm": "^1.0.9",
     "react-native-payumoney": "0.0.3",
     "react-native-raw-bottom-sheet": "^2.1.0",
