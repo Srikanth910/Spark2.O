@@ -13,6 +13,7 @@ export default class To_sparkAcc extends Component {
      }
      
     render() {
+         const {params}=this.props.route
        
         return (
             <Container>
@@ -27,6 +28,8 @@ export default class To_sparkAcc extends Component {
                         />
                         <Text style={styles.headerText}>To Spark Savings Account</Text>
 
+                   
+                    
                         <Image source={require('../../images/billpay/faq_ic.png')} />
                     </View>
 
@@ -43,19 +46,29 @@ export default class To_sparkAcc extends Component {
                 </View>
 
              
-              <View style={styles.curdview}>
-                  <ListItem   thumbnail style={{justifyContent:'center', alignItems:'center'}}>
 
-<Left>
+        
+              <View style={styles.curdview}>
+                  <ListItem    style={{justifyContent:'space-around', alignItems:'center', borderColor: 'transparent',marginVertical:10}}>
+
+
                <Image source={ require('../../images/home/pet_bank.png')}/>
-               </Left>
-                      <Body>
+               {params.type===2?<>
+
+<Text style={styles.user}>Select Beneficiary</Text></>:
+                  <View>
                           <Text style={styles.user}>srikanth</Text>
-                          <Text style={styles.acctext}>9100146410</Text>
-                          <Text style={styles.acctext}>Karnataka</Text>
-                      </Body>
-                      <Right>
-                      <Image source={require('../../images/home/arrow.png')} /></Right>
+                          <Text style={styles.acctext}>AccountNo: 9100146410</Text>
+                          <Text style={styles.acctext}>Location: Karnataka</Text>
+                          </View>}
+                   
+
+                         <TouchableOpacity
+                         onPress={() =>
+                            this.props.navigation.navigate('Transfer_Spark_otherbank',{type:2})}
+                         >
+                      <Image source={require('../../images/home/arrow.png')} />
+                      </TouchableOpacity>
                   </ListItem>
 
 

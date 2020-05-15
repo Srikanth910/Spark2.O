@@ -11,6 +11,7 @@ export default class Transfer_Otherbank_Fail extends Component {
             <Container>
 
                 <ImageBackground source={require('../../images/home/fail_bg.png')} style={{ height: '100%', width: '100%' }} >
+                    
                     <ScrollView>
 
                         <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>

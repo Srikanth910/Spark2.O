@@ -15,8 +15,8 @@ import {
   Item,
   Input,
   View,
-
 } from 'native-base';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import DeviceInfo from 'react-native-device-info';
 import {getModel} from 'react-native-device-info';
@@ -25,21 +25,21 @@ import {ThemeColors} from 'react-navigation';
 
 import Dialog from 'react-native-dialog';
 import {ScrollView} from 'react-native-gesture-handler';
-import { connect } from 'react-redux';
-import { NetworkInfo } from "react-native-network-info";
+import {connect} from 'react-redux';
+import {NetworkInfo} from 'react-native-network-info';
+import {createMemberToken} from '../../Redux/actions/authAction';
 
- class Setpassword extends Component {
+class Setpassword extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       visible: false,
 
-     confirmPassword:"",
-      password:"",
-       signupUser:{}
-      
-
+      confirmPassword: '',
+      password: '',
+      signupUser:{},
+      deviceIp: '',
     };
   }
 
@@ -52,45 +52,60 @@ import { NetworkInfo } from "react-native-network-info";
     this.setState({
       visible: false,
     });
-
-
   };
-   
-   componentDidMount=()=>{
+
+  componentDidMount = () => {
     let model = DeviceInfo.getModel();
-      console.log(model)
-      NetworkInfo.getIPAddress().then(ipAddress => {
-        console.log(ipAddress);
+
+    NetworkInfo.getIPAddress().then(ipAddress => {
+      this.setState({
+        deviceIp: ipAddress,
       });
+    });
+  };
 
-   }
+  submitPassword = async () => {
+    let model = DeviceInfo.getModel();
 
-
- submitPassword= async()=>{
     try {
-        const userDetails = await AsyncStorage.getItem('signupDetails');
-        const user = JSON.parse(userDetails);
-        this.setState({
-          signupUser: user,
-        });
-      } catch (e) {
-        alert('Failed to load name.');
-      }
+
+      //  const {signupUser}=this.state
+      const userDetails = await AsyncStorage.getItem('signupDetails');
+      const user = JSON.parse(userDetails);
+       console.log(user)
+
+      this.setState({
+        signupUser: user,
+      });
+    } catch (e) {
+      alert('Failed to load name.');
+    }
+
+ 
+     const {signupUser}=this.state
+      const passworddata = {
+
+      email: signupUser.email,
+      mobileNo: signupUser.mobileno,
+      DEVICEMODEL: model,
+      IPADDRESS:this.state.deviceIp,
+      Password:this.state.password,
+    };
+    console.log(passworddata);
 
 
-    
-      const passworddata={
-        "email": "th.chf5c@gmail.com",
-        "mobileNo":"9863556578",
-        "DEVICEMODEL":"samsung",
-        "IPADDRESS":"241.78.9900",
-        "Password":"oohaReddy@222"
-
-      }
-
- }
+    this.props.createMemberToken(passworddata).then(()=>{
+       const {auth}=this.props
+       if(auth.userMpin.code==="200"){
+         this.props.navigation.navigate('Welcomeboard')
+       }
+      })       
+   
+  };
 
   render() {
+     const{auth}=this.props 
+      console.log(auth.userMpin)
     return (
       <Container style={styles.Container}>
         <Header style={{backgroundColor: '#1b1464', height: 160}}>
@@ -152,12 +167,13 @@ import { NetworkInfo } from "react-native-network-info";
 
               <Text style={styles.mobileinput}>Enter current password</Text>
               <Item regular style={styles.loginInput}>
-                <Input placeholder="" style={styles.input}
-                
-                value={this.state.password}
-                onChangeText={editPassword =>
-                  this.setState({password: editPassword})
-                }
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  value={this.state.password}
+                  onChangeText={edittext =>
+                    this.setState({password: edittext})
+                  }
                 />
                 {/* <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/> */}
               </Item>
@@ -166,12 +182,13 @@ import { NetworkInfo } from "react-native-network-info";
 
               <Item regular style={styles.loginInput}>
                 {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}
-                <Input placeholder="" style={styles.input}
-                
-                value={this.state.confirmPassword}
-                onChangeText={editedText =>
-                  this.setState({confirmPassword: editedText})
-                }
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  value={this.state.confirmPassword}
+                  onChangeText={editedText =>
+                    this.setState({confirmPassword: editedText})
+                  }
                 />
                 {/* <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/> */}
               </Item>
@@ -189,7 +206,7 @@ import { NetworkInfo } from "react-native-network-info";
               block
               warning
               style={styles.btnSubmit}
-              onPress={() => this.props.navigation.navigate('Welcomeboard')}>
+              onPress={this.submitPassword}>
               <Text style={styles.submit}>Submit</Text>
             </Button>
           </View>
@@ -199,16 +216,15 @@ import { NetworkInfo } from "react-native-network-info";
   }
 }
 
- 
 const mapStateToProps = state => ({
-    auth: state.auth,
-    error: state.error,
-  });
-  
-  export default connect(
-    mapStateToProps,
-    {},
-  )(Setpassword);
+  auth: state.auth,
+  error: state.error,
+});
+
+export default connect(
+  mapStateToProps,
+  {createMemberToken},
+)(Setpassword);
 
 const styles = StyleSheet.create({
   Container: {

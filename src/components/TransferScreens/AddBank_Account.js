@@ -30,7 +30,7 @@ class AddBank_Account extends Component {
     this.props.getBeneficiaryBank(data).then(() => {
       const {transferDetails} = this.props;
       if (transferDetails.code === '200') {
-        this.props.navigation.navigate('To_myBankAcc',{ type: 2,
+        this.props.navigation.navigate('To_myBankAcc',{ type: 1,
             name: 'To My Bank Account',});
       } else {
         this.props.navigation.navigate('MyBank_Account');

@@ -35,6 +35,16 @@ export const getRazorpayDetails=(data)=>{
 }
 
 
+
+ 
+
+
+
+
+
+
+
+
 export const checkCarddetails=(data)=>{
     
  return  async dispatch=>{

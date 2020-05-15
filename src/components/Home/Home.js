@@ -25,6 +25,7 @@ import {
   View,
   ImageBackground,
   Image,
+  TouchableOpacity,
 } from 'react-native';
 import CardList from './CardList';
 import KycAccordion from './kycAccordion';
@@ -33,7 +34,10 @@ import HomeFooter from './Footer';
 import {
   getActivemethods,
   getBeneficiaryBank,
+  
+  
 } from '../../Redux/actions/TransferAction';
+ import {getBanners, isFinbusCustomerForRD, getPrepaidBillerCategories} from '../../Redux/actions/authAction'
 import AsyncStorage from '@react-native-community/async-storage';
 // import ImageSilder from './ImageSilder';
 
@@ -46,20 +50,11 @@ class Home extends Component {
       tabStatus2: false,
       tabStatus3: false,
       tabStatus4: false,
+      billpay:[]
     };
   }
 
-  // componentDidMount() {
-  //   const data = {
-  //     "membarId": "1421",
-  //     "isPrimaryAccunt": "true",
-  //     "isWithInCoop": "false",
-  //     "type": "2",
-  //   };
-
-  //   this.props.getBeneficiaryBank(data);
-  //   // this.props.getActivemethods()/;
-  // }
+  
   checkTabSelected(tab) {
     switch (tab) {
       case 1:
@@ -102,9 +97,38 @@ class Home extends Component {
     }
   }
 
+    componentDidMount=()=>{
+       
+        
+
+          const data={
+            membarId:"1421"
+          }
+      
+         this.props.getPrepaidBillerCategories().then(()=>{
+             const{auth}=this.props
+            
+           if(auth.getPrepaidData.code==="200"){
+              this.setState({
+                billpay:auth.getPrepaidData.list.Response
+
+              })
+           }
+         })
+
+    }
+
+
+     handleBillpay=(id, Name)=>{
+        console.log(id)
+      this.props.navigation.navigate('LoanPayment',{billerId:id, billerName:Name})
+
+     }
   render() {
     const {auth} = this.props;
-    console.log('reducer', auth);
+     
+    
+    
     return (
       <Container style={styles.Container}>
         <Header style={{backgroundColor: '#1b1464', height: 100}}>
@@ -119,7 +143,7 @@ class Home extends Component {
 
               <View style={styles.userid}>
                 <Text style={styles.userName}>9100146410</Text>
-                <Text style={styles.id}>MemberID 1181</Text>
+    <Text style={styles.id}>MemberID:1181</Text>
               </View>
             </ListItem>
           </Left>
@@ -226,7 +250,7 @@ class Home extends Component {
                       source={require('../../images/rupi_icon.png')}
                       style={{height: 16, width: 10, marginTop: 10}}
                     />
-                    <Text style={styles.bal}>10000</Text>
+                    <Text style={styles.bal}>5000</Text>
                   </Left>
 
                   <Right>
@@ -265,38 +289,123 @@ class Home extends Component {
 
                 <Text style={styles.tns_text}>Transactions</Text>
               </ListItem>
-              <View style={{alignItems: 'center', marginVertical: 16}}>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
-                  <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/phone.png')}
+              <View >
+                <View style={{flexDirection: 'row', flexWrap:'wrap',  }}>
+                   {  this.state.billpay.map(item=>{
+                    return(
+                      <TouchableOpacity onPress={()=>this.handleBillpay(item.Id, item.Name)}>
+                      <View style={styles.box}>
+                        {item.ServerId==="6" ?
+                        <View>
+                        <Image
+                        source={require('../../images/home/phone.png')}
+                        style={styles.billIcon}
+                      />
+                      <Text style={styles.iconText}>{item.Name}</Text>
+                        </View>:
+                         item.ServerId==="7"?
+                         <View>
+<Image
+                      source={require('../../images/home/Broadband.png')}
+                      style={styles.broadband}
+                    />
+                      <Text style={styles.iconText}>{item.Name}</Text>
+
+                           </View>:
+                            item.ServerId==="9"?
+                            <View>
+
+<Image
+                      source={require('../../images/home/water.png')}
+                      style={styles.watericon}
+                    />
+                     <Text style={styles.iconText}>{item.Name}</Text>
+
+
+                            </View>:
+                            item.ServerId==="5"?
+                            <View>
+
+<Image source={require('../../images/home/Landline.png')} style={styles.watericon}/>
+
+
+<Text style={styles.iconText}>{item.Name}</Text>
+
+                              </View>:
+                              item.ServerId==="4"?
+                              <View>
+<Image
+                      source={require('../../images/home/DTH.png')}
                       style={styles.billIcon}
                     />
-                    <Text style={styles.iconText}>Mobile {'\n'}Prepaid</Text>
+                     <Text style={styles.iconText}>{item.Name}</Text>
+
+
+                              </View>:
+                              item.ServerId==="3"?
+                              <View>
+<Image
+                      source={require('../../images/home/Electricity.png')}
+                      style={styles.billIcon}
+                    />
+                    <Text style={styles.iconText}>{item.Name}</Text>
+
+
+                            
+
+                              </View>:
+                              item.ServerId==="2"?
+                              <View>
+<Image source={require('../../images/billpay/Gas.png')} style={styles.gas}/>
+<Text style={styles.iconText}>{item.Name}</Text>
+
+                                </View>:null
+
+
+                        
+                        }
+
+                        
+                    </View>
+                    </TouchableOpacity>
+
+                  
+                    )
+                    
+                     
+
+                
+                    })}  
+                    <View style={styles.dottedmore}>
+                    <Text
+                      style={styles.moretext}
+                      onPress={() => this.props.navigation.navigate('PayBill')}>
+                      More
+                    </Text>
                   </View>
-                  <View style={styles.box}>
+                  {/* <View style={styles.box}>
                     <Image
                       source={require('../../images/home/phone.png')}
                       style={styles.billIcon}
                     />
                     <Text style={styles.iconText}>Mobile Postpaid</Text>
-                  </View>
-                  <View style={styles.box}>
+                  </View> */}
+                  {/* <View style={styles.box}>
                     <Image
                       source={require('../../images/home/Broadband.png')}
                       style={styles.broadband}
                     />
                     <Text style={styles.iconText}>Broadband</Text>
-                  </View>
-                  <View style={styles.box}>
+                  </View> */}
+                  {/* <View style={styles.box}>
                     <Image
                       source={require('../../images/home/Electricity.png')}
                       style={styles.billIcon}
                     />
                     <Text style={styles.iconText}>Electricity</Text>
-                  </View>
-                </View>
-
+                // </View>*/}
+                 </View> 
+{/* 
                 <View
                   style={{
                     flex: 1,
@@ -334,7 +443,7 @@ class Home extends Component {
                       More
                     </Text>
                   </View>
-                </View>
+                </View> */}
               </View>
             </View>
           </View>
@@ -377,7 +486,13 @@ class Home extends Component {
                     </Item>
                   </Left>
                   <Right>
-                    <Item style={styles.itemview}>
+                  
+                    <Item style={styles.itemview}
+                     onPress={() =>
+                      this.props.navigation.navigate('Fdscreen')
+                    }
+                    >
+                      
                       <Image
                         source={require('../../images/home/trendup.png')}
                         style={styles.fd_rdiicon}
@@ -385,9 +500,7 @@ class Home extends Component {
 
                       <Text
                         style={styles.fd_rdbtn}
-                        onPress={() =>
-                          this.props.navigation.navigate('Fdscreen')
-                        }>
+                        >
                         {' '}
                         FD RATES
                       </Text>
@@ -524,12 +637,12 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-  auth: state.auth.userMpin,
+  auth: state.auth,
 });
 
 export default connect(
   mapStateToProps,
-  {getActivemethods, getBeneficiaryBank},
+  {getActivemethods, getBeneficiaryBank,getBanners,isFinbusCustomerForRD, getPrepaidBillerCategories},
 )(Home);
 
 const styles = StyleSheet.create({
@@ -821,10 +934,11 @@ const styles = StyleSheet.create({
     shadowRadius: 11.95,
 
     elevation: 5,
+      marginTop: 15,
   },
   billIcon: {
     height: 42,
-    width: 24,
+    width: 30,
     marginTop: 5,
     alignSelf: 'center',
   },
@@ -908,6 +1022,7 @@ const styles = StyleSheet.create({
     height: 75,
     width: 75,
     marginBottom: 20,
+     marginTop: 15,
   },
   fddotedtext: {
     width: 189,
@@ -949,4 +1064,13 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderTopColor: 'grey',
   },
+  gas:{ 
+    height:36,
+     width:22,
+      marginTop:10,
+    
+     alignSelf:'center'
+
+
+},
 });

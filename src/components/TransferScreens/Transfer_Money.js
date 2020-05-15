@@ -48,9 +48,9 @@ export default class Transfer_Money extends Component {
                
                 <TouchableOpacity
  onPress={() =>
-    this.props.navigation.navigate('To_myBankAcc', {
+    this.props.navigation.navigate('To_sparkAcc', {
       type: 2,
-      name: 'To Spark Savings Account',
+     
     })
   }>
 
@@ -67,7 +67,7 @@ export default class Transfer_Money extends Component {
 
           <TouchableOpacity
           onPress={() =>
-            this.props.navigation.navigate('To_myBankAcc', {
+            this.props.navigation.navigate('To_sparkAcc', {
               type: 3,
               name: 'To Spark Business Account',
             })

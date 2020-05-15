@@ -29,7 +29,7 @@ import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {connect} from 'react-redux';
-import {signupCheckmobile, checkMoblieno} from '../../Redux/actions/authAction';
+import {signupCheckmobile, checkMoblieno,ResendOtpCheckMobileNo} from '../../Redux/actions/authAction';
 
 class Signup extends Component {
   constructor(props) {
@@ -41,6 +41,7 @@ class Signup extends Component {
       isVisible: false,
       Statevalue: '',
       MobileNO: '',
+      stateValue:'',
     };
   }
   handleState = (name, id) => {
@@ -49,21 +50,37 @@ class Signup extends Component {
       Statevalue: name,
     });
   };
-  toggelopen = () => {
-    this.setState({
-      isVisible: true,
-    });
-  };
-  toggelclose = () => {
-    this.setState({
-      isVisible: false,
-    });
-  };
+  // toggelopen = () => {
+  //   this.setState({
+  //     isVisible: true,
+  //   });
+  // };
+  // toggelclose = () => {
+  //   this.setState({
+  //     isVisible: false,
+  //   });
+  // };
+
+
+   resendOtpDetails=()=>{
+
+     const resendOtp={
+        email:this.state.email,
+        mobileno:this.state.MobileNO
+     }
+
+
+      this.props.ResendOtpCheckMobileNo(resendOtp)
+
+     
+
+   }
+
 
   OtpDetails = () => {
     const {signUpDetails} = this.props.auth;
     const otp = {
-      refNo: signUpDetails.refNo,
+      refNo: signUpDetails.Data.refNo,
       otp: this.state.mobileOtp,
     };
 
@@ -94,18 +111,27 @@ class Signup extends Component {
 
 
     this.props.signupCheckmobile(userDetails).then(() => {
-      const {signUpDetails} = this.props.auth;
-      if (signUpDetails.code === '200') {
+      const {auth} = this.props;
+      if (auth.signUpDetails.code==="200") {
         this.setState({
           isVisible: true,
         });
       }
     });
-  };
+  // };
+  }
+
+   handleState=(name)=>{
+     this.setState({
+        stateValue:name
+     })
+     this.RBSheet.close()
+   }
 
   render() {
     const {mobileOtp} = this.state;
     const {auth} = this.props;
+     console.log('redux res',auth.signUpDetails.code )
 
     return (
       <Container style={styles.Container}>
@@ -166,14 +192,13 @@ class Signup extends Component {
               <Item
                 regular
                 style={styles.dropInput}
-                onPress={() => this.RBSheet.open()}>
-                {/* <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text> */}
-                {/* <Icon name='ios-arrow-down' 
-                             style={styles.arrowicon}
-                             
-                            
-                            
-                            /> */}
+                >
+               <Input
+                placeholder=""
+                style={styles.input}
+                value={this.state.stateValue}
+              />
+              <Icon name="ios-arrow-down" onPress={() => this.RBSheet.open()} />
 
                 <RBSheet
                   ref={ref => {
@@ -287,7 +312,7 @@ class Signup extends Component {
               }}>
               <Text>2:00.0</Text>
               <TouchableOpacity>
-                <Text style={styles.resendOtp} onPress={this.otpResend}>
+                <Text style={styles.resendOtp} onPress={this.resendOtpDetails}>
                   Resend OTP
                 </Text>
               </TouchableOpacity>
@@ -315,7 +340,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {signupCheckmobile, checkMoblieno},
+  {signupCheckmobile, checkMoblieno, ResendOtpCheckMobileNo},
 )(Signup);
 
 const styles = StyleSheet.create({

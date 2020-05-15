@@ -8,6 +8,8 @@ import RDScheduleScreen from './rdScheduleScreen';
 import HomeScreen from '../FdScreens/HomeScreen';
 import InterestScreen from '../FdScreens/InterestScreen';
 import TenureScreen from '../FdScreens/TenureScreen';
+ import {getActiveFlexibleFd}from '../../Redux/actions/fdAction'
+import { connect } from 'react-redux';
 
 
 const width = Math.round(Dimensions.get('window').width);
@@ -45,10 +47,9 @@ constructor(props){
   }
 }
 
-// componentDidMount(){
-//   console.log('successful to write API')
-//   this.props.getActiveRD()
-// }
+componentDidMount(){
+   this.props.getActiveFlexibleFd()
+}
 handleDepositAnimations =(imageValue,click)  =>{
   Animated.timing(this.animatedValue,{
     toValue :imageValue,
@@ -239,6 +240,9 @@ handleAnimation = () => {
   }
   }
   render(){
+  const{FDRDcreation}=this.props
+   console.log(FDRDcreation)
+
     // const sheet = {
     //   transform:[
     //     {
@@ -478,7 +482,19 @@ Breakable Recurring Deposit
 }
 
 
-export default FixedDepositScreen;
+
+
+const mapStateToProps = state => ({
+  FDRDcreation: state.FDRDcreation,
+});
+export default connect(
+  mapStateToProps,
+  {getActiveFlexibleFd},
+)(FixedDepositScreen);
+
+
+
+
 const styles = StyleSheet.create({
   content:{
     fontSize:14,

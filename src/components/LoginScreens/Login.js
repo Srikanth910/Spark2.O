@@ -84,6 +84,7 @@ class Login extends Component {
   }
 
   componentDidMount = () => {
+    
     DeviceInfo.getAndroidId().then(id => {
       this.setState({
         DeviceID: id,

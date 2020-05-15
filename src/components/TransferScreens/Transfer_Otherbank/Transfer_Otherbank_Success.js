@@ -10,6 +10,8 @@ export default class Transfer_Otherbank_Success extends Component {
             <Container>
 
                 <ImageBackground source={require('../../../images/home/success_bg.png')} style={{ height: '100%', width: '100%' }} >
+                <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
+
                     <ScrollView>
 
                         <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>

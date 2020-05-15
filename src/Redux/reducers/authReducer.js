@@ -15,8 +15,17 @@ import {
   SIGNUP_USER_SUCCESS,
   SIGNUP_CHECK_OTP_SUCCESS,
   CREATE_MEMBAR_TOKEN_SUCCESS,
+  ISFIN_BUS_RD_SUCCESS,
+  GET_PREPAID_BILLER_SUCCESS,
+  CREATE_OTP_EDITPROFILE_SUCCESS,
+  UPDATE_PROFILE_SUCCESS,
+  GET_TRANSACTION_SUCCESS,
+  GET_PROFILE_SUCCUESS,
+  STATEMENT_DATE_SUCCESS,
+  GET_BANNERS_SUCCESS,
 } from '../constants/types';
 import {ActionSheet} from 'native-base';
+// import { getPrepaidBillerCategories } from '../actions/authAction';
 
 const initialState = {
   userData: {},
@@ -31,8 +40,14 @@ const initialState = {
   updateMpin: {},
   DeviceOtp: {},
   signUpotp: {},
-   signUpDetails:{}
-   
+  signUpDetails: {},
+  finbusDetails: {},
+  getProfiledata: {},
+  getPrepaidData: {},
+  editProfileOtp: {},
+  otpVerifyProfile: {},
+  getTransactionList: {},
+  STATEMENT_DATE_SUCCESS: {},
 };
 
 export default function(state = initialState, action) {
@@ -51,12 +66,13 @@ export default function(state = initialState, action) {
         userMpin: action.payload,
       };
 
+    case SIGNUP_USER_SUCCESS:
+      return {
+        ...state,
+        signUpDetails: action.payload,
+      };
 
-       case SIGNUP_USER_SUCCESS:
-          return{
-            ...state ,
-            signUpDetails:action.payload
-          }
+
     case DEVICEID_OTP:
       return {
         ...state,
@@ -100,6 +116,47 @@ export default function(state = initialState, action) {
         updateMpin: action.payload,
       };
 
+    case ISFIN_BUS_RD_SUCCESS:
+      return {
+        ...state,
+        finbusDetails: action.payload,
+      };
+    case GET_PROFILE_SUCCUESS:
+      return {
+        getProfiledata: action.payload,
+      };
+    case GET_PREPAID_BILLER_SUCCESS:
+      return {
+        getPrepaidData: action.payload,
+      };
+    case CREATE_OTP_EDITPROFILE_SUCCESS:
+      return {
+        ...state,
+        editProfileOtp: action.payload,
+      };
+
+    case UPDATE_PROFILE_SUCCESS:
+      return {
+        ...state,
+        otpVerifyProfile: action.payload,
+      };
+
+    case GET_TRANSACTION_SUCCESS:
+      return {
+        ...state,
+        getTransactionList: action.payload,
+      };
+    case STATEMENT_DATE_SUCCESS:
+      return {
+        ...state,
+        getStatement: action.payload,
+      };
+
+       case GET_BANNERS_SUCCESS:
+          return{
+             ...state,
+              banners:action.payload
+          }
     default:
       return state;
   }
