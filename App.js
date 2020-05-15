@@ -67,6 +67,8 @@ import Transfer_Otherbank_confirm from './src/components/TransferScreens/Transfe
 import Loanpayment_Success from './src/components/Bill_Payments/Lanpayment_Success';
 import Otherbank_acc from './src/components/TransferScreens/Otherbank_acc';
 import Transfer_Spark_otherbank from './src/components/TransferScreens/Transfer_Spark_otherbank';
+import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
+// import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
 export default class App extends Component {
   constructor(props) {
     super(props);

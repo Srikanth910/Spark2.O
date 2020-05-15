@@ -14,7 +14,7 @@ const rootReducer = combineReducers({
      loadmoney:loadmoneyDetails,
      transferDetails:transferDetails,
       BIllcatagoryDetails:BIllcatagory,
-       FDcreation:fdDetails
+       FDRDcreation:fdDetails
 
     
 });

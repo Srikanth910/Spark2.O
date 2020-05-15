@@ -5,6 +5,7 @@ import {
   TRANSACTION_WITHINCOOP_SUCCESS,
   CREATE_OTP_OUTSIDE_SUCCESS,
   TRANSACTION_WITHINCOOP_SPARK_SUCCESS,
+  CREATE_OTP_BUSINESS_SUCCESS,
 } from '../constants/types';
 
 const initialState = {
@@ -12,7 +13,8 @@ const initialState = {
   getActiveDetails: {},
   payoutDetails: {},
   otpOutsideDetails: {},
-  withinSpark:{}
+  withinSpark:{},
+  sparkOtp:{}
 };
 
 export default function(state = initialState, action) {
@@ -49,6 +51,12 @@ export default function(state = initialState, action) {
               ...state,
                 withinSpark:action.payload
         }
+         case CREATE_OTP_BUSINESS_SUCCESS
+         :
+               return{
+                     ...state,
+                      sparkOtp:action.payload
+               }
 
 
     default:

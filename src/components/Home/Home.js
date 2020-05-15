@@ -97,7 +97,20 @@ class Home extends Component {
     }
   }
 
-    componentDidMount=()=>{
+    componentDidMount= async()=>{
+
+        // try{
+        //    const data=  await  AsyncStorage.getItem('Loginuser');
+        //     console.log(data)
+        // } catch(e){
+        //    console.log(e)
+        // }
+        
+          
+
+
+
+
        
         
 
@@ -254,7 +267,10 @@ class Home extends Component {
                   </Left>
 
                   <Right>
-                    <Button transparent>
+                    <Button transparent
+                    
+                     onPress={()=>this.props.navigation.navigate('Saving_Account_Main')}
+                    >
                       <Image source={require('../../images/home/arrow.png')} />
                     </Button>
                   </Right>

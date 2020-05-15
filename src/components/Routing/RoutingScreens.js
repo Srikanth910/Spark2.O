@@ -62,6 +62,8 @@ import Transfer_Otherbank_confirm from '../TransferScreens/Transfer_Otherbank/Tr
 import Transfer_Otherbank_Success from '../TransferScreens/Transfer_Otherbank/Transfer_Otherbank_Success';
 import Loanpayment_Success from '../Bill_Payments/Lanpayment_Success';
 import Transfer_Spark_otherbank from '../TransferScreens/Transfer_Spark_otherbank';
+import Saving_Account_Main from '../statements/Saving_Account_Main';
+import View_Account_Statement from '../statements/View_Account_Statement';
  
 const Stack = createStackNavigator();
 
@@ -151,6 +153,9 @@ function Routing() {
          <Stack.Screen name="Transfer_Otherbank_Success" component={Transfer_Otherbank_Success} /> 
          <Stack.Screen name="Loanpayment_Success" component={Loanpayment_Success} /> 
          <Stack.Screen name="Transfer_Spark_otherbank" component={Transfer_Spark_otherbank} /> 
+    
+         <Stack.Screen name="Saving_Account_Main" component={Saving_Account_Main} /> 
+         <Stack.Screen name="View_Account_Statement" component={View_Account_Statement} /> 
     
          
          

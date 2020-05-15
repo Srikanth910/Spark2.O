@@ -39,7 +39,7 @@ class ImageSilder extends Component {
 
   render() {
     const {auth} = this.props; 
-     console.log(auth.banners)
+    
     
     const images = this.state.banners.map(item => {
       return item.BannerURL;

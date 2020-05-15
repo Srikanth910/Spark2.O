@@ -46,8 +46,10 @@ import {
   GET_TRANSACTION_FAIL,
   STATEMENT_DATE_SUCCESS,
   STATEMENT_DATE_FAIL,
+  SESSION_MISSING,
 } from '../constants/types';
 import {setAuthToken} from '../../components/utils/setAuthToken';
+import AsyncStorage from '@react-native-community/async-storage';
 // import AsyncStorage from '@react-native-community/async-storage';
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 
@@ -69,7 +71,7 @@ export const signupCheckmobile = data => {
         });
     
      } else{
-         alert('try again')
+        
          dispatch({
           type: SIGNUP_USER_FAIl,
           payload: createUserDetails,
@@ -231,19 +233,26 @@ export const loginUser = data => async dispatch => {
           payload: res.data,
         });
       } else if (loginDetail.code === '504') {
+      
+         
         dispatch({
           type: DEVICEID_OTP,
           payload: loginDetail,
         });
       } else if (loginDetail.Data.Message === 'SUCCESS') {
+     
+
         const token = loginDetail.Data.Token;
-
         setAuthToken(token);
-
+       
+      
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.data.Data,
         });
+        AsyncStorage.mergeItem('Loginuser',JSON.stringify (loginDetail.Data))
+        
+           
       }
     })
     .catch(err => {
@@ -540,7 +549,13 @@ export const getBanners = data => {
           type: GET_BANNERS_SUCCESS,
           payload: banners,
         });
+      }else{
+          dispatch({
+            type:SESSION_MISSING,
+             payload:banners
+          })
       }
+       
     } catch (err) {
       console.log(err);
       dispatch({
