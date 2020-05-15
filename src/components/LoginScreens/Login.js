@@ -614,7 +614,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   input: {
-    height: 40,
+    
     backgroundColor: '#e1e4eb',
     borderRadius: 5,
   },

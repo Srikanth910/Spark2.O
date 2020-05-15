@@ -326,7 +326,7 @@ const styles = StyleSheet.create({
     },
     text: {
         width: 304,
-        height: 38,
+       
         fontFamily: 'Nunito',
         fontSize: 14,
         fontWeight: "normal",

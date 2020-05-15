@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
   amount: {
     color: '#4a4a4a',
     textAlign: 'center',
-    height: 20,
+   
     fontSize: 19,
   },
   textInput: {

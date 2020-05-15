@@ -675,7 +675,7 @@ const styles = StyleSheet.create({
     height: 15,
   },
   userName: {
-    height: 19,
+    
     fontFamily: 'Nunito',
     fontSize: 14,
     color: '#ffffff',
@@ -686,7 +686,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
   },
   id: {
-    height: 16,
+   
     opacity: 0.5,
     fontFamily: 'Nunito',
     fontSize: 12,
@@ -786,7 +786,7 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   bal: {
-    height: 26,
+    
     fontFamily: 'Inconsolata',
     fontSize: 24,
     fontFamily: 'Inconslata',
@@ -863,7 +863,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   billpay: {
-    height: 245,
+   
     backgroundColor: '#ffffff',
     marginTop: 16,
   },
