@@ -18,25 +18,25 @@ import {connect} from 'react-redux';
 import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
 
 class AddBank_Account extends Component {
-  componentDidMount() {
+  // componentDidMount() {
 
-    const data = {
-        "membarId": "1421",
-        "isPrimaryAccunt": "true",
-        "isWithInCoop": "false",
-        "type": "2",
-      };
+  //   const data = {
+  //       "membarId": "1421",
+  //       "isPrimaryAccunt": "true",
+  //       "isWithInCoop": "false",
+  //       "type": "2",
+  //     };
    
-    this.props.getBeneficiaryBank(data).then(() => {
-      const {transferDetails} = this.props;
-      if (transferDetails.code === '200') {
-        this.props.navigation.navigate('To_myBankAcc',{ type: 1,
-            name: 'To My Bank Account',});
-      } else {
-        this.props.navigation.navigate('MyBank_Account');
-      }
-    });
-  }
+  //   this.props.getBeneficiaryBank(data).then(() => {
+  //     const {transferDetails} = this.props;
+  //     if (transferDetails.code === '200') {
+  //       this.props.navigation.navigate('To_myBankAcc',{ type: 1,
+  //           name: 'To My Bank Account',});
+  //     } else {
+  //       this.props.navigation.navigate('MyBank_Account');
+  //     }
+  //   });
+  // }
 
   render() {
     console.log("vale",this.props.transferDetails.code);

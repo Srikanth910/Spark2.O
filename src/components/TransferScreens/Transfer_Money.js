@@ -17,10 +17,33 @@ import {
 } from 'native-base';
 import {StyleSheet, StatusBar, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
+import { connect } from 'react-redux';
 
-export default class Transfer_Money extends Component {
+class Transfer_Money extends Component {
 
   
+
+  handlebankACC=()=>{
+    
+    const data = {
+        "membarId": "1421",
+        "isPrimaryAccunt": "true",
+        "isWithInCoop": "false",
+        "type": "2",
+      };
+   
+    this.props.getBeneficiaryBank(data).then(() => {
+      const {transferDetails} = this.props;
+      if (transferDetails.code === '200') {
+        this.props.navigation.navigate('To_myBankAcc',{ type: 1,
+            name: 'To My Bank Account',});
+      } else {
+        this.props.navigation.navigate('AddBank_Account');
+      }
+    });
+    
+  }
   render() {
     return (
       <Container style={styles.Container}>
@@ -86,8 +109,10 @@ export default class Transfer_Money extends Component {
             
 
               <TouchableOpacity
-                onPress={() =>
-                  this.props.navigation.navigate('AddBank_Account')
+                onPress={this.handlebankACC
+
+                  
+                  // this.props.navigation.navigate('AddBank_Account')
                 }>
                 <View style={styles.box}>
                   <Image
@@ -193,6 +218,15 @@ export default class Transfer_Money extends Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  transferDetails: state.transferDetails.getbackDetials
+});
+
+export default connect(
+  mapStateToProps,
+  {getBeneficiaryBank},
+)(Transfer_Money);
+
 
 const styles = StyleSheet.create({
   Container: {

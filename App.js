@@ -68,6 +68,9 @@ import Loanpayment_Success from './src/components/Bill_Payments/Lanpayment_Succe
 import Otherbank_acc from './src/components/TransferScreens/Otherbank_acc';
 import Transfer_Spark_otherbank from './src/components/TransferScreens/Transfer_Spark_otherbank';
 import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
+import ViewRd from './src/components/fd&rdScreens/ViewRd';
+import Mybank_Confirm from './src/components/TransferScreens/Mybank_Confirm';
+import To_spark_confirm from './src/components/TransferScreens/Transfer_Otherbank/To_spark_confirm';
 // import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
 export default class App extends Component {
   constructor(props) {
@@ -82,7 +85,7 @@ export default class App extends Component {
     return (
       <>
         <Provider store={store}>
-          <Routing />
+          <Routing/>
         </Provider>
       </>
     );

@@ -29,55 +29,77 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 class Transfer_Spark_otherbank extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    }
-     
-    
+    this.state = {};
   }
 
   componentDidMount() {
-   const{params}=this.props.route
-    if(params.type===2){
+    const {params} = this.props.route;
+    if (params.type === 2) {
+      const data = {
+        membarId: '1421',
+        isPrimaryAccunt: 'false',
+        isWithInCoop: 'true',
+        type: '1',
+      };
+      this.props.getBeneficiaryBank(data);
+    } else if (params.type === 4) {
       const data = {
         membarId: '1421',
         isPrimaryAccunt: 'false',
         isWithInCoop: 'false',
-        type: '1',
+        type: '2',
       };
       this.props.getBeneficiaryBank(data);
-    }else if(params.type===4){
-     
-    const data = {
-      membarId: '1421',
-      isPrimaryAccunt: 'false',
-      isWithInCoop: 'false',
-      type: '2',
-    };
-    this.props.getBeneficiaryBank(data);
-  }else{
-     alert('loading errpr')
-  }
-}
-
-
-
-    handleData=(Name, acc, ifcs)=>{
-     
-        this.props.navigation.navigate('To_myBankAcc', {
-          type: 4,
-          name: 'To Other Bank Account',
-          holder:Name,
-           AccountBen:acc,
-           IFCS:ifcs,
-           otherBeneficiary:"true"
-
-        })
-      
-
+    } else if (params.type === 3) {
+      const data = {
+        membarId: '1421',
+        isPrimaryAccunt: 'false',
+        isWithInCoop: 'true',
+        type: '5',
+      };
+      this.props.getBeneficiaryBank(data);
     }
+  }
+
+  handleData = (Name, acc, ifcs, memberOf) => {
+    const {params} = this.props.route;
+    if (params.type === 2) {
+      this.props.navigation.navigate('To_sparkAcc', {
+        type: 2,
+        name: 'To Spark Saving Account',
+        holder: Name,
+        AccountBen: acc,
+        IFCS: ifcs,
+         memberOf:memberOf,
+        otherBeneficiary: 'true',
+      });
+    } else if (params.type === 4) {
+      this.props.navigation.navigate('To_myBankAcc', {
+        type: 4,
+        name: 'To Other Bank Account',
+        holder: Name,
+        AccountBen: acc,
+        IFCS: ifcs,
+        otherBeneficiary: 'true',
+      });
+    } else if(params.type===3) {
+
+      this.props.navigation.navigate('To_sparkAcc', {
+        type: 3,
+        name: 'To Spark Business Account',
+        holder: Name,
+        AccountBen: acc,
+        IFCS: ifcs,
+        otherBeneficiary: 'true',
+      })
+    }else{
+       alert('fail to Load server')
+    }
+  };
   render() {
     const {transferDetails} = this.props;
+    const {params} = this.props.route;
+     console.log('saving', params)
     return (
       <Container>
         <Header style={{backgroundColor: '#1b1464', height: 90}}>
@@ -126,25 +148,49 @@ class Transfer_Spark_otherbank extends Component {
               return (
                 // <TouchableOpacity onPress={()=>alert('hello')}>
                 <View style={styles.curd_user}>
-                    <TouchableOpacity onPress={()=>this.handleData(data.Name, data.BeneficiaryAccNo, data.IFSCCode)}>
-                  <ListItem
-                    style={{
-                      borderColor: 'transparent',
-                      justifyContent: 'center',
-                    }}>
-                    <Image
-                      source={require('../../images/Transfer/Other_Bank.png')}
-                      style={styles.bank}
-                    />
+                  <TouchableOpacity
+                    onPress={() =>
+                      this.handleData(
+                        data.Name,
+                        data.BeneficiaryAccNo,
+                        data.IFSCCode,
+                        data.memberOf,
+                      )
+                    }>
+                    <ListItem
+                      style={{
+                        borderColor: 'transparent',
+                         marginLeft:30,
+                        
+                      }} Thumbnail>
+                      {params.type === 2 ? (
+                        <Image
+                          source={require('../../images/home/pet_bank.png')}
+                          style={styles.petbank}
+                        />
+                      ) :
+                      
+                        params.type===3?
+                        <Image
+                        source={require('../../images/Transfer/Spark_Business.png')}
+                      
+                        
+                      />
+                        
+                      
+                      :(
+                        <Image
+                          source={require('../../images/Transfer/Other_Bank.png')}
+                          style={styles.bank}
+                        />
+                      )}
 
-                  
-                    <View style={{paddingLeft: 40}}>
-                      <Text style={styles.usertext}>{data.Name}</Text>
-                      <Text style={styles.user}>{data.BeneficiaryAccNo}</Text>
-                      <Text style={styles.user}>{data.IFSCCode}</Text>
-                    </View>
-                   
-                  </ListItem>
+                      <View style={{paddingLeft: 20,  paddingTop:10}}>
+                        <Text style={styles.usertext}>{data.Name}</Text>
+                        <Text style={styles.user}>{data.BeneficiaryAccNo}</Text>
+                        <Text style={styles.user}>{data.IFSCCode}</Text>
+                      </View>
+                    </ListItem>
                   </TouchableOpacity>
                 </View>
               );

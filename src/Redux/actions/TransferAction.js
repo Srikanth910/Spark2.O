@@ -8,6 +8,15 @@ import {
   TRANSACTION_WITHINCOOP_SUCCESS,
   CREATE_OTP_BUSINESS_SUCCESS,
   TRANSACTION_WITHINCOOP_SPARK_SUCCESS,
+  TRANSACTION_WITHINCOOP_SPARK_FAIL,
+  CREATE_SCHEDULE_SUCCESS,
+  CREATE_SCHEDULE_FAIL,
+  CREATE_OTP_SCHEDULE_SUCCESS,
+  CREATE_OTP_SCHEDULE_FAIL,
+  RESEND_OTP_SCHEDULE_SUCCESS,
+  RESEND_OTP_SCHEDULE_FAIL,
+  ACCOUNT_BALANCE_RAZORPAY_SUCCESS,
+  SESSION_MISSING,
 } from '../constants/types';
 
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
@@ -73,11 +82,9 @@ export const getpayoutstatus = data => {
     try {
       const res = await axios.get(
         `${API_URL}/getpayoutstatusIos?custid=${data.memberID}&amount=${data.amount}&type=${data.type}`,);
-  
-        
          
       let payoutStatus = await res.data;
-      console.log('res', payoutStatus);
+      console.log('resStatus', payoutStatus);
       if (payoutStatus.code === '200') {
         dispatch({
           type: GET_PAYOUT_STATUS_SUCCESS,
@@ -129,14 +136,47 @@ export const createOtpOutside = data => {
 
 
 
-export const TransferWithincoop = data => {
+export const addSavingsAccountBalanceRazorpay = data => {
   console.log('uires',data);
   return async dispatch => {
     try {
       const res = await axios.get(
-        `${API_URL}/transferWithOutCoopV1_3?membarId=${data.memberID}&amount=${data.amount}
-        &accountNo=${data.amount}&accountHolderName=${data.type}&isfcCode=${data.ifcscode}&bank=OTHERS&discription=${data.discription}&refNo=${data.refNo}&otp=${data.otp}$charges=${data.charges}&paymentType=${data.paymentType}`,);
+        `${API_URL}/addSavingsAccountBalanceRazorpay?membarId=${data.membarId}&balance=${data.amount}&chargeAmount=0.0&isServiceChargePayedByCust=no&isShareBuy=false&pgTransId=${data.id}`)
          
+      let razorpayDetails = await res.data;
+      console.log('res', payoutStatus);
+      if (razorpayDetails.code === '200') {
+        dispatch({
+          type: ACCOUNT_BALANCE_RAZORPAY_SUCCESS,
+          payload: razorpayDetails,
+        });
+      }else if(razorpayDetails.code==="403"){
+
+         dispatch({
+            type:SESSION_MISSING,
+             payload:razorpayDetails
+         })
+      }else{
+         alert ('network falid')
+      }
+       
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: CATACH_ERROR,
+        payload: err,
+      });
+    }
+  };
+};
+
+
+
+export const TransferWithincoop = data => {
+  console.log('uires',data);
+  return async dispatch => {
+    try {
+      const res = await axios.get(`${API_URL}/ transferWithOutCoopV1_3?membarId=1421&accountNo=${data.accountNo}&accountHolderName=${data.accountHolderName}&isfcCode=${data.isfcCode}&bank=OTHERS&amount=${data.amount}&discription=${data.discription}&refNo=${data.refNo}&otp=${data.otp}&charges=${data.charges}&paymentType=${data.paymentType}`)
       let payoutStatus = await res.data;
       console.log('res', payoutStatus);
       if (payoutStatus.code === '200') {
@@ -163,9 +203,12 @@ export const createOtpBusiness = data => {
   return async dispatch => {
     try {
       const res = await axios.get(
-        `${API_URL}/createOtpV1_3_5?custId=${data.memberID} &toMembarNumebr=${data.toMembarNumebr}&TransType=${data.TransType}&amount=${data.amount}&memberOf=${data.memberOf}`,);
+        `${API_URL}/createOtpV1_3_5?custId=${data.custId}&toMembarNumebr=${data.accountNo}&TransType=1&amount=${data.amount}&memberOf=${data.method}`)
+        
+        // createOtpV1_3_5?custId=${data.memberID}&toMembarNumebr=${data.toMembarNumebr}&TransType=1&amount=${data.amount}&memberOf=${data.memberOf}`);
          
        
+
       let payoutStatus = await res.data;
       console.log('res', payoutStatus);
       if (payoutStatus.code === '200') {
@@ -173,7 +216,11 @@ export const createOtpBusiness = data => {
           type: CREATE_OTP_BUSINESS_SUCCESS,
           payload: payoutStatus,
         });
+      }else{
+         alert('invalid otp')
       }
+
+
     } catch (err) {
       console.log(err);
       dispatch({
@@ -198,8 +245,8 @@ export const transferWithinCoopSPark= data => {
   return async dispatch => {
     try {
       const res = await axios.get(
-        `${API_URL}/transferWithinCoopV1_3?fromMembarId=${data.memberID}
-        &toMembarNumebr=${data.toMembarNumebr}&transferAmount=${data.transferAmount}&refNo=${data.refNo}&otp=${data.otp}$charges=${data.charges}&Descr=${data.Descr}`,);
+        `${API_URL}/transferWithinCoopV1_3?fromMembarId=${data.fromMembarId}
+        &toMembarNumebr=${data.toMembarNumebr}&transferAmount=${data.transferAmount}&refNo=${data.refNo}&otp=${data.otp}&Descr=${data.Descr}&memberOf=${data.method}`,);
          
       let withincoopDetails = await res.data;
       console.log('res', withincoopDetails);
@@ -208,6 +255,11 @@ export const transferWithinCoopSPark= data => {
           type: TRANSACTION_WITHINCOOP_SPARK_SUCCESS,
           payload: withincoopDetails,
         });
+      }else {
+         dispatch({
+            type:TRANSACTION_WITHINCOOP_SPARK_FAIL, 
+            payload:withincoopDetails
+         })
       }
     } catch (err) {
       console.log(err);
@@ -229,7 +281,103 @@ export const transferWithinCoopSPark= data => {
 
 
 
+ 
 
 
 
+export const createSchedulePayout = data => {
+  console.log('uires',data);
+  return async dispatch => {
+    try {
+      const res = await axios.get(`${API_URL}/createSchedulePayoutV2_O`, data)
+      let scheduleDetails = await res.data;
+      console.log('res', payoutStatus);
+      if (scheduleDetails.code === '200') {
+        dispatch({
+          type: CREATE_SCHEDULE_SUCCESS,
+          payload: scheduleDetails,
+        });
+      }else{
+         dispatch({
+            type:CREATE_SCHEDULE_FAIL,
+             payload:scheduleDetails
+         })
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: CATACH_ERROR,
+        payload: err,
+      });
+    }
+  };
+};
+
+
+
+
+
+
+export const createOtpForSchedulePayout = data => {
+  console.log('uires',data);
+  return async dispatch => {
+    try {
+      const res = await axios.get(`${API_URL}/createOtpForSchedulePayout_V2_O`, data)
+      let  otpSchedule = await res.data;
+      console.log('res', payoutStatus);
+      if (otpSchedule.code === '200') {
+        dispatch({
+          type: CREATE_OTP_SCHEDULE_SUCCESS,
+          payload: otpSchedule,
+        });
+      }else{
+         dispatch({
+            type:CREATE_OTP_SCHEDULE_FAIL,
+             payload:otpSchedule
+         })
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: CATACH_ERROR,
+        payload: err,
+      });
+    }
+  };
+};
+
+
+
+
+
+
+
+
+export const resendOtpForSchedulePayout = data => {
+  console.log('uires',data);
+  return async dispatch => {
+    try {
+      const res = await axios.get(`${API_URL}/resendOtpForSchedulePayout_V2_O`, data)
+      let  resendOtp = await res.data;
+      console.log('res', payoutStatus);
+      if (resendOtp.code === '200') {
+        dispatch({
+          type: RESEND_OTP_SCHEDULE_SUCCESS,
+          payload: resendOtp,
+        });
+      }else{
+         dispatch({
+            type:RESEND_OTP_SCHEDULE_FAIL,
+             payload:resendOtp
+         })
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: CATACH_ERROR,
+        payload: err,
+      });
+    }
+  };
+};
 

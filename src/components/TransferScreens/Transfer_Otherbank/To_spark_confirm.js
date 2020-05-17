@@ -20,9 +20,9 @@ import {ScrollView} from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import {connect} from 'react-redux';
-import {getpayoutstatus,createOtpOutside,TransferWithincoop} from '../../../Redux/actions/TransferAction';
+import {createOtpBusiness,transferWithinCoopSPark} from '../../../Redux/actions/TransferAction';
 // import {getpayoutstatus,  createOtpOutside} from '../../../Redux/actions/TransferAction';
-class Transfer_Otherbank_confirm extends Component {
+class To_spark_confirm extends Component {
   constructor(props) {
     super(props);
 
@@ -44,15 +44,7 @@ class Transfer_Otherbank_confirm extends Component {
     this.setState({isVisible: true});
   };
 
-  componentDidMount = () => {
-    const data = {
-      memberID: '1421',
-      amount: '100',
-      type: 'IMPS',
-    };
-
-    this.props.getpayoutstatus(data);
-  };
+  
 
   handleConfirm = () => {
     const {payoutDetails} = this.props.transferDetails;
@@ -60,15 +52,18 @@ class Transfer_Otherbank_confirm extends Component {
 
     const otp = {
       custId: '1421',
-      "TransType":"IMPS",
       amount: params.amount,
-      "charges":"7",
+      toMembarNumebr:params.accountNo,
+      "TransType":"1",
+      memberOf:params.method
+
+ 
     };
 
-    this.props.createOtpOutside(otp).then(() => {
+    this.props.createOtpBusiness(otp).then(() => {
       const {transferDetails} = this.props;
 
-      if (transferDetails.otpOutsideDetails.code === '200') {
+      if (transferDetails.sparkOtp.code === '200') {
         this.setState({
           isVisible: true,
         });
@@ -81,42 +76,51 @@ class Transfer_Otherbank_confirm extends Component {
     const {transferDetails} = this.props;
 
     const otpdetail = {
-      "membarId": "1421",
-      accountNo: params.accountNo,
-      accountHolderName: params.userName,
-      isfcCode: params.IFCS,
-      "bank": "OTHERS",
-      amount: params.amount,
-      discription: params.desc,
-      refNo: transferDetails.otpOutsideDetails.refNo.toString(),
-      otp: this.state.mobileOtp,
-      paymentType: params.method,
-      charges:transferDetails.payoutDetails.charges.toString()
+      "fromMembarId": "1421",
+      transferAmount:params.amount,
+      refNo:transferDetails.sparkOtp.refNo.toString(),
+      otp:this.state.mobileOtp,
+      Descr:params.desc,
+      method:params.method,
+      toMembarNumebr:params.accountNo
+      
     };
+     console.log(otpdetail)
 
-    this.props.TransferWithincoop(otpdetail).then(() => {
+    this.props.transferWithinCoopSPark(otpdetail).then(() => {
       const {transferDetails} = this.props;
 
-      if (transferDetails.withinCoopDetail.code === '200') {
+      if (transferDetails.sparkOtp.code === '200') {
 
 
         this.setState({
           isVisible: false,
            amount:params.amount,
           accountNo:params.accountNo,
-           IFCS:params.IFCS
+        
         });
 
          this.props.navigation.navigate('Transfer_Otherbank_Success', {amount:this.state.amount, accountNo:this.state.accountNo, IFCS:this.state.IFCS,})
+      }else {
+
+         this.setState({
+            isVisible:false
+         })
+         this.props.navigation.navigate('Transfer_Otherbank_Progress')
       }
+
+
+      
     });
   };
 
+
+     
   render() {
     const {mobileOtp} = this.state;
     const {params} = this.props.route;
     const {transferDetails} = this.props;
-    console.log(params);
+    console.log('valse',params);
 
     return (
       <Container>
@@ -168,9 +172,7 @@ class Transfer_Otherbank_confirm extends Component {
                           Account ID :{params.accountNo}
                         </Text>
 
-                        <Text style={styles.curdtext}>
-                          IFSC code :{params.IFCS}
-                        </Text>
+                        
                       </View>
                     </ListItem>
                   </View>
@@ -263,8 +265,8 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getpayoutstatus,createOtpOutside,TransferWithincoop},
-)(Transfer_Otherbank_confirm);
+  {createOtpBusiness,transferWithinCoopSPark},
+)(To_spark_confirm);
 
 const styles = StyleSheet.create({
   headerText: {

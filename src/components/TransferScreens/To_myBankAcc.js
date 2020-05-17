@@ -18,7 +18,7 @@ import {
   getBeneficiaryBank,
   getActivemethods,
 } from '../../Redux/actions/TransferAction';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 
 class To_myBankAcc extends Component {
   constructor(props) {
@@ -37,31 +37,27 @@ class To_myBankAcc extends Component {
           Name: '',
           PhoneNo: '',
           memberOf: '',
-          transactionMetod:'',
-          Description:'',
-           amount:'',
-
+          transactionMetod: '',
+          Description: '',
+          amount: '',
         },
       ],
     };
   }
 
-
-   componentDidMount=()=>{
+  componentDidMount = () => {
     const {params} = this.props.route;
-    this.props.getActivemethods()
-      if(params.type===2){
-    const data = {
-      "membarId": '1421',
-      "isPrimaryAccunt": 'false',
-      "isWithInCoop": 'true',
-      "type": "1",
-    };
-    this.props.getBeneficiaryBank(data);
-
-   }
-
-   }
+    this.props.getActivemethods();
+    if (params.type === 2) {
+      const data = {
+        membarId: '1421',
+        isPrimaryAccunt: 'false',
+        isWithInCoop: 'true',
+        type: '1',
+      };
+      this.props.getBeneficiaryBank(data);
+    }
+  };
   //  if(params.type===2){
   //   const data = {
   //     "membarId": '1421',
@@ -86,27 +82,29 @@ class To_myBankAcc extends Component {
 
   // }
 
-
-   handleroutiing=()=>{
-      if(params.type===3){
-        this.props.navigation.navigate('')
-      }
-      
-   }
-   handlemethod=(method)=>{
-      this.setState({
-        transactionMetod:method
-      })
-
-   }
+  handleroutiing = () => {
+    if (params.type === 3) {
+      this.props.navigation.navigate('');
+    }
+  };
+  handlemethod = method => {
+    this.setState({
+      transactionMetod: method,
+    });
+  };
   render() {
     const {params} = this.props.route;
 
     console.log(params);
-     const{amount, Description,transactionMetod }=this.state
-    
-    const {getbackDetials} = this.props.transferDetails
-     const {getActiveDetails}=this.props.transferDetails
+    const {amount, Description, transactionMetod} = this.state;
+
+    const {getbackDetials} = this.props.transferDetails;
+    const {getActiveDetails} = this.props.transferDetails;
+
+    const data = getbackDetials.array.map(data => {
+      return data;
+    });
+    console.log('array', data);
 
     return (
       <Container>
@@ -162,20 +160,15 @@ class To_myBankAcc extends Component {
                 ) : null}
 
                 <View>
-                <Text style={styles.user}>{params.holder}</Text>
-                            <Text style={styles.user}>
-                              {params.AccountBen}
-                            </Text>
-                            <Text style={styles.user}>{params.IFCS}</Text>
-
+                  <Text style={styles.user}>{params.holder}</Text>
+                  <Text style={styles.user}>{params.AccountBen}</Text>
+                  <Text style={styles.user}>{params.IFCS}</Text>
                 </View>
-
-                <TouchableOpacity
-                  onPress={this.handleroutiing}
-                   
-                  >
-                  <Image source={require('../../images/home/arrow.png')} />
-                </TouchableOpacity>
+                {params.type === 4 ? (
+                  <TouchableOpacity onPress={this.handleroutiing}>
+                    <Image source={require('../../images/home/arrow.png')} />
+                  </TouchableOpacity>
+                ) : null}
               </ListItem>
             </View>
           ) : (
@@ -185,8 +178,7 @@ class To_myBankAcc extends Component {
                   justifyContent: 'space-around',
                   alignItems: 'center',
                   borderColor: 'transparent',
-                   marginVertical:10
-                 
+                  marginVertical: 10,
                 }}>
                 {params.type === 4 ? (
                   <Image
@@ -206,32 +198,35 @@ class To_myBankAcc extends Component {
                           <>
                             <Text style={styles.user}>null</Text>
                             <Text style={styles.user}>
-
-                            Account ID   :
-                              {item.BeneficiaryAccNo}
+                              Account ID :{item.BeneficiaryAccNo}
                             </Text>
-                            <Text style={styles.user}> IFCSCODE: {item.IFSCCode}</Text>
+                            <Text style={styles.user}>
+                              {' '}
+                              IFCSCODE: {item.IFSCCode}
+                            </Text>
                           </>
                         );
                       })}
                   </View>
                 ) : (
-                  <View>
-                  <View>
-                    <Text>Select Beneficiary</Text>
-                  </View>
-                  </View> )}
-               
-                
-                 
-                <TouchableOpacity
-                  onPress={() =>
-                    this.props.navigation.navigate('Transfer_Spark_otherbank',{type:4,})
-                  }>
-                  <Image source={require('../../images/home/arrow.png')} />
-                </TouchableOpacity>
-              
-                
+                  <>
+                    <View>
+                      <View>
+                        <Text>Select Beneficiary</Text>
+                      </View>
+                    </View>
+
+                    <TouchableOpacity
+                      onPress={() =>
+                        this.props.navigation.navigate(
+                          'Transfer_Spark_otherbank',
+                          {type: 4},
+                        )
+                      }>
+                      <Image source={require('../../images/home/arrow.png')} />
+                    </TouchableOpacity>
+                  </>
+                )}
               </ListItem>
             </View>
           )}
@@ -263,14 +258,11 @@ class To_myBankAcc extends Component {
               source={require('../../images/Transfer/rupi_icon.png')}
               style={{marginLeft: 5}}
             />
-            <Input placeholder="" style={styles.input} 
-             value={this.state.amount}
-             onChangeText={editedText =>
-               this.setState({amount: editedText})
-             }
-            
-            
-            
+            <Input
+              placeholder=""
+              style={styles.input}
+              value={this.state.amount}
+              onChangeText={editedText => this.setState({amount: editedText})}
             />
           </Item>
 
@@ -290,11 +282,10 @@ class To_myBankAcc extends Component {
                 regular
                 style={styles.textInput}
                 onPress={() => this.RBSheet.open()}>
-                <Input placeholder="" style={styles.input}
-                 value={this.state.transactionMetod}
-                
-                
-                
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  value={this.state.transactionMetod}
                 />
 
                 {/* <Text style={{marginLeft: 3,}}>{this.state.Statevalue}</Text> */}
@@ -313,35 +304,23 @@ class To_myBankAcc extends Component {
                     alignItems: 'flex-start',
                   },
                 }}>
-                 
                 <Text style={styles.selectState}>Select state</Text>
 
+                {getActiveDetails.trnasfermethod &&
+                  getActiveDetails.trnasfermethod.map(getData => {
+                    return (
+                      <View>
+                        <TouchableOpacity
+                          onPress={() => this.handlemethod(getData.method)}>
+                          <Text style={styles.state}>{getData.method}</Text>
+                          <Text style={styles.Statesubtext}>
+                            {getData.Description}
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    );
+                  })}
 
-{ getActiveDetails.trnasfermethod&&  getActiveDetails.trnasfermethod.map(getData=>{
-
-   return(
-     
-    <View>
-    <TouchableOpacity
-    onPress={()=>this.handlemethod(getData.method)}
-    >
-    
-   <Text style={styles.state}>{getData.method}</Text>
-      <Text style={styles.Statesubtext}>
-     {getData.Description}
-      </Text>
-      
-
-      
-    </TouchableOpacity>
-  </View>
- 
-   )
-  
-})}
-
-
-               
                 {/* <View>
                   <TouchableOpacity>
                    
@@ -366,38 +345,84 @@ class To_myBankAcc extends Component {
             <Text style={styles.selecttext}>50/50</Text>
           </View>
           <Item regular style={styles.textInput}>
-            <Input placeholder="" style={styles.input}
-            
-            value={this.state.Description}
-            onChangeText={editedText =>
-              this.setState({Description: editedText})
-            }
-           
+            <Input
+              placeholder=""
+              style={styles.input}
+              value={this.state.Description}
+              onChangeText={editedText =>
+                this.setState({Description: editedText})
+              }
             />
           </Item>
         </Content>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginVertical: 16,
-            marginHorizontal: 16,
-            marginTop: 30,
-          }}>
-          <Button warning style={styles.paynowbtn}
-           onPress={()=>this.props.navigation.navigate('Transfer_Otherbank_confirm',{userName:params.holder,accountNo:params.AccountBen,IFCS:params.IFCS,
-            amount:amount, method:transactionMetod, desc:Description
-          } )}
-          >
-            <Text style={styles.btntext}>Pay now</Text>
-          </Button>
-          <Button
-            warning
-            style={styles.schedulebtn}
-            onPress={() => this.props.navigation.navigate('ScheduleTransfer')}>
-            <Text style={styles.btntext_1}>schedule</Text>
-          </Button>
-        </View>
+
+        {params.type === 1 ? (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginVertical: 16,
+              marginHorizontal: 16,
+              marginTop: 30,
+            }}>
+            <Button
+              warning
+              style={styles.paynowbtn}
+              onPress={() =>
+                this.props.navigation.navigate('Transfer_Otherbank_confirm', {
+                  userName: params.holder,
+                  accountNo: params.AccountBen,
+                  IFCS: params.IFCS,
+                  amount: amount,
+                  method: transactionMetod,
+                  desc: Description,
+                })
+              }>
+              <Text style={styles.btntext}>Pay now</Text>
+            </Button>
+            <Button
+              warning
+              style={styles.schedulebtn}
+              onPress={() =>
+                this.props.navigation.navigate('ScheduleTransfer')
+              }>
+              <Text style={styles.btntext_1}>schedule</Text>
+            </Button>
+          </View>
+        ) : (
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginVertical: 16,
+              marginHorizontal: 16,
+              marginTop: 30,
+            }}>
+            <Button
+              warning
+              style={styles.paynowbtn}
+              onPress={() =>
+                this.props.navigation.navigate('Transfer_Otherbank_confirm', {
+                  userName: params.holder,
+                  accountNo: params.AccountBen,
+                  IFCS: params.IFCS,
+                  amount: amount,
+                  method: transactionMetod,
+                  desc: Description,
+                })
+              }>
+              <Text style={styles.btntext}>Pay now</Text>
+            </Button>
+            <Button
+              warning
+              style={styles.schedulebtn}
+              onPress={() =>
+                this.props.navigation.navigate('ScheduleTransfer')
+              }>
+              <Text style={styles.btntext_1}>schedule</Text>
+            </Button>
+          </View>
+        )}
       </Container>
     );
   }
@@ -433,7 +458,7 @@ const styles = StyleSheet.create({
 
     elevation: 15,
   },
- 
+
   selecttext: {
     fontSize: 16,
     color: '#4a4a4a',
@@ -450,7 +475,7 @@ const styles = StyleSheet.create({
   user: {
     fontSize: 16,
     // color: '#474a4f',
-    color:'#1b1464',
+    color: '#1b1464',
     fontFamily: 'Nunito',
   },
   acctext: {
@@ -466,7 +491,7 @@ const styles = StyleSheet.create({
   amount: {
     color: '#4a4a4a',
     textAlign: 'center',
-   
+
     fontSize: 19,
   },
   textInput: {
@@ -504,10 +529,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-
   selectState: {
     width: 88,
-   
+
     opacity: 0.87,
     fontFamily: 'Nunito',
     fontSize: 16,
@@ -521,17 +545,17 @@ const styles = StyleSheet.create({
 
   state: {
     //   width:73,
-   
+
     opacity: 0.87,
     fontFamily: 'Nunito',
     color: '#000000',
     textAlign: 'left',
-     marginTop:5,
+    marginTop: 5,
     marginLeft: 16,
   },
   Statesubtext: {
     width: 332,
- 
+
     fontSize: 16,
     color: '#999999',
     textAlign: 'left',
@@ -539,5 +563,3 @@ const styles = StyleSheet.create({
     marginLeft: 16,
   },
 });
-
-

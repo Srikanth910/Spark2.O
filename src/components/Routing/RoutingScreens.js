@@ -1,19 +1,17 @@
-
 import * as React from 'react';
-import { View, Text } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {View, Text} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import ForgotPassword from '../LoginScreens/forgotScreens/forgotpassword';
 import Login from '../LoginScreens/Login';
 import ForgotMpin from '../LoginScreens/forgotScreens/ForgotMpin';
 
-
-import Forgot from '../LoginScreens/Forgot'
+import Forgot from '../LoginScreens/Forgot';
 import ChangeMpin from '../LoginScreens/forgotScreens/ChangeMpin';
 import ForgotpasswordSet from '../LoginScreens/forgotScreens/ForgotpasswordSet';
 import ChangePasseword from '../LoginScreens/forgotScreens/ChangePassword';
 import Setmpin from '../LoginScreens/forgotScreens/Setmpin';
-import Home from '../Home/Home'
+import Home from '../Home/Home';
 import LoginButton from '../LoginScreens/LoginButton';
 import NotifClass from '../Notifications/NotifcationList';
 import AddBeneficiarys from '../BeneficiaryScreens/AddBeneficiarys';
@@ -22,14 +20,14 @@ import Otherbank from '../BeneficiaryScreens/Otherbank';
 import Quick_login from '../LoginScreens/Quick_login';
 
 import {ErrorAlert} from '../modelAlerts/DialogAlert';
- import LoadSpark from '../Home/LoadMoney/LoadSpark'
+import LoadSpark from '../Home/LoadMoney/LoadSpark';
 
 import Signup from '../SignUpscreens/SignupScreen';
 import Loadmoney from '../Home/LoadMoney/Loadmoney';
 import MoneyLoading from '../Home/LoadMoney/MoneyLoading';
 //  import MoneyLoadingFail from '../../components/Home/LoadMoney/MoneyLoadFail'
 import CardList from '../Home/CardList';
- import Landingpage from '../landingpage/Landingpage'
+import Landingpage from '../landingpage/Landingpage';
 import Setpassword from '../SignUpscreens/Setpassword';
 import Welcomeboard from '../landingpage/Welcomeboard';
 import Confirmationdetails from '../BeneficiaryScreens/Confirmation';
@@ -64,17 +62,19 @@ import Loanpayment_Success from '../Bill_Payments/Lanpayment_Success';
 import Transfer_Spark_otherbank from '../TransferScreens/Transfer_Spark_otherbank';
 import Saving_Account_Main from '../statements/Saving_Account_Main';
 import View_Account_Statement from '../statements/View_Account_Statement';
- 
+import Editprofile from '../SettingScreens/Editprofile';
+import To_spark_confirm from '../TransferScreens/Transfer_Otherbank/To_spark_confirm';
+
 const Stack = createStackNavigator();
 
 function Routing() {
   return (
     <NavigationContainer>
       <Stack.Navigator
-      screenOptions={{
-        headerShown: false
-      }}>
-         <Stack.Screen name="Landingpage" component={Landingpage} /> 
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <Stack.Screen name="Landingpage" component={Landingpage} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Forgotpass" component={ForgotPassword} />
         <Stack.Screen name="ForgotMpin" component={ForgotMpin} />
@@ -90,85 +90,114 @@ function Routing() {
         <Stack.Screen name="AddBeneficiarys" component={AddBeneficiarys} />
 
         <Stack.Screen name="Beneficiary" component={Beneficiary} />
-        <Stack.Screen name="Otherbank" component={Otherbank} /> 
-        <Stack.Screen name="Quicklogin" component={Quick_login} /> 
-        <Stack.Screen name="Signup" component={Signup} /> 
-        <Stack.Screen name="Setpassword" component={Setpassword} /> 
+        <Stack.Screen name="Otherbank" component={Otherbank} />
+        <Stack.Screen name="Quicklogin" component={Quick_login} />
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Setpassword" component={Setpassword} />
+
+        <Stack.Screen name="Loadmoney" component={Loadmoney} />
+
+        <Stack.Screen name="MoneyLoading" component={MoneyLoading} />
+        <Stack.Screen name="Welcomeboard" component={Welcomeboard} />
+
+        <Stack.Screen
+          name="Confirmationdetails"
+          component={Confirmationdetails}
+        />
+
+        <Stack.Screen name="SettingPage" component={SettingPage} />
+
+        <Stack.Screen name="RDScreen" component={RecurringDepositScreen} />
+
+        <Stack.Screen name="LoadSpark" component={LoadSpark} />
+
+        <Stack.Screen
+          name=" ConfirmCloseRDScreen"
+          component={ConfirmCloseRDScreen}
+        />
+
+        <Stack.Screen name="Fdscreen" component={FixedDepositScreen} />
+        <Stack.Screen name="Loadmoneyprogress" component={Loadmoneyprogress} />
+        <Stack.Screen name="LoadmoneySuccess" component={LoadmoneySuccess} />
+        <Stack.Screen name="Loadmoneyfail" component={Loadmoneyfail} />
+
+        <Stack.Screen name="PayBill" component={PayBill} />
+        <Stack.Screen name="LoanPayment" component={LoanPayment} />
+
+        <Stack.Screen
+          name="Loanpaymentprogress"
+          component={Loanpaymentprogress}
+        />
+        <Stack.Screen name="ScheduleTransfer" component={ScheduleTransfer} />
+
+        <Stack.Screen name="AddBank_Account" component={AddBank_Account} />
+        <Stack.Screen name="MyBank_Account" component={MyBank_Account} />
+        <Stack.Screen name="Mybank_Confirm" component={Mybank_Confirm} />
+
+        <Stack.Screen name="Transfer_Money" component={Transfer_Money} />
+        <Stack.Screen name="To_myBankAcc" component={To_myBankAcc} />
+        <Stack.Screen name="Schedulemybank" component={Schedulemybank} />
+        <Stack.Screen name="Otherbank_acc" component={Otherbank_acc} />
+        <Stack.Screen name="To_sparkAcc" component={To_sparkAcc} />
+
+        <Stack.Screen
+          name="Transfer_Schedule_Success"
+          component={Transfer_Schedule_Success}
+        />
+
+        <Stack.Screen
+          name="Transfer_Schedule_Progress"
+          component={Transfer_Schedule_Progress}
+        />
+        <Stack.Screen
+          name="Transfer_Schedule_Confirm"
+          component={Transfer_Schedule_Confirm}
+        />
+
+        <Stack.Screen
+          name="LoanpaymentSuccess"
+          component={LoanpaymentSuccess}
+        />
+
+        <Stack.Screen name="Paymentportal" component={Paymentportal} />
+        <Stack.Screen
+          name="Transfer_Otherbank_confirm"
+          component={Transfer_Otherbank_confirm}
+        />
+
+        <Stack.Screen
+          name="Transfer_Otherbank_Success"
+          component={Transfer_Otherbank_Success}
+        />
+        <Stack.Screen
+          name="Loanpayment_Success"
+          component={Loanpayment_Success}
+        />
+        <Stack.Screen
+          name="Transfer_Spark_otherbank"
+          component={Transfer_Spark_otherbank}
+        />
+
+        <Stack.Screen
+          name="Saving_Account_Main"
+          component={Saving_Account_Main}
+        />
+        <Stack.Screen
+          name="View_Account_Statement"
+          component={View_Account_Statement}
+        />
+        <Stack.Screen name="Editprofile" component={Editprofile} />
+
+        <Stack.Screen name="To_spark_confirm" component={To_spark_confirm} />
 
 
-        <Stack.Screen name="Loadmoney" component={Loadmoney} /> 
+
+
         
-        <Stack.Screen name="MoneyLoading" component={MoneyLoading} /> 
-        <Stack.Screen name="Welcomeboard" component={Welcomeboard} /> 
-      
-        <Stack.Screen name="Confirmationdetails" component={Confirmationdetails} /> 
-      
 
-       
-        <Stack.Screen name="SettingPage" component={SettingPage} /> 
-      
-
-        <Stack.Screen name="RDScreen" component={RecurringDepositScreen} /> 
-      
-
-        <Stack.Screen name="LoadSpark" component={LoadSpark} /> 
-      
-        
-        <Stack.Screen name=" ConfirmCloseRDScreen" component={ ConfirmCloseRDScreen} /> 
-      
-
-     
-        <Stack.Screen name="Fdscreen" component={ FixedDepositScreen} /> 
-        <Stack.Screen name="Loadmoneyprogress" component={ Loadmoneyprogress} /> 
-        <Stack.Screen name="LoadmoneySuccess" component={ LoadmoneySuccess} /> 
-        <Stack.Screen name="Loadmoneyfail" component={Loadmoneyfail} /> 
-
-        <Stack.Screen name="PayBill" component={PayBill} /> 
-        <Stack.Screen name="LoanPayment" component={LoanPayment} /> 
-        
-        <Stack.Screen name="Loanpaymentprogress" component={Loanpaymentprogress} /> 
-        <Stack.Screen name="ScheduleTransfer" component={ScheduleTransfer} /> 
-        
-        <Stack.Screen name="AddBank_Account" component={AddBank_Account} /> 
-        <Stack.Screen name="MyBank_Account" component={MyBank_Account } /> 
-        <Stack.Screen name="Mybank_Confirm" component={Mybank_Confirm } /> 
-        
-        <Stack.Screen name="Transfer_Money" component={Transfer_Money } /> 
-        <Stack.Screen name="To_myBankAcc" component={To_myBankAcc} /> 
-        <Stack.Screen name="Schedulemybank" component={Schedulemybank} /> 
-        <Stack.Screen name="Otherbank_acc" component={Otherbank_acc} /> 
-        <Stack.Screen name="To_sparkAcc" component={To_sparkAcc} /> 
-       
-        <Stack.Screen name="Transfer_Schedule_Success" component={Transfer_Schedule_Success } /> 
-       
-         
-         <Stack.Screen name="Transfer_Schedule_Progress" component={Transfer_Schedule_Progress } /> 
-         <Stack.Screen name="Transfer_Schedule_Confirm" component={Transfer_Schedule_Confirm } /> 
-    
-         <Stack.Screen name="LoanpaymentSuccess" component={LoanpaymentSuccess} /> 
-    
-         <Stack.Screen name="Paymentportal" component={Paymentportal} /> 
-         <Stack.Screen name="Transfer_Otherbank_confirm" component={Transfer_Otherbank_confirm} /> 
-    
-         <Stack.Screen name="Transfer_Otherbank_Success" component={Transfer_Otherbank_Success} /> 
-         <Stack.Screen name="Loanpayment_Success" component={Loanpayment_Success} /> 
-         <Stack.Screen name="Transfer_Spark_otherbank" component={Transfer_Spark_otherbank} /> 
-    
-         <Stack.Screen name="Saving_Account_Main" component={Saving_Account_Main} /> 
-         <Stack.Screen name="View_Account_Statement" component={View_Account_Statement} /> 
-    
-         
-         
-       
-         
-         
-        
-         
-{/*         Loadmoneyprogress
+        {/*         Loadmoneyprogress
         <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
        */}
-
-        
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -549,7 +549,12 @@ export const getBanners = data => {
           type: GET_BANNERS_SUCCESS,
           payload: banners,
         });
-      }else{
+    
+      } else if(banners.code==="403"){
+         this.props.navigation.navigate('Login')
+      }
+      
+      else{
           dispatch({
             type:SESSION_MISSING,
              payload:banners
@@ -614,7 +619,12 @@ export const getProfile = data => {
           type: GET_PROFILE_SUCCUESS,
           payload: getProfile,
         });
-      } else {
+      }  else if(getProfile.code==="403"){
+         this.props.navigation.navigate('Login')
+
+
+      }else {
+         
         dispatch({
           type: GET_PROFILE_FAIL,
           payload: getProfile,
@@ -796,7 +806,20 @@ export const sendStatement = data => {
           type: STATEMENT_DATE_SUCCESS,
           payload: statement,
         });
-      } else {
+        
+      
+        
+      } else if(statement.code==="403"){
+         alert('session exparid')
+         this.props.navigation.navigate('Login')
+         dispatch({
+            type:SESSION_MISSING,
+             payload:statement
+         })
+      }
+      
+      
+      else {
         dispatch({
           type: STATEMENT_DATE_FAIL,
           payload: statement,

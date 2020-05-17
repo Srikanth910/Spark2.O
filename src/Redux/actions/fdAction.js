@@ -1,5 +1,5 @@
 import  axios from 'axios'
-import { GET_ACTIVE_FD_SUCCESS, GET_ACTIVE_FD_FAIL, INSERT_CUSTMER_DETAILS_FAIL, INSERT_CUSTMER_DETAILS_SUCCESS, GET_ACTIVE_REFERRAL_CODE_SUCCESS, CREATE_OTP_FD_SUCCESS, CREATE_OTP_FD_FAIL, RESEND_OTP_FD_SUCESS, RESEND_OTP_FD_FAIL, CREARE_FD_SUCCESS, CREARE_FD_FAIL, VIEW_FD_SUCCESS, VIEW_FD_FAIL, STATEMENT_FD_SUCCESS, SEND_FD_STATEMENT_SUCCESS, SEND_FD_STATEMENT_FAIL, GET_CANCEL_FD_SUCCESS, GET_CANCEL_FD_FAIL, CREATE_OTPFD_CANCEL_SUCCESS, GET_FD_CHART_SUCCESS, GET_FD_CHART_FAIL, CREATE_OTP_RD_FAIL, CREATE_OTP_RD_SUCCESS, RESEND_OTP_RD_SUCCESS, RESEND_OTP_RD_FAIL, CREATE_RD_SUCCESS, CREATE_RD_FAIL, ACTIVE_RD_SUCCESS } from '../constants/types';
+import { GET_ACTIVE_FD_SUCCESS, GET_ACTIVE_FD_FAIL, INSERT_CUSTMER_DETAILS_FAIL, INSERT_CUSTMER_DETAILS_SUCCESS, GET_ACTIVE_REFERRAL_CODE_SUCCESS, CREATE_OTP_FD_SUCCESS, CREATE_OTP_FD_FAIL, RESEND_OTP_FD_SUCESS, RESEND_OTP_FD_FAIL, CREARE_FD_SUCCESS, CREARE_FD_FAIL, VIEW_FD_SUCCESS, VIEW_FD_FAIL, STATEMENT_FD_SUCCESS, SEND_FD_STATEMENT_SUCCESS, SEND_FD_STATEMENT_FAIL, GET_CANCEL_FD_SUCCESS, GET_CANCEL_FD_FAIL, CREATE_OTPFD_CANCEL_SUCCESS, GET_FD_CHART_SUCCESS, GET_FD_CHART_FAIL, CREATE_OTP_RD_FAIL, CREATE_OTP_RD_SUCCESS, RESEND_OTP_RD_SUCCESS, RESEND_OTP_RD_FAIL, CREATE_RD_SUCCESS, CREATE_RD_FAIL, ACTIVE_RD_SUCCESS, CATACH_ERROR, SESSION_MISSING } from '../constants/types';
 
 
 
@@ -18,10 +18,10 @@ export const getActiveFlexibleFd = data => {
     
         let getLastTransaction = await res.data;
         console.log('res', getLastTransaction);
-        if (getLastTransaction.code === '200') {
+        if (getLastTransaction.Data.code === '200') {
           dispatch({
             type: GET_ACTIVE_FD_SUCCESS,
-            payload: getLastTransaction,
+            payload: getLastTransaction.Data
           });
         } else {
           dispatch({
@@ -486,9 +486,9 @@ export const createOTPRD = data => {
     console.log(data);
     return async dispatch => {
       try {
-        const res = await axios.post(
-          `${API_URL}/createOTPRD_V2_O `,data
-        );
+        const res = await axios.get(
+          `${API_URL}/createOTPRD?membarId=1421&mobileno=${data.phone}&isFlexible=true&RDAmount=${data.amount}&FrequencyDescription=End Of Term&interest=${data.interest}&tenure=${data.tenure}
+        `  );
         let  createotpRD = await res.data;
         console.log('res', createotpRD);
         if (createotpRD.code === '200') {
@@ -514,8 +514,43 @@ export const createOTPRD = data => {
   };
 
 
-
+  
     
+
+
+  
+export const createResendOTPRD = data => {
+  console.log(data);
+  return async dispatch => {
+    try {
+      const res = await axios.get( `${API_URL}/createResendOTPRD?membarId=${data.membarId}&mobileno=${data.phone}&isFlexible=true&RDAmount=${data.amount}&FrequencyDescription=End Of Term&interest=${data.interest}&tenure=${data.tenure}`
+    
+        );
+          console.log(req)
+      let  createotpRD = await res.data;
+      console.log('res', createotpRD);
+      if (createotpRD.code === '200') {
+        dispatch({
+          type:RESEND_OTP_RD_SUCCESS ,
+          payload: createotpRD,
+        });
+      } else {
+        dispatch({
+          type:RESEND_OTP_RD_FAIL,
+          payload: createotpRD,
+        });
+      }
+    } catch (err) {
+      console.log(err);
+      dispatch({
+        type: CATACH_ERROR,
+        payload: err,
+      });
+    }
+  };
+
+};
+
 
 
 
@@ -558,18 +593,12 @@ export const resendOtpRD = data => {
     
 
 
-
-
-
-
   
 export const createRD = data => {
     console.log(data);
     return async dispatch => {
       try {
-        const res = await axios.post(
-          `${API_URL}/createRD_V2_O`,data
-        );
+        const res = await axios.get(`${API_URL}/createRD?refNo=${data.refNo}&otp=${data.otp}&membarId=${data.membarId}&isFlexible=${data.isFlexible}&RdAmount=${data.RdAmount}&FrequencyDescription=${data.FrequencyDescription}&interest=${data.interest}&tenure=${data.tenure}&maturityamount=${data.maturityamount}&maturitydate=${data.maturitydate}&RdSetupId=${data.RdSetupId}&CreatedDate=${data.CreatedDate}&Refercode=${data.Refercode}&NextPullDate=${data.NextPullDate}&withdrawDate=${data.withdrawDate}&RdDay=${data.RdDay}`)
         let  createRD = await res.data;
         console.log('res', createRD);
         if (createRD.code === '200') {
@@ -577,12 +606,22 @@ export const createRD = data => {
             type:CREATE_RD_SUCCESS ,
             payload: createRD,
           });
-        } else {
+          
+        } else if(createRD.code==='403'){
+              dispatch({
+                 type:SESSION_MISSING,
+                 payload:createRD
+              })
+
+        }
+        
+        else {
           dispatch({
             type:CREATE_RD_FAIL,
             payload: createRD,
           });
         }
+
       } catch (err) {
         console.log(err);
         dispatch({
@@ -605,12 +644,12 @@ export const createRD = data => {
 
   
   
-export const activeRD = data => {
+export const getActiveRds = data => {
     console.log(data);
     return async dispatch => {
       try {
-        const res = await axios.post(
-          `${API_URL}/activeRDS_V2_O`,data
+        const res = await axios.get(
+          `${API_URL}/getActiveRds`,
         );
         let  activeRD = await res.data;
         console.log('res', activeRD);

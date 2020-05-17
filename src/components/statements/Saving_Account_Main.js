@@ -34,7 +34,7 @@ import { connect } from 'react-redux';
      }
     render() {
  const {auth}=this.props
-  console.log('redux',auth.getTransactionList.lasttxns)
+ 
   
          
         return (

@@ -6,6 +6,11 @@ import {
   CREATE_OTP_OUTSIDE_SUCCESS,
   TRANSACTION_WITHINCOOP_SPARK_SUCCESS,
   CREATE_OTP_BUSINESS_SUCCESS,
+  TRANSACTION_WITHINCOOP_SPARK_FAIL,
+  CREATE_SCHEDULE_SUCCESS,
+  CREATE_OTP_SCHEDULE_SUCCESS,
+  RESEND_OTP_SCHEDULE_SUCCESS,
+
 } from '../constants/types';
 
 const initialState = {
@@ -14,7 +19,9 @@ const initialState = {
   payoutDetails: {},
   otpOutsideDetails: {},
   withinSpark:{},
-  sparkOtp:{}
+  sparkOtp:{},
+  sparkPedding:{},
+  scheduleDetails:{}
 };
 
 export default function(state = initialState, action) {
@@ -47,6 +54,7 @@ export default function(state = initialState, action) {
         otpOutsideDetails: action.payload,
       };
        case TRANSACTION_WITHINCOOP_SPARK_SUCCESS:
+        case TRANSACTION_WITHINCOOP_SPARK_FAIL:
         return{
               ...state,
                 withinSpark:action.payload
@@ -57,7 +65,19 @@ export default function(state = initialState, action) {
                      ...state,
                       sparkOtp:action.payload
                }
+              
+                case CREATE_SCHEDULE_SUCCESS:
+                   return{
+                      ...state,
+                       scheduleDetails:action.payload
+                   }
 
+                    case CREATE_OTP_SCHEDULE_SUCCESS:
+                       case RESEND_OTP_SCHEDULE_SUCCESS:
+                      return{
+                         ...state, 
+                          otpSchedule:action.payload
+                      }
 
     default:
       return state;

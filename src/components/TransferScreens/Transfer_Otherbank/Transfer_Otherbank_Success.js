@@ -2,10 +2,16 @@ import React, { Component } from 'react'
 import { Container, Header, Content, Button, View, ListItem, } from 'native-base'
 import { StatusBar, Text, StyleSheet, Image, ImageBackground } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
+import { connect } from 'react-redux'
+import Transfer_Schedule_Success from '../Transfer_Schedule_Success'
 
 
-export default class Transfer_Otherbank_Success extends Component {
+class Transfer_Otherbank_Success extends Component {
+
     render() {
+         const{transferDetails}=this.props
+          const{params}=this.props.route
+              
         return (
             <Container>
 
@@ -16,16 +22,16 @@ export default class Transfer_Otherbank_Success extends Component {
 
                         <ListItem style={{ borderColor: 'transparent', justifyContent: 'center', }}>
 
-                            <Image source={require('../../../images/home/white_rupi.png')} />
+                           
                             <View style={styles.header}>
                                 <Text style={styles.headerbal}>
-                                    25,000
+                                ₹ {params.amount}
                         </Text>
                                 <Text style={styles.text}>
                                     Paid successfully
 
                         </Text >
-                                <Text style={styles.text} >TXN ID: CC1ZK173928, 07-05-2020, 10:30:23</Text>
+        <Text style={styles.text} >TXN ID: {transferDetails.withinCoopDetail.trnasId}</Text>
                             </View>
 
                         </ListItem>
@@ -39,11 +45,11 @@ export default class Transfer_Otherbank_Success extends Component {
                                             <Image source={require('../../../images/Transfer/Other_Bank.png')} style={styles.bank} />
                                             <View style={{ paddingLeft: 20 }}>
                                                 <Text style={styles.usertext}>
-                                                    K.shivashankar
+                                                  {params.userName}
                                                                </Text>
-                                                <Text style={styles.curdtext}>Account ID :7895678987</Text>
+        <Text style={styles.curdtext}>Account ID :{params.accountNo}</Text>
 
-                                                <Text style={styles.curdtext}>IFSC code :HDFC0003487 </Text>
+                                                <Text style={styles.curdtext}>IFSC code :{params.IFCS} </Text>
 
                                             </View>
 
@@ -53,19 +59,15 @@ export default class Transfer_Otherbank_Success extends Component {
                                     <View style={styles.curdview}>
                                         <Text style={styles.transctiondetials}>Transaction details</Text>
                                         <Text style={styles.textdetails}>For family expenses</Text>
-                                        <Text style={styles.textdetails}>NEFT</Text>
+        <Text style={styles.textdetails}>{params.type}</Text>
                                         <Text style={styles.textdetails}>Transfer charges</Text>
-                                        <Text style={styles.textdetails}>Rs .0</Text>
+                                        <Text style={styles.textdetails}></Text>
 
 
                                     </View>
 
 
                                 </View>
-
-
-
-
 
                                 <Button block success style={styles.btn}
                                     onPress={() => this.props.navigation.navigate('Home')}
@@ -90,6 +92,16 @@ export default class Transfer_Otherbank_Success extends Component {
     }
 }
 
+
+const mapStateToProps = state => ({
+    transferDetails: state.transferDetails,
+  });
+  
+  export default connect(
+    mapStateToProps,
+    {},
+  )(Transfer_Otherbank_Success);
+  
 const styles = StyleSheet.create({
 
     headerbal: {

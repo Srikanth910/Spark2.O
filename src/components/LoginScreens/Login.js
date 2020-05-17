@@ -274,13 +274,9 @@ class Login extends Component {
   };
   render() {
     const {error, auth} = this.props;
-    console.log('g', auth.userotpdetails);
-
+  
     const {errorsData, errorsLogin, errorAlert, mobileOtp} = this.state;
-     const data= this.state.data.map(data=>{
-          console.log(data.Id)
-     })
-
+    
     return (
       <Container style={styles.container}>
         <Header style={{backgroundColor: '#1b1464', height: 120}}>
@@ -614,7 +610,7 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   input: {
-    
+     height:40,
     backgroundColor: '#e1e4eb',
     borderRadius: 5,
   },

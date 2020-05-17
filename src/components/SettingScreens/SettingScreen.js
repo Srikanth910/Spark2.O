@@ -17,7 +17,10 @@ export default class SettingPage extends Component {
                        <Title>Settings</Title>
                         </Body>
                     <Right >
-                    <Button transparent>
+                    <Button transparent
+                    
+                    onPress={()=>this.props.navigation.navigate('Editprofile')}
+                    >
             <Text >Edit profile</Text>
             </Button>
                     </Right>
