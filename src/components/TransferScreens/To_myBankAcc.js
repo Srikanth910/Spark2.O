@@ -26,23 +26,17 @@ class To_myBankAcc extends Component {
 
     this.state = {
       activeIndex: 0,
-      data: [
-        {
-          AccountType: '',
-          BeneficiaryAccNo: '1111111111',
-          CustomerId: '1421',
-          Email: '',
-          IFSCCode: 'SBIN0000901',
-          Id: '1040',
-          Name: '',
-          PhoneNo: '',
-          memberOf: '',
-          transactionMetod: '',
-          Description: '',
-          amount: '',
-          userDetails:{}
-        },
-      ],
+     
+      Name: '',
+      PhoneNo: '',
+      memberOf: '',
+      transactionMetod: '',
+      Description: '',
+      amount: '',
+      userDetails:{},
+       account:'',
+        accIFCS:'',
+
     };
   }
 
@@ -105,6 +99,14 @@ class To_myBankAcc extends Component {
       transactionMetod: method,
     });
   };
+
+   handlearray=(acc, ifcs)=>{
+    this.setState({
+      account:acc, 
+       accIFCS:ifcs
+    })
+
+   }
   render() {
     const {params} = this.props.route;
 
@@ -114,10 +116,12 @@ class To_myBankAcc extends Component {
     const {getbackDetials} = this.props.transferDetails;
     const {getActiveDetails} = this.props.transferDetails;
 
-    const data = getbackDetials.array.map(data => {
+    const data =  getbackDetials.array&& getbackDetials.array.map(data => {
       return data;
     });
-    console.log('array', data);
+    console.log('array', data.AccountType);
+
+
 
     return (
       <Container>
@@ -211,6 +215,7 @@ class To_myBankAcc extends Component {
                       getbackDetials.array.map(item => {
                         return (
                           <>
+                          <TouchableOpacity onPress={()=>this.handlearray(item.BeneficiaryAccNo, item.IFSCCode)} >
                             <Text style={styles.user}>null</Text>
                             <Text style={styles.user}>
                               Account ID :{item.BeneficiaryAccNo}
@@ -219,6 +224,7 @@ class To_myBankAcc extends Component {
                               {' '}
                               IFCSCODE: {item.IFSCCode}
                             </Text>
+                            </TouchableOpacity >
                           </>
                         );
                       })}
@@ -385,9 +391,9 @@ class To_myBankAcc extends Component {
               style={styles.paynowbtn}
               onPress={() =>
                 this.props.navigation.navigate('Transfer_Otherbank_confirm', {
-                  userName: params.holder,
-                  accountNo: params.AccountBen,
-                  IFCS: params.IFCS,
+                  
+                  accountNo:this.state.account,
+                  IFCS: this.state.accIFCS,
                   amount: amount,
                   method: transactionMetod,
                   desc: Description,
@@ -399,7 +405,9 @@ class To_myBankAcc extends Component {
               warning
               style={styles.schedulebtn}
               onPress={() =>
-                this.props.navigation.navigate('ScheduleTransfer')
+                this.props.navigation.navigate('ScheduleTransfer'
+                
+                )
               }>
               <Text style={styles.btntext_1}>schedule</Text>
             </Button>

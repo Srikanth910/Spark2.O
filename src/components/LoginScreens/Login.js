@@ -28,8 +28,10 @@ import {
   SafeAreaView,
   StatusBar,
   ImageBackground,
+  ActivityIndicator,
 } from 'react-native';
 import {connect} from 'react-redux';
+
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import {
@@ -79,6 +81,7 @@ class Login extends Component {
           Name: '',
           PhoneNo: '',
           memberOf: '',
+            spinner:false
           
         },
       ],
@@ -86,6 +89,11 @@ class Login extends Component {
   }
 
   componentDidMount = () => {
+    // setInterval(() => {
+    //   this.setState({
+    //     spinner: true 
+    //   });
+    // }, 1000);
     
     DeviceInfo.getAndroidId().then(id => {
       this.setState({
@@ -126,6 +134,16 @@ class Login extends Component {
         mobileNo: this.state.mobile,
       };
 
+
+       setInterval(()=>{
+        this.setState({
+          spinner:true
+        })
+
+       }, 2000)
+       
+      
+      
       try {
         await AsyncStorage.setItem('Loginuser', JSON.stringify(user));
         console.log('login user saved');
@@ -137,13 +155,18 @@ class Login extends Component {
         const {error, auth} = this.props;
         if (error.loginError.code === '309') {
           this.setState({
+            spinner:false,
             showAlert: true,
             errorAlert: error.loginError,
           });
         } else if (auth.userMpin.code === '200') {
+           this.setState({
+              spinner:false
+           })
           this.props.navigation.navigate('Home');
         } else if (auth.DeviceOtp.code === '504') {
           this.setState({
+            spinner:false,
             isVisible: true,
           });
         }
@@ -151,6 +174,8 @@ class Login extends Component {
     }
   };
 
+
+  
   mpinSubmit = async () => {
     try {
       const loginData = await AsyncStorage.getItem('Loginuser');
@@ -242,8 +267,10 @@ class Login extends Component {
       IPADDRESS: '',
     };
     console.log(userOtp);
-
+          
+        
     this.props.otpVerificationforLogin(userOtp).then(() => {
+
       const {auth, error} = this.props;
       if (error.otpError.code === '306') {
         this.setState({
@@ -261,6 +288,7 @@ class Login extends Component {
         });
       } else if (auth.userMpin.code === '200') {
         this.setState({
+           spinner:false,
           isVisible: false,
         });
         this.props.navigation.navigate('Home');
@@ -281,6 +309,7 @@ class Login extends Component {
     
     return (
       <Container style={styles.container}>
+      
         <Header style={{backgroundColor: '#1b1464', height: 120}}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
@@ -335,10 +364,12 @@ class Login extends Component {
                   Forgot MPIN
                 </Text>
 
-
-
+                
               </TouchableOpacity>
             </Item>
+            {this.state.spinner===true?
+            <ActivityIndicator size="large" color="#00ff00" />:null}
+               
             <View style={styles.btnbottom}>
               <Text style={styles.bottomtext}>
                 By logging in , you agree to our
@@ -446,7 +477,7 @@ class Login extends Component {
                   />
                 </Item>
               </Form>
-
+             
               <Item
                 style={{
                   justifyContent: 'space-between',
@@ -463,7 +494,9 @@ class Login extends Component {
                   </Text>
                 </TouchableOpacity>
               </Item>
+              { this.state.spinner===true ?
 
+              <ActivityIndicator size="large" color="#00ff00" />:null}
               <View style={styles.btnbottom}>
                 <Text style={styles.bottomtext}>
                   By logging in , you agree to our

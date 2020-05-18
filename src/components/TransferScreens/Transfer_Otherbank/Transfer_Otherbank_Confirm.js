@@ -21,6 +21,7 @@ import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 import {connect} from 'react-redux';
 import {getpayoutstatus,createOtpOutside,TransferWithincoop} from '../../../Redux/actions/TransferAction';
+import AsyncStorage from '@react-native-community/async-storage';
 // import {getpayoutstatus,  createOtpOutside} from '../../../Redux/actions/TransferAction';
 class Transfer_Otherbank_confirm extends Component {
   constructor(props) {
@@ -31,7 +32,8 @@ class Transfer_Otherbank_confirm extends Component {
       mobileOtp: '',
        amount:'',
         accountNo:'',
-         IFCS:''
+         IFCS:'',
+         userDetails:{},
     };
   }
 
@@ -44,11 +46,24 @@ class Transfer_Otherbank_confirm extends Component {
     this.setState({isVisible: true});
   };
 
-  componentDidMount = () => {
+  componentDidMount = async() => {
+
+    try{
+      const data=  await  AsyncStorage.getItem('Loginuser');
+    
+       const  logindetail=JSON.parse(data)
+        this.setState({
+           userDetails: logindetail
+
+        })
+   } catch(e){
+      console.log(e)
+   }
+     const{params}=this.props.route
     const data = {
-      memberID: '1421',
-      amount: '100',
-      type: 'IMPS',
+      memberID:this.state.userDetails.memberid,
+      amount: params.amount,
+      type: params.method
     };
 
     this.props.getpayoutstatus(data);
@@ -59,10 +74,10 @@ class Transfer_Otherbank_confirm extends Component {
     const {params} = this.props.route;
 
     const otp = {
-      custId: '1421',
-      "TransType":"IMPS",
+      custId: this.state.memberid,
+      TransType: params.method,
       amount: params.amount,
-      "charges":"7",
+      charges:payoutDetails.charges.toString()
     };
 
     this.props.createOtpOutside(otp).then(() => {
@@ -81,7 +96,7 @@ class Transfer_Otherbank_confirm extends Component {
     const {transferDetails} = this.props;
 
     const otpdetail = {
-      "membarId": "1421",
+      membarId: this.state.userDetails.memberid,
       accountNo: params.accountNo,
       accountHolderName: params.userName,
       isfcCode: params.IFCS,

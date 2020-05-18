@@ -71,9 +71,10 @@ import Saving_Account_Main from './src/components/statements/Saving_Account_Main
 import ViewRd from './src/components/fd&rdScreens/ViewRd';
 import Mybank_Confirm from './src/components/TransferScreens/Mybank_Confirm';
 import To_spark_confirm from './src/components/TransferScreens/Transfer_Otherbank/To_spark_confirm';
+import Confirmation from './src/components/BeneficiaryScreens/Confirmation';
 // import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
 
-  
+  //  import LoadingSpinnerOverLayDemo from './src/components/Loading'
 export default class App extends Component {
   constructor(props) {
     super(props);
@@ -88,6 +89,7 @@ export default class App extends Component {
       <>
         <Provider store={store}>
           <Routing/>
+
         </Provider>
       </>
     );

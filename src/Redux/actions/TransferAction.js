@@ -80,9 +80,9 @@ export const getpayoutstatus = data => {
   console.log('uires',data);
   return async dispatch => {
     try {
-      const res = await axios.get(
-        `${API_URL}/getpayoutstatusIos?custid=${data.memberID}&amount=${data.amount}&type=${data.type}`,);
+      const res = await axios.get( `${API_URL}/getpayoutstatusIos?custid=${data.memberID}&amount=${data.amount}&type=${data.type}`);
          
+       
       let payoutStatus = await res.data;
       console.log('resStatus', payoutStatus);
       if (payoutStatus.code === '200') {
@@ -176,7 +176,7 @@ export const TransferWithincoop = data => {
   console.log('uires',data);
   return async dispatch => {
     try {
-      const res = await axios.get(`${API_URL}/ transferWithOutCoopV1_3?membarId=1421&accountNo=${data.accountNo}&accountHolderName=${data.accountHolderName}&isfcCode=${data.isfcCode}&bank=OTHERS&amount=${data.amount}&discription=${data.discription}&refNo=${data.refNo}&otp=${data.otp}&charges=${data.charges}&paymentType=${data.paymentType}`)
+      const res = await axios.get(`${API_URL}/ transferWithOutCoopV1_3?membarId=${data.membarId}&accountNo=${data.accountNo}&accountHolderName=${data.accountHolderName}&isfcCode=${data.isfcCode}&bank=OTHERS&amount=${data.amount}&discription=${data.discription}&refNo=${data.refNo}&otp=${data.otp}&charges=${data.charges}&paymentType=${data.paymentType}`)
       let payoutStatus = await res.data;
       console.log('res', payoutStatus);
       if (payoutStatus.code === '200') {

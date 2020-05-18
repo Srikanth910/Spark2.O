@@ -256,11 +256,8 @@ class Home extends Component {
                 </CardItem>
                 <CardItem>
                   <Left>
-                    <ImageBackground
-                      source={require('../../images/rupi_icon.png')}
-                      style={{height: 16, width: 10, marginTop: 10}}
-                    />
-                    <Text style={styles.bal}>5000</Text>
+                    
+                    <Text style={styles.bal}> ₹ 5000</Text>
                   </Left>
 
                   <Right>
@@ -314,7 +311,7 @@ class Home extends Component {
                             <View>
                               <Image
                                 source={require('../../images/home/phone.png')}
-                                style={styles.billIcon}
+                                style={styles.phone}
                               />
                               <Text style={styles.iconText}>{item.Name}</Text>
                             </View>
@@ -478,21 +475,29 @@ class Home extends Component {
                         source={require('../../images/home/plus_icon.png')}
                         style={styles.fd_rdiicon}
                       />
-                      <Text style={styles.fd_rdbtn}> OPEN NEW </Text>
+                      <Text style={styles.fd_rdbtn}
+                      
+                      onPress={() =>
+                        this.props.navigation.navigate('Fdscreen')
+                      }
+                      > OPEN NEW </Text>
                     </Item>
                   </Left>
                   <Right>
                     <Item
                       style={styles.itemview}
-                      onPress={() =>
-                        this.props.navigation.navigate('Fdscreen')
-                      }>
+                     >
                       <Image
                         source={require('../../images/home/trendup.png')}
                         style={styles.fd_rdiicon}
                       />
 
-                      <Text style={styles.fd_rdbtn}> FD RATES</Text>
+<TouchableOpacity>
+                      <Text style={styles.fd_rdbtn}
+                      
+                     
+                      > FD RATES</Text>
+                      </TouchableOpacity>
                     </Item>
                   </Right>
                 </ListItem>
@@ -535,7 +540,13 @@ class Home extends Component {
                           source={require('../../images/home/plus_icon.png')}
                           style={styles.fd_rdiicon}
                         />
-                        <Text style={styles.fd_rdbtn}> OPEN NEW </Text>
+                        <Text style={styles.fd_rdbtn}
+                        
+                        
+                        onPress={() =>
+                          this.props.navigation.navigate('RDScreen')
+                        }
+                        > OPEN NEW </Text>
                       </Item>
                     </Left>
                     <Right>
@@ -546,9 +557,7 @@ class Home extends Component {
                         />
                         <Text
                           style={styles.fd_rdbtn}
-                          onPress={() =>
-                            this.props.navigation.navigate('RDScreen')
-                          }>
+                      >
                           {' '}
                           RD RATES
                         </Text>
@@ -672,6 +681,7 @@ const styles = StyleSheet.create({
   userName: {
     fontFamily: 'Nunito',
     fontSize: 14,
+     marginRight:30, 
     color: '#ffffff',
     textAlign: 'left',
     alignItems:'flex-start'
@@ -936,6 +946,13 @@ const styles = StyleSheet.create({
     marginTop: 5,
     alignSelf: 'center',
   },
+   phone:{
+    height: 48,
+    width: 30,
+    marginTop: 5,
+    alignSelf: 'center',
+
+   },
   broadband: {
     height: 42,
     width: 34,

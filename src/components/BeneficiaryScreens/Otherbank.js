@@ -5,6 +5,7 @@ import Modal from 'react-native-modal';
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
  import{ resendOtpBeneficiary,addBeneficiaryDetails,createOtpBeneficiary} from '../../Redux/actions/Beneficiary'
 import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
  
  class Otherbank extends Component {
 
@@ -22,7 +23,8 @@ import { connect } from 'react-redux';
     IFCS:'',
     mobileNo:'',
      isVisible:false,
-      otpvisible:false
+      otpvisible:false,
+      userDetails:{}
 
         };
     }
@@ -34,6 +36,18 @@ import { connect } from 'react-redux';
 
      
 
+     componentDidMount= async()=>{
+        try{
+            const data=  await  AsyncStorage.getItem('Loginuser');
+             const  logindetail=JSON.parse(data)
+              this.setState({
+                 userDetails: logindetail
+      
+              })
+         } catch(e){
+            console.log(e)
+         }
+     }
     otpVerify=()=>{
         const {beneficiary}=this.props
 
@@ -93,7 +107,7 @@ import { connect } from 'react-redux';
         const{ Name, AccontNo, ConfirmAccontNo, Email, IFCS, mobileNo}=this.state
      const { beneficiary}=this.props
          const Beneficiary={
-             "memberId":"1259",
+             memberId:this.state.userDetails.memberid,
             // membarId:beneficiary.memberDetials.customerId, 
                 benificiaryAccNo:this.state.AccontNo,
                 benificiaryName:this.state.Name,

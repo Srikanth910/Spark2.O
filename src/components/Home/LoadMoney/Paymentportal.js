@@ -1,9 +1,44 @@
 import React, { Component } from 'react'
 import { Container, Header, Content, FooterTab, Left, Button, Icon, Body, Right, Text, View } from 'native-base'
 import { SafeAreaView, ScrollView, StyleSheet, Image, StatusBar} from 'react-native'
+import AsyncStorage from '@react-native-community/async-storage'
 
 
 export default class Paymentportal extends Component {
+     constructor(props) {
+         super(props)
+     
+         this.state = {
+              userDetails:{}
+         }
+     }
+     
+     componentDidMount= async()=>{
+        try{
+            const data=  await  AsyncStorage.getItem('Loginuser');
+             const  logindetail=JSON.parse(data)
+              this.setState({
+                 userDetails: logindetail
+     
+              })
+         } catch(e){
+            console.log(e)
+         }
+
+     }
+
+
+    handleSuccess=()=>{
+         const payementDetails={
+            membarId: this.state.userDetails.memberid,
+            balance:this.state.amount,
+            "chargeAmount":"0",
+            "ServiceChargePayedByCust":"no",
+            "ShareBuy":"false",
+            pgTransId:data.razorpay_payment_id
+
+         }
+    }
     render() {
         return (
             <Container>
@@ -48,7 +83,8 @@ style={styles.portalimg}
                                 <Text>Failure</Text>
                             </Button>
                             <Button block warning
-                                 onPress={() => this.props.navigation.navigate('LoadmoneySuccess')}
+                                 onPress={this.handleSuccess}
+                                    //  () => this.props.navigation.navigate('LoadmoneySuccess')}
                                 style={{marginTop:20}}
                             >
                                 <Text>Success</Text>

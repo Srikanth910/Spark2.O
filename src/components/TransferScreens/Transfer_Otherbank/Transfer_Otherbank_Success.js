@@ -40,7 +40,7 @@ class Transfer_Otherbank_Success extends Component {
               <Content padder>
                 <View style={{marginHorizontal: 23}}>
                   <View style={styles.curd_user}>
-                    <ListItem>
+                    <ListItem >
                       <Image
                         source={require('../../../images/Transfer/Other_Bank.png')}
                         style={styles.bank}

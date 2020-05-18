@@ -79,7 +79,7 @@ class Loadmoney extends Component {
 
         RazorpayCheckout.open(options).then((data) => {
            
-             this.props.navigation.navigate('Paymentportal')
+             this.props.navigation.navigate('Paymentportal' ,{amount:this.state.amount, id:data.razorpay_payment_id})
         
         // this.props.addSavingsAccountBalanceRazorpay(payementDetails)
 
