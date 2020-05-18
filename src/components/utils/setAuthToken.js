@@ -1,7 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-community/async-storage';
-export const setAuthToken = async token => {
-     
+
+export const setAuthToken = token => {
+
 
   if (token) {
     

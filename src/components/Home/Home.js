@@ -155,8 +155,8 @@ class Home extends Component {
               />
 
               <View style={styles.userid}>
-                <Text style={styles.userName}>9100146410</Text>
-    <Text style={styles.id}>MemberID:1181</Text>
+                <Text style={styles.userName}>Srikanth</Text>
+    <Text style={styles.id}>MemberID:1421</Text>
               </View>
             </ListItem>
           </Left>
@@ -882,6 +882,7 @@ const styles = StyleSheet.create({
    
     backgroundColor: '#ffffff',
     marginTop: 16,
+   overflow:'visible'
   },
   billtext: {
     height: 19,

@@ -256,6 +256,7 @@ export const loginUser = data => async dispatch => {
       }
     })
     .catch(err => {
+      console.log(err)
       dispatch({
         type: GET_ERROR,
         payload: err,
@@ -551,7 +552,10 @@ export const getBanners = data => {
         });
     
       } else if(banners.code==="403"){
-         this.props.navigation.navigate('Login')
+         dispatch({
+            type:SESSION_MISSING,
+             payload:banners
+         })
       }
       
       else{

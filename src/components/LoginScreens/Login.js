@@ -48,6 +48,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 class Login extends Component {
   constructor(props) {
     super(props);
+     global.name="srikanth"
     this.state = {
       selected2: undefined,
       mobile: '',
@@ -78,6 +79,7 @@ class Login extends Component {
           Name: '',
           PhoneNo: '',
           memberOf: '',
+          
         },
       ],
     };
