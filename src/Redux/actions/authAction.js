@@ -50,6 +50,7 @@ import {
 } from '../constants/types';
 import {setAuthToken} from '../../components/utils/setAuthToken';
 import AsyncStorage from '@react-native-community/async-storage';
+import { getUserData } from '../../components/DataAccess/GetData';
 // import AsyncStorage from '@react-native-community/async-storage';
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 
@@ -57,6 +58,7 @@ const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 
 //  signup apis
 
+ var password=''
 export const signupCheckmobile = data => {
   console.log(data);
   return async dispatch => {
@@ -134,8 +136,10 @@ export const createMemberToken = data => {
       } else  if (membarTokenDetails.Data.code === '200') {
         
         const token = membarTokenDetails.Data.Token;
+          const  password= data.password;
+           const memberid=membarTokenDetails.Data.memberid
 
-        setAuthToken(token);
+        setAuthToken(token, memberid, password);
   
         dispatch({
           type: CREATE_MEMBAR_TOKEN_SUCCESS,
@@ -217,7 +221,8 @@ export const isFinbusCustomerForRD = data => {
 
 //  login apis
 
-export const loginUser = data => async dispatch => {
+export const loginUser = (data , callback)=> async dispatch => {
+   password=data.password
   console.log(data);
   return axios
     .post(`${API_URL}/loginByPasswordV2_O `, data)
@@ -240,17 +245,24 @@ export const loginUser = data => async dispatch => {
           payload: loginDetail,
         });
       } else if (loginDetail.Data.Message === 'SUCCESS') {
-     
-
-        const token = loginDetail.Data.Token;
-        setAuthToken(token);
+        AsyncStorage.mergeItem('Loginuser',JSON.stringify (loginDetail.Data))
+         
+        
+         
+  
        
+        const token = loginDetail.Data.Token
+         const memberid=loginDetail.Data.memberid
+         password= data.password
+         setAuthToken(token, memberid, password)
+        
+        // getUserData()
       
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.data.Data,
         });
-        AsyncStorage.mergeItem('Loginuser',JSON.stringify (loginDetail.Data))
+       
         
            
       }
@@ -325,6 +337,12 @@ export const otpVerificationforLogin = data => {
           payload: deviceOtp,
         });
       } else if (deviceOtp.Data.code === '200') {
+        const token = deviceOtp.Data.Token
+        const memberid=deviceOtp.Data.memberid
+        password=password
+        setAuthToken(token, memberid, password)
+
+
         dispatch({
           type: DEVICE_CHECK_OTP_SUCCESS,
           payload: deviceOtp.Data,

@@ -29,7 +29,11 @@ import Modal from 'react-native-modal';
 import AsyncStorage from '@react-native-community/async-storage';
 
 import {connect} from 'react-redux';
-import {signupCheckmobile, checkMoblieno,ResendOtpCheckMobileNo} from '../../Redux/actions/authAction';
+import {
+  signupCheckmobile,
+  checkMoblieno,
+  ResendOtpCheckMobileNo,
+} from '../../Redux/actions/authAction';
 
 class Signup extends Component {
   constructor(props) {
@@ -41,7 +45,7 @@ class Signup extends Component {
       isVisible: false,
       Statevalue: '',
       MobileNO: '',
-      stateValue:'',
+      stateValue: '',
     };
   }
   handleState = (name, id) => {
@@ -61,21 +65,14 @@ class Signup extends Component {
   //   });
   // };
 
+  resendOtpDetails = () => {
+    const resendOtp = {
+      email: this.state.email,
+      mobileno: this.state.MobileNO,
+    };
 
-   resendOtpDetails=()=>{
-
-     const resendOtp={
-        email:this.state.email,
-        mobileno:this.state.MobileNO
-     }
-
-
-      this.props.ResendOtpCheckMobileNo(resendOtp)
-
-     
-
-   }
-
+    this.props.ResendOtpCheckMobileNo(resendOtp);
+  };
 
   OtpDetails = () => {
     const {signUpDetails} = this.props.auth;
@@ -95,12 +92,11 @@ class Signup extends Component {
     });
   };
 
-  userDetails = async  ()=> {
+  userDetails = async () => {
     const userDetails = {
       email: this.state.Email,
       mobileno: this.state.MobileNO,
     };
-
 
     try {
       await AsyncStorage.setItem('signupDetails', JSON.stringify(userDetails));
@@ -109,29 +105,28 @@ class Signup extends Component {
       console.log(e);
     }
 
-
     this.props.signupCheckmobile(userDetails).then(() => {
       const {auth} = this.props;
-      if (auth.signUpDetails.code==="200") {
+      if (auth.signUpDetails.code === '200') {
         this.setState({
           isVisible: true,
         });
       }
     });
-  // };
-  }
+    // };
+  };
 
-   handleState=(name)=>{
-     this.setState({
-        stateValue:name
-     })
-     this.RBSheet.close()
-   }
+  handleState = name => {
+    this.setState({
+      stateValue: name,
+    });
+    this.RBSheet.close();
+  };
 
   render() {
     const {mobileOtp} = this.state;
     const {auth} = this.props;
-     console.log('redux res',auth.signUpDetails.code )
+  
 
     return (
       <Container style={styles.Container}>
@@ -189,16 +184,16 @@ class Signup extends Component {
 
               <Text style={styles.mobileinput}>State</Text>
 
-              <Item
-                regular
-                style={styles.dropInput}
-                >
-               <Input
-                placeholder=""
-                style={styles.input}
-                value={this.state.stateValue}
-              />
-              <Icon name="ios-arrow-down" onPress={() => this.RBSheet.open()} />
+              <Item regular style={styles.dropInput}>
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  value={this.state.stateValue}
+                />
+                <Icon
+                  name="ios-arrow-down"
+                  onPress={() => this.RBSheet.open()}
+                />
 
                 <RBSheet
                   ref={ref => {
