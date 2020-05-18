@@ -34,10 +34,12 @@ import HomeFooter from './Footer';
 import {
   getActivemethods,
   getBeneficiaryBank,
-  
-  
 } from '../../Redux/actions/TransferAction';
- import {getBanners, isFinbusCustomerForRD, getPrepaidBillerCategories} from '../../Redux/actions/authAction'
+import {
+  getBanners,
+  isFinbusCustomerForRD,
+  getPrepaidBillerCategories,
+} from '../../Redux/actions/authAction';
 import AsyncStorage from '@react-native-community/async-storage';
 // import ImageSilder from './ImageSilder';
 
@@ -50,11 +52,11 @@ class Home extends Component {
       tabStatus2: false,
       tabStatus3: false,
       tabStatus4: false,
-      billpay:[]
+      billpay: [],
+      userDetails:{},
     };
   }
 
-  
   checkTabSelected(tab) {
     switch (tab) {
       case 1:
@@ -97,51 +99,46 @@ class Home extends Component {
     }
   }
 
-    componentDidMount= async()=>{
+  componentDidMount = async () => {
+    try{
+       const data=  await  AsyncStorage.getItem('Loginuser');
+        const  logindetail=JSON.parse(data)
+         this.setState({
+            userDetails: logindetail
 
-        // try{
-        //    const data=  await  AsyncStorage.getItem('Loginuser');
-        //     console.log(data)
-        // } catch(e){
-        //    console.log(e)
-        // }
-        
-          
-
-
-
-
-       
-        
-
-          const data={
-            membarId:"1421"
-          }
-      
-         this.props.getPrepaidBillerCategories().then(()=>{
-             const{auth}=this.props
-            
-           if(auth.getPrepaidData.code==="200"){
-              this.setState({
-                billpay:auth.getPrepaidData.list.Response
-
-              })
-           }
          })
-
+    } catch(e){
+       console.log(e)
     }
 
+     const {userDetails}=this.state
+    const data = {
+      membarId:userDetails.memberid ,
+    };
 
-     handleBillpay=(id, Name)=>{
-        console.log(id)
-      this.props.navigation.navigate('LoanPayment',{billerId:id, billerName:Name})
+    this.props.getPrepaidBillerCategories().then(() => {
+      const {auth} = this.props;
 
-     }
+      if (auth.getPrepaidData.code === '200') {
+        this.setState({
+          billpay: auth.getPrepaidData.list.Response,
+        });
+      }
+    });
+  };
+
+  handleBillpay = (id, Name) => {
+    console.log(id);
+    this.props.navigation.navigate('LoanPayment', {
+      billerId: id,
+      billerName: Name,
+    });
+  };
   render() {
     const {auth} = this.props;
+     const {userDetails}=this.state
      
-    
-    
+
     return (
       <Container style={styles.Container}>
         <Header style={{backgroundColor: '#1b1464', height: 100}}>
@@ -156,7 +153,7 @@ class Home extends Component {
 
               <View style={styles.userid}>
                 <Text style={styles.userName}>Srikanth</Text>
-    <Text style={styles.id}>MemberID:1421</Text>
+    <Text style={styles.id}>MemberID:{userDetails.memberid}</Text>
               </View>
             </ListItem>
           </Left>
@@ -267,10 +264,11 @@ class Home extends Component {
                   </Left>
 
                   <Right>
-                    <Button transparent
-                    
-                     onPress={()=>this.props.navigation.navigate('Saving_Account_Main')}
-                    >
+                    <Button
+                      transparent
+                      onPress={() =>
+                        this.props.navigation.navigate('Saving_Account_Main')
+                      }>
                       <Image source={require('../../images/home/arrow.png')} />
                     </Button>
                   </Right>
@@ -305,94 +303,76 @@ class Home extends Component {
 
                 <Text style={styles.tns_text}>Transactions</Text>
               </ListItem>
-              <View >
-                <View style={{flexDirection: 'row', flexWrap:'wrap',  }}>
-                   {  this.state.billpay.map(item=>{
-                    return(
-                      <TouchableOpacity onPress={()=>this.handleBillpay(item.Id, item.Name)}>
-                      <View style={styles.box}>
-                        {item.ServerId==="6" ?
-                        <View>
-                        <Image
-                        source={require('../../images/home/phone.png')}
-                        style={styles.billIcon}
-                      />
-                      <Text style={styles.iconText}>{item.Name}</Text>
-                        </View>:
-                         item.ServerId==="7"?
-                         <View>
-<Image
-                      source={require('../../images/home/Broadband.png')}
-                      style={styles.broadband}
-                    />
-                      <Text style={styles.iconText}>{item.Name}</Text>
-
-                           </View>:
-                            item.ServerId==="9"?
+              <View>
+                <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
+                  {this.state.billpay.map(item => {
+                    return (
+                      <TouchableOpacity
+                        onPress={() => this.handleBillpay(item.Id, item.Name)}>
+                        <View style={styles.box}>
+                          {item.ServerId === '6' ? (
                             <View>
-
-<Image
-                      source={require('../../images/home/water.png')}
-                      style={styles.watericon}
-                    />
-                     <Text style={styles.iconText}>{item.Name}</Text>
-
-
-                            </View>:
-                            item.ServerId==="5"?
+                              <Image
+                                source={require('../../images/home/phone.png')}
+                                style={styles.billIcon}
+                              />
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : item.ServerId === '7' ? (
                             <View>
+                              <Image
+                                source={require('../../images/home/Broadband.png')}
+                                style={styles.broadband}
+                              />
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : item.ServerId === '9' ? (
+                            <View>
+                              <Image
+                                source={require('../../images/home/water.png')}
+                                style={styles.watericon}
+                              />
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : item.ServerId === '5' ? (
+                            <View>
+                              <Image
+                                source={require('../../images/home/Landline.png')}
+                                style={styles.watericon}
+                              />
 
-<Image source={require('../../images/home/Landline.png')} style={styles.watericon}/>
-
-
-<Text style={styles.iconText}>{item.Name}</Text>
-
-                              </View>:
-                              item.ServerId==="4"?
-                              <View>
-<Image
-                      source={require('../../images/home/DTH.png')}
-                      style={styles.billIcon}
-                    />
-                     <Text style={styles.iconText}>{item.Name}</Text>
-
-
-                              </View>:
-                              item.ServerId==="3"?
-                              <View>
-<Image
-                      source={require('../../images/home/Electricity.png')}
-                      style={styles.billIcon}
-                    />
-                    <Text style={styles.iconText}>{item.Name}</Text>
-
-
-                            
-
-                              </View>:
-                              item.ServerId==="2"?
-                              <View>
-<Image source={require('../../images/billpay/Gas.png')} style={styles.gas}/>
-<Text style={styles.iconText}>{item.Name}</Text>
-
-                                </View>:null
-
-
-                        
-                        }
-
-                        
-                    </View>
-                    </TouchableOpacity>
-
-                  
-                    )
-                    
-                     
-
-                
-                    })}  
-                    <View style={styles.dottedmore}>
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : item.ServerId === '4' ? (
+                            <View>
+                              <Image
+                                source={require('../../images/home/DTH.png')}
+                                style={styles.billIcon}
+                              />
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : item.ServerId === '3' ? (
+                            <View>
+                              <Image
+                                source={require('../../images/home/Electricity.png')}
+                                style={styles.billIcon}
+                              />
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : item.ServerId === '2' ? (
+                            <View>
+                              <Image
+                                source={require('../../images/billpay/Gas.png')}
+                                style={styles.gas}
+                              />
+                              <Text style={styles.iconText}>{item.Name}</Text>
+                            </View>
+                          ) : null}
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                  <View style={styles.dottedmore}>
                     <Text
                       style={styles.moretext}
                       onPress={() => this.props.navigation.navigate('PayBill')}>
@@ -420,8 +400,8 @@ class Home extends Component {
                     />
                     <Text style={styles.iconText}>Electricity</Text>
                 // </View>*/}
-                 </View> 
-{/* 
+                </View>
+                {/* 
                 <View
                   style={{
                     flex: 1,
@@ -502,24 +482,17 @@ class Home extends Component {
                     </Item>
                   </Left>
                   <Right>
-                  
-                    <Item style={styles.itemview}
-                     onPress={() =>
-                      this.props.navigation.navigate('Fdscreen')
-                    }
-                    >
-                      
+                    <Item
+                      style={styles.itemview}
+                      onPress={() =>
+                        this.props.navigation.navigate('Fdscreen')
+                      }>
                       <Image
                         source={require('../../images/home/trendup.png')}
                         style={styles.fd_rdiicon}
                       />
 
-                      <Text
-                        style={styles.fd_rdbtn}
-                        >
-                        {' '}
-                        FD RATES
-                      </Text>
+                      <Text style={styles.fd_rdbtn}> FD RATES</Text>
                     </Item>
                   </Right>
                 </ListItem>
@@ -658,7 +631,13 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {getActivemethods, getBeneficiaryBank,getBanners,isFinbusCustomerForRD, getPrepaidBillerCategories},
+  {
+    getActivemethods,
+    getBeneficiaryBank,
+    getBanners,
+    isFinbusCustomerForRD,
+    getPrepaidBillerCategories,
+  },
 )(Home);
 
 const styles = StyleSheet.create({
@@ -691,18 +670,17 @@ const styles = StyleSheet.create({
     height: 15,
   },
   userName: {
-    
     fontFamily: 'Nunito',
     fontSize: 14,
     color: '#ffffff',
     textAlign: 'left',
+    alignItems:'flex-start'
   },
   userid: {
-    paddingLeft: 10,
+    // paddingLeft: 10,
     alignSelf: 'center',
   },
   id: {
-   
     opacity: 0.5,
     fontFamily: 'Nunito',
     fontSize: 12,
@@ -802,7 +780,6 @@ const styles = StyleSheet.create({
     color: 'grey',
   },
   bal: {
-    
     fontFamily: 'Inconsolata',
     fontSize: 24,
     fontFamily: 'Inconslata',
@@ -817,6 +794,7 @@ const styles = StyleSheet.create({
   spicon: {
     height: 32,
     width: 32,
+     alignSelf:'center'
   },
   kyccard: {
     marginTop: 30,
@@ -879,10 +857,9 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   billpay: {
-   
     backgroundColor: '#ffffff',
     marginTop: 16,
-   overflow:'visible'
+    overflow: 'visible',
   },
   billtext: {
     height: 19,
@@ -951,7 +928,7 @@ const styles = StyleSheet.create({
     shadowRadius: 11.95,
 
     elevation: 5,
-      marginTop: 15,
+    marginTop: 15,
   },
   billIcon: {
     height: 42,
@@ -1039,7 +1016,7 @@ const styles = StyleSheet.create({
     height: 75,
     width: 75,
     marginBottom: 20,
-     marginTop: 15,
+    marginTop: 15,
   },
   fddotedtext: {
     width: 189,
@@ -1081,13 +1058,11 @@ const styles = StyleSheet.create({
     marginRight: 20,
     borderTopColor: 'grey',
   },
-  gas:{ 
-    height:36,
-     width:22,
-      marginTop:10,
-    
-     alignSelf:'center'
+  gas: {
+    height: 36,
+    width: 22,
+    marginTop: 10,
 
-
-},
+    alignSelf: 'center',
+  },
 });

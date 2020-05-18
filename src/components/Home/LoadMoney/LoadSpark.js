@@ -8,13 +8,33 @@ import { connect } from 'react-redux'
 
 
 import {getRazorpayDetails} from '../../../Redux/actions/LoadMoneyaction'
+import AsyncStorage from '@react-native-community/async-storage'
  class LoadSpark extends Component {
-  componentDidMount(){
+      constructor(props) {
+          super(props)
+      
+          this.state = {
+               userDetails:{}
+          }
+      }
+      
+  componentDidMount=async()=>{
+
+    try{
+        const data=  await  AsyncStorage.getItem('Loginuser');
+         const  logindetail=JSON.parse(data)
+          this.setState({
+             userDetails: logindetail
+ 
+          })
+     } catch(e){
+        console.log(e)
+     }
        const  details={
-           "memberId":"1278",
+           memberId:this.state.userDetails.memberid,
            "isFirsttime":"false"
        }
-    //    this.props.getRazorpayDetails(details)
+       this.props.getRazorpayDetails(details)
 
             
     }

@@ -25,18 +25,37 @@ import Modal from 'react-native-modal';
 import {connect} from 'react-redux';
 import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Transfer_Spark_otherbank extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+
+      userDetails:{},
+    };
+    
   }
 
-  componentDidMount() {
+  componentDidMount=async()=> {
+
+    try{
+      const data=  await  AsyncStorage.getItem('Loginuser');
+       const  logindetail=JSON.parse(data)
+        console.log(logindetail)
+        this.setState({
+           userDetails: logindetail
+
+        })
+   } catch(e){
+      console.log(e)
+   }
+
     const {params} = this.props.route;
+     const {userDetails}=this.state
     if (params.type === 2) {
       const data = {
-        membarId: '1421',
+        membarId:this.state.userDetails.memberid,
         isPrimaryAccunt: 'false',
         isWithInCoop: 'true',
         type: '1',
@@ -44,7 +63,7 @@ class Transfer_Spark_otherbank extends Component {
       this.props.getBeneficiaryBank(data);
     } else if (params.type === 4) {
       const data = {
-        membarId: '1421',
+        membarId: userDetails.memberid,
         isPrimaryAccunt: 'false',
         isWithInCoop: 'false',
         type: '2',
@@ -52,7 +71,7 @@ class Transfer_Spark_otherbank extends Component {
       this.props.getBeneficiaryBank(data);
     } else if (params.type === 3) {
       const data = {
-        membarId: '1421',
+        membarId: userDetails.memberid,
         isPrimaryAccunt: 'false',
         isWithInCoop: 'true',
         type: '5',

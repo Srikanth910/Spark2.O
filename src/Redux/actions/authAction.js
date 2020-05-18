@@ -248,9 +248,6 @@ export const loginUser = (data , callback)=> async dispatch => {
         AsyncStorage.mergeItem('Loginuser',JSON.stringify (loginDetail.Data))
          
         
-         
-  
-       
         const token = loginDetail.Data.Token
          const memberid=loginDetail.Data.memberid
          password= data.password
@@ -339,7 +336,7 @@ export const otpVerificationforLogin = data => {
       } else if (deviceOtp.Data.code === '200') {
         const token = deviceOtp.Data.Token
         const memberid=deviceOtp.Data.memberid
-        password=password
+              password=password
         setAuthToken(token, memberid, password)
 
 

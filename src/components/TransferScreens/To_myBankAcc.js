@@ -40,17 +40,30 @@ class To_myBankAcc extends Component {
           transactionMetod: '',
           Description: '',
           amount: '',
+          userDetails:{}
         },
       ],
     };
   }
 
-  componentDidMount = () => {
+  componentDidMount = async () => {
+
+
+    try{
+      const data=  await  AsyncStorage.getItem('Loginuser');
+       const  logindetail=JSON.parse(data)
+        this.setState({
+           userDetails: logindetail
+
+        })
+   } catch(e){
+      console.log(e)
+   }
     const {params} = this.props.route;
     this.props.getActivemethods();
     if (params.type === 2) {
       const data = {
-        membarId: '1421',
+        membarId: this.state.userDetails.memberid,
         isPrimaryAccunt: 'false',
         isWithInCoop: 'true',
         type: '1',
@@ -137,7 +150,9 @@ class To_myBankAcc extends Component {
               marginHorizontal: 16,
             }}>
             <Text style={styles.selecttext}>Select Beneficiary</Text>
-            <Text style={styles.addbenficiarytext}>Add a Beneficiary</Text>
+
+            <TouchableOpacity onPress={()=>this.props.navigation.navigate('Beneficiary')}>
+            <Text style={styles.addbenficiarytext}>Add a Beneficiary</Text></TouchableOpacity>
           </View>
 
           {params.otherBeneficiary === 'true' ? (

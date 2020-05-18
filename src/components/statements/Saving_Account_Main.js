@@ -6,21 +6,34 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 
  import{getLastTentxns} from '../../Redux/actions/authAction'
+import AsyncStorage from '@react-native-community/async-storage';
 
 
  class Saving_Account_Main extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            arrayData:[]
+            arrayData:[],
+            userDetails:{}
 
         };
         
     }
 
-     componentDidMount(){
+     componentDidMount=async()=>{
+
+        try{
+            const data=  await  AsyncStorage.getItem('Loginuser');
+             const  logindetail=JSON.parse(data)
+              this.setState({
+                 userDetails: logindetail
+     
+              })
+         } catch(e){
+            console.log(e)
+         }
           const data={
-               "membarId":"1421"
+               membarId:this.state.userDetails.memberid
           }
            this.props.getLastTentxns(data).then(()=>{
             const {auth}=this.props
