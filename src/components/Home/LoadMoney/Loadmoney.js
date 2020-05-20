@@ -27,8 +27,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import RazorpayCheckout from'react-native-razorpay';
  
-
-import {checkCarddetails} from '../../../Redux/actions/LoadMoneyaction';
+import {addSavingsAccountBalanceRazorpay,checkCarddetails} from '../../../Redux/actions/LoadMoneyaction';
 class Loadmoney extends Component {
   state = {activeIndex: 0};
 
@@ -37,7 +36,8 @@ class Loadmoney extends Component {
 
     this.state = {
       value: false,
-       amount:''
+       amount:'',
+       paymentId:''
     };
   }
   componentDidMount() {
@@ -67,35 +67,45 @@ class Loadmoney extends Component {
         theme: {color: '#F37254'}
         }
 
-        // const payementDetails={
-        //     membarId:'1421',
-        //     balance:this.state.amount,
-        //     "chargeAmount":"0",
-        //     "ServiceChargePayedByCust":"no",
-        //     "ShareBuy":"false",
-        //     pgTransId:data.razorpay_payment_id
-
-        //  }
-
         RazorpayCheckout.open(options).then((data) => {
-           
-             this.props.navigation.navigate('Paymentportal' ,{amount:this.state.amount, id:data.razorpay_payment_id})
-        
-        // this.props.addSavingsAccountBalanceRazorpay(payementDetails)
+           console.log(data)
+           this.setState({
+             paymentId:data.razorpay_payment_id
+           })
+            this.addBalanace()
 
-       
-        // alert(`Success: ${data.razorpay_payment_id}`);
+          
         console.log( data.razorpay_payment_id)
         }).catch((error) => {
-       // handle failure
-        alert(`Error: ${error.code} | ${error.description}`);
+           console.log(error)
+       
         });
         
-   }
+   };
+
+
+    addBalanace=()=>{
+
+      
+    
+
+   const payementDetails={
+    membarId:'1421',
+    balance:this.state.amount,
+    "chargeAmount":"0",
+    "ServiceChargePayedByCust":"no",
+    "ShareBuy":"false",
+    pgTransId: this.state.paymentId
+
+ }
+
+       this.props.addSavingsAccountBalanceRazorpay(payementDetails)
+    }
+       
+   
 
   render() {
     const {cardDetails} = this.props.loadmoney;
-    console.log('data', cardDetails);
 
     return (
       <Container>
@@ -361,7 +371,7 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  {checkCarddetails},
+  {addSavingsAccountBalanceRazorpay,checkCarddetails},
 )(Loadmoney);
 
 const styles = StyleSheet.create({

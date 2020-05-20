@@ -4,6 +4,9 @@ import { getUserData } from '../DataAccess/GetData';
 
 
 export const SetauthtokenMpin = (token,memberid,password) => {
+   console.log(token)
+    console.log(memberid),
+     console.log('ff',password)
   
 
 

@@ -19,15 +19,38 @@ import {StyleSheet, StatusBar, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
 import { connect } from 'react-redux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Transfer_Money extends Component {
 
-  
+   constructor(props) {
+     super(props)
+   
+     this.state = {
+        userDetails:{}
+     }
+   }
+   
+     
+
+  componentDidMount =async ()=>{
+    try{
+      const data=  await  AsyncStorage.getItem('Loginuser');
+       const  logindetail=JSON.parse(data)
+        this.setState({
+           userDetails: logindetail
+
+        })
+   } catch(e){
+      console.log(e)
+   }
+
+  }
 
   handlebankACC=()=>{
     
     const data = {
-        "membarId": "1421",
+        membarId: this.state.userDetails.memberid,
         "isPrimaryAccunt": "true",
         "isWithInCoop": "false",
         "type": "2",

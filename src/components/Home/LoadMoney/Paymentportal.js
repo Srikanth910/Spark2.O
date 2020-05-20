@@ -2,9 +2,10 @@ import React, { Component } from 'react'
 import { Container, Header, Content, FooterTab, Left, Button, Icon, Body, Right, Text, View } from 'native-base'
 import { SafeAreaView, ScrollView, StyleSheet, Image, StatusBar} from 'react-native'
 import AsyncStorage from '@react-native-community/async-storage'
+import { connect } from 'react-redux'
 
 
-export default class Paymentportal extends Component {
+ class Paymentportal extends Component {
      constructor(props) {
          super(props)
      
@@ -29,17 +30,20 @@ export default class Paymentportal extends Component {
 
 
     handleSuccess=()=>{
+         const{params}=this.state
          const payementDetails={
             membarId: this.state.userDetails.memberid,
-            balance:this.state.amount,
+            balance:params.amount,
             "chargeAmount":"0",
             "ServiceChargePayedByCust":"no",
             "ShareBuy":"false",
-            pgTransId:data.razorpay_payment_id
+             pgTransId:params.razorpay_payment_id
 
          }
     }
     render() {
+         const{params}=this.props.route
+          console.log(params)
         return (
             <Container>
                  <Header  style={{ backgroundColor: "#1b1464", height: 80 }}>
@@ -49,7 +53,7 @@ export default class Paymentportal extends Component {
  
  <Button transparent  >
      <Icon name='arrow-back'
-         onPress={() => this.props.navigation.navigate('Loasmoney')}
+         onPress={() => this.props.navigation.navigate('Loadmoney')}
      />
 
 
@@ -95,7 +99,15 @@ style={styles.portalimg}
     }
 }
 
- const styles= StyleSheet.create({
+const mapStateToProps = state => ({
+    loadmoney: state.loadmoney,
+  });
+  
+  export default connect(
+    mapStateToProps,
+    {},
+  )(Paymentportal);
+const styles= StyleSheet.create({
      headerText:{
           fontFamily:'Nunito'
 ,

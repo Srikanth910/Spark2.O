@@ -51,6 +51,7 @@ import {
 import {setAuthToken} from '../../components/utils/setAuthToken';
 import AsyncStorage from '@react-native-community/async-storage';
 import { getUserData } from '../../components/DataAccess/GetData';
+import { SetauthtokenMpin } from '../../components/utils/SetauthTokenMpin';
 // import AsyncStorage from '@react-native-community/async-storage';
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 
@@ -134,6 +135,9 @@ export const createMemberToken = data => {
           payload: membarTokenDetails,
         });
       } else  if (membarTokenDetails.Data.code === '200') {
+        AsyncStorage.setItem('Loginuser',JSON.stringify (membarTokenDetails.Data))
+         
+        
         
         const token = membarTokenDetails.Data.Token;
           const  password= data.password;
@@ -276,7 +280,22 @@ export const loginUser = (data , callback)=> async dispatch => {
 //   resend opt
 
 export const userMpin = (data, callback) => dispatch => {
+   let password=""
+  AsyncStorage.getItem('Loginuser').then(res=>{
+     console.log(res)
+            
+    const data= res 
+     const localData= JSON.parse(data);
+      password=localData.password
+
+    
+       console.log(password)
+      
+       
+ })
+  console.log('pasword', password)
   console.log(data);
+  SetauthtokenMpin(password)
 
   return axios
     .post(`${API_URL}/loginByMpinV2_O`, data)
@@ -295,6 +314,21 @@ export const userMpin = (data, callback) => dispatch => {
           payload: userMpin.Data,
         });
       } else if (userMpin.Data.code === '200') {
+        AsyncStorage.setItem('Loginuser',JSON.stringify (userMpin.Data))
+         
+         AsyncStorage.getItem('Loginuser').then(res=>{
+            
+            const data= res 
+             const localData= JSON.parse(data);
+              password=localData.password
+               
+         })
+          
+ let memberid=userMpin.Data.memberid
+  let  token=userMpin.data.Token
+  
+         SetauthtokenMpin(memberid, token, password)
+        
         dispatch({
           type: MPIN_SUCCESS,
           payload: res.data.Data,
@@ -334,6 +368,9 @@ export const otpVerificationforLogin = data => {
           payload: deviceOtp,
         });
       } else if (deviceOtp.Data.code === '200') {
+
+        AsyncStorage.setItem('Loginuser',JSON.stringify (deviceOtp.Data))
+         
         const token = deviceOtp.Data.Token
         const memberid=deviceOtp.Data.memberid
               password=password
@@ -567,6 +604,7 @@ export const getBanners = data => {
         });
     
       } else if(banners.code==="403"){
+           this.props.navigation.navigate('Login')
          dispatch({
             type:SESSION_MISSING,
              payload:banners

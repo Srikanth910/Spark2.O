@@ -429,7 +429,7 @@ class Login extends Component {
                     </View>
                     <View>
                       <TouchableOpacity
-                        onPress={() => this.handleState('maharashtra', 2)}
+                        onPress={() => this.handleState('Maharashtra', 2)}
                         style={
                           this.state.activeIndex === 2
                             ? styles.btnActive

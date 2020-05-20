@@ -36,6 +36,39 @@ export const getRazorpayDetails=(data)=>{
 
 
 
+export const addSavingsAccountBalanceRazorpay = data => {
+     console.log('uires',data);
+     return async dispatch => {
+       try {
+         const res = await axios.get(
+           `${API_URL}/addSavingsAccountBalanceRazorpay?membarId=${data.membarId}&balance=${data.balance}&chargeAmount=0.0&isServiceChargePayedByCust=no&isShareBuy=false&pgTransId=${data.pgTransId}`)
+            
+         let razorpayDetails = await res.data;
+         console.log('res', payoutStatus);
+         if (razorpayDetails.code === '200') {
+           dispatch({
+             type: ACCOUNT_BALANCE_RAZORPAY_SUCCESS,
+             payload: razorpayDetails,
+           });
+         }else if(razorpayDetails.code==="403"){
+   
+            dispatch({
+               type:SESSION_MISSING,
+                payload:razorpayDetails
+            })
+         }else{
+            alert ('network falid')
+         }
+          
+       } catch (err) {
+         console.log(err);
+         dispatch({
+           type: CATACH_ERROR,
+           payload: err,
+         });
+       }
+     };
+   };
  
 
 

@@ -3,6 +3,7 @@ import {View} from 'native-base';
 import {SliderBox} from 'react-native-image-slider-box';
 import {connect} from 'react-redux';
  import {getBanners}from '../../Redux/actions/authAction'
+import AsyncStorage from '@react-native-community/async-storage';
 class ImageSilder extends Component {
   constructor(props) {
     super(props);
@@ -13,14 +14,28 @@ class ImageSilder extends Component {
         require('../../images/home/home_img.png'),
         require('../../images/home/home_img.png'), // Local image
       ],
-      banners:[]
+      banners:[],
+      userDetails:{},
     };
   }
-   componentDidMount(){
+   componentWillMount= async ()=>{
+
+    try{
+      const data=  await  AsyncStorage.getItem('Loginuser');
+       const  logindetail=JSON.parse(data)
+        this.setState({
+           userDetails: logindetail
+
+        })
+   } catch(e){
+      console.log(e)
+   }
+
+    
     const {auth}=this.props
 
     const data={
-      membarId:"1421"
+      membarId:this.state.userDetails.memberid
     }
   
 

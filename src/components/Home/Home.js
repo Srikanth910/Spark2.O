@@ -39,8 +39,10 @@ import {
   getBanners,
   isFinbusCustomerForRD,
   getPrepaidBillerCategories,
+
 } from '../../Redux/actions/authAction';
 import AsyncStorage from '@react-native-community/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 // import ImageSilder from './ImageSilder';
 
 class Home extends Component {
@@ -54,6 +56,7 @@ class Home extends Component {
       tabStatus4: false,
       billpay: [],
       userDetails:{},
+      finbusDetails:{}
     };
   }
 
@@ -111,11 +114,26 @@ class Home extends Component {
        console.log(e)
     }
 
+     
      const {userDetails}=this.state
     const data = {
       membarId:userDetails.memberid ,
     };
 
+    
+         this.props.isFinbusCustomerForRD(data).then(()=>{
+            const{auth}=this.props
+             if(auth.finbusDetails){
+
+             
+             this.setState({
+                 finbusDetails:auth.finbusDetails
+             })
+            
+            }
+         })
+
+      
     this.props.getPrepaidBillerCategories().then(() => {
       const {auth} = this.props;
 
@@ -138,6 +156,7 @@ class Home extends Component {
     const {auth} = this.props;
      const {userDetails}=this.state
      
+    
 
     return (
       <Container style={styles.Container}>
@@ -249,7 +268,7 @@ class Home extends Component {
                   <Left>
                     <Body>
                       <Text style={styles.AcNO}>
-                        A/c NO :<Text>121233233232</Text>
+    A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{this.state.finbusDetails.savingsAccNo}</Text>
                       </Text>
                     </Body>
                   </Left>
@@ -257,7 +276,7 @@ class Home extends Component {
                 <CardItem>
                   <Left>
                     
-                    <Text style={styles.bal}> ₹ 5000</Text>
+    <Text style={styles.bal}> ₹ {this.state.finbusDetails.savingsbal}</Text>
                   </Left>
 
                   <Right>
@@ -455,7 +474,81 @@ class Home extends Component {
                 You can earn up to 16% interest p.a. Also avail the option to
                 earn interest on deposit every month!
               </Text>
-              <View>
+
+{/* 
+         <ScrollView horizontal={true}>
+              <Card style={styles.card_fd}>
+                <CardItem>
+                  <Left>
+                    <Body>
+                      <Text style={styles.AcNO}>
+    A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{this.state.finbusDetails.savingsAccNo}</Text>
+                      </Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem style={{height:30}}>
+                  <Left>
+                    
+    <Text style={styles.bal}> ₹ {this.state.finbusDetails.savingsbal}</Text>
+                  </Left>
+
+                  <Right>
+                    <Button
+                      transparent
+                      onPress={() =>
+                        this.props.navigation.navigate('Saving_Account_Main')
+                      }>
+                      <Image source={require('../../images/home/arrow.png')} />
+                    </Button>
+                  </Right>
+                </CardItem>
+               
+               <View style={{marginVertical:16, marginHorizontal: 5,}}>
+                  <Text style={styles.fdcardText}>Non-Breakable deposit</Text>
+                  <Text style={styles.fdcardText}>16% p.a., Annual interest payout</Text>
+                  <Text style={styles.fdcardText}>Next interest paid on 18/06/2018</Text>
+                  </View>
+               
+
+            
+              </Card>
+
+              <Card style={styles.card}_fd>
+                <CardItem>
+                  <Left>
+                    <Body>
+                      <Text style={styles.AcNO}>
+    A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{this.state.finbusDetails.savingsAccNo}</Text>
+                      </Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem>
+                  <Left>
+                    
+    <Text style={styles.bal}> ₹ {this.state.finbusDetails.savingsbal}</Text>
+                  </Left>
+
+                  <Right>
+                    <Button
+                      transparent
+                      onPress={() =>
+                        this.props.navigation.navigate('Saving_Account_Main')
+                      }>
+                      <Image source={require('../../images/home/arrow.png')} />
+                    </Button>
+                  </Right>
+                </CardItem>
+                <CardItem>
+
+                  
+                </CardItem>
+
+            
+              </Card>
+              </ScrollView> */}
+               <View>
                 <ImageBackground
                   source={require('../../images/home/fd_bg.png')}
                   style={styles.fd_rdbg}>
@@ -466,7 +559,7 @@ class Home extends Component {
                     </Text>
                   </View>
                 </ImageBackground>
-              </View>
+              </View> 
               <View style={styles.rdbottombtn}>
                 <ListItem style={styles.listview}>
                   <Left>
@@ -569,7 +662,62 @@ class Home extends Component {
             </View>
           </View>
 
+
+
+
+          <View style={styles.Rectangle}>
+            <View style={styles.fdCard}>
+              <ListItem style={styles.listview}>
+                {/* <Image
+                  source={require('../../images/home/spk_logo.png')}
+                  style={styles.logo}
+                /> */}
+                <Text style={styles.saving}>AYSHWARYA SYNDICATE SHARES</Text>
+              </ListItem>
+              <Text style={styles.savingData}>
+              Dividend earned on the shares you owned are credited to your Savings account.
+              </Text>
+
+              <Card style={styles.card}>
+                <CardItem>
+                  <Left>
+                    <Body>
+                      <Text style={styles.AcNO}>
+                      Shares:1
+                      </Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+                <CardItem>
+                  <Left>
+                    
+    <Text style={styles.bal}> ₹ 1000</Text>
+                  </Left>
+
+                  <Right>
+                    
+                  </Right>
+                </CardItem>
+                <CardItem>
+                  <Left>
+                    <Body>
+                      <Text style={styles.AcNO}>
+                      Member since: 18/03/2017
+                      </Text>
+                    </Body>
+                  </Left>
+                </CardItem>
+              
+              </Card>
+            </View>
+          </View>
+
+         
           <View style={styles.bottom} />
+
+
+
+
         </Content>
 
         <Footer>
@@ -749,6 +897,13 @@ const styles = StyleSheet.create({
 
     // background-image: linear-gradient(184deg, #1b1464 65%, #3d3c77 -6%);
   },
+  card_fd:{
+     width:312,
+      height:165,
+     marginLeft:16 
+      
+
+  },
   card: {
     backgroundColor: '#ffffff',
     // height:148,
@@ -781,8 +936,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   AcNO: {
-    width: 50,
-    height: 19,
+    
+    // height: 19,
     fontFamily: 'Nunito',
     fontWeight: 'bold',
     textAlign: 'left',
@@ -1082,4 +1237,11 @@ const styles = StyleSheet.create({
 
     alignSelf: 'center',
   },
+  fdcardText:{
+    fontFamily:'Nunito',
+     fontSize:14,
+      color:'grey',
+       marginLeft:16,
+  }
+   
 });
