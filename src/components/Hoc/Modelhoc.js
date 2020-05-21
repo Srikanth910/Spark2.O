@@ -1,6 +1,7 @@
 import React from 'react';
 
-import Erroralert from  '../Hoc/Erroralert'
+// import Erroralert from  '../Hoc/Erroralert'
+import { connect } from 'react-redux';
 
 const Otpmodel = (WrappedComponent) => {
   class Otpmodel extends React.Component {
@@ -22,6 +23,14 @@ const Otpmodel = (WrappedComponent) => {
           isVisible: true
       });
   };
+   componentDidMount(){
+      if(auth.isAutherticated===true){
+         this.props.navigation.navigate('Home')
+      }else if(auth.sessionData.code===403){
+         this.props.navigation.navigate('Login')
+      }
+
+   }
 
     render() {
    
@@ -29,7 +38,7 @@ const Otpmodel = (WrappedComponent) => {
         <>
         
         <WrappedComponent toggle={this.showmodel}  {...this.props} />
-        <Erroralert showAlert={this.state.isVisible} />
+       
         
         </>
       );
@@ -38,4 +47,13 @@ const Otpmodel = (WrappedComponent) => {
   return Otpmodel;
 };
 
-export default Otpmodel;
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+  error: state.error,
+});
+
+export default connect(
+  mapStateToProps,
+  {},
+)(Otpmodel);

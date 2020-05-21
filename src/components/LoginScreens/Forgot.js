@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title, ListItem } from "native-base";
-import { StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
+import { StyleSheet, StatusBar, TouchableOpacity, ActivityIndicator } from 'react-native'
 
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 
 import Dialog from "react-native-dialog";
 import Modal from 'react-native-modal';
+import RBSheet from 'react-native-raw-bottom-sheet';
  import{ResetMpinByMobileNo,otpVerification} from '../../Redux/actions/authAction'
  import {connect} from 'react-redux'
  class Forgot extends Component {
@@ -18,7 +19,10 @@ import Modal from 'react-native-modal';
       isModalVisible: false,
        mobileNum:'',
        password:'',
-       Otp:''
+       Otp:'',
+        activeIndex:0,
+         stateValue:'',
+          spinner:false,
     };
   }
   onValueChange2 = (value) => {
@@ -62,11 +66,20 @@ import Modal from 'react-native-modal';
      otp: this.state.Otp,
      refNo:auth.refNo
      }
+
+
+      this.setState({
+         spinner:true
+      })
     this.props.otpVerification(otp,()=>{
       this.setState({
         isVisible:false
        })
        this.props.navigation.navigate('ForgotMpin')
+       this.setState({
+        spinner:
+        false
+     })
     })
   }
     
@@ -76,11 +89,33 @@ import Modal from 'react-native-modal';
       mobileNo:this.state.mobileNum,
       password:this.state.password
       }
+      this.setState({
+        spinner: true
+     })
         
        this.props.ResetMpinByMobileNo(mpindata,()=>{
       this.modelopen();
+      this.setState({
+        spinner:false
+      })
+
        })
+
+        setTimeout(()=>{
+           this.setState({
+              spinner:false
+           })
+
+        },5000)
     }
+
+    handleState = name => {
+      this.setState({
+        stateValue: name,
+      });
+      this.RBSheet.close();
+    };
+  
   render() {
       const{ password}= this.state
         console.log('data',this.props.auth)
@@ -105,26 +140,61 @@ import Modal from 'react-native-modal';
 
         <Content >
           <Text style={styles.loginText}>Select state</Text>
-          <Item regular style={styles.dropInput} >
-            <Picker
-              mode="dropdown"
-              iosIcon={<Icon name="arrow-down" />}
-              style={{ width: undefined }}
-              placeholder="Select your SIM"
-              placeholderStyle={{ color: "#bfc6ea" }}
-              placeholderIconColor="#007aff"
-              selectedValue={this.state.selected2}
-              onValueChange={this.onValueChange2.bind(this)}
-            >
-              <Picker.Item label="Select" value="key0" />
-              <Picker.Item label="Karnataka" value="Karnataka" >
-                <Item>hello</Item>
-              </Picker.Item>
-              <Picker.Item label="maharashtra" value="maharashtra" />
+          <Item regular style={styles.dropInput}>
+                <Input
+                  placeholder=""
+                  style={styles.input}
+                  value={this.state.stateValue}
+                />
+                <Icon
+                  name="ios-arrow-down"
+                  onPress={() => this.RBSheet.open()}
+                />
 
-            </Picker>
-          </Item>
+                <RBSheet
+                  ref={ref => {
+                    this.RBSheet = ref;
+                  }}
+                  height={220}
+                  duration={250}
+                  customStyles={{
+                    container: {
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                    },
+                  }}>
+                  <Text style={styles.selectState}>Select state</Text>
 
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => this.handleState('karnataka', 1)}
+                      style={
+                        this.state.activeIndex === 1
+                          ? styles.btnActive
+                          : styles.btn
+                      }>
+                      <Text style={styles.state}>Karnataka</Text>
+                      <Text style={styles.Statesubtext}>
+                        Ayshwarya Syndicate Souharda Credit Co-operative Limited
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                  <View>
+                    <TouchableOpacity
+                      onPress={() => this.handleState('Maharashtra', 2)}
+                      style={
+                        this.state.activeIndex === 2
+                          ? styles.btnActive
+                          : styles.btn
+                      }>
+                      <Text style={styles.state}>Maharashtra</Text>
+                      <Text style={styles.Statesubtext}>
+                        Ayshwarya Syndicate Souharda Credit Co-operative Limited
+                      </Text>
+                    </TouchableOpacity>
+                  </View>
+                </RBSheet>
+              </Item>
 
           <Text style={styles.loginText}>Enter your mobile number</Text>
           <Item regular style={styles.textInput}>
@@ -144,6 +214,9 @@ import Modal from 'react-native-modal';
             />
           </Item>
           <View>
+
+{this.state.spinner===true?
+          <ActivityIndicator size="large" color="#00ff00" />:null}
         <Modal isVisible={this.state.isVisible} style={{  width:280, maxHeight:200, alignSelf:'center', marginTop:200}} >
           <View style={{  backgroundColor:'white'}}>
 
@@ -261,6 +334,7 @@ const styles = StyleSheet.create({
     marginLeft: 16,
     marginRight: 16,
     alignItems: 'center',
+     marginTop:30
 
   },
 
@@ -334,6 +408,63 @@ otpSubmit:{
   fontWeight:'bold',
   color:'#f7931e',
  textAlign:'right'
-}
+},
+btn: {
+  // backgroundColor: '#DDDDDD',
+  // borderColor: '#dc00ff',
+  // borderRadius: 10,
+  // borderWidth:1,
+  // padding: 10,
+  opacity: 0.5,
+  // marginLeft: 16,
+},
+btnActive: {
+  // alignItems: 'center',
+  // backgroundColor: '#f7931e',
+  borderColor: '#f7931e',
+  // borderRadius: 10,
+  borderWidth: 3,
+  height: 80,
+  // padding: 10,
+  marginLeft: 8,
+},
+
+arrowicon: {
+  height: 20,
+  width: 40,
+  alignContent: 'space-around',
+},
+selectState: {
+  width: 88,
+  height: 22,
+  opacity: 0.87,
+  fontFamily: 'Nunito',
+  fontSize: 16,
+  fontWeight: 'bold',
+  fontStyle: 'normal',
+  color: '#000000',
+  textAlign: 'left',
+  marginTop: 15,
+  marginLeft: 16,
+},
+state: {
+  //   width:73,
+  height: 22,
+  opacity: 0.87,
+  fontFamily: 'Nunito',
+  color: '#000000',
+  textAlign: 'left',
+  marginTop: 5,
+  marginLeft: 16,
+},
+Statesubtext: {
+  width: 332,
+  height: 60,
+  fontSize: 16,
+  color: '#999999',
+  textAlign: 'left',
+  fontStyle: 'normal',
+  marginLeft: 16,
+},
 
 })

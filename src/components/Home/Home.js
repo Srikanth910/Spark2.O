@@ -18,6 +18,8 @@ import {
   Item,
   checkiconc,
 } from 'native-base';
+
+ import {Otpmodel} from '../Hoc/Modelhoc'
 import {connect} from 'react-redux';
 import {
   StyleSheet,
@@ -39,10 +41,9 @@ import {
   getBanners,
   isFinbusCustomerForRD,
   getPrepaidBillerCategories,
-
 } from '../../Redux/actions/authAction';
 import AsyncStorage from '@react-native-community/async-storage';
-import { ScrollView } from 'react-native-gesture-handler';
+import {ScrollView} from 'react-native-gesture-handler';
 // import ImageSilder from './ImageSilder';
 
 class Home extends Component {
@@ -55,10 +56,11 @@ class Home extends Component {
       tabStatus3: false,
       tabStatus4: false,
       billpay: [],
-      userDetails:{},
-      finbusDetails:{}
+      userDetails: {},
+      finbusDetails: {},
     };
   }
+
 
   checkTabSelected(tab) {
     switch (tab) {
@@ -103,37 +105,37 @@ class Home extends Component {
   }
 
   componentDidMount = async () => {
-    try{
-       const data=  await  AsyncStorage.getItem('Loginuser');
-        const  logindetail=JSON.parse(data)
-         this.setState({
-            userDetails: logindetail
+ const {auth}=this.props
+       if(auth.isAutherticated===true){
+         this.props.navigation.navigate('Home')
 
-         })
-    } catch(e){
-       console.log(e)
+       }else{
+          this.props.navigation.navigate('Login')
+       }
+    try {
+      const data = await AsyncStorage.getItem('Loginuser');
+      const logindetail = JSON.parse(data);
+      this.setState({
+        userDetails: logindetail,
+      });
+    } catch (e) {
+      console.log(e);
     }
 
-     
-     const {userDetails}=this.state
+    const {userDetails} = this.state;
     const data = {
-      membarId:userDetails.memberid ,
+      membarId: userDetails.memberid,
     };
 
-    
-         this.props.isFinbusCustomerForRD(data).then(()=>{
-            const{auth}=this.props
-             if(auth.finbusDetails){
+    this.props.isFinbusCustomerForRD(data).then(() => {
+      const {auth} = this.props;
+      if (auth.finbusDetails) {
+        this.setState({
+          finbusDetails: auth.finbusDetails,
+        });
+      }
+    });
 
-             
-             this.setState({
-                 finbusDetails:auth.finbusDetails
-             })
-            
-            }
-         })
-
-      
     this.props.getPrepaidBillerCategories().then(() => {
       const {auth} = this.props;
 
@@ -154,9 +156,7 @@ class Home extends Component {
   };
   render() {
     const {auth} = this.props;
-     const {userDetails}=this.state
-     
-    
+    const {userDetails, finbusDetails} = this.state;
 
     return (
       <Container style={styles.Container}>
@@ -171,8 +171,8 @@ class Home extends Component {
               />
 
               <View style={styles.userid}>
-                <Text style={styles.userName}>Srikanth</Text>
-    <Text style={styles.id}>MemberID:{userDetails.memberid}</Text>
+                <Text style={styles.userName}>{finbusDetails.name}</Text>
+                <Text style={styles.id}>MemberID:{userDetails.memberid}</Text>
               </View>
             </ListItem>
           </Left>
@@ -259,8 +259,7 @@ class Home extends Component {
                 <Text style={styles.saving}>SAVINGS</Text>
               </ListItem>
               <Text style={styles.savingData}>
-                This is your zero balance account which gives you up to 8% p.a.
-                interest credited daily.
+                {this.state.finbusDetails.SavingsAccountTextkey}
               </Text>
 
               <Card style={styles.card}>
@@ -268,15 +267,20 @@ class Home extends Component {
                   <Left>
                     <Body>
                       <Text style={styles.AcNO}>
-    A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{this.state.finbusDetails.savingsAccNo}</Text>
+                        A/c NO :
+                        <Text style={{fontSize: 14, color: '#474a4f'}}>
+                          {this.state.finbusDetails.ReceiverAccNo}
+                        </Text>
                       </Text>
                     </Body>
                   </Left>
                 </CardItem>
                 <CardItem>
                   <Left>
-                    
-    <Text style={styles.bal}> ₹ {this.state.finbusDetails.savingsbal}</Text>
+                    <Text style={styles.bal}>
+                      {' '}
+                      ₹ {this.state.finbusDetails.savingsbal}
+                    </Text>
                   </Left>
 
                   <Right>
@@ -471,84 +475,150 @@ class Home extends Component {
               </ListItem>
 
               <Text style={styles.savingData}>
-                You can earn up to 16% interest p.a. Also avail the option to
-                earn interest on deposit every month!
+                {this.state.finbusDetails.SparkFDTitleTextkey}
               </Text>
 
-{/* 
-         <ScrollView horizontal={true}>
-              <Card style={styles.card_fd}>
-                <CardItem>
-                  <Left>
-                    <Body>
-                      <Text style={styles.AcNO}>
-    A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{this.state.finbusDetails.savingsAccNo}</Text>
-                      </Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem style={{height:30}}>
-                  <Left>
-                    
-    <Text style={styles.bal}> ₹ {this.state.finbusDetails.savingsbal}</Text>
-                  </Left>
+              <ImageBackground
+                source={require('../../images/home/fd_bg.png')}
+                style={styles.fd_rdbg}>
+                {finbusDetails.fdArray ? (
+                  <ScrollView horizontal={true}>
+                    {finbusDetails.fdArray &&
+                      this.state.finbusDetails.fdArray.map(item => {
+                        if (item.IsFlexible === false) {
+                          return (
+                            <Card style={styles.card_fd}>
+                              <CardItem>
+                                <Left>
+                                  <Body>
+                                    <Text style={styles.AcNO}>
+                                      A/c NO :
+                                      <Text
+                                        style={{
+                                          fontSize: 14,
+                                          color: '#474a4f',
+                                        }}>
+                                        {item.fdAccNo}
+                                      </Text>
+                                    </Text>
+                                  </Body>
+                                </Left>
+                              </CardItem>
+                              <CardItem style={{height: 30}}>
+                                <Left>
+                                  <Text style={styles.fdbal}>
+                                    {' '}
+                                    ₹ {item.FDAmount}
+                                  </Text>
+                                </Left>
 
-                  <Right>
-                    <Button
-                      transparent
-                      onPress={() =>
-                        this.props.navigation.navigate('Saving_Account_Main')
-                      }>
-                      <Image source={require('../../images/home/arrow.png')} />
-                    </Button>
-                  </Right>
-                </CardItem>
-               
-               <View style={{marginVertical:16, marginHorizontal: 5,}}>
-                  <Text style={styles.fdcardText}>Non-Breakable deposit</Text>
-                  <Text style={styles.fdcardText}>16% p.a., Annual interest payout</Text>
-                  <Text style={styles.fdcardText}>Next interest paid on 18/06/2018</Text>
+                                <Right>
+                                  <Button
+                                    transparent
+                                    onPress={() =>
+                                      this.props.navigation.navigate(
+                                        'Saving_Account_Main',
+                                      )
+                                    }>
+                                    <Image
+                                      source={require('../../images/home/arrow.png')}
+                                    />
+                                  </Button>
+                                </Right>
+                              </CardItem>
+
+                              <View
+                                style={{
+                                  marginVertical: 16,
+                                  marginHorizontal: 5,
+                                }}>
+                                <Text style={styles.fdcardText}>
+                                  Non-Breakable deposit
+                                </Text>
+                                <Text style={styles.fdcardText}>
+                                  {item.InterestRate}% p.a.
+                                  {item.frequencydescription} interest payout
+                                </Text>
+                                <Text style={styles.fdcardText}>
+                                  Next interest paid on {item.MaturityDate}
+                                </Text>
+                              </View>
+                            </Card>
+                          );
+                        } else {
+                          return (
+                            <Card style={styles.card_fd}>
+                              <CardItem>
+                                <Left>
+                                  <Body>
+                                    <Text style={styles.AcNO}>
+                                      A/c NO :
+                                      <Text
+                                        style={{
+                                          fontSize: 14,
+                                          color: '#474a4f',
+                                        }}>
+                                        {item.fdAccNo}
+                                      </Text>
+                                    </Text>
+                                  </Body>
+                                </Left>
+                              </CardItem>
+                              <CardItem style={{height: 30}}>
+                                <Left>
+                                  <Text style={styles.fdbal}>
+                                    {' '}
+                                    ₹ {item.FDAmount}
+                                  </Text>
+                                </Left>
+
+                                <Right>
+                                  <Button
+                                    transparent
+                                    onPress={() =>
+                                      this.props.navigation.navigate(
+                                        'Saving_Account_Main',
+                                      )
+                                    }>
+                                    <Image
+                                      source={require('../../images/home/arrow.png')}
+                                    />
+                                  </Button>
+                                </Right>
+                              </CardItem>
+
+                              <View
+                                style={{
+                                  marginVertical: 16,
+                                  marginHorizontal: 5,
+                                }}>
+                                <Text style={styles.fdcardText}>
+                                  Breakable deposit
+                                </Text>
+                                <Text style={styles.fdcardText}>
+                                  {item.InterestRate}% p.a.
+                                  {item.frequencydescription} interest payout
+                                </Text>
+                                <Text style={styles.fdcardText}>
+                                  Next interest paid on {item.MaturityDate}
+                                </Text>
+                              </View>
+                            </Card>
+                          );
+                        }
+                      })}
+                  </ScrollView>
+                ) : (
+                  <View style={styles.dottedlines}>
+                    <Text style={styles.fddotedtext}>
+                      Open a Fixed Deposit at an incredible rate up to
+                      <Text style={styles.pa}>16% p.a.</Text>
+                    </Text>
                   </View>
-               
+                )}
+              </ImageBackground>
 
-            
-              </Card>
-
-              <Card style={styles.card}_fd>
-                <CardItem>
-                  <Left>
-                    <Body>
-                      <Text style={styles.AcNO}>
-    A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{this.state.finbusDetails.savingsAccNo}</Text>
-                      </Text>
-                    </Body>
-                  </Left>
-                </CardItem>
-                <CardItem>
-                  <Left>
-                    
-    <Text style={styles.bal}> ₹ {this.state.finbusDetails.savingsbal}</Text>
-                  </Left>
-
-                  <Right>
-                    <Button
-                      transparent
-                      onPress={() =>
-                        this.props.navigation.navigate('Saving_Account_Main')
-                      }>
-                      <Image source={require('../../images/home/arrow.png')} />
-                    </Button>
-                  </Right>
-                </CardItem>
-                <CardItem>
-
-                  
-                </CardItem>
-
-            
-              </Card>
-              </ScrollView> */}
-               <View>
+              {/* <View>
                 <ImageBackground
                   source={require('../../images/home/fd_bg.png')}
                   style={styles.fd_rdbg}>
@@ -559,7 +629,7 @@ class Home extends Component {
                     </Text>
                   </View>
                 </ImageBackground>
-              </View> 
+              </View> */}
               <View style={styles.rdbottombtn}>
                 <ListItem style={styles.listview}>
                   <Left>
@@ -568,29 +638,26 @@ class Home extends Component {
                         source={require('../../images/home/plus_icon.png')}
                         style={styles.fd_rdiicon}
                       />
-                      <Text style={styles.fd_rdbtn}
-                      
-                      onPress={() =>
-                        this.props.navigation.navigate('Fdscreen')
-                      }
-                      > OPEN NEW </Text>
+                      <Text
+                        style={styles.fd_rdbtn}
+                        onPress={() =>
+                          this.props.navigation.navigate('Fdscreen')
+                        }>
+                        {' '}
+                        OPEN NEW{' '}
+                      </Text>
                     </Item>
                   </Left>
                   <Right>
-                    <Item
-                      style={styles.itemview}
-                     >
+                    <Item style={styles.itemview}>
                       <Image
                         source={require('../../images/home/trendup.png')}
                         style={styles.fd_rdiicon}
                       />
 
-<TouchableOpacity>
-                      <Text style={styles.fd_rdbtn}
+
+                        <Text style={styles.fd_rdbtn}> FD RATES</Text>
                       
-                     
-                      > FD RATES</Text>
-                      </TouchableOpacity>
                     </Item>
                   </Right>
                 </ListItem>
@@ -608,22 +675,140 @@ class Home extends Component {
               </ListItem>
 
               <Text style={styles.savingData}>
-                Earn up to 15% p.a. with periodic investment discipline of
-                Recurring Deposits.!
+                {finbusDetails.SparkRDTitleTextkey}
               </Text>
 
-              <View>
-                <ImageBackground
-                  source={require('../../images/home/rd_bg.png')}
-                  style={styles.fd_rdbg}>
+              <ImageBackground
+                source={require('../../images/home/rd_bg.png')}
+                style={styles.fd_rdbg}>
+                {finbusDetails.rdArray ? (
+                  <ScrollView horizontal={true}>
+                    {finbusDetails.rdArray &&
+                      finbusDetails.rdArray.map(item => {
+                        if (item.IsFlexible === false) {
+                          return (
+                            <Card style={styles.card_fd}>
+                              <CardItem>
+                                <Left>
+                                  <Body>
+                                    <Text style={styles.AcNO}>
+                                      A/c NO :
+                                      <Text
+                                        style={{
+                                          fontSize: 14,
+                                          color: '#474a4f',
+                                        }}>
+                                        {item.RDAccNo}
+                                      </Text>
+                                    </Text>
+                                  </Body>
+                                </Left>
+                              </CardItem>
+                              <CardItem style={{height: 30}}>
+                                <Left>
+                                  <Text style={styles.fdbal}>
+                                    {' '}
+                                    ₹ {item.RdAmount}
+                                  </Text>
+                                </Left>
+
+                                <Right>
+                                  <Button
+                                    transparent
+                                    onPress={() =>
+                                      this.props.navigation.navigate(
+                                        'Saving_Account_Main',
+                                      )
+                                    }>
+                                    <Image
+                                      source={require('../../images/home/arrow.png')}
+                                    />
+                                  </Button>
+                                </Right>
+                              </CardItem>
+
+                              <View
+                                style={{
+                                  marginVertical: 16,
+                                  marginHorizontal: 5,
+                                }}>
+                                <Text style={styles.fdcardText}>
+                                  non-Breakable deposit
+                                </Text>
+                                <Text style={styles.fdcardText}>
+                                  {item.InterestRate}% p.a. Annual interest
+                                  payout
+                                </Text>
+                                <Text style={styles.fdcardText}>
+                                  Next interest paid on {item.NextPullDate}
+                                </Text>
+                              </View>
+                            </Card>
+                          );
+                        } else {
+                          return null;
+
+                          //     <Card style={styles.card_fd}>
+                          //     <CardItem>
+                          //       <Left>
+                          //         <Body>
+                          //           <Text style={styles.AcNO}>
+                          // A/c NO :<Text style={{fontSize:14, color:'#474a4f', }}>{item.RDAccNo}</Text>
+                          //           </Text>
+                          //         </Body>
+                          //       </Left>
+                          //     </CardItem>
+                          //     <CardItem style={{height:30}}>
+                          //       <Left>
+
+                          // <Text style={styles.fdbal}> ₹ {item.RdAmount}</Text>
+                          //       </Left>
+
+                          //       <Right>
+                          //         <Button
+                          //           transparent
+                          //           onPress={() =>
+                          //             this.props.navigation.navigate('Saving_Account_Main')
+                          //           }>
+                          //           <Image source={require('../../images/home/arrow.png')} />
+                          //         </Button>
+                          //       </Right>
+                          //     </CardItem>
+
+                          //    <View style={{marginVertical:16, marginHorizontal: 5,}}>
+                          //       <Text style={styles.fdcardText}>Breakable deposit</Text>
+                          //         <Text style={styles.fdcardText}>{item.InterestRate}% p.a. Annual interest payout</Text>
+                          //         <Text style={styles.fdcardText}>Next interest paid on {item.MaturityDate}</Text>
+                          //       </View>
+
+                          //   </Card>
+
+                          //    )
+                        }
+                      })}
+                  </ScrollView>
+                ) : (
                   <View style={styles.rddottedlines}>
                     <Text style={styles.fddotedtext}>
                       Open a Recurring Depositat an amazing rate up to
-                      <Text style={styles.pa}>15% p.a.</Text>
+                      <Text style={styles.pa}>15% p.a.</Text>{' '}
                     </Text>
                   </View>
-                </ImageBackground>
-              </View>
+                )}
+              </ImageBackground>
+
+              {/* //  <View>
+            //     <ImageBackground
+            //       source={require('../../images/home/rd_bg.png')}
+            //       style={styles.fd_rdbg}>
+            //       <View style={styles.rddottedlines}>
+            //         <Text style={styles.fddotedtext}>
+            //           Open a Recurring Depositat an amazing rate up to
+            //           <Text style={styles.pa}>15% p.a.</Text>
+            //         </Text>
+            //       </View>
+            //     
+            // </View> } */}
               <View>
                 <View style={styles.rdbottombtn}>
                   <ListItem style={styles.listview}>
@@ -633,13 +818,14 @@ class Home extends Component {
                           source={require('../../images/home/plus_icon.png')}
                           style={styles.fd_rdiicon}
                         />
-                        <Text style={styles.fd_rdbtn}
-                        
-                        
-                        onPress={() =>
-                          this.props.navigation.navigate('RDScreen')
-                        }
-                        > OPEN NEW </Text>
+                        <Text
+                          style={styles.fd_rdbtn}
+                          onPress={() =>
+                            this.props.navigation.navigate('RDScreen')
+                          }>
+                          {' '}
+                          OPEN NEW{' '}
+                        </Text>
                       </Item>
                     </Left>
                     <Right>
@@ -648,12 +834,7 @@ class Home extends Component {
                           source={require('../../images/home/trendup.png')}
                           style={styles.fd_rdiicon}
                         />
-                        <Text
-                          style={styles.fd_rdbtn}
-                      >
-                          {' '}
-                          RD RATES
-                        </Text>
+                        <Text style={styles.fd_rdbtn}> RD RATES</Text>
                       </Item>
                     </Right>
                   </ListItem>
@@ -661,9 +842,6 @@ class Home extends Component {
               </View>
             </View>
           </View>
-
-
-
 
           <View style={styles.Rectangle}>
             <View style={styles.fdCard}>
@@ -675,49 +853,37 @@ class Home extends Component {
                 <Text style={styles.saving}>AYSHWARYA SYNDICATE SHARES</Text>
               </ListItem>
               <Text style={styles.savingData}>
-              Dividend earned on the shares you owned are credited to your Savings account.
+                Dividend earned on the shares you owned are credited to your
+                Savings account.
               </Text>
 
               <Card style={styles.card}>
                 <CardItem>
                   <Left>
                     <Body>
-                      <Text style={styles.AcNO}>
-                      Shares:1
-                      </Text>
+                      <Text style={styles.AcNO}>Shares:1</Text>
                     </Body>
                   </Left>
                 </CardItem>
                 <CardItem>
                   <Left>
-                    
-    <Text style={styles.bal}> ₹ 1000</Text>
+                    <Text style={styles.bal}> ₹ 1000</Text>
                   </Left>
 
-                  <Right>
-                    
-                  </Right>
+                  <Right />
                 </CardItem>
                 <CardItem>
                   <Left>
                     <Body>
-                      <Text style={styles.AcNO}>
-                      Member since: 18/03/2017
-                      </Text>
+                      <Text style={styles.AcNO}>Member since: 18/03/2017</Text>
                     </Body>
                   </Left>
                 </CardItem>
-              
               </Card>
             </View>
           </View>
 
-         
           <View style={styles.bottom} />
-
-
-
-
         </Content>
 
         <Footer>
@@ -795,7 +961,7 @@ export default connect(
     isFinbusCustomerForRD,
     getPrepaidBillerCategories,
   },
-)(Home);
+) (Home);
 
 const styles = StyleSheet.create({
   Container: {
@@ -829,10 +995,10 @@ const styles = StyleSheet.create({
   userName: {
     fontFamily: 'Nunito',
     fontSize: 14,
-     marginRight:30, 
+    marginRight: 30,
     color: '#ffffff',
     textAlign: 'left',
-    alignItems:'flex-start'
+    alignItems: 'flex-start',
   },
   userid: {
     // paddingLeft: 10,
@@ -897,12 +1063,11 @@ const styles = StyleSheet.create({
 
     // background-image: linear-gradient(184deg, #1b1464 65%, #3d3c77 -6%);
   },
-  card_fd:{
-     width:312,
-      height:165,
-     marginLeft:16 
-      
-
+  card_fd: {
+    width: 312,
+    height: 165,
+    marginLeft: 16,
+    marginTop: 10,
   },
   card: {
     backgroundColor: '#ffffff',
@@ -936,7 +1101,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   AcNO: {
-    
     // height: 19,
     fontFamily: 'Nunito',
     fontWeight: 'bold',
@@ -953,13 +1117,24 @@ const styles = StyleSheet.create({
     textAlign: 'left',
     color: '#474a4f',
   },
+
+  fdbal: {
+    fontFamily: 'Inconsolata',
+    fontSize: 20,
+    fontFamily: 'Inconslata',
+
+    fontWeight: 'bold',
+    textAlign: 'left',
+    color: '#474a4f',
+  },
+
   forwardicon: {
     backgroundColor: 'red',
   },
   spicon: {
     height: 32,
     width: 32,
-     alignSelf:'center'
+    alignSelf: 'center',
   },
   kyccard: {
     marginTop: 30,
@@ -1101,13 +1276,12 @@ const styles = StyleSheet.create({
     marginTop: 5,
     alignSelf: 'center',
   },
-   phone:{
+  phone: {
     height: 48,
     width: 30,
     marginTop: 5,
     alignSelf: 'center',
-
-   },
+  },
   broadband: {
     height: 42,
     width: 34,
@@ -1237,11 +1411,10 @@ const styles = StyleSheet.create({
 
     alignSelf: 'center',
   },
-  fdcardText:{
-    fontFamily:'Nunito',
-     fontSize:14,
-      color:'grey',
-       marginLeft:16,
-  }
-   
+  fdcardText: {
+    fontFamily: 'Nunito',
+    fontSize: 14,
+    color: '#aaadb2',
+    marginLeft: 16,
+  },
 });

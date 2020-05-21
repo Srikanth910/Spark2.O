@@ -18,7 +18,7 @@ class ImageSilder extends Component {
       userDetails:{},
     };
   }
-   componentWillMount= async ()=>{
+   componentDidMount= async ()=>{
 
     try{
       const data=  await  AsyncStorage.getItem('Loginuser');

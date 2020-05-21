@@ -50,8 +50,8 @@ import {
 } from '../constants/types';
 import {setAuthToken} from '../../components/utils/setAuthToken';
 import AsyncStorage from '@react-native-community/async-storage';
-import { getUserData } from '../../components/DataAccess/GetData';
-import { SetauthtokenMpin } from '../../components/utils/SetauthTokenMpin';
+import {getUserData} from '../../components/DataAccess/GetData';
+import {SetauthtokenMpin} from '../../components/utils/SetauthTokenMpin';
 // import AsyncStorage from '@react-native-community/async-storage';
 const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 
@@ -59,7 +59,7 @@ const API_URL = 'https://sandboxapp.assccl.com:8443/vk-syndicateIOS/rest';
 
 //  signup apis
 
- var password=''
+var password = '';
 export const signupCheckmobile = data => {
   console.log(data);
   return async dispatch => {
@@ -67,21 +67,19 @@ export const signupCheckmobile = data => {
       const res = await axios.post(`${API_URL}/CheckMobileNoV2_0 `, data);
       let createUserDetails = await res.data;
       console.log('res', createUserDetails);
-     if (createUserDetails.code ==="200")  {
+      if (createUserDetails.code === '200') {
         dispatch({
           type: SIGNUP_USER_SUCCESS,
-          payload:createUserDetails
+          payload: createUserDetails,
         });
-    
-     } else{
-        
-         dispatch({
+      } else {
+        dispatch({
           type: SIGNUP_USER_FAIl,
           payload: createUserDetails,
         });
-       
       }
     } catch (err) {
+      alert('Network failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -122,45 +120,90 @@ export const checkMoblieno = data => {
   };
 };
 
-export const createMemberToken = data => {
+export const createMemberToken = (data, callback) => async dispatch => {
   console.log(data);
-  return async dispatch => {
-    try {
-      const res = await axios.post(`${API_URL}/createMemberToken`, data);
-      let membarTokenDetails = await res.data;
-      console.log('res', membarTokenDetails);
+  return axios
+    .post(`${API_URL}/createMemberToken `, data)
+    .then(res => {
+      console.log('res', res.data);
+
+      let membarTokenDetails = res.data;
+      console.log('rea', membarTokenDetails);
       if (membarTokenDetails.code === '309') {
+        console.log('err');
         dispatch({
-          type: CREATE_MEMBAR_TOKEN_FAIL,
+          type: LOGIN_FAIL,
           payload: membarTokenDetails,
         });
-      } else  if (membarTokenDetails.Data.code === '200') {
-        AsyncStorage.setItem('Loginuser',JSON.stringify (membarTokenDetails.Data))
-         
-        
-        
-        const token = membarTokenDetails.Data.Token;
-          const  password= data.password;
-           const memberid=membarTokenDetails.Data.memberid
+      } else if (membarTokenDetails.code === '304') {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: membarTokenDetails,
+        });
+      } else if (membarTokenDetails.Data.Message === 'SUCCESS') {
+        AsyncStorage.mergeItem(
+          'Loginuser',
+          JSON.stringify(membarTokenDetails.Data),
+        );
 
+        const token = membarTokenDetails.Data.Token;
+        const memberid = membarTokenDetails.Data.memberid;
+        password = data.Password;
         setAuthToken(token, memberid, password);
-  
+
+        // getUserData()
+
         dispatch({
           type: CREATE_MEMBAR_TOKEN_SUCCESS,
-          payload: membarTokenDetails.Data,
+          payload: res.data.Data,
         });
-        
-        
       }
-    } catch (err) {
+    })
+    .catch(err => {
+      alert('Network failed')
       console.log(err);
       dispatch({
-        type: CATACH_ERROR,
+        type: GET_ERROR,
         payload: err,
       });
-    }
-  };
+    });
 };
+
+// export const createMemberToken = data => {
+//   console.log(data);
+//   return async dispatch => {
+//     try {
+//       const res = await axios.post(`${API_URL}/createMemberToken`, data);
+//       let membarTokenDetails = await res.data;
+//       console.log('res', membarTokenDetails);
+//       if (membarTokenDetails.code === '309') {
+//         dispatch({
+//           type: LOGIN_FAIL,
+//           payload: membarTokenDetails,
+//         });
+//       } else if (membarTokenDetails.Data.code === "200") {
+
+//         let token = membarTokenDetails.Data.Token;
+//             password= data.password;
+//            let memberid=membarTokenDetails.Data.memberid
+
+//         setAuthToken(token, memberid, password);
+
+//         dispatch({
+//           type: CREATE_MEMBAR_TOKEN_SUCCESS,
+//           payload: membarTokenDetails.Data,
+//         });
+
+//       }
+//     } catch (err) {
+//       console.log(err);
+//       dispatch({
+//         type: CATACH_ERROR,
+//         payload: err,
+//       });
+//     }
+//   };
+// };
 
 export const ResendOtpCheckMobileNo = data => {
   console.log(data);
@@ -184,6 +227,7 @@ export const ResendOtpCheckMobileNo = data => {
         });
       }
     } catch (err) {
+      alert('Network failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -214,6 +258,7 @@ export const isFinbusCustomerForRD = data => {
         });
       }
     } catch (err) {
+      alert('Network failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -225,8 +270,8 @@ export const isFinbusCustomerForRD = data => {
 
 //  login apis
 
-export const loginUser = (data , callback)=> async dispatch => {
-   password=data.password
+export const loginUser = (data, callback) => async dispatch => {
+  password = data.password;
   console.log(data);
   return axios
     .post(`${API_URL}/loginByPasswordV2_O `, data)
@@ -242,61 +287,46 @@ export const loginUser = (data , callback)=> async dispatch => {
           payload: res.data,
         });
       } else if (loginDetail.code === '504') {
-      
-         
         dispatch({
           type: DEVICEID_OTP,
           payload: loginDetail,
         });
+      } else if (loginDetail.code === '404') {
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: res.data,
+        });
       } else if (loginDetail.Data.Message === 'SUCCESS') {
-        AsyncStorage.mergeItem('Loginuser',JSON.stringify (loginDetail.Data))
-         
-        
-        const token = loginDetail.Data.Token
-         const memberid=loginDetail.Data.memberid
-         password= data.password
-         setAuthToken(token, memberid, password)
-        
+        AsyncStorage.mergeItem('Loginuser', JSON.stringify(loginDetail.Data));
+
+        const token = loginDetail.Data.Token;
+        const memberid = loginDetail.Data.memberid;
+        password = data.password;
+        setAuthToken(token, memberid, password);
+
         // getUserData()
-      
+
         dispatch({
           type: LOGIN_SUCCESS,
           payload: res.data.Data,
         });
-       
-        
-           
       }
     })
     .catch(err => {
-      console.log(err)
+      alert('Network failed')
+      console.log(err);
       dispatch({
         type: GET_ERROR,
         payload: err,
       });
     });
+    
 };
 
 //   resend opt
 
 export const userMpin = (data, callback) => dispatch => {
-   let password=""
-  AsyncStorage.getItem('Loginuser').then(res=>{
-     console.log(res)
-            
-    const data= res 
-     const localData= JSON.parse(data);
-      password=localData.password
-
-    
-       console.log(password)
-      
-       
- })
-  console.log('pasword', password)
   console.log(data);
-  SetauthtokenMpin(password)
-
   return axios
     .post(`${API_URL}/loginByMpinV2_O`, data)
     .then(res => {
@@ -314,21 +344,15 @@ export const userMpin = (data, callback) => dispatch => {
           payload: userMpin.Data,
         });
       } else if (userMpin.Data.code === '200') {
-        AsyncStorage.setItem('Loginuser',JSON.stringify (userMpin.Data))
-         
-         AsyncStorage.getItem('Loginuser').then(res=>{
-            
-            const data= res 
-             const localData= JSON.parse(data);
-              password=localData.password
-               
-         })
-          
- let memberid=userMpin.Data.memberid
-  let  token=userMpin.data.Token
-  
-         SetauthtokenMpin(memberid, token, password)
-        
+      
+
+        const memberid = userMpin.Data.memberid;
+        const token = userMpin.Data.Token;
+        const password = data.mPin;
+        SetauthtokenMpin(memberid, token, password);
+
+        AsyncStorage.mergeItem('Loginuser', JSON.stringify(userMpin.Data));
+
         dispatch({
           type: MPIN_SUCCESS,
           payload: res.data.Data,
@@ -336,6 +360,7 @@ export const userMpin = (data, callback) => dispatch => {
       }
     })
     .catch(err => {
+      alert('Network failed')
       console.log(err);
       dispatch({
         type: GET_ERROR,
@@ -368,14 +393,11 @@ export const otpVerificationforLogin = data => {
           payload: deviceOtp,
         });
       } else if (deviceOtp.Data.code === '200') {
-
-        AsyncStorage.setItem('Loginuser',JSON.stringify (deviceOtp.Data))
-         
-        const token = deviceOtp.Data.Token
-        const memberid=deviceOtp.Data.memberid
-              password=password
-        setAuthToken(token, memberid, password)
-
+        const token = deviceOtp.Data.Token;
+        const memberid = deviceOtp.Data.memberid;
+        password = password;
+        setAuthToken(token, memberid, password);
+        AsyncStorage.setItem('Loginuser', JSON.stringify(deviceOtp.Data));
 
         dispatch({
           type: DEVICE_CHECK_OTP_SUCCESS,
@@ -383,6 +405,7 @@ export const otpVerificationforLogin = data => {
         });
       }
     } catch (err) {
+      alert('Network failed')
       console.log(err);
     }
   };
@@ -435,7 +458,16 @@ export const forgetPasswordResendOTP = (data, callback) => dispatch => {
     .then(res => {
       console.log('eror', res.data);
       let mobileotp = res.data;
+
+      if (mobileotp.code === '300') {
+        alert('please try again');
+        dispatch({
+          type: FORGOT_PASS_OTP_FAIL,
+          payload: res.data,
+        });
+      }
       if (mobileotp.code === '404') {
+         alert('Invaild Details')
         dispatch({
           type: FORGOT_PASS_OTP_FAIL,
           payload: res.data,
@@ -450,6 +482,7 @@ export const forgetPasswordResendOTP = (data, callback) => dispatch => {
       }
     })
     .catch(err => {
+       alert('Network failed')
       console.log(err);
     });
 };
@@ -549,6 +582,7 @@ export const ResetMpinByMobileNo = (data, callback) => async dispatch => {
 };
 
 export const updateMPIN = (data, callback) => async dispatch => {
+  console.log(data);
   try {
     let res = await axios.post(`${API_URL}/updateMPINV2_O`, data);
     let updatePin = await res.data;
@@ -602,22 +636,17 @@ export const getBanners = data => {
           type: GET_BANNERS_SUCCESS,
           payload: banners,
         });
-    
-      } else if(banners.code==="403"){
-           this.props.navigation.navigate('Login')
-         dispatch({
-            type:SESSION_MISSING,
-             payload:banners
-         })
+      } else if (banners.code === '403') {
+        dispatch({
+          type: SESSION_MISSING,
+          payload: banners,
+        });
+      } else {
+        dispatch({
+          type: SESSION_MISSING,
+          payload: banners,
+        });
       }
-      
-      else{
-          dispatch({
-            type:SESSION_MISSING,
-             payload:banners
-          })
-      }
-       
     } catch (err) {
       console.log(err);
       dispatch({
@@ -641,7 +670,7 @@ export const createOtpForEditProfile = data => {
       );
       let otp = await res.data;
       console.log('res', otp);
-      if (otp.code === "200") {
+      if (otp.code === '200') {
         dispatch({
           type: CREATE_OTP_EDITPROFILE_SUCCESS,
           payload: otp,
@@ -676,12 +705,9 @@ export const getProfile = data => {
           type: GET_PROFILE_SUCCUESS,
           payload: getProfile,
         });
-      }  else if(getProfile.code==="403"){
-         this.props.navigation.navigate('Login')
-
-
-      }else {
-         
+      } else if (getProfile.code === '403') {
+        this.props.navigation.navigate('Login');
+      } else {
         dispatch({
           type: GET_PROFILE_FAIL,
           payload: getProfile,
@@ -727,19 +753,14 @@ export const getPrepaidBillerCategories = data => {
   };
 };
 
-
-
-
-
-
-
-
 export const updateProfile = data => {
   console.log(data);
   return async dispatch => {
     try {
       const res = await axios.get(
-        `${API_URL}/updateProfileDetails?membarId=${data.membarId}&refNo=${data.refNo}&otp=${data.otp}`,
+        `${API_URL}/updateProfileDetails?membarId=${data.membarId}&refNo=${
+          data.refNo
+        }&otp=${data.otp}`,
       );
       let updateProfileData = await res.data;
       console.log('res', updateProfileData);
@@ -764,20 +785,14 @@ export const updateProfile = data => {
   };
 };
 
-
-
-
-
-
-
-
-
 export const resendOtpForEditProfile = data => {
   console.log(data);
   return async dispatch => {
     try {
       const res = await axios.get(
-        `${API_URL}/resendOtpForEditProfile?custId=${data.membarId}&refNo=${data.refNo}`,
+        `${API_URL}/resendOtpForEditProfile?custId=${data.membarId}&refNo=${
+          data.refNo
+        }`,
       );
       let resenOtpProfile = await res.data;
       console.log('res', resenOtpProfile);
@@ -801,14 +816,6 @@ export const resendOtpForEditProfile = data => {
     }
   };
 };
-
-
-
-
-
-
-
-
 
 export const getLastTentxns = data => {
   console.log(data);
@@ -840,21 +847,14 @@ export const getLastTentxns = data => {
   };
 };
 
-
-
-
-
-
-
-
-
-
 export const sendStatement = data => {
   console.log(data);
   return async dispatch => {
     try {
       const res = await axios.get(
-        `${API_URL}/sendStatementTwodates?membarId=${data.membarId}&fromdate=${datafromdate}&todate=${data.todate}`,
+        `${API_URL}/sendStatementTwodates?membarId=${
+          data.membarId
+        }&fromdate=${datafromdate}&todate=${data.todate}`,
       );
       let statement = await res.data;
       console.log('res', statement);
@@ -863,20 +863,14 @@ export const sendStatement = data => {
           type: STATEMENT_DATE_SUCCESS,
           payload: statement,
         });
-        
-      
-        
-      } else if(statement.code==="403"){
-         alert('session exparid')
-         this.props.navigation.navigate('Login')
-         dispatch({
-            type:SESSION_MISSING,
-             payload:statement
-         })
-      }
-      
-      
-      else {
+      } else if (statement.code === '403') {
+        alert('session exparid');
+        this.props.navigation.navigate('Login');
+        dispatch({
+          type: SESSION_MISSING,
+          payload: statement,
+        });
+      } else {
         dispatch({
           type: STATEMENT_DATE_FAIL,
           payload: statement,

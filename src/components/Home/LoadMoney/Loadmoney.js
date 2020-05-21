@@ -56,8 +56,8 @@ class Loadmoney extends Component {
         description: 'Credits towards consultation',
         image: 'https://i.imgur.com/3g7nmJC.png',
         currency: 'INR',
-        key: 'rzp_test_1DP5mmOlF5G5ag',
-        amount: this.state.amount,
+        key: 'rzp_test_TuLj9Vefmp6Ld7',
+        amount: this.state.amount+'00',
         name: 'Spark',
         prefill: {
         email: 'Srikanth@gmail.com',

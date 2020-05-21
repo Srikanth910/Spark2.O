@@ -23,6 +23,7 @@ import {
   GET_PROFILE_SUCCUESS,
   STATEMENT_DATE_SUCCESS,
   GET_BANNERS_SUCCESS,
+  SESSION_MISSING,
 } from '../constants/types';
 import {ActionSheet} from 'native-base';
 // import { getPrepaidBillerCategories } from '../actions/authAction';
@@ -48,6 +49,7 @@ const initialState = {
   otpVerifyProfile: {},
   getTransactionList: {},
   STATEMENT_DATE_SUCCESS: {},
+  sessionData:{}
 };
 
 export default function(state = initialState, action) {
@@ -62,6 +64,7 @@ export default function(state = initialState, action) {
     case CREATE_MEMBAR_TOKEN_SUCCESS:
       return {
         ...state,
+        isAutherticated:true,
         isLoading: false,
         userMpin: action.payload,
       };
@@ -157,6 +160,10 @@ export default function(state = initialState, action) {
              ...state,
               banners:action.payload
           }
+          case SESSION_MISSING:
+            return{
+              sessionData:action.payload
+            }
     default:
       return state;
   }

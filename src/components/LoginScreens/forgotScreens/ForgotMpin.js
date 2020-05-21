@@ -1,10 +1,11 @@
 import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title } from "native-base";
-import { StyleSheet, StatusBar } from 'react-native'
+import { StyleSheet, StatusBar, ActivityIndicator } from 'react-native'
 import { connect } from "react-redux";
 import{updateMPIN} from '../../../Redux/actions/authAction'
 import validatePassword from "../Validation/validatePassword";
 import validateMpin from "../Validation/validateMpin";
+import Dialog from "react-native-dialog";
 class ForgotMpin extends Component {
      constructor(props) {
          super(props)
@@ -13,7 +14,7 @@ class ForgotMpin extends Component {
               confirmMpin:'',
               newMpin:'',
               errorsData:{},
-
+              visible:'',
          }
      }
 
@@ -32,13 +33,33 @@ class ForgotMpin extends Component {
          const mpinData={
             custId: auth.custId,
             mpinId:this.state.newMpin  
+
+             
          }
+          this.setState({
+               spinner:true
+          })
           this.props.updateMPIN(mpinData,()=>{
-               this.props.navigation.navigate('Login')
+
+             this.setState({
+                visible:true,
+                spinner:false
+ 
+             })
+               
 
             })
         }
+         setTimeout(() => {
+              this.setState({
+                   spinner:false
+              })
+             
+         }, 5000);
      }
+       Dialogclose=()=>{
+        this.props.navigation.navigate('Login')
+       }
     render() {
          const{errorsData}=this.state
         return (
@@ -86,7 +107,9 @@ class ForgotMpin extends Component {
                         />
                     </Item>
                     <Text style={styles.error}>{errorsData.confirmMpin}</Text>
+          {this.state.spinner===true&&
 
+                    <ActivityIndicator size="large" color="#00ff00" />}
 
                 </Content>
 
@@ -98,6 +121,22 @@ class ForgotMpin extends Component {
                       
                     >Submit</Text>
                 </Button>
+
+                <View>
+        <Dialog.Container visible={this.state.visible} >
+          <Dialog.Title>New password Set</Dialog.Title>
+          <Dialog.Description>
+            <Text style={styles.Dialogtext} >You have successfully Set a
+            MPIN</Text>
+            <Text>
+              
+            </Text>
+          </Dialog.Description>
+          
+          <Dialog.Button label="ok" color="#f7931e"  onPress={this.Dialogclose}
+          />
+        </Dialog.Container>
+      </View>
 
             </Container>
 

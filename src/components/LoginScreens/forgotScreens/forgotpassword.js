@@ -1,11 +1,12 @@
 import React, { Component } from "react";
 import { Header, Container, Body, Text, Content, Item, Input, Button, Picker, Icon, View, Left, Right, Title, ListItem, Form } from "native-base";
-import { StyleSheet, StatusBar } from 'react-native'
+import { StyleSheet, StatusBar, ActivityIndicator } from 'react-native'
 import SmoothPinCodeInput from 'react-native-smooth-pincode-input'
 import Modal from 'react-native-modal';
 import { connect } from "react-redux";
 import { forgetPasswordResendOTP, otpVerification, resendOTP } from '../../../Redux/actions/authAction'
 import { TouchableOpacity } from "react-native-gesture-handler";
+import AwesomeAlert from "react-native-awesome-alerts";
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
@@ -15,7 +16,8 @@ class ForgotPassword extends Component {
       isVisible: false,
       showAlert: false,
       mobileNum: '',
-      mobileOtp: ''
+      mobileOtp: '',
+       spinner:false,
     };
   }
   onValueChange2 = (value) => {
@@ -38,9 +40,22 @@ class ForgotPassword extends Component {
     const user = {
       mobileNo: this.state.mobileNum
     }
+     this.setState({
+        spinner:true
+     })
     this.props.forgetPasswordResendOTP(user, () => {
       this.toggelopen()
+       this.setState({
+          spinner:false
+       })
     })
+
+      setTimeout(() => {
+         this.setState({
+            spinner:false
+         })
+        
+      }, 5000);
   }
   otpSend = () => {
     console.log('data')
@@ -114,9 +129,32 @@ class ForgotPassword extends Component {
               />
             </Item>
           </Form>
+          {this.state.spinner===true?
+          <ActivityIndicator size="large" color="#00ff00" />:null}
 
         </Content>
         <View>
+
+
+          
+        <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={false}
+          title="Invalid"
+          message="Invalid details"
+          // closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={true}
+          showConfirmButton={true}
+          confirmText="ok"
+          confirmColor="blue"
+          onCancelPressed={() => {
+            this.hideAlert();
+          }}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
           <Modal style={{ width: 280, maxHeight: 200, alignSelf: 'center', marginTop: 200 }} isVisible={this.state.isVisible} >
             <View style={{ backgroundColor: 'white' }}>
 

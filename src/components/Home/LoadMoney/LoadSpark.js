@@ -14,7 +14,8 @@ import AsyncStorage from '@react-native-community/async-storage'
           super(props)
       
           this.state = {
-               userDetails:{}
+               userDetails:{},
+               bankDetails:{}
           }
       }
       
@@ -34,13 +35,24 @@ import AsyncStorage from '@react-native-community/async-storage'
            memberId:this.state.userDetails.memberid,
            "isFirsttime":"false"
        }
-       this.props.getRazorpayDetails(details)
+       this.props.getRazorpayDetails(details).then(()=>{
+
+         const {accountDetails} =this.props
+           if(accountDetails.code==="200"){
+               this.setState({
+                    bankDetails:accountDetails
+               })
+                
+           }
+
+       })
 
             
     }
     render() {
          const {accountDetails}=this.props.loadmoney
          console.log('data',accountDetails)
+           const{bankDetails}=this.state
         
         return (
      <Container style={styles.Container}>
@@ -110,11 +122,11 @@ import AsyncStorage from '@react-native-community/async-storage'
                  <View>
                      <Item style={styles.Item}>
                      <Text style={styles.accDetails}>Account no. * </Text>
-        {/* <Text>{accountDetails.AccNo }</Text> */}
+        <Text>{bankDetails.AccNo }</Text>
                      </Item>
                      <Item style={styles.Item}>
                      <Text style={styles.accDetails}>IFSC code * </Text>
-        {/* <Text>{accountDetails.IFSCCode}</Text> */}
+        <Text>{bankDetails.IFSCCode}</Text>
                      </Item>
                      <Item style={styles.Item}>
                      <Text style={styles.accDetails}>Bank </Text>

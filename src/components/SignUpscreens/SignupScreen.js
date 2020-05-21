@@ -20,6 +20,7 @@ import {
   View,
   TouchableOpacity,
   Image,
+  ActivityIndicator,
 } from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -46,6 +47,7 @@ class Signup extends Component {
       Statevalue: '',
       MobileNO: '',
       stateValue: '',
+       spinner:false
     };
   }
   handleState = (name, id) => {
@@ -104,16 +106,28 @@ class Signup extends Component {
     } catch (e) {
       console.log(e);
     }
+     this.setState({
+        spinner:true
+     })
 
     this.props.signupCheckmobile(userDetails).then(() => {
       const {auth} = this.props;
       if (auth.signUpDetails.code === '200') {
         this.setState({
           isVisible: true,
+           spinner:false
+           
         });
       }
     });
     // };
+
+    setTimeout(()=>{
+      this.setState({
+        spinner:false  
+     })
+
+    },6000)
   };
 
   handleState = name => {
@@ -239,11 +253,13 @@ class Signup extends Component {
                   </View>
                 </RBSheet>
               </Item>
+              {this.state.spinner===true&&
+              <ActivityIndicator size="large" color="#00ff00" />}
             </View>
           </Content>
 
           <View
-            style={{
+            style={{ flex:1,
               justifyContent: 'flex-end',
               marginHorizontal: 16,
               marginVertical: 80,

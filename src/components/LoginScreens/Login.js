@@ -89,11 +89,13 @@ class Login extends Component {
   }
 
   componentDidMount = () => {
-    // setInterval(() => {
-    //   this.setState({
-    //     spinner: true 
-    //   });
-    // }, 1000);
+    const {auth}=this.props
+       if(auth.isAutherticated===true){
+         this.props.navigation.navigate('Home')
+
+       }else{
+          this.props.navigation.navigate('Login')
+       }
     
     DeviceInfo.getAndroidId().then(id => {
       this.setState({
@@ -135,13 +137,7 @@ class Login extends Component {
       };
 
 
-       setInterval(()=>{
-        this.setState({
-          spinner:true
-        })
-
-       }, 2000)
-       
+     
       
       
       try {
@@ -150,6 +146,9 @@ class Login extends Component {
       } catch (e) {
         console.log(e);
       }
+       this.setState({
+          spinner:true
+       })
 
       this.props.loginUser(user).then(() => {
         const {error, auth} = this.props;
@@ -159,6 +158,14 @@ class Login extends Component {
             showAlert: true,
             errorAlert: error.loginError,
           });
+
+         } else if(error.loginError.code==='404'){
+            this.setState({
+              spinner:false,
+              showAlert: true,
+              errorAlert: error.loginError,
+            });
+          
         } else if (auth.userMpin.code === '200') {
            this.setState({
               spinner:false
@@ -172,6 +179,13 @@ class Login extends Component {
         }
       });
     }
+
+    setTimeout(()=>{
+      this.setState({
+        spinner:false
+     })
+
+     },10000)
   };
 
 
@@ -184,7 +198,7 @@ class Login extends Component {
         loginUserData: user,
       });
     } catch (e) {
-      alert('Failed to load name.');
+       console.log('Failed to load name.');
     }
 
     if (this.isValid()) {
@@ -206,14 +220,22 @@ class Login extends Component {
             showAlert: true,
           });
         } else if (auth.userMpin.code === '200') {
+           this.setState({
+              spinner:false
+           })
           this.props.navigation.navigate('Home');
         } else if (auth.DeviceOtp.code === '504') {
           this.setState({
             isVisible: true,
+             spinner:false
           });
         }
       });
+     
     }
+
+    
+    
   };
   showAlert = () => {
     console.log('show');
@@ -246,7 +268,7 @@ class Login extends Component {
         loginUserData: user,
       });
     } catch (e) {
-      alert('Failed to load name.');
+     console.log(e)
     }
     const {auth} = this.props;
     const {loginUserData} = this.state;
@@ -260,14 +282,13 @@ class Login extends Component {
 
       DEVICEID: this.state.DeviceID,
       mobileNo: loginUserData.mobileNo,
-      memberid: auth.DeviceOtp.custId,
+      memberid: auth.DeviceOtp.memberid,
       otp: this.state.mobileOtp,
       refNo: auth.DeviceOtp.refNo,
       DEVICEMODEL: '',
       IPADDRESS: '',
     };
-    console.log(userOtp);
-          
+    
         
     this.props.otpVerificationforLogin(userOtp).then(() => {
 
@@ -292,11 +313,16 @@ class Login extends Component {
           isVisible: false,
         });
         this.props.navigation.navigate('Home');
+      }else{
+         this.setState({
+            
+         })
       }
     });
   };
   otpResend = () => {};
   handleState = (name, id) => {
+    this.RBSheet.close()
     this.setState({
       activeIndex: id,
       Statevalue: name,
@@ -304,7 +330,7 @@ class Login extends Component {
   };
   render() {
     const {error, auth} = this.props;
-  
+ 
     const {errorsData, errorsLogin, errorAlert, mobileOtp} = this.state;
     
     return (
@@ -367,9 +393,9 @@ class Login extends Component {
                 
               </TouchableOpacity>
             </Item>
-            {this.state.spinner===true?
+            {/* {this.state.spinner===true?
             <ActivityIndicator size="large" color="#00ff00" />:null}
-               
+                */}
             <View style={styles.btnbottom}>
               <Text style={styles.bottomtext}>
                 By logging in , you agree to our
