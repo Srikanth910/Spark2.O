@@ -16,8 +16,10 @@ import {
 } from 'native-base';
 import {StatusBar, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import {connect} from 'react-redux';
+//  import {createOtpForSchedulePayout}from  '../../Redux/actions/TransferAction'
 
-export default class To_sparkAcc extends Component {
+ export default class To_sparkAcc extends Component {
   constructor(props) {
     super(props);
 
@@ -28,10 +30,22 @@ export default class To_sparkAcc extends Component {
     };
   }
 
+  // handleSchedulesubmit=()=>{
+
+  //     "transferType": "3",
+  //     "benAccId": "207",
+  //     "customerId": "1278",
+  //     "amount": '1000.0',
+  //  "startDate": "2020-05-21",
+  //   "type":"",
+  //    "dec":''
+
+  // }
+
   render() {
     const {params} = this.props.route;
     console.log(params);
-     const{amount, Description,}=this.state
+    const {amount, Description} = this.state;
 
     return (
       <Container>
@@ -47,7 +61,7 @@ export default class To_sparkAcc extends Component {
             }}>
             <Icon
               name="arrow-back"
-              onPress={() => this.props.navigation.navigate('Loadmoney')}
+              onPress={() => this.props.navigation.navigate('Transfer_Money')}
               style={{color: '#ffffff'}}
             />
             <Text style={styles.headerText}>{params.name}</Text>
@@ -181,37 +195,89 @@ export default class To_sparkAcc extends Component {
             />
           </Item>
         </Content>
-        <Item
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'center',
-            marginVertical: 16,
-            marginHorizontal: 16,
-          }}>
-          <Button
-            warning
-            style={styles.paynowbtn}
-            onPress={() =>
-              this.props.navigation.navigate('To_spark_confirm', {
+
+        {params.sparkSchedule === true ? (
+          <View style={{marginVertical: 32, marginHorizontal: 16}}>
+            <Item warning style={styles.btn_Sc}>
+              <TouchableOpacity
+              onPress={()=>this.props.navigation.navigate('Transfer_Schedule_Confirm',
+              {date:params.date,
                 userName: params.holder,
                 accountNo: params.AccountBen,
                 amount: amount,
                 method: params.memberOf,
                 desc:  Description,
-                
-              })
-            }>
-            <Text style={styles.btntext}>Pay now</Text>
-          </Button>
-          <Button warning style={styles.schedulebtn}>
-            <Text style={styles.btntext_1}>schedule</Text>
-          </Button>
-        </Item>
+                 scheduledays:params.scheduledays,
+                 transfercount:params.transfercount,
+                  type:params.type,
+                   bennid:params.bennId
+
+              })}
+              >
+                <View style={{marginLeft: 5, textAlign: 'center'}}>
+                  <Text style={styles.btntext}>
+                    Schedule from {params.date}
+                  </Text>
+                  <Text style={styles.btntext}>
+                    {params.scheduledays}, {params.transfercount} transfers
+                  </Text>
+                </View>
+              </TouchableOpacity>
+
+              <View style={{flexDirection: 'row'}}>
+                <Button warning style={styles.arrow}>
+                  <Image
+                    source={require('../../images/home/arrow.png')}
+                    style={{height: 10}}
+                  />
+                </Button>
+                <Button warning style={styles.schedule_btn}>
+                  <Image source={require('../../images/Transfer/edit.png')} />
+                </Button>
+                <Button warning style={styles.schedule_btn}>
+                  <Icon name="close" style={{color: 'red', width: 20}} />
+                </Button>
+              </View>
+            </Item>
+          </View>
+        ) : (
+          <Item
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'center',
+              marginVertical: 16,
+              marginHorizontal: 16,
+            }}>
+            <Button
+              warning
+              style={styles.paynowbtn}
+              onPress={() =>
+                this.props.navigation.navigate('To_spark_confirm', {
+                  userName: params.holder,
+                  accountNo: params.AccountBen,
+                  amount: amount,
+                  method: params.memberOf,
+                  desc: Description,
+                })
+              }>
+              <Text style={styles.btntext}>Pay now</Text>
+            </Button>
+            <Button
+              warning
+              style={styles.schedulebtn}
+              onPress={() =>
+                this.props.navigation.navigate('ScheduleTransfer', {
+                  type: params.type,
+                })
+              }>
+              <Text style={styles.btntext_1}>schedule</Text>
+            </Button>
+          </Item>
+        )}
       </Container>
     );
   }
 }
-
 const styles = StyleSheet.create({
   headerText: {
     fontFamily: 'Nunito',
@@ -303,5 +369,39 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     textAlign: 'center',
   },
+  schedule_btn: {
+    backgroundColor: '#1b1464',
+    width: 80,
+    height: 40,
+    justifyContent: 'center',
+  },
+  btntext: {
+    fontSize: 16,
+    textAlign: 'center',
+    color: '#ffffff',
+    alignSelf: 'center',
+  },
+  btntext_1: {
+    fontSize: 9.5,
+    color: '#ffffff',
+    textAlign: 'center',
+  },
+  btn_Sc: {
+    width: 380,
+    justifyContent: 'space-between',
+    backgroundColor: '#1b1464',
+    height: 41,
+  },
+  schedule_btn: {
+    backgroundColor: '#0c0744',
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+  },
+  arrow: {
+    backgroundColor: '#1b1464',
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+  },
 });
-

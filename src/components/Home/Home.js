@@ -19,7 +19,7 @@ import {
   checkiconc,
 } from 'native-base';
 
- import {Otpmodel} from '../Hoc/Modelhoc'
+import {Otpmodel} from '../Hoc/Modelhoc';
 import {connect} from 'react-redux';
 import {
   StyleSheet,
@@ -54,13 +54,13 @@ class Home extends Component {
       tabStatus1: true,
       tabStatus2: false,
       tabStatus3: false,
+      isbalance:false,
       tabStatus4: false,
       billpay: [],
       userDetails: {},
       finbusDetails: {},
     };
   }
-
 
   checkTabSelected(tab) {
     switch (tab) {
@@ -105,13 +105,6 @@ class Home extends Component {
   }
 
   componentDidMount = async () => {
- const {auth}=this.props
-       if(auth.isAutherticated===true){
-         this.props.navigation.navigate('Home')
-
-       }else{
-          this.props.navigation.navigate('Login')
-       }
     try {
       const data = await AsyncStorage.getItem('Loginuser');
       const logindetail = JSON.parse(data);
@@ -122,6 +115,42 @@ class Home extends Component {
       console.log(e);
     }
 
+    this.handlegetfinBus();
+
+    // const {userDetails} = this.state;
+    // const data = {
+    //   membarId: userDetails.memberid,
+    // };
+
+    // this.props.isFinbusCustomerForRD(data).then(() => {
+    //   const {auth} = this.props;
+    //   if (auth.finbusDetails) {
+    //     this.setState({
+    //       finbusDetails: auth.finbusDetails,
+    //     });
+    //   }
+    // });
+
+    this.props.getPrepaidBillerCategories().then(() => {
+      const {auth} = this.props;
+
+      if (auth.getPrepaidData.code === '200') {
+        this.setState({
+          billpay: auth.getPrepaidData.list.Response,
+        });
+      }
+    });
+  };
+
+  // componentDidUpdate(prevProps){
+  //    const{auth}=this.props
+  //   if (auth.finbusDetails.savingsbal!== prevProps.auth.finbusDetails.savingsbal) {
+  //      this.setState({
+  //         finbusDetails:auth.finbusDetails
+  //      })
+  //   }
+  // }
+  handlegetfinBus = () => {
     const {userDetails} = this.state;
     const data = {
       membarId: userDetails.memberid,
@@ -135,18 +164,7 @@ class Home extends Component {
         });
       }
     });
-
-    this.props.getPrepaidBillerCategories().then(() => {
-      const {auth} = this.props;
-
-      if (auth.getPrepaidData.code === '200') {
-        this.setState({
-          billpay: auth.getPrepaidData.list.Response,
-        });
-      }
-    });
   };
-
   handleBillpay = (id, Name) => {
     console.log(id);
     this.props.navigation.navigate('LoanPayment', {
@@ -154,6 +172,11 @@ class Home extends Component {
       billerName: Name,
     });
   };
+  handleBalance=()=>{
+     this.setState({
+        isbalance:true
+     })
+  }
   render() {
     const {auth} = this.props;
     const {userDetails, finbusDetails} = this.state;
@@ -169,7 +192,6 @@ class Home extends Component {
                 source={require('../../images/home/spk_icon.png')}
                 style={styles.spicon}
               />
-
               <View style={styles.userid}>
                 <Text style={styles.userName}>{finbusDetails.name}</Text>
                 <Text style={styles.id}>MemberID:{userDetails.memberid}</Text>
@@ -178,76 +200,84 @@ class Home extends Component {
           </Left>
 
           <Right>
+            <TouchableOpacity
+            onPress={() => this.props.navigation.navigate('SettingPage')}
+            >
             <Image
               source={require('../../images/home/white_dot.png')}
               style={styles.doticon}
+              
             />
+            </TouchableOpacity>
           </Right>
         </Header>
 
         <Content>
           <ImageSilder />
 
-          <View style={styles.kyccard}>
-            <ListItem>
-              <Text style={styles.kycheader}>
-                MAKE THE MOST OF YOUR SPARK ACCOUNT
-              </Text>
-            </ListItem>
-            <View>
-              <ListItem style={styles.listview}>
-                <Image
-                  source={require('../../images/home/thumb.png')}
-                  style={styles.checkicon}
-                />
-
-                <Body>
-                  <Text style={styles.Listtext}>
-                    {' '}
-                    Please complete your Profile to gain...
-                  </Text>
-                </Body>
+          {finbusDetails.fullkycstatus === 'KYC verified' &&
+          finbusDetails.SignatureRejectionDescription === 'Approved' ? null : (
+            <View style={styles.kyccard}>
+              <ListItem>
+                <Text style={styles.kycheader}>
+                  MAKE THE MOST OF YOUR SPARK ACCOUNT
+                </Text>
               </ListItem>
-              <ListItem style={styles.listview}>
-                <Image
-                  source={require('../../images/home/check_icon.png')}
-                  style={styles.checkicon}
-                />
+              <View>
+                <ListItem style={styles.listview}>
+                  <Image
+                    source={require('../../images/home/thumb.png')}
+                    style={styles.checkicon}
+                  />
 
-                <Body>
-                  <Text style={styles.Listtext}>
-                    {' '}
-                    Fully compliant Spark Savings Account
-                  </Text>
-                </Body>
-              </ListItem>
-              <ListItem style={styles.listview}>
-                <Image
-                  source={require('../../images/home/check_icon.png')}
-                  style={styles.checkicon}
-                />
+                  <Body>
+                    <Text style={styles.Listtext}>
+                      {' '}
+                      Please complete your Profile to gain...
+                    </Text>
+                  </Body>
+                </ListItem>
+                <ListItem style={styles.listview}>
+                  <Image
+                    source={require('../../images/home/check_icon.png')}
+                    style={styles.checkicon}
+                  />
 
-                <Body>
-                  <Text style={styles.Listtext}>All features unlocked</Text>
-                </Body>
-              </ListItem>
-              <ListItem style={styles.listview}>
-                <Image
-                  source={require('../../images/home/check_icon.png')}
-                  style={styles.checkicon}
-                />
-                <Body>
-                  <Text style={styles.Listtext}>No more reminders</Text>
-                </Body>
-              </ListItem>
+                  <Body>
+                    <Text style={styles.Listtext}>
+                      {' '}
+                      Fully compliant Spark Savings Account
+                    </Text>
+                  </Body>
+                </ListItem>
+                <ListItem style={styles.listview}>
+                  <Image
+                    source={require('../../images/home/check_icon.png')}
+                    style={styles.checkicon}
+                  />
 
-              <View style={styles.bottomBtn}>
-                <Button bordered warning style={styles.getbtn}>
-                  <Text>Get started</Text>
-                </Button>
+                  <Body>
+                    <Text style={styles.Listtext}>All features unlocked</Text>
+                  </Body>
+                </ListItem>
+                <ListItem style={styles.listview}>
+                  <Image
+                    source={require('../../images/home/check_icon.png')}
+                    style={styles.checkicon}
+                  />
+                  <Body>
+                    <Text style={styles.Listtext}>No more reminders</Text>
+                  </Body>
+                </ListItem>
+
+                <View style={styles.bottomBtn}>
+                  <Button bordered warning style={styles.getbtn}>
+                    <Text>Get started</Text>
+                  </Button>
+                </View>
               </View>
             </View>
-          </View>
+          )}
 
           <View style={styles.Rectangle}>
             <View style={styles.fdCard}>
@@ -277,10 +307,20 @@ class Home extends Component {
                 </CardItem>
                 <CardItem>
                   <Left>
+
+
+                    {this.state.isbalance===true?
                     <Text style={styles.bal}>
                       {' '}
                       ₹ {this.state.finbusDetails.savingsbal}
-                    </Text>
+                    </Text>: 
+                    <Text style={styles.tap_to_bal}
+                    
+                     onPress={this.handleBalance}
+                    >
+
+                    TAP  TO SHOW BALANCES
+                    </Text>}
                   </Left>
 
                   <Right>
@@ -399,67 +439,7 @@ class Home extends Component {
                       More
                     </Text>
                   </View>
-                  {/* <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/phone.png')}
-                      style={styles.billIcon}
-                    />
-                    <Text style={styles.iconText}>Mobile Postpaid</Text>
-                  </View> */}
-                  {/* <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/Broadband.png')}
-                      style={styles.broadband}
-                    />
-                    <Text style={styles.iconText}>Broadband</Text>
-                  </View> */}
-                  {/* <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/Electricity.png')}
-                      style={styles.billIcon}
-                    />
-                    <Text style={styles.iconText}>Electricity</Text>
-                // </View>*/}
                 </View>
-                {/* 
-                <View
-                  style={{
-                    flex: 1,
-                    flexDirection: 'row',
-                    marginVertical: 16,
-                    marginTop: 15,
-                    marginLeft: 10,
-                  }}>
-                  <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/DTH.png')}
-                      style={styles.billIcon}
-                    />
-                    <Text style={styles.iconText}>DTH</Text>
-                  </View>
-                  <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/euro.png')}
-                      style={styles.euroicon}
-                    />
-                    <Text style={styles.iconText}>PAYMENT</Text>
-                  </View>
-                  <View style={styles.box}>
-                    <Image
-                      source={require('../../images/home/water.png')}
-                      style={styles.watericon}
-                    />
-
-                    <Text style={styles.iconText}>water</Text>
-                  </View>
-                  <View style={styles.dottedmore}>
-                    <Text
-                      style={styles.moretext}
-                      onPress={() => this.props.navigation.navigate('PayBill')}>
-                      More
-                    </Text>
-                  </View>
-                </View> */}
               </View>
             </View>
           </View>
@@ -481,7 +461,7 @@ class Home extends Component {
               <ImageBackground
                 source={require('../../images/home/fd_bg.png')}
                 style={styles.fd_rdbg}>
-                {finbusDetails.fdArray ? (
+                {finbusDetails.fdCount > 0 ? (
                   <ScrollView horizontal={true}>
                     {finbusDetails.fdArray &&
                       this.state.finbusDetails.fdArray.map(item => {
@@ -617,22 +597,9 @@ class Home extends Component {
                   </View>
                 )}
               </ImageBackground>
-
-              {/* <View>
-                <ImageBackground
-                  source={require('../../images/home/fd_bg.png')}
-                  style={styles.fd_rdbg}>
-                  <View style={styles.dottedlines}>
-                    <Text style={styles.fddotedtext}>
-                      Open a Fixed Deposit at an incredible rate up to
-                      <Text style={styles.pa}>16% p.a.</Text>
-                    </Text>
-                  </View>
-                </ImageBackground>
-              </View> */}
               <View style={styles.rdbottombtn}>
-                <ListItem style={styles.listview}>
-                  <Left>
+                <ListItem style={{justifyContent:'space-between', borderColor:'transparent',}} >
+                 
                     <Item style={styles.itemview}>
                       <Image
                         source={require('../../images/home/plus_icon.png')}
@@ -647,19 +614,24 @@ class Home extends Component {
                         OPEN NEW{' '}
                       </Text>
                     </Item>
-                  </Left>
-                  <Right>
+                 
+                 
                     <Item style={styles.itemview}>
                       <Image
                         source={require('../../images/home/trendup.png')}
                         style={styles.fd_rdiicon}
                       />
 
-
-                        <Text style={styles.fd_rdbtn}> FD RATES</Text>
-                      
+                      <Text
+                        style={styles.fd_rdbtn}
+                        onPress={() =>
+                          this.props.navigation.navigate('Fdscreen')
+                        }>
+                        {' '}
+                        FD RATES
+                      </Text>
                     </Item>
-                  </Right>
+                  
                 </ListItem>
               </View>
             </View>
@@ -681,13 +653,13 @@ class Home extends Component {
               <ImageBackground
                 source={require('../../images/home/rd_bg.png')}
                 style={styles.fd_rdbg}>
-                {finbusDetails.rdArray ? (
+                {finbusDetails.rdCount > 0 ? (
                   <ScrollView horizontal={true}>
                     {finbusDetails.rdArray &&
                       finbusDetails.rdArray.map(item => {
                         if (item.IsFlexible === false) {
                           return (
-                            <Card style={styles.card_fd}>
+                            <Card style={styles.card_fd} key={item.id}>
                               <CardItem>
                                 <Left>
                                   <Body>
@@ -797,46 +769,38 @@ class Home extends Component {
                 )}
               </ImageBackground>
 
-              {/* //  <View>
-            //     <ImageBackground
-            //       source={require('../../images/home/rd_bg.png')}
-            //       style={styles.fd_rdbg}>
-            //       <View style={styles.rddottedlines}>
-            //         <Text style={styles.fddotedtext}>
-            //           Open a Recurring Depositat an amazing rate up to
-            //           <Text style={styles.pa}>15% p.a.</Text>
-            //         </Text>
-            //       </View>
-            //     
-            // </View> } */}
               <View>
                 <View style={styles.rdbottombtn}>
-                  <ListItem style={styles.listview}>
-                    <Left>
+                  <ListItem style={{justifyContent:'space-between', borderColor:'transparent',}} >
+                  
                       <Item style={styles.itemview}>
                         <Image
                           source={require('../../images/home/plus_icon.png')}
                           style={styles.fd_rdiicon}
                         />
-                        <Text
-                          style={styles.fd_rdbtn}
-                          onPress={() =>
-                            this.props.navigation.navigate('RDScreen')
-                          }>
-                          {' '}
-                          OPEN NEW{' '}
-                        </Text>
+                        <Text style={styles.fd_rdbtn}
+                        
+                        onPress={() =>
+                          this.props.navigation.navigate('RDScreen')
+                        }>
+                        
+                       OPEN NEW </Text>
                       </Item>
-                    </Left>
-                    <Right>
-                      <Item style={styles.itemview}>
+                 
+                   
+                     <Item style={styles.itemview}>
                         <Image
                           source={require('../../images/home/trendup.png')}
                           style={styles.fd_rdiicon}
                         />
-                        <Text style={styles.fd_rdbtn}> RD RATES</Text>
-                      </Item>
-                    </Right>
+                        <TouchableOpacity
+                          onPress={() =>
+                            this.props.navigation.navigate('RDScreen')
+                          }>
+                          <Text style={styles.fd_rdbtn}> RD RATES</Text>
+                        </TouchableOpacity>
+                      </Item> 
+                    
                   </ListItem>
                 </View>
               </View>
@@ -961,7 +925,7 @@ export default connect(
     isFinbusCustomerForRD,
     getPrepaidBillerCategories,
   },
-) (Home);
+)(Home);
 
 const styles = StyleSheet.create({
   Container: {
@@ -1417,4 +1381,15 @@ const styles = StyleSheet.create({
     color: '#aaadb2',
     marginLeft: 16,
   },
+  tap_to_bal:{
+    backgroundColor:'#aaadb2',
+     height:20,
+     
+      fontSize:12,
+       fontFamily:'NunitoSans',
+        textAlign:'left',
+        
+
+    
+  }
 });

@@ -37,7 +37,9 @@ class Loadmoney extends Component {
     this.state = {
       value: false,
        amount:'',
-       paymentId:''
+       paymentId:'',
+       card:'',
+       accNo:'',
     };
   }
   componentDidMount() {
@@ -73,11 +75,9 @@ class Loadmoney extends Component {
              paymentId:data.razorpay_payment_id
            })
             this.addBalanace()
-
-          
-        console.log( data.razorpay_payment_id)
         }).catch((error) => {
-           console.log(error)
+          this.props.navigation.navigate('Loadmoneyfail',{balance:this.state.amount,  card:this.state.card})
+
        
         });
         
@@ -99,13 +99,39 @@ class Loadmoney extends Component {
 
  }
 
-       this.props.addSavingsAccountBalanceRazorpay(payementDetails)
+       this.props.addSavingsAccountBalanceRazorpay(payementDetails).then(()=>{
+        const{ params}=this.props.route
+          const{BalanceDetail}=this.props.loadmoney
+           if(BalanceDetail.code==="200"){
+              
+            this.setState({
+                accNo:BalanceDetail.accountNo
+
+            })
+             
+             this.props.navigation.navigate('LoadmoneySuccess',{balance:this.state.amount, tnxid:this.state.paymentId, accNo:this.state.accNo, card:this.state.card, name:params.name})
+           }
+           else if(BalanceDetail.code==="403"){
+              alert('session expired')
+                setTimeout(()=>{
+                   this.props.navigation.navigate('Login')
+                },2000)
+           }
+           
+
+       })
     }
        
+    handlemethods=()=>{
+       alert('jello')
+
+    }
    
 
   render() {
     const {cardDetails} = this.props.loadmoney;
+     
+     console.log(this.state.card)
 
     return (
       <Container>
@@ -116,7 +142,7 @@ class Loadmoney extends Component {
             <Button transparent>
               <Icon
                 name="close"
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={() => this.props.navigation.navigate('Home')}
               />
             </Button>
           </Left>
@@ -161,10 +187,10 @@ class Loadmoney extends Component {
                   return (
                     <>
                       {data.name === 'DC-Razorpay' ? (
-                        <View style={styles.cardlist}>
+                        <View style={styles.cardlist} onPress={this.handlemethods}>
                           <TouchableOpacity
                             onPress={() => {
-                              this.setState({activeIndex: 1});
+                              this.setState({activeIndex: 1, card:'Debit card'});
                             }}
                             style={
                               this.state.activeIndex === 1 &&
@@ -172,6 +198,7 @@ class Loadmoney extends Component {
                                 ? styles.btnActive
                                 : styles.btn
                             }>
+                              <View>
                             <Item style={styles.borderline}>
                               <Image
                                 source={require('../../../images/cr-card.png')}
@@ -185,19 +212,21 @@ class Loadmoney extends Component {
                                 </Text>
                               </View>
                             </Item>
+                            </View>
                           </TouchableOpacity>
                         </View>
                       ) : data.name === 'NB-Razorpay' ? (
                         <View style={styles.cardlist}>
                           <TouchableOpacity
                             onPress={() => {
-                              this.setState({activeIndex: 0});
+                              this.setState({activeIndex: 0, card:'Net banking '});
                             }}
                             style={
                               this.state.activeIndex === 0
                                 ? styles.btnActive
                                 : styles.btn
                             }>
+                              <View>
                             <Item style={styles.borderline}>
                               <Image
                                 source={require('../../../images/loptop.png')}
@@ -212,13 +241,14 @@ class Loadmoney extends Component {
                                 </Text>
                               </View>
                             </Item>
+                            </View>
                           </TouchableOpacity>
                         </View>
                       ) : data.name === 'CC-Razorpay' ? (
                         <View style={styles.cardlist}>
                           <TouchableOpacity
                             onPress={() => {
-                              this.setState({activeIndex: 2});
+                              this.setState({activeIndex: 2, card:'Credit card'});
                             }}
                             style={
                               this.state.activeIndex === 2 &&
@@ -246,7 +276,7 @@ class Loadmoney extends Component {
                         <View style={styles.cardlist}>
                           <TouchableOpacity
                             onPress={() => {
-                              this.setState({activeIndex: 3});
+                              this.setState({activeIndex: 3, card:'paytem'});
                             }}
                             style={
                               this.state.activeIndex === 3 && data.status

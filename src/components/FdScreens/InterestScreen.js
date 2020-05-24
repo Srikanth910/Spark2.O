@@ -1,7 +1,7 @@
 import React from 'react';
 import {Dimensions, Text, StyleSheet, View, FlatList} from 'react-native';
 import {} from 'native-base';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 const numberOfColumns = 2;
 const WIDTH = Dimensions.get('window').width;
@@ -53,12 +53,13 @@ class InterestScreen extends React.Component {
 
   // render item
   _renderItem = ({item, index}) => {
-     console.log('datav',item.isFlexible)
+  
     if (item.isFlexible==="true") {
       return null;
     }
 
     return (
+      // <ScrollView horizontal={true}>
       <View style={styles.selectedInterestCard}>
          
         <Text style={styles.cardTitle}>
@@ -75,6 +76,7 @@ class InterestScreen extends React.Component {
           {item.interest}% p.a.
         </Text>
       </View>
+      // </ScrollView>
     );
   };
   render() {
@@ -94,6 +96,7 @@ class InterestScreen extends React.Component {
           Choose when you would like to receive interest. We have attractive
           interest rates for all options.
         </Text>
+        
         <FlatList
           bounces={false}
           horizontal={false}
@@ -103,6 +106,7 @@ class InterestScreen extends React.Component {
         
           numColumns={numberOfColumns}
         />
+        
       </View>
     );
   }

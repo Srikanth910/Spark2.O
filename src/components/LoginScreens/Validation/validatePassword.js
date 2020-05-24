@@ -15,7 +15,7 @@ export default function validatePassword(data) {
   }
 
    if(!Validator.equals(data.newPassword, data.confirmPassword)){
-    errorsData.confirmPassword = 'ppassword do not match';
+    errorsData.confirmPassword = 'password do not match';
    }
 
   

@@ -163,7 +163,7 @@ export default class Schedulemybank extends Component {
                 </Content>
                 <View style={{ marginVertical: 32, marginHorizontal: 16,     }}>
                
-               <Item  warning style={styles.paynowbtn}>
+               <Item  warning style={styles.btn_Sc}>
                          
                            <View style={{marginLeft: 5, textAlign:'center'}}>
                                <Text style={styles.btntext}>Schedule from 28-06-2020</Text>
@@ -179,12 +179,12 @@ export default class Schedulemybank extends Component {
                         
                              
                          </Button>
-                               <Button warning style={styles.schedulebtn}>
+                               <Button warning style={styles.schedule_btn}>
                         <Image source ={require('../../images/Transfer/edit.png')}/>
                         
                              
                          </Button>
-                         <Button warning style={styles.schedulebtn}>
+                         <Button warning style={styles.schedule_btn}>
                       <Icon name="close" style={{color:'red' ,width:20}} />   
                          </Button>
                          </View>
@@ -283,14 +283,8 @@ export default class Schedulemybank extends Component {
             borderRadius: 5,
         
           },
-          paynowbtn:{
-              width:300,
-              justifyContent:'center',
-              height:40
-               
-
-          },
-           schedulebtn:{
+         
+           schedule_btn:{
                backgroundColor:"#1b1464",
                 width:80,
                 height:40,
@@ -309,7 +303,7 @@ export default class Schedulemybank extends Component {
                 color:'#ffffff',
                  textAlign:'center'
            },
-           paynowbtn:{
+           btn_Sc:{
             width:380,
              justifyContent:'space-between',
             backgroundColor:"#1b1464",
@@ -317,7 +311,7 @@ export default class Schedulemybank extends Component {
              
 
         },
-         schedulebtn:{
+         schedule_btn:{
              backgroundColor:"#0c0744",
               width:40,
               height:40,

@@ -1,9 +1,10 @@
-import { GET_RAZORPAY_DETAILS_SUCCESS, GET_CARD_SUCCESS } from "../constants/types";
+import { GET_RAZORPAY_DETAILS_SUCCESS, GET_CARD_SUCCESS, ACCOUNT_BALANCE_RAZORPAY_SUCCESS, SESSION_MISSING } from "../constants/types";
 
 const initialState = {
    accountDetails:{},
    
-cardDetails:{}
+cardDetails:{},
+BalanceDetail:{}
 }
 
 export default function (state = initialState, action) {
@@ -17,6 +18,13 @@ export default function (state = initialState, action) {
                     return{
                          cardDetails:action.payload
                     }
+
+                     case ACCOUNT_BALANCE_RAZORPAY_SUCCESS:
+                        case SESSION_MISSING:
+                           return{
+                                 ...state,
+                                  BalanceDetail:action.payload
+                           }
                default:
                     return state
      }

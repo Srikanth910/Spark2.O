@@ -37,7 +37,8 @@ export default class LoadmoneySuccess extends Component {
      
     render() {
 
- console.log(this.state.maturity)
+          const {params}=this.props.route
+
         return (
            <Container>
 <Header style={{ backgroundColor:"#429c40",height:140 ,}}>
@@ -54,7 +55,7 @@ export default class LoadmoneySuccess extends Component {
                     <Image source ={require('../../../images/Transfer/logo_s.png')}/>
                     <View style={styles.header}>
                         <Text style={styles.headerbal}>
-                        ₹ 5,000
+                        ₹ {params.balance}
                         </Text>
                         <Text style={styles.text_1} >
                         Paid successfully
@@ -64,7 +65,7 @@ export default class LoadmoneySuccess extends Component {
                     </View>
                     
                 </ListItem>
-                <Text style={styles.text} >TXN ID: CC1ZK173928, 07-05-2020, 10:30:23</Text>
+        <Text style={styles.text} >TXN ID: {params.tnxid}</Text>
                
                 </ImageBackground>
               
@@ -80,11 +81,11 @@ export default class LoadmoneySuccess extends Component {
                       <Image source={require('../../../images/home/pet_bank.png')} style={styles.bank}/>
                           <View style={{paddingLeft:20}}>
                               <Text style={styles.usertext}>
-                                   B.Srikanth
+                                   {params.name}
                            </Text> 
                            <Text style={styles.curdtext}>(Your Spark Savings Account))</Text> 
 
-                           <Text style={styles.curdtext}>9100146410</Text> 
+        <Text style={styles.curdtext}>{params.accNo}</Text> 
                            <Text style={styles.curdtext}>Location</Text>    
                           </View>
 
@@ -94,7 +95,7 @@ export default class LoadmoneySuccess extends Component {
                   <View style={styles.curdview}>
                       <Text style={styles.transctiondetials}>Transaction details</Text>
                       <Text   style={styles.textdetails}>For personal expenses, loaded from
-                      KKBK Netbanking</Text>
+        {params.card}</Text>
 
                 
                   </View>
@@ -111,7 +112,7 @@ export default class LoadmoneySuccess extends Component {
 
               <View  >
                   <Button block success style={styles.btn}
-                   onPress={() => this.props.navigation.navigate('Loadmoneyfail')}
+                   onPress={() => this.props.navigation.navigate('Home')}
                    >
             <Text style={{color:'#ffffff'}}>Success</Text>
 

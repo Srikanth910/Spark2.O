@@ -245,8 +245,7 @@ export const isFinbusCustomerForRD = data => {
         `${API_URL}/isFinbusCustomerForRD?membarId=${data.membarId}`,
       );
       let finebusDetails = await res.data;
-      // console.log('res', finebusDetails.isMpinId);
-      if (finebusDetails.isMpinId === true) {
+      if (finebusDetails) {
         dispatch({
           type: ISFIN_BUS_RD_SUCCESS,
           payload: finebusDetails,
@@ -325,11 +324,15 @@ export const loginUser = (data, callback) => async dispatch => {
 
 //   resend opt
 
+
+
 export const userMpin = (data, callback) => dispatch => {
   console.log(data);
   return axios
     .post(`${API_URL}/loginByMpinV2_O`, data)
+
     .then(res => {
+       console.log('res',res.headers)
       console.log(res.data);
       let userMpin = res.data;
       console.log(userMpin);
@@ -344,15 +347,15 @@ export const userMpin = (data, callback) => dispatch => {
           payload: userMpin.Data,
         });
       } else if (userMpin.Data.code === '200') {
-      
+        
 
         const memberid = userMpin.Data.memberid;
         const token = userMpin.Data.Token;
-        const password = data.mPin;
+         password = parseInt( data.mPin)
         SetauthtokenMpin(memberid, token, password);
-
         AsyncStorage.mergeItem('Loginuser', JSON.stringify(userMpin.Data));
 
+        
         dispatch({
           type: MPIN_SUCCESS,
           payload: res.data.Data,
@@ -624,11 +627,14 @@ export const ResendOtpForMPin = data => async dispatch => {
 //////// get Beenrs
 
 export const getBanners = data => {
+   console.log(data)
   return async dispatch => {
     try {
       const res = await axios.get(
         `${API_URL}/getBanners?membarId=${data.membarId}`,
       );
+
+       console.log('banners',res.headers)
       let banners = await res.data;
       console.log('res', banners);
       if (banners.code === '200') {

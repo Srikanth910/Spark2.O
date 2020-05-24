@@ -11,7 +11,11 @@ import { YellowBox } from 'react-native';
 YellowBox.ignoreWarnings([
     'Warning: componentWillMount is deprecated',
     'Warning: componentWillUpdate is deprecated',
-    'Warning: componentWillReceiveProps is deprecated',
+    'Warning: Each',
+    'Warning: Failed',
+    // 'Warning: componentWillReceiveProps is deprecated',
 ]);
+// console.ignoredYellowBox = ['Warning: Each', 'Warning: Failed'];
+
 
 AppRegistry.registerComponent(appName, () => App);

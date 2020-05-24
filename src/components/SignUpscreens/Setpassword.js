@@ -28,6 +28,7 @@ import {ScrollView} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {NetworkInfo} from 'react-native-network-info';
 import {createMemberToken} from '../../Redux/actions/authAction';
+import validatePassword from '../LoginScreens/Validation/validatePassword';
 
 class Setpassword extends Component {
   constructor(props) {
@@ -37,9 +38,10 @@ class Setpassword extends Component {
       visible: false,
 
       confirmPassword: '',
-      password: '',
+      newPassword: '',
       signupUser:{},
       deviceIp: '',
+      errorsData:{},
     };
   }
 
@@ -64,6 +66,14 @@ class Setpassword extends Component {
     });
   };
 
+
+validpassword(){
+  const {errorsData, isValid} =validatePassword(this.state)
+   if(!isValid){
+       this.setState({errorsData})
+   }
+    return isValid
+}
   submitPassword = async () => {
     let model = DeviceInfo.getModel();
 
@@ -81,6 +91,10 @@ class Setpassword extends Component {
       alert('Failed to load name.');
     }
 
+
+     if(this.validpassword()){
+
+      this.setState({errorsData:{}})
  
      const {signupUser}=this.state
       const passworddata = {
@@ -89,7 +103,7 @@ class Setpassword extends Component {
       mobileNo: signupUser.mobileno,
       DEVICEMODEL: model,
       IPADDRESS:this.state.deviceIp,
-      Password:this.state.password,
+      Password:this.state.newPassword,
     };
     console.log(passworddata);
 
@@ -99,13 +113,16 @@ class Setpassword extends Component {
        if(auth.userMpin.code==="200"){
          this.props.navigation.navigate('Welcomeboard')
        }
-      })       
+      })   
+      
+    }
    
   };
 
   render() {
      const{auth}=this.props 
-      console.log(auth.userMpin)
+      console.log(this.state.errorsData.confirmPassword)
+       const{errorsData}=this.state
     return (
       <Container style={styles.Container}>
         <Header style={{backgroundColor: '#1b1464', height: 160}}>
@@ -177,6 +194,9 @@ class Setpassword extends Component {
                 />
                 {/* <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/> */}
               </Item>
+              
+
+                <Text style={styles.errorText}>{errorsData.newPassword}</Text>
 
               <Text style={styles.mobileinput}>Enter new password</Text>
 
@@ -192,6 +212,8 @@ class Setpassword extends Component {
                 />
                 {/* <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/> */}
               </Item>
+
+                <Text style={styles.errorText}>{errorsData.confirmPassword}</Text>
             </View>
           </Content>
 
@@ -318,7 +340,7 @@ const styles = StyleSheet.create({
   rectbox: {
     backgroundColor: '#ffffff',
     marginTop: 25,
-    height: 344,
+    height: 380,
     width: '100%',
   },
   headerText: {
@@ -338,4 +360,10 @@ const styles = StyleSheet.create({
     color: '#ffffff',
     fontFamily: 'Nunito',
   },
+
+  errorText: {
+    color: 'red',
+    marginLeft: 20,
+    fontSize: 14,
+  }
 });

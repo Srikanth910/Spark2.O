@@ -18,16 +18,23 @@ import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 import Modal from 'react-native-modal';
 
-import {Button, Icon, List, ListItem} from 'native-base';
+import {Button, Icon, List, ListItem, Item} from 'native-base';
 import RDAmountScreen from './rdAmountScreen';
 import RDTenureScreen from './rdtenureScreen';
 import RDScheduleScreen from './rdScheduleScreen';
 
-import {getActiveRds,createOTPRD,createResendOTPRD,createRD} from '../../Redux/actions/fdAction';
+import {
+  getActiveRds,
+  createOTPRD,
+  createResendOTPRD,
+  createRD,
+} from '../../Redux/actions/fdAction';
 import {connect} from 'react-redux';
 import {Switch, TouchableOpacity} from 'react-native-gesture-handler';
+import RBSheet from 'react-native-raw-bottom-sheet';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
+
 
 const {UIManager} = NativeModules;
 
@@ -46,7 +53,7 @@ class RecurringDepositScreen extends Component {
       buttonCLicks: 0,
       amountHeight: 80,
       sheetHeight: 0,
-      mobileOtp:'',
+      mobileOtp: '',
       showAmount: true,
 
       amount: 1000,
@@ -63,70 +70,58 @@ class RecurringDepositScreen extends Component {
       isEnabled: false,
       integerValue: '',
       tenureValue: '',
-      isFlexible:'',
+      isFlexible: '',
       maturityData: '',
-      frequencydescription:'',
-      Date:'',
-      year:'',
-      rdId:'',
-
-      months:[
-        {month:'March',year:'2020', dd:'2020-03'},
-        {month:'April',year:'2020', dd:'2020-04'},
-        {month:'May',year:'2020', dd:'2020-05'}
-    ],
-    days:[
-        {date:'5'},
-        {date:'10'},
-        {date:'15'},
-        {date:'20'},
-        {date:'25'},
-        
-    ]
+      frequencydescription: '',
+      Date: '',
+      year: '',
+      rdId: '',
+      fullDate:'2020-05-05',
+      months: [
+        {month: 'March', year: '2020', dd: '2020-03'},
+        {month: 'April', year: '2020', dd: '2020-04'},
+        {month: 'May', year: '2020', dd: '2020-05'},
+      ],
+      days: [
+        {date: '5'},
+        {date: '10'},
+        {date: '15'},
+        {date: '20'},
+        {date: '25'},
+      ],
     };
   }
 
+  handleConfirm = () => {
+    const data = {
+      membarId: '1421',
+      phone: '9573288904',
+      isFlexible: this.state.isFlexible.toString(),
 
-  handleConfirm=()=>{
-     const data={
+      amount: this.state.amount.toString(),
 
-       
-"membarId":"1421",  
+      frequencyDescription: 'End Of Term',
 
-"phone":"9573288904",  
+      interest: '10',
 
-isFlexible: this.state.isFlexible.toString(),
+      tenure: this.state.tenureValue.toString(),
+    };
+    console.log(data);
+    this.props.createOTPRD(data).then(() => {
+      const {FDRDcreation} = this.props;
 
-amount:this.state.amount.toString(),
+      if (FDRDcreation.createRd.code === '200') {
+        this.setState({
+          isVisible: true,
+        });
+      }
+    });
+  };
 
-"frequencyDescription":"End Of Term" ,
-
-"interest":"10" ,
-
-tenure:this.state.tenureValue.toString()
-}  
- console.log(data)
-this.props.createOTPRD(data).then(()=>{
- const {FDRDcreation}=this.props
-   
-  if(FDRDcreation.createRd.code==="200"){
-     this.setState({
-        isVisible:true
-     })
-  }
-
-
-})
-     }
-
-
-  
-
-  
   FlatListItemSeparator = () => {
     return (
       //Item Separator
-      <View style={{ width: 16,height:0, backgroundColor: '#C8C8C8'}}/>
+      <View style={{width: 16, height: 0, backgroundColor: '#C8C8C8'}} />
     );
   };
   toggleSwitch = () => {
@@ -140,82 +135,71 @@ this.props.createOTPRD(data).then(()=>{
   };
 
   componentDidMount = () => {
+  
     this.props.getActiveRds();
   };
 
-// componentDidMount(){
-//    this.otpVerify()
-// }
+  // componentDidMount(){
+  //    this.otpVerify()
+  // }
 
-  resendOtpDetails=()=>{
+  resendOtpDetails = () => {
+    const data = {
+      membarId: '1421',
+      phone: '9573288904',
+      isFlexible: this.state.isFlexible,
+      amount: this.state.amount,
+      frequencyDescription: 'End Of Term',
 
-    const data={
+      interest: '10',
+      tenure: this.state.tenureValue.toString(),
+    };
+    this.props.createResendOTPRD(data)
+  };
 
-       
-      "membarId":"1421",  
-      
-      "phone":"9573288904",  
-      
-      isFlexible:this.state.isFlexible,  
-      
-      amount:this.state.amount,  
-      
-      "frequencyDescription":"End Of Term" ,
-      
-      "interest":"10",  
-      
-      tenure:this.state.tenureValue.toString()
-      
-      }  
+  OtpDetails = () => {
+     this.setState({
+      fullDate : this.state.year + '-' + this.state.Date
+     })
+   
+    const {FDRDcreation} = this.props;
+    const RdDetails = {
+      refNo: FDRDcreation.createRd.refNo,
+      otp: this.state.mobileOtp,
+      membarId: '1421',
+      isFlexible: this.state.isFlexible,
+      RdAmount: this.state.amount,
+      FrequencyDescription: 'End of term',
 
-       this.props.createResendOTPRD(data)
-      
-
-  }
-
-
-
-  OtpDetails=()=>{
-    
-  const fullDate= this.state.year+"-"+this.state.Date
- 
-    
-    const {FDRDcreation}=this.props
-     const   RdDetails={
-      refNo:FDRDcreation.createRD.refNo,
-      otp:this.state.mobileOtp,
-      "membarId":"1421",
-      isFlexible:this.state.isFlexible,
-      RdAmount:this.state.amount,
-      FrequencyDescription:"End of term",
-
-      interest:this.state.integerValue,
-      "tenure":"10",
-      maturitydate:"2021-05-10",
-      "RdSetupId":"1",
-      CreatedDate:'2020-05-50',
-      "Refercode":'vk-vinod',
-      "NextPullDate":"2020-05-10",
-      maturityamount:this.state.maturityData,
-      "withdrawDate":"2021-05-10",
-      "RdDay":'05'
-     }
-      this.props.createRD(RdDetails)
-    
-  }
-  handledata = (tenure, interest,frequencydescription,isFlexible, id) => {
-
-     
+      "interest": "10",
+      tenure: '10',
+      maturitydate: '2021-05-10',
+      RdSetupId: '1',
+      CreatedDate:this.state.fullDate,
+      Refercode: 'vk-vinod',
+      NextPullDate: '2020-05-10',
+      maturityamount: this.state.maturityData,
+      withdrawDate: '2021-05-10',
+      RdDay: '05',
+    };
+    this.props.createRD(RdDetails).then(()=>{
+      const{FDRDcreation}=this.props
+       if(FDRDcreation.successRd.code==="200"){
+          this.setState({
+             isVisible:false
+          })
+            this.RBSheet.open()
+       }
+   })
+  };
+  handledata = (tenure, interest, frequencydescription, isFlexible, id) => {
     this.setState({
       tenureValue: tenure,
       interestValue: interest,
-      frequencydescription:frequencydescription,
-      isFlexible:isFlexible, 
-      rdId:id
+      frequencydescription: frequencydescription,
+      isFlexible: isFlexible,
+      rdId: id,
     });
-
-
-
 
     let p = this.state.amount;
 
@@ -225,8 +209,6 @@ this.props.createOTPRD(data).then(()=>{
     var i = 0;
     var sum2 = 0;
     for (i = 0; i <= tenureData; i++) {
-     
-
       sum1 = p + sum1;
       sum2 = sum1 * (interestData / 12.0);
 
@@ -236,10 +218,7 @@ this.props.createOTPRD(data).then(()=>{
       });
     }
   };
-  // componentDidMount(){
-  //   console.log('successful to write API')
-  //   this.props.getActiveRD()
-  // }
+  
   handleDepositAnimations = (imageValue, click) => {
     Animated.timing(this.animatedValue, {
       toValue: imageValue,
@@ -398,40 +377,32 @@ this.props.createOTPRD(data).then(()=>{
     }
   };
 
+  handleyear = date => {
+    this.setState({
+      year: date,
+    });
+  };
 
-  handleyear=(date)=>{
-     this.setState({
-        year:date
-     })
-     
-  }
+  handleDate = date => {
+    this.setState({
+      Date: date,
+    });
 
-  handleDate=(date)=>{
-     this.setState({
-        Date:date
-      
-     })
-     
-    const fullDate= this.state.year+'-'+this.state.date
-     console.log(fullDate)
+    
+    const fullDate = this.state.year + '-' + this.state.date;
+    console.log(fullDate);
 
-    const data= fullDate.setDate(fullDate.getDate() + 1);
-     console.log(data)
-//     const fulllyear= Date.parse(fullDate).toString()
+    const data = fullDate.setDate(fullDate.getDate() + 1);
+    console.log();
+    //     const fulllyear= Date.parse(fullDate).toString()
 
-//   // var someDate = new Date(fulllyear);
-//   fullDate.setDate(fullDate.getDate() + 15); //number  of days to add, e.x. 15 days
-// var dateFormated = fullDate.toISOString().substr(0,10);
-// console.log('date',dateFormated)
-  
-  }
+    //   // var someDate = new Date(fulllyear);
+    //   fullDate.setDate(fullDate.getDate() + 15); //number  of days to add, e.x. 15 days
+    // var dateFormated = fullDate.toISOString().substr(0,10);
+    // console.log('date',dateFormated)
+  };
 
   render() {
-    
-  
-
-    
-
     // const sheet = {
     //   transform:[
     //     {
@@ -452,6 +423,7 @@ this.props.createOTPRD(data).then(()=>{
     //     }
     //   ]
     // }
+    
 
     const position = {
       transform: [
@@ -463,10 +435,10 @@ this.props.createOTPRD(data).then(()=>{
         },
       ],
     };
-    const {mobileOtp}=this.state
+    const {mobileOtp} = this.state;
     const {FDRDcreation} = this.props;
-    console.log(FDRDcreation);
-    console.log(this.state.maturityData);
+    console.log(FDRDcreation.successRd);
+    
     return (
       <SafeAreaView style={{flex: 1}}>
         <View style={{flex: 1}}>
@@ -572,7 +544,13 @@ this.props.createOTPRD(data).then(()=>{
                             <Text
                               style={styles.title}
                               onPress={() =>
-                                this.handledata(item.tenure, item.interest, item.frequencydescription, item.isFlexible, item.id)
+                                this.handledata(
+                                  item.tenure,
+                                  item.interest,
+                                  item.frequencydescription,
+                                  item.isFlexible,
+                                  item.id,
+                                )
                               }>
                               {item.tenure} months ({item.tenure * 30} days)
                             </Text>
@@ -658,14 +636,17 @@ this.props.createOTPRD(data).then(()=>{
                     //Item Separator View
                     renderItem={({item}) => (
                       // Single Comes here which will be repeatative for the FlatListItems
-                     
+
                       <View style={styles.monthCard}>
-                         <TouchableOpacity >
-                        <Text style={styles.cellTitle}  onPress={()=>this.handleyear(item.dd)}>{item.month}</Text>
-                        <Text style={styles.cellSubtitle}>{item.year}</Text>
+                        <TouchableOpacity>
+                          <Text
+                            style={styles.cellTitle}
+                            onPress={() => this.handleyear(item.dd)}>
+                            {item.month}
+                          </Text>
+                          <Text style={styles.cellSubtitle}>{item.year}</Text>
                         </TouchableOpacity>
                       </View>
-                     
                     )}
                     keyExtractor={(item, index) => index.toString()}
                   />
@@ -685,8 +666,12 @@ this.props.createOTPRD(data).then(()=>{
                     //Item Separator View
                     renderItem={({item}) => (
                       // Single Comes here which will be repeatative for the FlatListItems
-                      <View style={styles.dateCard} >
-                        <Text style={styles.cellTitle}onPress={()=>this.handleDate(item.date) }>{item.date}th day</Text>
+                      <View style={styles.dateCard}>
+                        <Text
+                          style={styles.cellTitle}
+                          onPress={() => this.handleDate(item.date)}>
+                          {item.date}th day
+                        </Text>
                         <Text style={styles.cellSubtitle}>every month</Text>
                       </View>
                     )}
@@ -750,7 +735,7 @@ this.props.createOTPRD(data).then(()=>{
               <View style={styles.card}>
                 <View>
                   <Text style={styles.content}>Monthly Deposit</Text>
-              <Text style={styles.amount}>₹ {this.state.amount}</Text>
+                  <Text style={styles.amount}>₹ {this.state.amount}</Text>
                 </View>
 
                 <Image
@@ -760,7 +745,9 @@ this.props.createOTPRD(data).then(()=>{
                 />
                 <View>
                   <Text style={styles.orangeContent}>On maturity</Text>
-              <Text style={styles.orangeAmount}>₹ {this.state.maturityData}</Text>
+                  <Text style={styles.orangeAmount}>
+                    ₹ {this.state.maturityData}
+                  </Text>
                 </View>
               </View>
               <View
@@ -771,11 +758,15 @@ this.props.createOTPRD(data).then(()=>{
                   paddingVertical: 16,
                 }}>
                 <List>
-              <Text style={styles.content}>@ {this.state.interestValue}</Text>
+                  <Text style={styles.content}>
+                    @ {this.state.interestValue}
+                  </Text>
                   <Text style={styles.content}> From 10 Apr 2019</Text>
                 </List>
                 <List>
-              <Text style={styles.content}>{this.state.tenureValue}months</Text>
+                  <Text style={styles.content}>
+                    {this.state.tenureValue}months
+                  </Text>
                   <Text style={styles.content}>To 10 Apr 2019</Text>
                 </List>
               </View>
@@ -796,8 +787,7 @@ this.props.createOTPRD(data).then(()=>{
             </View>
 
             <Button
-    onPress={this.handleConfirm}
-
+              onPress={this.handleConfirm}
               style={{
                 backgroundColor: '#49438e',
                 marginHorizontal: 16,
@@ -814,8 +804,6 @@ this.props.createOTPRD(data).then(()=>{
             <Icon name="arrow-forward" style={{color: 'white'}} />
           </Button>
         </View>
-
-
 
         <Modal
           style={{
@@ -871,6 +859,63 @@ this.props.createOTPRD(data).then(()=>{
             </ListItem>
           </View>
         </Modal>
+
+
+        <RBSheet
+                  ref={ref => {
+                    this.RBSheet = ref;
+                  }}
+                  height={600}
+                   backgroundColor={'red'}
+                  duration={250}
+                  customStyles={{
+                    container: {
+                      justifyContent: 'flex-start',
+                      alignItems: 'flex-start',
+                       backgroundColor:'#fff8ef'
+                    },
+                  }}>
+                  <Text style={styles.selectState}>Select state</Text>
+
+                  <View>
+                    
+                    <ImageBackground source={require('../../images/fd&rd/ploygon3x.png')} style={{height:471, width:348, alignSelf:'center', marginLeft:24 ,marginRight:24}}>
+
+                      <Image source={require('../../images/fd&rd/circle.png')} style={styles.circle}/>
+
+               <View>
+                <Text style={styles.Rn_id}> RD#{FDRDcreation.successRd.RDNo}</Text>
+<Text style={styles.Rn_text}>created successfully</Text>
+               </View>
+
+
+               <ListItem style={{justifyContent:'space-around'}}>
+                 <View>
+                   <Text style={styles.Rn_lighttext} >Monthly Deposit</Text>
+                <Text> ₹ {this.state.amount}</Text>
+                 </View>
+                 <View>
+                   <Text style={styles.Rn_lighttext}>On maturity</Text>
+                   <Text> ₹ {this.state.maturityData}</Text>
+                 </View>
+               </ListItem>
+
+              <Item style={{justifyContent:'space-around', borderColor: 'transparent', marginTop:10}}>
+                <Text style={styles.Rn_lighttext}>@ {this.state.interestValue} p.a.</Text>
+                <Text style={styles.Rn_lighttext}>{this.state.tenureValue} months</Text>
+              </Item>
+              <Item style={{justifyContent:'space-around', borderColor: 'transparent', marginTop:10}}>
+                <Text style={styles.Rn_lighttext}>@ 10.5% p.a.</Text>
+                <Text style={styles.Rn_lighttext}>12 months</Text>
+              </Item>
+              <View style={{marginTop:40}}>
+              <Text style={styles.Rn_lighttext}>Amount will be debited on 10th of every month</Text>
+              <Text style={styles.Rn_lighttext}>Interest paid out end of term</Text>
+              <Text style={styles.Rn_lighttext}>Breakable Recurring Deposit</Text>
+              </View>
+                    </ImageBackground>
+                  </View>
+                </RBSheet>
       </SafeAreaView>
     );
   }
@@ -881,7 +926,7 @@ const mapStateToProps = state => ({
 });
 export default connect(
   mapStateToProps,
-  {getActiveRds,createOTPRD,createResendOTPRD,createRD},
+  {getActiveRds, createOTPRD, createResendOTPRD, createRD},
 )(RecurringDepositScreen);
 
 const styles = StyleSheet.create({
@@ -1039,65 +1084,67 @@ const styles = StyleSheet.create({
   },
   textField: {backgroundColor: '#e1e4eb', height: 40, borderRadius: 8},
 
-  monthCard:{backgroundColor:'orange',
-  height:55,
-  width:Math.round(Dimensions.get('window').width/1.5),
-  flexDirection:'row',
-  justifyContent:'flex-start',paddingLeft:32,
-  alignItems:'center',
-  shadowRadius:3,
-  shadowOpacity:0.5,
-  shadowOffset:{height:4,width: 0,},
-shadowColor:'gray'},
+  monthCard: {
+    backgroundColor: 'orange',
+    height: 55,
+    width: Math.round(Dimensions.get('window').width / 1.5),
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    paddingLeft: 32,
+    alignItems: 'center',
+    shadowRadius: 3,
+    shadowOpacity: 0.5,
+    shadowOffset: {height: 4, width: 0},
+    shadowColor: 'gray',
+  },
 
-  dateCard:{backgroundColor:'orange',
-  height:65,
-  width:Math.round(Dimensions.get('window').width/1.5,),
-  shadowColor: 'gray',
-  shadowRadius: 2,
-  shadowOpacity:0.4,
-  shadowOffset:{height: 4,width: 0,},
-  justifyContent:'center',
-  paddingLeft:32,
-  alignItems:'flex-start'},
+  dateCard: {
+    backgroundColor: 'orange',
+    height: 65,
+    width: Math.round(Dimensions.get('window').width / 1.5),
+    shadowColor: 'gray',
+    shadowRadius: 2,
+    shadowOpacity: 0.4,
+    shadowOffset: {height: 4, width: 0},
+    justifyContent: 'center',
+    paddingLeft: 32,
+    alignItems: 'flex-start',
+  },
 
-  cellTitle:{
-      color:'white',
-      fontSize:18,
-      fontWeight:'bold',
-      paddingRight:8
+  cellTitle: {
+    color: 'white',
+    fontSize: 18,
+    fontWeight: 'bold',
+    paddingRight: 8,
   },
-  cellSubtitle:{
-      color:'white',
-      fontSize:16,
-      fontWeight:'500',
+  cellSubtitle: {
+    color: 'white',
+    fontSize: 16,
+    fontWeight: '500',
   },
-  title:{
-      color:'#474a4f',
-      fontSize:16,
-      fontWeight:'bold',
-      paddingTop:8
+  title: {
+    color: '#474a4f',
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingTop: 8,
   },
-  content:{
-      color:'#474a4f',
-      fontSize:14,
-      paddingTop:12
-      
+  content: {
+    color: '#474a4f',
+    fontSize: 14,
+    paddingTop: 12,
   },
-  description:{
-      color:'#999999',
-      fontSize:14,
-      paddingTop:10
+  description: {
+    color: '#999999',
+    fontSize: 14,
+    paddingTop: 10,
   },
-  tenureDescription:{
-      color:'#999999',
-      fontSize:14,
-      paddingTop:18,
-      paddingLeft:6
+  tenureDescription: {
+    color: '#999999',
+    fontSize: 14,
+    paddingTop: 18,
+    paddingLeft: 6,
   },
-  textField:{backgroundColor:'#e1e4eb',
-  height:40,
-  borderRadius:8},
+  textField: {backgroundColor: '#e1e4eb', height: 40, borderRadius: 8},
   otp: {
     width: 94,
     height: 27,
@@ -1139,4 +1186,37 @@ shadowColor:'gray'},
     color: '#f7931e',
     textAlign: 'right',
   },
+  circle:{
+    alignSelf:'center',
+
+     marginTop:50
+
+  },
+  Rn_id:{
+    fontFamily:'Nunito',
+    color:'#474a4f',
+     textAlign:'center',
+     fontSize:20,
+      marginTop:20,
+     fontWeight:'bold'
+
+
+  },
+   Rn_text:{
+    fontFamily:'Nunito',
+    color:'#474a4f',
+     textAlign:'center',
+     fontSize:16,
+     
+
+
+   },
+    Rn_lighttext:{
+      fontSize:14,
+       color:'#989898',
+       fontFamily:'Nunito',
+       textAlign:'center'
+    }
+    
+
 });

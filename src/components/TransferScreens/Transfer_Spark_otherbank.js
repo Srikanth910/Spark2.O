@@ -26,6 +26,7 @@ import {connect} from 'react-redux';
 import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-community/async-storage';
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
 
 class Transfer_Spark_otherbank extends Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class Transfer_Spark_otherbank extends Component {
     this.state = {
 
       userDetails:{},
+       isVisible:false
     };
     
   }
@@ -80,7 +82,7 @@ class Transfer_Spark_otherbank extends Component {
     }
   }
 
-  handleData = (Name, acc, ifcs, memberOf) => {
+  handleData = (Name, acc, ifcs, memberOf, Id) => {
     const {params} = this.props.route;
     if (params.type === 2) {
       this.props.navigation.navigate('To_sparkAcc', {
@@ -91,6 +93,7 @@ class Transfer_Spark_otherbank extends Component {
         IFCS: ifcs,
          memberOf:memberOf,
         otherBeneficiary: 'true',
+         bennId:Id
       });
     } else if (params.type === 4) {
       this.props.navigation.navigate('To_myBankAcc', {
@@ -100,6 +103,7 @@ class Transfer_Spark_otherbank extends Component {
         AccountBen: acc,
         IFCS: ifcs,
         otherBeneficiary: 'true',
+        bennId:Id
       });
     } else if(params.type===3) {
 
@@ -110,6 +114,7 @@ class Transfer_Spark_otherbank extends Component {
         AccountBen: acc,
         IFCS: ifcs,
         otherBeneficiary: 'true',
+        bennId:Id
       })
     }else{
        alert('fail to Load server')
@@ -174,6 +179,7 @@ class Transfer_Spark_otherbank extends Component {
                         data.BeneficiaryAccNo,
                         data.IFSCCode,
                         data.memberOf,
+                         data.Id
                       )
                     }>
                     <ListItem
@@ -215,6 +221,9 @@ class Transfer_Spark_otherbank extends Component {
               );
             })}
         </ScrollView>
+
+
+        
       </Container>
     );
   }

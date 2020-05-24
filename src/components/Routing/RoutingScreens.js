@@ -64,6 +64,9 @@ import Saving_Account_Main from '../statements/Saving_Account_Main';
 import View_Account_Statement from '../statements/View_Account_Statement';
 import Editprofile from '../SettingScreens/Editprofile';
 import To_spark_confirm from '../TransferScreens/Transfer_Otherbank/To_spark_confirm';
+import Terms_Conditions from '../Terms&&Conditions/Terms_Conditions';
+import PrivacyPolicy from '../Terms&&Conditions/Privacy_policy';
+import Schedule_Progress from '../TransferScreens/Transfer_Schedule_Progress';
 
 const Stack = createStackNavigator();
 
@@ -190,11 +193,17 @@ function Routing() {
 
         <Stack.Screen name="To_spark_confirm" component={To_spark_confirm} />
 
+        <Stack.Screen name="Terms_Conditions" component={Terms_Conditions} />
+        <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
+
+        <Stack.Screen name="Schedule_Progress" component={Schedule_Progress} />
 
 
 
         
-
+        
+        
+        
         {/*         Loadmoneyprogress
         <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
        */}

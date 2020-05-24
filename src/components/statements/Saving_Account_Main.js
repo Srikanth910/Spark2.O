@@ -59,7 +59,7 @@ import AsyncStorage from '@react-native-community/async-storage';
                     <Left>
                         <Button transparent style={styles.btnclose}>
                             <Icon name='arrow-back'
-                                onPress={() => this.props.navigation.navigate('Otherbank')}
+                                onPress={() => this.props.navigation.navigate('Home')}
                             />
                         </Button>
                         <Body style={{ alignItems: 'flex-start', marginTop: -50, maarginleft: 20 }}>
@@ -89,7 +89,10 @@ import AsyncStorage from '@react-native-community/async-storage';
                         <Image source={require('../../images/savingsaccount/plusicon.png')} style={styles.plusicon} />
 
                         <Body>
-                            <Text style={styles.loadmoney}>Load money</Text>
+                            <Text style={styles.loadmoney}
+                            
+                             onPress={()=>this.props.navigation.navigate('LoadSpark')}
+                            >Load money</Text>
 
                         </Body>
 
@@ -136,7 +139,9 @@ import AsyncStorage from '@react-native-community/async-storage';
 
                         <Image source={require('../../images/savingsaccount/arrow.png')} style={styles.plusicon} />
                         <Body>
-                            <Text style={styles.accounttext}> Transfer Money </Text>
+                            <Text style={styles.accounttext}
+                             onPress={()=>this.props.navigation.navigate('Transfer_Money')}
+                            > Transfer Money </Text>
 
                         </Body>
 

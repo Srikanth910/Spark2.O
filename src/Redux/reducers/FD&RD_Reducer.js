@@ -1,10 +1,11 @@
-import { GET_ACTIVE_FD_SUCCESS, ACTIVE_RD_SUCCESS, CREATE_OTP_RD_SUCCESS, RESEND_OTP_RD_SUCCESS } from "../constants/types";
+import { GET_ACTIVE_FD_SUCCESS, ACTIVE_RD_SUCCESS, CREATE_OTP_RD_SUCCESS, RESEND_OTP_RD_SUCCESS, CREATE_RD_SUCCESS } from "../constants/types";
 
 const initialState = {
    getactiveFD:{},
    getactiveRd:{},
    
-createRd:{}
+createRd:{},
+successRd:{}
   };
   
   export default function(state = initialState, action) {
@@ -25,7 +26,13 @@ createRd:{}
                          return{
                               ...state,
                                createRd:action.payload
-                         }
+                         }  
+
+                          case CREATE_RD_SUCCESS:
+                             return{
+                                ...state,
+                                  successRd:action.payload
+                             }
 
 
 

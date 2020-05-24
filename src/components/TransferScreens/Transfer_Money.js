@@ -18,55 +18,50 @@ import {
 import {StyleSheet, StatusBar, Image} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {getBeneficiaryBank} from '../../Redux/actions/TransferAction';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import AsyncStorage from '@react-native-community/async-storage';
 
 class Transfer_Money extends Component {
+  constructor(props) {
+    super(props);
 
-   constructor(props) {
-     super(props)
-   
-     this.state = {
-        userDetails:{}
-     }
-   }
-   
-     
-
-  componentDidMount =async ()=>{
-    try{
-      const data=  await  AsyncStorage.getItem('Loginuser');
-       const  logindetail=JSON.parse(data)
-        this.setState({
-           userDetails: logindetail
-
-        })
-   } catch(e){
-      console.log(e)
-   }
-
+    this.state = {
+      userDetails: {},
+    };
   }
 
-  handlebankACC=()=>{
-    
+  componentDidMount = async () => {
+    try {
+      const data = await AsyncStorage.getItem('Loginuser');
+      const logindetail = JSON.parse(data);
+      this.setState({
+        userDetails: logindetail,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
+  handlebankACC = () => {
     const data = {
-        membarId: this.state.userDetails.memberid,
-        "isPrimaryAccunt": "true",
-        "isWithInCoop": "false",
-        "type": "2",
-      };
-   
+      membarId: this.state.userDetails.memberid,
+      isPrimaryAccunt: 'true',
+      isWithInCoop: 'false',
+      type: '2',
+    };
+
     this.props.getBeneficiaryBank(data).then(() => {
       const {transferDetails} = this.props;
       if (transferDetails.code === '200') {
-        this.props.navigation.navigate('To_myBankAcc',{ type: 1,
-            name: 'To My Bank Account',});
+        this.props.navigation.navigate('To_myBankAcc', {
+          type: 1,
+          name: 'To My Bank Account',
+        });
       } else {
         this.props.navigation.navigate('AddBank_Account');
       }
     });
-    
-  }
+  };
   render() {
     return (
       <Container style={styles.Container}>
@@ -77,7 +72,7 @@ class Transfer_Money extends Component {
             <Button transparent>
               <Icon
                 name="arrow-back"
-                onPress={() => this.props.navigation.navigate('')}
+                onPress={() => this.props.navigation.navigate('Home')}
               />
             </Button>
           </Left>
@@ -90,51 +85,42 @@ class Transfer_Money extends Component {
         <Content>
           <View style={{alignItems: 'center', marginVertical: 16}}>
             <View style={{flexDirection: 'row', alignItems: 'center'}}>
-              
-               
-                <TouchableOpacity
- onPress={() =>
-    this.props.navigation.navigate('To_sparkAcc', {
-      type: 2,
-     
-    })
-  }>
-
-                 <View style={styles.box}>
-                    <Image
-                      source={require('../../images/Transfer/Spark_Saving.png')}
-                      style={styles.sparksavinges}
-                    />
-                    <Text style={styles.iconText}>Spark Savings {'\n'}</Text>
-                  </View>
-                </TouchableOpacity>
-            
-        
-
-          <TouchableOpacity
-          onPress={() =>
-            this.props.navigation.navigate('To_sparkAcc', {
-              type: 3,
-              name: 'To Spark Business Account',
-            })
-          }
-          
-          
-          >
-              <View style={styles.box}>
-                <Image
-                  source={require('../../images/Transfer/Spark_Business.png')}
-                  style={styles.billIcon}
-                />
-                <Text style={styles.iconText}>Spark Business</Text>
-              </View> 
+              <TouchableOpacity
+                onPress={() =>
+                  this.props.navigation.navigate('To_sparkAcc', {
+                    type: 2,
+                    name: 'To Spark Savings Account',
+                  })
+                }>
+                <View style={styles.box}>
+                  <Image
+                    source={require('../../images/Transfer/Spark_Saving.png')}
+                    style={styles.sparksavinges}
+                  />
+                  <Text style={styles.iconText}>Spark Savings {'\n'}</Text>
+                </View>
               </TouchableOpacity>
-            
 
               <TouchableOpacity
-                onPress={this.handlebankACC
+                onPress={() =>
+                  this.props.navigation.navigate('To_sparkAcc', {
+                    type: 3,
+                    name: 'To Spark Business Account',
+                  })
+                }>
+                <View style={styles.box}>
+                  <Image
+                    source={require('../../images/Transfer/Spark_Business.png')}
+                    style={styles.billIcon}
+                  />
+                  <Text style={styles.iconText}>Spark Business</Text>
+                </View>
+              </TouchableOpacity>
 
-                  
+              <TouchableOpacity
+                onPress={
+                  this.handlebankACC
+
                   // this.props.navigation.navigate('AddBank_Account')
                 }>
                 <View style={styles.box}>
@@ -206,7 +192,7 @@ class Transfer_Money extends Component {
             <Text style={styles.Recent}>Scheduled</Text>
           </View>
 
-          <View style={styles.curd_user}>
+          {/* <View style={styles.curd_user}>
             <ListItem
               style={{borderColor: 'transparent', justifyContent: 'center'}}>
               <View style={{paddingLeft: 10}}>
@@ -235,21 +221,20 @@ class Transfer_Money extends Component {
                 </Right>
               </View>
             </ListItem>
-          </View>
+          </View> */}
         </Content>
       </Container>
     );
   }
 }
 const mapStateToProps = state => ({
-  transferDetails: state.transferDetails.getbackDetials
+  transferDetails: state.transferDetails.getbackDetials,
 });
 
 export default connect(
   mapStateToProps,
   {getBeneficiaryBank},
 )(Transfer_Money);
-
 
 const styles = StyleSheet.create({
   Container: {

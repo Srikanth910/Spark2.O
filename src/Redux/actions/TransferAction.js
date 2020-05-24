@@ -289,9 +289,9 @@ export const createSchedulePayout = data => {
   console.log('uires',data);
   return async dispatch => {
     try {
-      const res = await axios.get(`${API_URL}/createSchedulePayoutV2_O`, data)
+      const res = await axios.post(`${API_URL}/createSchedulePayoutV2_O`, data)
       let scheduleDetails = await res.data;
-      console.log('res', payoutStatus);
+      console.log('res', scheduleDetails);
       if (scheduleDetails.code === '200') {
         dispatch({
           type: CREATE_SCHEDULE_SUCCESS,
@@ -322,9 +322,9 @@ export const createOtpForSchedulePayout = data => {
   console.log('uires',data);
   return async dispatch => {
     try {
-      const res = await axios.get(`${API_URL}/createOtpForSchedulePayout_V2_O`, data)
+      const res = await axios.post(`${API_URL}/createOtpForSchedulePayout_V2_O`, data)
       let  otpSchedule = await res.data;
-      console.log('res', payoutStatus);
+      console.log('res', otpSchedule);
       if (otpSchedule.code === '200') {
         dispatch({
           type: CREATE_OTP_SCHEDULE_SUCCESS,
@@ -357,9 +357,9 @@ export const resendOtpForSchedulePayout = data => {
   console.log('uires',data);
   return async dispatch => {
     try {
-      const res = await axios.get(`${API_URL}/resendOtpForSchedulePayout_V2_O`, data)
+      const res = await axios.post(`${API_URL}/resendOtpForSchedulePayout_V2_O`, data)
       let  resendOtp = await res.data;
-      console.log('res', payoutStatus);
+      console.log('res', resendOtp);
       if (resendOtp.code === '200') {
         dispatch({
           type: RESEND_OTP_SCHEDULE_SUCCESS,

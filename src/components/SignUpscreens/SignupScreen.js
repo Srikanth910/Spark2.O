@@ -35,6 +35,7 @@ import {
   checkMoblieno,
   ResendOtpCheckMobileNo,
 } from '../../Redux/actions/authAction';
+import validateSignup from '../LoginScreens/Validation/Signup';
 
 class Signup extends Component {
   constructor(props) {
@@ -47,7 +48,9 @@ class Signup extends Component {
       Statevalue: '',
       MobileNO: '',
       stateValue: '',
-       spinner:false
+      spinner: false,
+      Email:'',
+      errorsLogin:{}
     };
   }
   handleState = (name, id) => {
@@ -94,7 +97,20 @@ class Signup extends Component {
     });
   };
 
+  isSignup() {
+    const {errorsLogin, isValid}=validateSignup(this.state);
+    if (!isValid) {
+      this.setState({errorsLogin});
+    }
+    return isValid;
+  }
+
   userDetails = async () => {
+
+     if(this.isSignup()){
+        this.setState({errorsLogin:{}})
+
+     
     const userDetails = {
       email: this.state.Email,
       mobileno: this.state.MobileNO,
@@ -106,28 +122,27 @@ class Signup extends Component {
     } catch (e) {
       console.log(e);
     }
-     this.setState({
-        spinner:true
-     })
+    this.setState({
+      spinner: true,
+    });
 
     this.props.signupCheckmobile(userDetails).then(() => {
       const {auth} = this.props;
       if (auth.signUpDetails.code === '200') {
         this.setState({
           isVisible: true,
-           spinner:false
-           
+          spinner: false,
         });
       }
     });
     // };
+  }
 
-    setTimeout(()=>{
+    setTimeout(() => {
       this.setState({
-        spinner:false  
-     })
-
-    },6000)
+        spinner: false,
+      });
+    }, 6000);
   };
 
   handleState = name => {
@@ -140,7 +155,8 @@ class Signup extends Component {
   render() {
     const {mobileOtp} = this.state;
     const {auth} = this.props;
-  
+     console.log(this.state.errorsLogin)
+      const{errorsLogin}=this.state
 
     return (
       <Container style={styles.Container}>
@@ -183,6 +199,8 @@ class Signup extends Component {
                   }
                 />
               </Item>
+              <Text style={styles.errorText}>{errorsLogin.Email}</Text>
+
 
               <Text style={styles.mobileinput}>Mobile Number</Text>
               <Item regular style={styles.loginInput}>
@@ -195,6 +213,8 @@ class Signup extends Component {
                   }
                 />
               </Item>
+              <Text style={styles.errorText}>{errorsLogin.MobileNO}</Text>
+
 
               <Text style={styles.mobileinput}>State</Text>
 
@@ -221,6 +241,8 @@ class Signup extends Component {
                       alignItems: 'flex-start',
                     },
                   }}>
+                    
+                
                   <Text style={styles.selectState}>Select state</Text>
 
                   <View>
@@ -253,13 +275,15 @@ class Signup extends Component {
                   </View>
                 </RBSheet>
               </Item>
-              {this.state.spinner===true&&
-              <ActivityIndicator size="large" color="#00ff00" />}
+              {this.state.spinner === true && (
+                <ActivityIndicator size="large" color="#00ff00" />
+              )}
             </View>
           </Content>
 
           <View
-            style={{ flex:1,
+            style={{
+              flex: 1,
               justifyContent: 'flex-end',
               marginHorizontal: 16,
               marginVertical: 80,
@@ -635,4 +659,9 @@ const styles = StyleSheet.create({
     fontStyle: 'normal',
     marginLeft: 16,
   },
+  errorText: {
+    color: 'red',
+    marginLeft: 20,
+    fontSize: 14,
+  }
 });

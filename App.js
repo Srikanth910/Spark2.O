@@ -72,6 +72,12 @@ import ViewRd from './src/components/fd&rdScreens/ViewRd';
 import Mybank_Confirm from './src/components/TransferScreens/Mybank_Confirm';
 import To_spark_confirm from './src/components/TransferScreens/Transfer_Otherbank/To_spark_confirm';
 import Confirmation from './src/components/BeneficiaryScreens/Confirmation';
+import Terms_Conditions from './src/components/Terms&&Conditions/Terms_Conditions';
+import PrivacyPolicy from './src/components/Terms&&Conditions/Privacy_policy';
+import Viewfd from './src/components/fd&rdScreens/ViewRd';
+import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
+import Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
+// import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 // import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
 
   //  import LoadingSpinnerOverLayDemo from './src/components/Loading'
@@ -88,7 +94,7 @@ export default class App extends Component {
     return (
       <>
         <Provider store={store}>
-          < Routing/>
+          <  Routing/>
 
         </Provider>
       </>

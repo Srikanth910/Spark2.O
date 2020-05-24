@@ -36,13 +36,23 @@ import AsyncStorage from '@react-native-community/async-storage'
            "isFirsttime":"false"
        }
        this.props.getRazorpayDetails(details).then(()=>{
+        const {accountDetails}=this.props.loadmoney
 
-         const {accountDetails} =this.props
+        
            if(accountDetails.code==="200"){
+                
                this.setState({
                     bankDetails:accountDetails
                })
                 
+           }else if(accountDetails.code==="403"){
+            
+                 alert('session expired')
+                  
+                 setTimeout(()=>{
+                this.props.navigation.navigate('Login')    
+                 },2000)
+                   
            }
 
        })
@@ -51,7 +61,7 @@ import AsyncStorage from '@react-native-community/async-storage'
     }
     render() {
          const {accountDetails}=this.props.loadmoney
-         console.log('data',accountDetails)
+         
            const{bankDetails}=this.state
         
         return (
@@ -66,7 +76,7 @@ import AsyncStorage from '@react-native-community/async-storage'
          
           <Button transparent  >
                                 <Icon name='close' style={styles.icon}
-                                    onPress={() => this.props.navigation.navigate('Login')}
+                                    onPress={() => this.props.navigation.navigate('Home')}
                                 />
                             </Button>
               <Text style={styles.headertext}>
@@ -101,7 +111,7 @@ import AsyncStorage from '@react-native-community/async-storage'
                           
                           <Button bordered warning  style={styles.warningbtn}
                           
-                           onPress={()=>this.props.navigation.navigate('Loadmoney')}
+                           onPress={()=>this.props.navigation.navigate('Loadmoney',{name:bankDetails.beneficiary})}
                           
                           >
                         <Text>Load Money</Text>

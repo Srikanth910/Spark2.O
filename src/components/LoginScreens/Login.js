@@ -399,8 +399,13 @@ class Login extends Component {
             <View style={styles.btnbottom}>
               <Text style={styles.bottomtext}>
                 By logging in , you agree to our
-                <Text style={styles.bottomColor}> Terms And conditon </Text> And
-                <Text style={styles.bottomColor}> Privacy Policy</Text>{' '}
+                <Text style={styles.bottomColor}
+                 onPress={()=>this.props.navigation.navigate('Terms_Conditions')}
+                > Terms And conditon </Text> And
+                <Text style={styles.bottomColor}
+                
+                onPress={()=>this.props.navigation.navigate('PrivacyPolicy')}
+                > Privacy Policy</Text>{' '}
               </Text>
               <Button block warning onPress={this.mpinSubmit}>
                 <Text>LOGIN</Text>
@@ -526,12 +531,20 @@ class Login extends Component {
               <View style={styles.btnbottom}>
                 <Text style={styles.bottomtext}>
                   By logging in , you agree to our
-                  <Text style={styles.bottomColor}>
-                    {' '}
-                    Terms And conditon{' '}
+                
+                  <Text style={styles.bottomColor}
+                  
+                  onPress={()=>this.props.navigation.navigate('Terms_Conditions')}
+                  >
+                   
+                    Terms And conditon
                   </Text>{' '}
+               
                   And
-                  <Text style={styles.bottomColor}> Privacy Policy</Text>{' '}
+                  <Text style={styles.bottomColor}
+                  
+                  onPress={()=>this.props.navigation.navigate('PrivacyPolicy')}
+                  > Privacy Policy</Text>{' '}
                 </Text>
                 <Button block warning onPress={this.handleSubmit}>
                   <Text>LOGIN</Text>

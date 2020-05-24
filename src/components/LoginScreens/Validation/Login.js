@@ -1,7 +1,7 @@
 import Validator from 'validator';
 import isEmpty from 'lodash/isEmpty';
 
-export default function validateLogin(data) {
+export default function validateSignup(data) {
   let errorsLogin = {};
  
   if (Validator.isEmpty(data.mobile)) {
