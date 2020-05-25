@@ -31,6 +31,7 @@ export const getRazorpayDetails = data => {
         });
       }
     } catch (err) {
+       alert('Network Failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -70,6 +71,7 @@ export const addSavingsAccountBalanceRazorpay = data => {
         alert('network falid');
       }
     } catch (err) {
+      alert('Network Failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -92,6 +94,7 @@ export const checkCarddetails = data => {
         });
       }
     } catch (err) {
+      alert('Network Failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,

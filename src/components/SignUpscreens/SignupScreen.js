@@ -208,6 +208,7 @@ class Signup extends Component {
                   placeholder="No need to add +91"
                   style={styles.input}
                   value={this.state.MobileNO}
+                   maxLength={10}
                   onChangeText={editedText =>
                     this.setState({MobileNO: editedText})
                   }
@@ -247,7 +248,7 @@ class Signup extends Component {
 
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.handleState('karnataka', 1)}
+                      onPress={() => this.handleState('Karnataka', 1)}
                       style={
                         this.state.activeIndex === 1
                           ? styles.btnActive
@@ -261,7 +262,7 @@ class Signup extends Component {
                   </View>
                   <View>
                     <TouchableOpacity
-                      onPress={() => this.handleState('maharashtra', 2)}
+                      onPress={() => this.handleState('Maharashtra', 2)}
                       style={
                         this.state.activeIndex === 2
                           ? styles.btnActive
@@ -293,10 +294,18 @@ class Signup extends Component {
             <Text style={styles.bottomtext}>
               By clicking on Proceed, you state that you are 18 years old and
               agree to our
-              <Text style={styles.bottomColor}>
+
+              
+              <Text style={styles.bottomColor}
+               onPress={()=>this.props.navigation.navigate('Terms_Conditions')}
+              >
                 {' '}
                 Terms and Conditions{' '}
-              </Text>and <Text style={styles.bottomColor}>Privacy Policy.</Text>
+              </Text>and <Text style={styles.bottomColor}
+              
+              
+              onPress={()=>this.props.navigation.navigate('PrivacyPolicy')}
+              >Privacy Policy.</Text>
             </Text>
             <Button
               block

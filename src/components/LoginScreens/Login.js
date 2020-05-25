@@ -372,6 +372,7 @@ class Login extends Component {
                 textContentType="password  "
                 placeholder="Enter mpin"
                 style={styles.input}
+                 maxLength={6}
                 value={this.state.mpin}
                 onChangeText={mpintext => this.setState({mpin: mpintext})}
               />
@@ -482,7 +483,7 @@ class Login extends Component {
                     placeholder="No need to add +91"
                     style={styles.input}
                     value={this.state.mobile}
-                    value={this.state.mobile}
+                   maxLength={10}
                     onChangeText={editedText =>
                       this.setState({mobile: editedText})
                     }
