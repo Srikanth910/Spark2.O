@@ -1078,7 +1078,7 @@ const styles = StyleSheet.create({
   },
   bal: {
     fontFamily: 'Inconsolata',
-    fontSize: 24,
+    fontSize: 18,
     fontFamily: 'Inconslata',
 
     fontWeight: 'bold',

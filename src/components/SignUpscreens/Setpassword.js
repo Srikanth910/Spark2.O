@@ -39,6 +39,7 @@ class Setpassword extends Component {
 
       confirmPassword: '',
       newPassword: '',
+      
       signupUser:{},
       deviceIp: '',
       errorsData:{},
@@ -92,9 +93,9 @@ validpassword(){
     }
 
 
-     if(this.validpassword()){
+    //  if(this.validpassword()){
 
-      this.setState({errorsData:{}})
+      // this.setState({errorsData:{}})
  
      const {signupUser}=this.state
       const passworddata = {
@@ -115,7 +116,7 @@ validpassword(){
        }
       })   
       
-    }
+    // }
    
   };
 
@@ -163,7 +164,7 @@ validpassword(){
                 <Text style={styles.data} />
                 <Text style={styles.text}>
                   {' '}
-                  At least 8 Characters (no spaces){' '}
+                  At least 1 upper and lower case alphabet{' '}
                 </Text>
               </Item>
               <Item style={styles.doted}>
@@ -182,14 +183,14 @@ validpassword(){
                 <Text style={styles.text}> At least 1 special characters </Text>
               </Item>
 
-              <Text style={styles.mobileinput}>Enter current password</Text>
+              <Text style={styles.mobileinput}>Enter a password to set</Text>
               <Item regular style={styles.loginInput}>
                 <Input
                   placeholder=""
                   style={styles.input}
-                  value={this.state.password}
+                  value={this.state.newPassword}
                   onChangeText={edittext =>
-                    this.setState({password: edittext})
+                    this.setState({newPassword: edittext})
                   }
                 />
                 {/* <ImageBackground  source={require('../../../images/pass_icon.png')} style={{width:22, height:19, marginRight:10}}/> */}
@@ -198,7 +199,7 @@ validpassword(){
 
                 <Text style={styles.errorText}>{errorsData.newPassword}</Text>
 
-              <Text style={styles.mobileinput}>Enter new password</Text>
+              <Text style={styles.mobileinput}>Enter password again</Text>
 
               <Item regular style={styles.loginInput}>
                 {/* <Icon style={styles.passwordicon} type="FontAwesome" name="eye" /> */}

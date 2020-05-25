@@ -130,7 +130,7 @@ export const createMemberToken = (data, callback) => async dispatch => {
       let membarTokenDetails = res.data;
       console.log('rea', membarTokenDetails);
       if (membarTokenDetails.code === '309') {
-        console.log('err');
+        alert('Entered Password Invalid')
         dispatch({
           type: LOGIN_FAIL,
           payload: membarTokenDetails,
@@ -722,6 +722,7 @@ export const getProfile = data => {
       }
     } catch (err) {
       console.log(err);
+      alert('network Failed')
       dispatch({
         type: CATACH_ERROR,
         payload: err,
@@ -783,6 +784,7 @@ export const updateProfile = data => {
         });
       }
     } catch (err) {
+      alert('network Failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -815,6 +817,8 @@ export const resendOtpForEditProfile = data => {
         });
       }
     } catch (err) {
+
+      alert('network Failed')
       console.log(err);
       dispatch({
         type: CATACH_ERROR,
@@ -846,6 +850,7 @@ export const getLastTentxns = data => {
       }
     } catch (err) {
       console.log(err);
+      alert('network Failed')
       dispatch({
         type: CATACH_ERROR,
         payload: err,
@@ -885,6 +890,7 @@ export const sendStatement = data => {
       }
     } catch (err) {
       console.log(err);
+       alert('network Failed')
       dispatch({
         type: CATACH_ERROR,
         payload: err,
