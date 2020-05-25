@@ -47,6 +47,7 @@ import {
   STATEMENT_DATE_SUCCESS,
   STATEMENT_DATE_FAIL,
   SESSION_MISSING,
+  GET_EULA_SUCCESS,
 } from '../constants/types';
 import {setAuthToken} from '../../components/utils/setAuthToken';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -866,15 +867,18 @@ export const sendStatement = data => {
       const res = await axios.get(
         `${API_URL}/sendStatementTwodates?membarId=${
           data.membarId
-        }&fromdate=${datafromdate}&todate=${data.todate}`,
+        }&fromdate=${data.fromdate}&todate=${data.todate}`,
       );
       let statement = await res.data;
       console.log('res', statement);
       if (statement.code === '200') {
+         alert('success')
         dispatch({
           type: STATEMENT_DATE_SUCCESS,
           payload: statement,
         });
+
+         
       } else if (statement.code === '403') {
         alert('session exparid');
         this.props.navigation.navigate('Login');
@@ -897,4 +901,32 @@ export const sendStatement = data => {
       });
     }
   };
+};
+
+
+export const getEula = data => {
+  console.log(data)
+ return async dispatch => {
+   try {
+     const res = await axios.get(
+       `${API_URL}/getEulaHtml`,
+     );
+
+     
+     let eulaDetails = await res.data;
+      console.log('res', eulaDetails);
+     if (eulaDetails.code === '200') {
+       dispatch({
+         type: GET_EULA_SUCCESS,
+         payload: eulaDetails,
+       });
+     } 
+   } catch (err) {
+     console.log(err);
+     dispatch({
+       type: CATACH_ERROR,
+       payload: err,
+     });
+   }
+ };
 };

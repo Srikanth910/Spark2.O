@@ -2,11 +2,10 @@ import React, { Component } from 'react'
 import { Container, Header, Text, View, Right, List, Radio, Button, Body, Title, Left, Icon, ListItem } from 'native-base'
 import { StyleSheet, StatusBar, Image, AppRegistry, TouchableOpacity } from 'react-native';
 import DatePicker from 'react-native-datepicker';
-// import { DatePickerDialog } from 'react-native-datepicker-dialog'
-import moment from 'moment';
-
-
-export default class View_Account_Statement extends Component {
+import AsyncStorage from '@react-native-community/async-storage';
+import { connect } from 'react-redux';
+ import{sendStatement} from '../../Redux/actions/authAction'
+ class View_Account_Statement extends Component {
 
 
   constructor(props) {
@@ -14,38 +13,39 @@ export default class View_Account_Statement extends Component {
     this.state = {
       isVisible: false,
       mobileOtp: '',
-      DateText: '5/13/2020',
-      DateHolder: null,
-
-      date: "15-05-2018"
+      date: "15-03-2020",
+       userDetails:{},
+        todate:'',
+         fromdate:'',
 
     }
-
   }
 
-
-  DatePickerMainFunctionCall = () => {
-    let DateHolder = this.state.DateHolder;
-    if (!DateHolder || DateHolder == null) {
-      DateHolder = new Date();
+   componentDidMount= async()=>{
+    try {
+      const data = await AsyncStorage.getItem('Loginuser');
+      const logindetail = JSON.parse(data);
       this.setState({
-        DateHolder: DateHolder
+        userDetails: logindetail,
       });
+    } catch (e) {
+      console.log(e);
     }
-    this.refs.DatePickerDialog.open({
-      date: DateHolder,
 
-    });
+   }
+   senddetails=()=>{
+       const dates={
 
-  }
+        membarId:this.state.userDetails.memberid,
+        fromdate:this.state.fromdate,
+         todate:this.state.todate
+        
+       }
+  
 
-  onDatePickedFunction = (date) => {
-    this.setState({
-      dobDate: date,
-      DateText: moment(date).format('DD-MMM-YYYY')
-    });
-  }
-
+     this.props.sendStatement(dates)
+   }
+  
 
   render() {
     return (
@@ -59,28 +59,16 @@ export default class View_Account_Statement extends Component {
             </Button>
           </Left>
 
-
-
           <Body style={{ alignItems: 'flex-start', marginLeft: 10 }} >
             <Title style={styles.heddertext}> View Statement</Title>
           </Body>
-
-
 
           <Right >
             <Image source={require('../../images/home/white_dot.png')} style={styles.doticon} />
           </Right>
         </Header>
 
-
-
-
-
-
-
         <Text style={styles.textstyle}>Request statement for :</Text>
-
-
         <List style={{ marginLeft: -60 }}>
 
 
@@ -112,83 +100,81 @@ export default class View_Account_Statement extends Component {
             <Text>  Select duration</Text>
           </ListItem>
 
+          <ListItem style={{ borderColor: 'transparent', marginLeft: 140 }}>
+            <Left>
+              <View>
+                <Text>From</Text>
 
+                <DatePicker
+                  style={{ width: 200, borderColor: 'transparent', }}
+                  date={this.state.fromdate} //initial date from state
+                  mode="date" //The enum of date, datetime and time
+                  placeholder="select date"
+                  format="YYYY-MM-DD"
+                 
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  customStyles={{
+                    dateIcon: {
+                      position: 'absolute',
+                      left: 0,
+                      top: 4,
+                      marginLeft: 0,
+                      width: 0,
+                    },
+                    dateInput: {
+                      marginLeft: -150,
+                      borderColor: 'transparent'
+                    }
+                  }}
+                  onDateChange={(fromdate) => { this.setState({ fromdate: fromdate }) }}
+                />
+
+              </View>
+            </Left>
+
+
+
+            <Right>
+              <View>
+                <Text style={{ marginLeft: 30 }}>To</Text>
+                <DatePicker
+
+                  style={{ width: 200, borderColor: 'transparent', }}
+                  date={this.state.todate} //initial date from state
+                  mode="date" //The enum of date, datetime and time
+                  placeholder="select date"
+                  format="YYYY-MM-DD"
+                 
+                  confirmBtnText="Confirm"
+                  cancelBtnText="Cancel"
+                  customStyles={{
+                    dateIcon: {
+                      position: 'absolute',
+                      left: 0,
+                      top: 4,
+                      marginLeft: 0,
+                      width: 0,
+
+                    },
+                    dateInput: {
+                      marginRight: 80,
+                      borderColor: 'transparent'
+                    }
+                  }}
+                  onDateChange={(todate) => { this.setState({ todate: todate }) }}
+                />
+
+              </View>
+
+            </Right>
+
+          </ListItem>
         </List>
-
-
-
-
-
-
-
-        {/* <View style={styles.fieldcontainer}>
-          <TouchableOpacity onPress={this.DatePickerMainFunctionCall.bind(this)} >
-            <Text>From Date</Text>
-            <View style={styles.datePickerBox} >
-              <Text style={styles.datePickerText}>{this.state.DateText}</Text>
-
-            </View>
-          </TouchableOpacity>
-
-          
-          <DatePickerDialog ref="DatePickerDialog" onDatePicked={this.onDatePickedFunction.bind(this)} />
-
-        </View> */}
-
-
-
-
-     
-
-
-        <View style={styles.container}>
-
-          <DatePicker
-           hideText
-          
-            style={{ width: 200 }}
-            date={this.state.date} //initial date from state
-            mode="date" //The enum of date, datetime and time
-            placeholder="select date"
-            format="DD-MM-YYYY"
-            minDate="01-01-2016"
-            maxDate="01-01-2019"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                position: 'absolute',
-                left: 0,
-                top: 4,
-                marginLeft: 0
-              },
-              dateInput: {
-                marginLeft: 36
-              }
-            }}
-            onDateChange={(date) => { this.setState({ date: date }) }}
-          />
-
-        </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
         <Text style={styles.notetext}>Statement are sent to your mail</Text>
         <Button block warning
-          onPress={this.handleSubmit}
+          onPress={this.senddetails}
           style={styles.SubmitButton}  >
           <Text  >Request Statement</Text></Button>
 
@@ -203,7 +189,14 @@ export default class View_Account_Statement extends Component {
   }
 }
 
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
 
+export default connect(
+  mapStateToProps,
+  {sendStatement},
+)(View_Account_Statement);
 
 
 
@@ -279,7 +272,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   notetext: {
-    marginTop: 150,
+    marginTop: 140,
     marginLeft: 70,
     width: 328,
     opacity: 0.5,
@@ -356,5 +349,6 @@ const styles = StyleSheet.create({
 
 
 })
+
 
 

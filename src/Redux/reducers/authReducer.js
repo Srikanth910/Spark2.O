@@ -24,6 +24,7 @@ import {
   STATEMENT_DATE_SUCCESS,
   GET_BANNERS_SUCCESS,
   SESSION_MISSING,
+  GET_EULA_SUCCESS,
 } from '../constants/types';
 import {ActionSheet} from 'native-base';
 // import { getPrepaidBillerCategories } from '../actions/authAction';
@@ -49,7 +50,8 @@ const initialState = {
   otpVerifyProfile: {},
   getTransactionList: {},
   STATEMENT_DATE_SUCCESS: {},
-  sessionData:{}
+  sessionData:{},
+  eulaurl:{}
 };
 
 export default function(state = initialState, action) {
@@ -164,6 +166,12 @@ export default function(state = initialState, action) {
             return{
               sessionData:action.payload
             }
+
+            case GET_EULA_SUCCESS:
+               return{
+                  ...state,
+                   eulaurl:action.payload
+               }
     default:
       return state;
   }

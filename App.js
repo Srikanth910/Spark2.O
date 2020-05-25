@@ -78,9 +78,12 @@ import Viewfd from './src/components/fd&rdScreens/ViewRd';
 import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 import Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 import Editprofile from './src/components/SettingScreens/Editprofile';
+// import Eula from './src/components/landingpage/Eula';
+import View_Account_Statement from './src/components/statements/View_Account_Statement';
+import Eula from './src/components/landingpage/Eula';
 // import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 // import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
-
+//  import View_Account_Statement  from './src/components/statements/View_Account_Statement'
   //  import LoadingSpinnerOverLayDemo from './src/components/Loading'
 export default class App extends Component {
   constructor(props) {
@@ -95,7 +98,7 @@ export default class App extends Component {
     return (
       <>
         <Provider store={store}>
-          <  Routing/>
+          <   Routing/>
 
         </Provider>
       </>

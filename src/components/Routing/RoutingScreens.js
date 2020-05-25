@@ -67,6 +67,7 @@ import To_spark_confirm from '../TransferScreens/Transfer_Otherbank/To_spark_con
 import Terms_Conditions from '../Terms&&Conditions/Terms_Conditions';
 import PrivacyPolicy from '../Terms&&Conditions/Privacy_policy';
 import Schedule_Progress from '../TransferScreens/Transfer_Schedule_Progress';
+import Eula from '../landingpage/Eula';
 
 const Stack = createStackNavigator();
 
@@ -77,6 +78,9 @@ function Routing() {
         screenOptions={{
           headerShown: false,
         }}>
+
+           <Stack.Screen name="Eula" component={Eula} />
+           
         <Stack.Screen name="Landingpage" component={Landingpage} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Forgotpass" component={ForgotPassword} />
