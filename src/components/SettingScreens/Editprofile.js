@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {View, Picker} from 'react-native';
 import {StyleSheet, StatusBar, Image} from 'react-native';
+
+import Modal from 'react-native-modal';
 import {
   Header,
   Container,
@@ -26,6 +28,10 @@ import {
   createOtpForEditProfile,
 } from '../../Redux/actions/authAction';
 import {connect} from 'react-redux';
+ import{TouchableOpacity}from 'react-native'
+import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
+
+import AsyncStorage from '@react-native-community/async-storage';
 class Editprofile extends Component {
   constructor(props) {
     super(props);
@@ -48,6 +54,7 @@ class Editprofile extends Component {
       mobileNo: '',
       selected2: '',
       membarId: '',
+       mobileOtp:'',
       NomineeAdress: '',
       // NomineeCity:"",
       NomineeDOB: '',
@@ -100,10 +107,23 @@ class Editprofile extends Component {
       selected2: value,
     });
   };
-  componentDidMount() {
+  componentDidMount=async ()=> {
+    try {
+      const data = await AsyncStorage.getItem('Loginuser');
+      const logindetail = JSON.parse(data);
+      this.setState({
+        userDetails: logindetail,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+
+
+
+    
     const data = {
-      membarId: '1421',
-    };
+      membarId:  this.state.userDetails.memberid
+    }
     this.props.getProfile(data).then(() => {
       const {getProfiledata} = this.props.auth;
       if (getProfiledata.code === '200') {
@@ -129,13 +149,13 @@ class Editprofile extends Component {
         });
       }
     });
-
     this.props.createOtpForEditProfile(data);
   }
 
   render() {
     const {auth} = this.props;
-    console.log(auth.getProfiledata);
+     const {mobileOtp}=this.state
+    // console.log(auth.getProfiledata.selected2);
     return (
       <Container style={styles.Container}>
         <Header icon="eye" style={{backgroundColor: '#1b1464', height: 80}}>
@@ -145,7 +165,7 @@ class Editprofile extends Component {
             <Button transparent>
               <Icon
                 name="arrow-back"
-                onPress={() => this.props.navigation.navigate('')}
+                onPress={() => this.props.navigation.navigate('SettingPage')}
               />
             </Button>
           </Left>

@@ -8,7 +8,9 @@ export default class SettingPage extends Component {
 <Header style={{ backgroundColor: "#1b1464"  , height:80,}}>
                     <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
                         <Left  >
-                            <Button transparent  >
+                            <Button transparent
+                            
+                            onPress={()=>this.props.navigation.navigate('Home')}>
                                 <Icon name='close'
                                 />
                             </Button>

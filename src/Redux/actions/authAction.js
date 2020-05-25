@@ -643,6 +643,7 @@ export const getBanners = data => {
           payload: banners,
         });
       } else if (banners.code === '403') {
+         alert('session expired')
         dispatch({
           type: SESSION_MISSING,
           payload: banners,

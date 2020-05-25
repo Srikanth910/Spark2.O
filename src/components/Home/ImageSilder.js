@@ -45,6 +45,9 @@ class ImageSilder extends Component {
          this.setState({
            banners:auth.banners.bannerList
          })
+      }else if(auth.sessionData.code==="403"){
+         alert('session expired ')
+          this.props.navigation.navigate('Login')
       }
       
      

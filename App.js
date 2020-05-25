@@ -77,6 +77,7 @@ import PrivacyPolicy from './src/components/Terms&&Conditions/Privacy_policy';
 import Viewfd from './src/components/fd&rdScreens/ViewRd';
 import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 import Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
+import Editprofile from './src/components/SettingScreens/Editprofile';
 // import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 // import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
 

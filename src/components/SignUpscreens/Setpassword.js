@@ -133,7 +133,7 @@ validpassword(){
               <Icon
                 name="arrow-back"
                 style={styles.icon}
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={() => this.props.navigation.navigate('Signup')}
               />
             </Button>
 

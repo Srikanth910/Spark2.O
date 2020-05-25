@@ -149,7 +149,7 @@ class Confirmationdetails extends Component {
             <Button transparent>
               <Icon
                 name="arrow-back"
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={() => this.props.navigation.navigate('AddBeneficiarys')}
               />
             </Button>
           </Left>

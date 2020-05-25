@@ -205,7 +205,7 @@ import {connect} from 'react-redux';
                 userName: params.holder,
                 accountNo: params.AccountBen,
                 amount: amount,
-                method: params.memberOf,
+                method: "",
                 desc:  Description,
                  scheduledays:params.scheduledays,
                  transfercount:params.transfercount,

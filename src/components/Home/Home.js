@@ -142,14 +142,18 @@ class Home extends Component {
     });
   };
 
-  // componentDidUpdate(prevProps){
-  //    const{auth}=this.props
-  //   if (auth.finbusDetails.savingsbal!== prevProps.auth.finbusDetails.savingsbal) {
-  //      this.setState({
-  //         finbusDetails:auth.finbusDetails
-  //      })
-  //   }
-  // }
+  
+
+  //   componentWillReceiveProps(nextProps){
+    
+  //      if(nextProps.auth.finbusDetails){
+        
+  //        this.setState({
+  //         finbusDetails: nextProps.auth.finbusDetails,
+  //        })
+    
+  //      }
+  //  }
   handlegetfinBus = () => {
     const {userDetails} = this.state;
     const data = {

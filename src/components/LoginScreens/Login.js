@@ -344,7 +344,7 @@ class Login extends Component {
               <Icon
                 name="close"
                 style={styles.icon}
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={() => this.props.navigation.navigate('Landingpage')}
               />
             </Button>
             <Text style={styles.headerText}>Watch your wealth grow</Text>

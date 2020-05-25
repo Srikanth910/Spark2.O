@@ -5,7 +5,7 @@ import Modal from 'react-native-modal';
 
 
 export default class Mybank_Confirm extends Component {
-    To_myBankAcc
+    
     render() {
 
         return (

@@ -86,7 +86,7 @@ class AddBeneficiarys extends Component {
             <Button transparent>
               <Icon
                 name="close"
-                onPress={() => this.props.navigation.navigate('Login')}
+                onPress={() => this.props.navigation.navigate('Beneficiary')}
               />
             </Button>
           </Left>

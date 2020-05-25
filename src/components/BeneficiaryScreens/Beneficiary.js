@@ -24,6 +24,7 @@ import Modal from 'react-native-modal';
 
 import {connect} from 'react-redux';
 import {getBeneficiaryDetails} from '../../Redux/actions/Beneficiary';
+import AsyncStorage from '@react-native-community/async-storage';
 
 class Beneficiary extends Component {
   constructor(props) {
@@ -33,13 +34,24 @@ class Beneficiary extends Component {
       radioBtnOne: false,
       radioBtnTwo: false,
       password: '',
+      userDetails:{},
     };
   }
 
-  componentDidMount() {
+  componentDidMount= async()=> {
+
+    try {
+      const data = await AsyncStorage.getItem('Loginuser');
+      const logindetail = JSON.parse(data);
+      this.setState({
+        userDetails: logindetail,
+      });
+    } catch (e) {
+      console.log(e);
+    }
     const {beneficiary} = this.props;
     const userBeneficiary = {
-      membarId: beneficiary.memberDetials.customerId,
+      membarId:this.state.userDetails.memberid,
       isWithInCoop: 'true',
       isPrimaryAccunt: 'true',
       type: '1',

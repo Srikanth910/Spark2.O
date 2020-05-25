@@ -195,7 +195,7 @@ class Otherbank extends Component {
             <Button transparent>
               <Icon
                 name="close"
-                onPress={() => this.props.navigation.navigate('Home')}
+                onPress={() => this.props.navigation.navigate('Beneficiary')}
               />
             </Button>
           </Left>

@@ -43,6 +43,8 @@ class Loadmoney extends Component {
     };
   }
   componentDidMount() {
+
+    
     this.props.checkCarddetails();
   }
   checked = () => {
@@ -66,7 +68,8 @@ class Loadmoney extends Component {
         contact: '9100146410',
         name: 'Spark'
         },
-        theme: {color: '#F37254'}
+        theme: {color: "#1b1464"}
+       
         }
 
         RazorpayCheckout.open(options).then((data) => {

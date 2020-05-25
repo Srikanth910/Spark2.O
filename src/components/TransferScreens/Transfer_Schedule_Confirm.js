@@ -182,29 +182,29 @@ class Transfer_Schedule_Confirm extends Component {
                           />
                         ) : params.type === 3 ? (
                           <Image
-                            source={require('../../images/home/pet_bank.png')}
+                            source={require('../../images/Transfer/Spark_Business.png')}
                             style={styles.bank}
                           />
                         ) : params.type === 4 ? (
                           <Image
-                            source={require('../../images/home/pet_bank.png')}
+                            source={require('../../images/Transfer/otherbank.png')}
                             style={styles.bank}
                           />
-                        ) : params.type === 5 ? (
+                        ) : params.type === 1? (
                           <Image
-                            source={require('../../images/home/pet_bank.png')}
+                            source={require('../../images/Transfer/mybank.png')}
                             style={styles.bank}
                           />
                         ) : null}
                       </Left>
 
                       <View style={{marginRight: 60}}>
-                        <Text style={styles.usertext}>{params.holder} </Text>
+                        <Text style={styles.usertext}>{params.userName} </Text>
                         <Text style={styles.curdtext}>
-                          Account ID{' '}
+                          Account ID: {params.accountNo}
                           <Text style={styles.moneytext}>
-                            {' '}
-                            {params.AccountBen}
+                            
+                           
                           </Text>
                         </Text>
                         {/* <Text style={styles.curdtext}>IFSC code  <Text style={styles.moneytext} > HDFC0003487</Text> </Text> */}
