@@ -16,7 +16,7 @@ export default class Mybank_Confirm extends Component {
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back'
-                                onPress={() => this.props.navigation.navigate('')}
+                                onPress={() => this.props.navigation.navigate('MyBank_Account')}
                             />
                         </Button>
                     </Left>
@@ -92,7 +92,10 @@ export default class Mybank_Confirm extends Component {
 
 
                 <Button block warning style={styles.btnSubmit}
- onPress={()=>this.props.navigation.navigate('To_myBankAcc', {type:1,name:'To My Bank Account'})}
+ onPress={()=>this.props.navigation.navigate('To_myBankAcc', {
+    type: 1,
+    name: 'To My Bank Account',
+  })}
                     >
                     <Text style={styles.submit}>Confirm</Text>
                 </Button>

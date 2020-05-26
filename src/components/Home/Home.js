@@ -59,6 +59,7 @@ class Home extends Component {
       billpay: [],
       userDetails: {},
       finbusDetails: {},
+      kycStatus:false
     };
   }
 
@@ -90,7 +91,9 @@ class Home extends Component {
           tabStatus3: true,
           tabStatus4: false,
         });
-        this.props.navigation.navigate('SettingPage');
+        this.props.navigation.navigate('SettingPage', {acc:this.state.finbusDetails.ReceiverAccNo,
+            kycstatus:this.state.finbusDetails.fullkycstatus, name:this.state.finbusDetails.name
+        });
         break;
       case 4:
         this.setState({
@@ -105,6 +108,8 @@ class Home extends Component {
   }
 
   componentDidMount = async () => {
+
+   
     try {
       const data = await AsyncStorage.getItem('Loginuser');
       const logindetail = JSON.parse(data);
@@ -117,19 +122,7 @@ class Home extends Component {
 
     this.handlegetfinBus();
 
-    // const {userDetails} = this.state;
-    // const data = {
-    //   membarId: userDetails.memberid,
-    // };
-
-    // this.props.isFinbusCustomerForRD(data).then(() => {
-    //   const {auth} = this.props;
-    //   if (auth.finbusDetails) {
-    //     this.setState({
-    //       finbusDetails: auth.finbusDetails,
-    //     });
-    //   }
-    // });
+    
 
     this.props.getPrepaidBillerCategories().then(() => {
       const {auth} = this.props;
@@ -144,17 +137,7 @@ class Home extends Component {
 
   
 
-  //   componentWillReceiveProps(nextProps){
-    
-  //      if(nextProps.auth.finbusDetails){
-        
-  //        this.setState({
-  //         finbusDetails: nextProps.auth.finbusDetails,
-  //        })
-    
-  //      }
-  //  }
-  handlegetfinBus = () => {
+  handlegetfinBus = async () => {
     const {userDetails} = this.state;
     const data = {
       membarId: userDetails.memberid,
@@ -165,9 +148,18 @@ class Home extends Component {
       if (auth.finbusDetails) {
         this.setState({
           finbusDetails: auth.finbusDetails,
+           kycStatus:true
         });
       }
     });
+
+    try {
+       await AsyncStorage.setItem('finbus', JSON.stringify (this.state.finbusDetails));
+        console.log('datasave')
+       
+    } catch (e) {
+      console.log(e);
+    }
   };
   handleBillpay = (id, Name) => {
     console.log(id);
@@ -183,44 +175,51 @@ class Home extends Component {
   }
   render() {
     const {auth} = this.props;
-    const {userDetails, finbusDetails} = this.state;
+    const {userDetails, finbusDetails, kycStatus} = this.state;
 
     return (
       <Container style={styles.Container}>
-        <Header style={{backgroundColor: '#1b1464', height: 100}}>
+        <Header style={{backgroundColor: '#1b1464', height: 80}}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
-
-          <Left>
-            <ListItem style={styles.listview}>
+          <View style={{flex: 1,}}>
+            <View style={{ flexDirection: 'row', marginTop:40, justifyContent:'space-between', marginVertical: 16,}}>
+            <ListItem style={styles.listview} thumbnail>
               <Image
                 source={require('../../images/home/spk_icon.png')}
                 style={styles.spicon}
               />
-              <View style={styles.userid}>
+             
+              <TouchableOpacity onPress={()=>this.props.navigation.navigate('SettingPage',
+              
+              {acc:this.state.finbusDetails.ReceiverAccNo,
+                kycstatus:this.state.finbusDetails.fullkycstatus, name:finbusDetails.name}
+              )} >
+              <View style={styles.userid} >
                 <Text style={styles.userName}>{finbusDetails.name}</Text>
                 <Text style={styles.id}>MemberID:{userDetails.memberid}</Text>
               </View>
+              </TouchableOpacity>
             </ListItem>
-          </Left>
-
-          <Right>
-            <TouchableOpacity
-            onPress={() => this.props.navigation.navigate('SettingPage')}
-            >
+           
+            <TouchableOpacity  >
             <Image
               source={require('../../images/home/white_dot.png')}
               style={styles.doticon}
               
             />
-            </TouchableOpacity>
-          </Right>
-        </Header>
+   </TouchableOpacity>
+            </View>
+          </View>
+
+          
+
+         </Header>
 
         <Content>
           <ImageSilder />
 
-          {finbusDetails.fullkycstatus === 'KYC verified' &&
-          finbusDetails.SignatureRejectionDescription === 'Approved' ? null : (
+          {  this.state.kycStatus===false ||finbusDetails.fullkycstatus === 'KYC verified' &&
+          finbusDetails.SignatureRejectionDescription === 'Approved'? null : (
             <View style={styles.kyccard}>
               <ListItem>
                 <Text style={styles.kycheader}>
@@ -628,9 +627,7 @@ class Home extends Component {
 
                       <Text
                         style={styles.fd_rdbtn}
-                        onPress={() =>
-                          this.props.navigation.navigate('Fdscreen')
-                        }>
+                       >
                         {' '}
                         FD RATES
                       </Text>
@@ -797,12 +794,10 @@ class Home extends Component {
                           source={require('../../images/home/trendup.png')}
                           style={styles.fd_rdiicon}
                         />
-                        <TouchableOpacity
-                          onPress={() =>
-                            this.props.navigation.navigate('RDScreen')
-                          }>
+                       
+                       <TouchableOpacity onPress={()=>this.props.navigation.navigate('GetRDchart')}>
                           <Text style={styles.fd_rdbtn}> RD RATES</Text>
-                        </TouchableOpacity>
+                          </TouchableOpacity>
                       </Item> 
                     
                   </ListItem>
@@ -946,7 +941,8 @@ const styles = StyleSheet.create({
   doticon: {
     width: 16,
     height: 4,
-    marginRight: 16,
+     marginRight: 16,
+ 
   },
 
   logo: {
@@ -969,8 +965,8 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
   },
   userid: {
-    // paddingLeft: 10,
-    alignSelf: 'center',
+    paddingLeft: 10,
+  
   },
   id: {
     opacity: 0.5,

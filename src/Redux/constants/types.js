@@ -166,4 +166,5 @@ export const ACTIVE_RD_FAIL = 'ACTIVE_RD_FAIL';
     
      export const  ACCOUNT_BALANCE_RAZORPAY_FAIL= "ACCOUNT_BALANCE_RAZORPAY_FAIL"
 
-      export const GET_EULA_SUCCESS="GET_EULA_SUCCESS"
+      export const GET_EULA_SUCCESS="GET_EULA_SUCCESS";
+       export const GET_RD_URL="GET_RD_URL"

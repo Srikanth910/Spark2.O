@@ -32,6 +32,7 @@ import {
 import {connect} from 'react-redux';
 import {Switch, TouchableOpacity} from 'react-native-gesture-handler';
 import RBSheet from 'react-native-raw-bottom-sheet';
+import AsyncStorage from '@react-native-community/async-storage';
 const width = Math.round(Dimensions.get('window').width);
 const height = Math.round(Dimensions.get('window').height);
 
@@ -55,6 +56,7 @@ class RecurringDepositScreen extends Component {
       sheetHeight: 0,
       mobileOtp: '',
       showAmount: true,
+      userDetails:{},
 
       amount: 1000,
       minAmount: 1000,
@@ -91,6 +93,8 @@ class RecurringDepositScreen extends Component {
       ],
     };
   }
+
+  
 
   handleConfirm = () => {
     const data = {
@@ -134,7 +138,16 @@ class RecurringDepositScreen extends Component {
     return <View style={{width: 16, height: 0, backgroundColor: '#C8C8C8'}} />;
   };
 
-  componentDidMount = () => {
+  componentDidMount =async () => {
+    try {
+      const data = await AsyncStorage.getItem('Loginuser');
+      const logindetail = JSON.parse(data);
+      this.setState({
+        userDetails: logindetail,
+      });
+    } catch (e) {
+      console.log(e);
+    }
   
     this.props.getActiveRds();
   };
@@ -145,8 +158,8 @@ class RecurringDepositScreen extends Component {
 
   resendOtpDetails = () => {
     const data = {
-      membarId: '1421',
-      phone: '9573288904',
+      membarId:this.state.userDetails.memberid,
+      phone:this.state.userDetails.mobileNo,
       isFlexible: this.state.isFlexible,
       amount: this.state.amount,
       frequencyDescription: 'End Of Term',
@@ -166,7 +179,8 @@ class RecurringDepositScreen extends Component {
     const RdDetails = {
       refNo: FDRDcreation.createRd.refNo,
       otp: this.state.mobileOtp,
-      membarId: '1421',
+      membarId:this.state.userDetails.memberid,
+     
       isFlexible: this.state.isFlexible,
       RdAmount: this.state.amount,
       FrequencyDescription: 'End of term',
@@ -454,10 +468,16 @@ class RecurringDepositScreen extends Component {
                   icon
                   transparent
                   onPress={this.backButton(this.state.buttonCLicks)}>
-                  <Icon name="arrow-back" style={{color: 'white'}} />
+                  <Icon name="arrow-back" style={{color: 'white'}} 
+                  
+                  onPress={()=>this.props.navigation.navigate('Home')}
+                  />
                 </Button>
                 <Text style={styles.headerTitle}>Open Recurring Deposit</Text>
-                <Button style={styles.ratesButton}>
+                <Button style={styles.ratesButton}
+                
+                 onPress={()=>this.props.navigation.navigation('GetRDchart')}
+                >
                   <Text style={{color: 'white', fontSize: 11}}>RD Rates</Text>
                 </Button>
               </View>

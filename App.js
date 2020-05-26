@@ -81,6 +81,16 @@ import Editprofile from './src/components/SettingScreens/Editprofile';
 // import Eula from './src/components/landingpage/Eula';
 import View_Account_Statement from './src/components/statements/View_Account_Statement';
 import Eula from './src/components/landingpage/Eula';
+import ReferralCode from './src/components/Kycscreens/ReferralCode';
+import PersonalDetails from './src/components/Kycscreens/PersonalInformation';
+import Signature from './src/components/Kycscreens/Signature';
+import Photograph from './src/components/Kycscreens/Photograph';
+import PanCard from './src/components/Kycscreens/PanCard';
+import AdharCard from './src/components/Kycscreens/AdharCard';
+import AdharDoces from './src/components/Kycscreens/AdharDocs';
+import PermanentAddress from './src/components/Kycscreens/PermanentAddress';
+import Verticalbox from './src/components/Kycscreens/KycStatus';
+ import GetRDchart from './src/components/fd&rdScreens/RdCharts'
 // import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
 // import Saving_Account_Main from './src/components/statements/Saving_Account_Main';
 //  import View_Account_Statement  from './src/components/statements/View_Account_Statement'
@@ -98,7 +108,7 @@ export default class App extends Component {
     return (
       <>
         <Provider store={store}>
-          <   Routing/>
+          <     Routing/>
 
         </Provider>
       </>

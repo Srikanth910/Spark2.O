@@ -39,7 +39,7 @@ class AddBank_Account extends Component {
   // }
 
   render() {
-    console.log("vale",this.props.transferDetails.code);
+    // console.log("vale",this.props.transferDetails.code);
     return (
       <Container style={styles.Container}>
         <Header icon="eye" style={{backgroundColor: '#1b1464', height: 80}}>
@@ -49,7 +49,7 @@ class AddBank_Account extends Component {
             <Button transparent>
               <Icon
                 name="arrow-back"
-                onPress={() => this.props.navigation.navigate('')}
+                onPress={() => this.props.navigation.navigate('Transfer_Money')}
               />
             </Button>
           </Left>

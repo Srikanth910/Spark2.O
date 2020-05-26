@@ -69,6 +69,7 @@ import PrivacyPolicy from '../Terms&&Conditions/Privacy_policy';
 import Schedule_Progress from '../TransferScreens/Transfer_Schedule_Progress';
 import Eula from '../landingpage/Eula';
 
+ import GetRDchart from '../fd&rdScreens/RdCharts'
 const Stack = createStackNavigator();
 
 function Routing() {
@@ -201,6 +202,8 @@ function Routing() {
         <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
 
         <Stack.Screen name="Schedule_Progress" component={Schedule_Progress} />
+        <Stack.Screen name="GetRDchart" component={GetRDchart} />
+
 
 
 

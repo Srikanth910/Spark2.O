@@ -48,6 +48,7 @@ import {
   STATEMENT_DATE_FAIL,
   SESSION_MISSING,
   GET_EULA_SUCCESS,
+  GET_RD_URL,
 } from '../constants/types';
 import {setAuthToken} from '../../components/utils/setAuthToken';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -930,3 +931,33 @@ export const getEula = data => {
    }
  };
 };
+
+
+
+export const getRDcharts = data => {
+  console.log(data)
+ return async dispatch => {
+   try {
+     const res = await axios.get(
+       `${API_URL}/getRDcharts`,
+     );
+
+     
+     let getRDcharts = await res.data;
+      console.log('res', getRDcharts);
+     if (getRDcharts.code === '200') {
+       dispatch({
+         type: GET_RD_URL,
+         payload: getRDcharts,
+       });
+     } 
+   } catch (err) {
+     console.log(err);
+     dispatch({
+       type: CATACH_ERROR,
+       payload: err,
+     });
+   }
+ };
+};
+

@@ -16,7 +16,7 @@ export default class MyBank_Account extends Component {
                     <Left>
                         <Button transparent>
                             <Icon name='arrow-back'
-                                onPress={() => this.props.navigation.navigate('')}
+                                onPress={() => this.props.navigation.navigate('AddBank_Account')}
                             />
                         </Button>
                     </Left>

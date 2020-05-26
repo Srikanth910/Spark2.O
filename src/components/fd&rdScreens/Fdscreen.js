@@ -278,7 +278,10 @@ class FixedDepositScreen extends Component {
                   icon
                   transparent
                   onPress={this.backButton(this.state.buttonCLicks)}>
-                  <Icon name="arrow-back" style={{color: 'white'}} />
+                  <Icon name="arrow-back" style={{color: 'white'}} 
+                  
+                   onPress={()=>this.props.navigation.navigate('Home')}
+                  />
                 </Button>
                 <Text style={styles.headerTitle}>Open Fixed Deposit</Text>
                 <Button style={styles.ratesButton}>
