@@ -189,6 +189,8 @@ validpassword(){
                   placeholder=""
                   style={styles.input}
                   value={this.state.newPassword}
+                  textContentType={'password'}
+                  secureTextEntry={true}
                   onChangeText={edittext =>
                     this.setState({newPassword: edittext})
                   }
@@ -206,6 +208,8 @@ validpassword(){
                 <Input
                   placeholder=""
                   style={styles.input}
+                  textContentType={'password'}
+                  secureTextEntry={true}
                   value={this.state.confirmPassword}
                   onChangeText={editedText =>
                     this.setState({confirmPassword: editedText})

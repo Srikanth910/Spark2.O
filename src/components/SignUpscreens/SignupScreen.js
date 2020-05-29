@@ -160,16 +160,21 @@ class Signup extends Component {
 
     return (
       <Container style={styles.Container}>
-        <Header style={{backgroundColor: '#1b1464', height: 160}}>
+        <Header style={{backgroundColor: '#1b1464', height: 180}}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
-          <Left
-            style={{
-              marginLeft: 5,
-              alignSelf: 'flex-start',
-              alignSelf: 'flex-end',
-            }}>
-            <Button transparent>
+          <View style={{flex: 1}}>
+            <View
+              style={{
+                flexDirection: 'row',
+
+                alignItems: 'center',
+                marginVertical: 20,
+                marginHorizontal: 16,
+                
+                justifyContent: 'space-between',
+              }}>
+             <Button transparent>
               <Icon
                 name="arrow-back"
                 style={styles.icon}
@@ -177,13 +182,33 @@ class Signup extends Component {
               />
             </Button>
 
+              {/* <Image source={require('../../images/billpay/faq_ic.png')} /> */}
+            </View>
+
+            <View style={{ marginHorizontal: 16}}>
             <Text style={styles.textcolor}>Welcome</Text>
+              <Text style={styles.headerText}>
+              Sign up for a Spark Savings account in just a few {'\n'} tabs.
+            </Text>
+            </View>
+           
+          </View>
+
+          {/* <Left
+            style={{
+              marginLeft: 5,
+              alignSelf: 'flex-start',
+              alignSelf: 'flex-end',
+            }}>
+           
+
+           
 
             <Text style={styles.headerText}>
               Sign up for a Spark Savings account in just a few {'\n'} tabs.
             </Text>
           </Left>
-          <Right />
+          <Right /> */}
         </Header>
         <ScrollView>
           <Content style={styles.Content}>
@@ -396,7 +421,7 @@ const styles = StyleSheet.create({
   },
 
   headerText: {
-    width: 400,
+    // width: 400,
 
     fontFamily: 'Nunito',
     fontSize: 14,
@@ -573,7 +598,7 @@ const styles = StyleSheet.create({
   },
 
   icon: {
-    marginLeft: 10,
+    // marginLeft: 10,
     color: '#ffffff',
     width: 16,
     height: 20,

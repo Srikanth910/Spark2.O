@@ -7,10 +7,10 @@ export default class ReferralCode extends Component {
         return (
           <Container>
     
-    <Header style={{backgroundColor: '#1b1464', height: 120}}>
+    <Header style={{backgroundColor: '#1b1464', height: 140}}>
           <StatusBar barStyle="light-content" backgroundColor="#1b1464" />
 
-<View style={{flex: 1,}}>
+<View style={{flex: 1, marginTop:20}}>
           <View
             style={{
               flexDirection: 'row',

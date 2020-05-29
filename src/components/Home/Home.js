@@ -274,7 +274,9 @@ class Home extends Component {
                 </ListItem>
 
                 <View style={styles.bottomBtn}>
-                  <Button bordered warning style={styles.getbtn}>
+                  <Button bordered warning style={styles.getbtn}
+                   onPress={()=>this.props.navigation.navigate('Verticalbox')}
+                  >
                     <Text>Get started</Text>
                   </Button>
                 </View>
@@ -625,12 +627,16 @@ class Home extends Component {
                         style={styles.fd_rdiicon}
                       />
 
+                <TouchableOpacity
+                onPress={()=>this.props.navigation.navigate('GetFdcharts')}
+                >
                       <Text
                         style={styles.fd_rdbtn}
                        >
                         {' '}
                         FD RATES
                       </Text>
+                      </TouchableOpacity>
                     </Item>
                   
                 </ListItem>

@@ -49,6 +49,7 @@ import {
   SESSION_MISSING,
   GET_EULA_SUCCESS,
   GET_RD_URL,
+  FD_CHART_URL_SUCCESS,
 } from '../constants/types';
 import {setAuthToken} from '../../components/utils/setAuthToken';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -960,4 +961,39 @@ export const getRDcharts = data => {
    }
  };
 };
+
+
+export const Fdcharts = data => {
+  console.log(data)
+ return async dispatch => {
+   try {
+     const res = await axios.get(
+       `${API_URL}/getFdchartV2_O `,
+     );
+
+     
+     let FdchartUrl = await res.data;
+      console.log('res', FdchartUrl);
+     if (FdchartUrl.Data.code === '200') {
+       dispatch({
+         type: FD_CHART_URL_SUCCESS,
+         payload: FdchartUrl.Data
+       });
+     }else if(FdchartUrl.code==="403"){
+      dispatch({
+        type: FD_CHART_URL_SUCCESS,
+        payload: FdchartUrl,
+      });
+        
+     }
+   } catch (err) {
+     console.log(err);
+     dispatch({
+       type: CATACH_ERROR,
+       payload: err,
+     });
+   }
+ };
+};
+
 

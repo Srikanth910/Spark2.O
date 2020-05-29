@@ -26,6 +26,7 @@ import {
   SESSION_MISSING,
   GET_EULA_SUCCESS,
   GET_RD_URL,
+  FD_CHART_URL_SUCCESS,
 } from '../constants/types';
 import {ActionSheet} from 'native-base';
 // import { getPrepaidBillerCategories } from '../actions/authAction';
@@ -53,7 +54,8 @@ const initialState = {
   STATEMENT_DATE_SUCCESS: {},
   sessionData:{},
   eulaurl:{},
-  getRDchart:{}
+  getRDchart:{},
+  fdcharturl:{}
 };
 
 export default function(state = initialState, action) {
@@ -179,6 +181,12 @@ export default function(state = initialState, action) {
                     ...state,
                     getRDchart:action.payload
                   }
+
+                  case FD_CHART_URL_SUCCESS:
+                     return{
+                        ...state, 
+                         fdcharturl:action.payload
+                     }
     default:
       return state;
   }

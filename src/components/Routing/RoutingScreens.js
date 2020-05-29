@@ -68,8 +68,16 @@ import Terms_Conditions from '../Terms&&Conditions/Terms_Conditions';
 import PrivacyPolicy from '../Terms&&Conditions/Privacy_policy';
 import Schedule_Progress from '../TransferScreens/Transfer_Schedule_Progress';
 import Eula from '../landingpage/Eula';
+ import GetFdcharts from '../FdScreens/Fdcharts'
 
  import GetRDchart from '../fd&rdScreens/RdCharts'
+import AdharCard from '../Kycscreens/AdharCard';
+ import Verticalbox from '../Kycscreens/KycStatus'
+import PanCard from '../Kycscreens/PanCard';
+ import PermanentAddress from '../Kycscreens/PermanentAddress';
+import PersonalDetails from '../Kycscreens/PersonalInformation';
+ import Photograph from '../Kycscreens/Photograph'
+import ReferralCode from '../Kycscreens/ReferralCode';
 const Stack = createStackNavigator();
 
 function Routing() {
@@ -205,7 +213,26 @@ function Routing() {
         <Stack.Screen name="GetRDchart" component={GetRDchart} />
 
 
+        <Stack.Screen name="GetFdcharts" component={GetFdcharts} />
 
+        <Stack.Screen name="AdharCard" component={AdharCard} />
+        <Stack.Screen name="Verticalbox" component={Verticalbox} />
+        <Stack.Screen name="PanCard" component={PanCard} />
+        <Stack.Screen name="PermanentAddress" component={PermanentAddress} />
+        <Stack.Screen name="PersonalDetails" component={PersonalDetails} />
+        <Stack.Screen name="Photograph" component={Photograph} />
+        <Stack.Screen name="ReferralCode" component={ReferralCode} />
+
+
+      
+      
+      
+        
+        
+        
+
+
+        
 
         
         

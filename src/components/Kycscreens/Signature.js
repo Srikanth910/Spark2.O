@@ -1,8 +1,33 @@
 import React, { Component } from 'react'
 import { Container, Header, Icon, Content, Item, Input, Button } from 'native-base'
-import { StatusBar, View, Text , Image, StyleSheet, CheckBox} from 'react-native'
+import Signature from 'react-native-signature-canvas';
 
-export default class Signature extends Component {
+import { StatusBar, View, Text , Image, StyleSheet, CheckBox} from 'react-native'
+export default class Signaturepad extends Component {
+
+  
+       constructor(props) {
+         super(props)
+       
+         this.state = {
+            signature:false
+         }
+       }
+       
+  handleSignature = signature => {
+    console.log(signature);
+   
+  };
+ 
+   handleEmpty = () => {
+    console.log('Empty');
+  }
+  clickSignature=()=>{
+     this.setState({
+       signature:true}
+     )
+  }
+      
     render() {
         return (
           <Container>
@@ -39,10 +64,30 @@ export default class Signature extends Component {
         </Header>
         <Content>
             <View style={{backgroundColor:'#e1e4eb', height:322 ,  marginHorizontal: 16,  marginVertical: 16, borderRadius: 10,}}>
+              
+              
+              {this.state.signature===false?
                 <View style={{alignItems:'center' ,  marginVertical: 80,}}>
-                    <Image source={require('../../images/kyc/edit_p.png')}/>
-                    <Text style={{color:'#aaadb2', fontSize:14, textAlign:'center'}}>Sign here</Text>
-                </View>
+                    <Image source={require('../../images/kyc/edit_p.png')}
+                    
+                    
+                    />
+                    <Text style={{color:'#aaadb2', fontSize:14, textAlign:'center'}}
+                     onPress={this.clickSignature}
+                    >Sign here</Text>
+                </View>:
+                  <View style={{ flex: 1 }}>
+       
+        
+       <Signature
+           onOK  ={this.handleSignature}
+         onEmpty={this.handleEmpty}
+       
+         clearText="Clear"
+         confirmText="Save"
+        
+       />
+     </View> }
 
             </View>
            

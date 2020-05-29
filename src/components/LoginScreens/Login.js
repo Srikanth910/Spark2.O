@@ -373,6 +373,8 @@ class Login extends Component {
                 placeholder="Enter mpin"
                 style={styles.input}
                  maxLength={6}
+                  textContentType={'password'}
+                  secureTextEntry={true}
                 value={this.state.mpin}
                 onChangeText={mpintext => this.setState({mpin: mpintext})}
               />
@@ -499,6 +501,8 @@ class Login extends Component {
                     placeholder=""
                     style={styles.input}
                     value={this.state.password}
+                     textContentType={'password'}
+                     secureTextEntry={true}
                     onChangeText={editedText =>
                       this.setState({password: editedText})
                     }
