@@ -91,6 +91,8 @@ import AdharDoces from './src/components/Kycscreens/AdharDocs';
 import PermanentAddress from './src/components/Kycscreens/PermanentAddress';
 import Verticalbox from './src/components/Kycscreens/KycStatus';
  import GetRDchart from './src/components/fd&rdScreens/RdCharts'
+import { Demo } from './src/components/SignUpscreens/Parent';
+
   // import GetFdcharts from './src/components/FdScreens/Fdcharts'
 // import SignatureScreen from './src/components/Kycscreens/Demo';
 // import Transfer_Schedule_Progress from './src/components/TransferScreens/Transfer_Schedule_Progress';
@@ -110,7 +112,7 @@ export default class App extends Component {
     return (
       <>
         <Provider store={store}>
-          < Routing   />
+          < Demo   />
 
         </Provider>
       </>

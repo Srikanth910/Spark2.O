@@ -13,7 +13,7 @@ export default class PayBill extends Component {
                 <View style={{flexDirection:"row",  flex:1, alignItems:'center',justifyContent:'space-around'}}>
  
      <Icon name='arrow-back'
-         onPress={() => this.props.navigation.navigate('Loasmoney')}
+         onPress={() => this.props.navigation.navigate('Home')}
           style={{color:'#ffffff'}}
      />
      <Text style={styles.headerText}>Pay Bills and Recharge</Text>

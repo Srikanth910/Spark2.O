@@ -78,15 +78,18 @@ import PanCard from '../Kycscreens/PanCard';
 import PersonalDetails from '../Kycscreens/PersonalInformation';
  import Photograph from '../Kycscreens/Photograph'
 import ReferralCode from '../Kycscreens/ReferralCode';
+import { connect } from 'react-redux';
 const Stack = createStackNavigator();
 
-function Routing() {
+function Routing(props) {
   return (
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{
           headerShown: false,
         }}>
+
+{props.auth.isAutherticated===false?<>
 
            <Stack.Screen name="Eula" component={Eula} />
            
@@ -99,6 +102,10 @@ function Routing() {
         <Stack.Screen name="passwordSet" component={ForgotpasswordSet} />
         <Stack.Screen name="ChangePasseword" component={ChangePasseword} />
         <Stack.Screen name="Setmpin" component={Setmpin} />
+        <Stack.Screen name="Signup" component={Signup} />
+        <Stack.Screen name="Setpassword" component={Setpassword} /></>:<>
+
+
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="LoginButton" component={LoginButton} />
         <Stack.Screen name="NotifClass" component={NotifClass} />
@@ -108,9 +115,7 @@ function Routing() {
         <Stack.Screen name="Beneficiary" component={Beneficiary} />
         <Stack.Screen name="Otherbank" component={Otherbank} />
         <Stack.Screen name="Quicklogin" component={Quick_login} />
-        <Stack.Screen name="Signup" component={Signup} />
-        <Stack.Screen name="Setpassword" component={Setpassword} />
-
+      
         <Stack.Screen name="Loadmoney" component={Loadmoney} />
 
         <Stack.Screen name="MoneyLoading" component={MoneyLoading} />
@@ -221,7 +226,7 @@ function Routing() {
         <Stack.Screen name="PermanentAddress" component={PermanentAddress} />
         <Stack.Screen name="PersonalDetails" component={PersonalDetails} />
         <Stack.Screen name="Photograph" component={Photograph} />
-        <Stack.Screen name="ReferralCode" component={ReferralCode} />
+        <Stack.Screen name="ReferralCode" component={ReferralCode} /></>}
 
 
       
@@ -237,13 +242,21 @@ function Routing() {
         
         
         
-        
-        {/*         Loadmoneyprogress
-        <Stack.Screen name="HomeFooter" component={ HomeFooter} /> 
-       */}
+       
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
 
-export default Routing;
+
+const mapStateToProps = state => ({
+  auth: state.auth,
+});
+
+export default connect(
+  mapStateToProps,
+  {
+   
+   
+  },
+)(Routing);
