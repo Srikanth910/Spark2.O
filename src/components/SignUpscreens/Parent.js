@@ -1,73 +1,33 @@
-import React, {Component} from 'react';
-import {View, TextInput} from 'react-native';
-import TextField from './Textfield';
 
-export default class Demo extends Component {
-  constructor() {
-    super();
-    this.state = {
-      validMobile: true,
-      validMail: true,
-      validPin: true,
-      mobile: '',
-      mail: '',
-    };
-  }
+import React, { Component } from 'react';
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+  } from 'react-native-popup-menu';
+import { View } from 'native-base';
+import { Text } from 'react-native';
 
-  checkMobile = received => {
-    console.log('mobile number is', received);
-    if (String(received).length == 10) {
-      this.setState({
-        validMobile: true,
-      });
-    } else {
-      this.setState({
-        validMobile: false,
-      });
-    }
-  };
-  checkMail = received => {
-    console.log('e mail is', received);
-    if (String(received).length > 10) {
-      this.setState({
-        validMail: true,
-      });
-    } else {
-      this.setState({
-        validMail: false,
-      });
-    }
-  };
+   
+  export  default class Demo extends Component {
+       render(){
+            return(
+    <View style={{ alignItems:'flex-end'}}>
+      <Text>Hello world!</Text>
+      <Menu>
+        <MenuTrigger  >
+            <Text>helo</Text>
+            </MenuTrigger>
+        <MenuOptions>
+       <MenuOption onSelect={() => alert(`Save`)} text='Save' />
+          <MenuOption onSelect={() => alert(`Delete`)} >
+            <Text style={{color: 'red'}}>Delete</Text>
+          </MenuOption>
+          <MenuOption onSelect={() => alert(`Not called`)} disabled={true} text='Disabled' /> 
+        </MenuOptions>
+      </Menu>
+    </View>)
 
-  render() {
-    return (
-      <View style={{flex: 1, justifyContent: 'center'}}>
-        <TextField
-          fieldTitle="eMail"
-          maxChar={null}
-          valueCallBack={this.checkMail.bind(this)}
-          isNumeric="ascii-capable"
-          message={'please enter valid mail'}
-          isValid={this.state.validMail}
-        />
-
-        <TextField
-          fieldTitle="mobile"
-          maxChar={10}
-          valueCallBack={this.checkMobile.bind(this)}
-          isNumeric="number-pad"
-          message={'please enter valid mobile'}
-          isValid={this.state.validMobile}
-        />
-        <TextField
-          fieldTitle="pin code"
-          maxChar={6}
-          valueCallBack={this.checkMobile.bind(this)}
-          isNumeric="number-pad"
-          message={'please enter valid pincode'}
-          isValid={this.state.validPin}
-        />
-      </View>
-    );
   }
 }

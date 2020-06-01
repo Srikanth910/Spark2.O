@@ -18,6 +18,12 @@ import {
   Item,
   checkiconc,
 } from 'native-base';
+import {
+    Menu,
+    MenuOptions,
+    MenuOption,
+    MenuTrigger,
+  } from 'react-native-popup-menu';
 
 import {Otpmodel} from '../Hoc/Modelhoc';
 import {connect} from 'react-redux';
@@ -201,13 +207,35 @@ class Home extends Component {
               </TouchableOpacity>
             </ListItem>
            
-            <TouchableOpacity  >
+            {/* <TouchableOpacity  > */}
+            
+   {/* </TouchableOpacity> */}
+
+   <Menu>
+     
+   <MenuTrigger  >
+            {/* <Text>helo</Text> */}
+           
             <Image
               source={require('../../images/home/white_dot.png')}
               style={styles.doticon}
               
             />
-   </TouchableOpacity>
+             </MenuTrigger>
+        
+        <MenuOptions>
+       <MenuOption  text='Save' />
+       <MenuOption onSelect={() => this.props.navigation.navigate('SettingPage',
+        {acc:this.state.finbusDetails.ReceiverAccNo,
+          kycstatus:this.state.finbusDetails.fullkycstatus, name:finbusDetails.name}
+        
+       )} text='Settings' />
+       <MenuOption text='Logout' />
+          
+        </MenuOptions>
+      </Menu>
+
+
             </View>
           </View>
 

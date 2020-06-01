@@ -47,6 +47,7 @@ import validateLogin from './Validation/Login';
 import Otpscreen from '../Hoc/Otpscreen';
 import RBSheet from 'react-native-raw-bottom-sheet';
 import {ScrollView} from 'react-native-gesture-handler';
+import TextField from '../SignUpscreens/Textfield';
 class Login extends Component {
   constructor(props) {
     super(props);
@@ -58,7 +59,9 @@ class Login extends Component {
       password: '',
       mpin: '',
       name: '',
+      validMobile:true,
       isVisible: false,
+    
 
       loginUserData: {},
       DeviceID: '',
@@ -90,12 +93,12 @@ class Login extends Component {
 
   componentDidMount = () => {
     const {auth}=this.props
-       if(auth.isAutherticated===true){
-         this.props.navigation.navigate('Home')
+      //  if(auth.isAutherticated===true){
+      //    this.props.navigation.navigate('Home')
 
-       }else{
-          this.props.navigation.navigate('Login')
-       }
+      //  }else{
+      //     this.props.navigation.navigate('Login')
+      //  }
     
     DeviceInfo.getAndroidId().then(id => {
       this.setState({
@@ -328,11 +331,25 @@ class Login extends Component {
       Statevalue: name,
     });
   };
+
+  checkMobile = mpinValue => {
+    if (String(mpinValue).length===6) {
+      this.setState({
+        validMobile: true,
+        mpin: mpinValue
+
+      });
+    } else {
+      this.setState({
+        validMobile: false,
+      });
+    }
+  };
   render() {
     const {error, auth} = this.props;
+     console.log('chaild',this.props.value)
  
     const {errorsData, errorsLogin, errorAlert, mobileOtp} = this.state;
-    
     return (
       <Container style={styles.container}>
       
@@ -367,7 +384,7 @@ class Login extends Component {
               </TabHeading>
             }>
             <Text style={styles.textData}>Enter MPIN</Text>
-            <Item regular style={styles.textInput}>
+            {/* <Item regular style={styles.textInput}>
               <Input
                 textContentType="password  "
                 placeholder="Enter mpin"
@@ -378,14 +395,24 @@ class Login extends Component {
                 value={this.state.mpin}
                 onChangeText={mpintext => this.setState({mpin: mpintext})}
               />
-            </Item>
+            </Item> */}
+
+
+<TextField
+          fieldTitle="mobile"
+          maxChar={6}
+          valueCallBack={this.checkMobile.bind(this)}
+          isNumeric="number-pad"
+          message={'please enter valid mpin'}
+          isValid={this.state.validMobile}
+        />
             <Item
               style={{
                 justifyContent: 'space-between',
                 borderColor: 'transparent',
                 marginTop: 5,
               }}>
-              <Text style={styles.errorText}>{errorsData.mpin}</Text>
+              <Text style={styles.errorText}></Text>
               <TouchableOpacity>
                 <Text
                   style={styles.forgetText}

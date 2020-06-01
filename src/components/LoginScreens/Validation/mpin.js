@@ -12,6 +12,9 @@ export default function validatemPin(data) {
    if(!Validator.isLength(data.mpin,{min:6, max:6})){
      errorsData.mpin= 'must be 6 digits'
    }
+  //  if(!Validator.matches(data.mpin,/^[0-9]$/)){
+  //   errorsData.mpin='please enter 10 digits numbers'
+  // }
 
   return {
     errorsData,

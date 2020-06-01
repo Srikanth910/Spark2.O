@@ -38,6 +38,8 @@ target 'sparkM' do
 
 
 
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
+
   target 'sparkMTests' do
     inherit! :search_paths
     # Pods for testing
